@@ -3,12 +3,21 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request, Auth, Validator;
+use Illuminate\Http\Request;
+use Validator;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Config;
+use Intervention\Image\ImageManagerStatic as Image;
+use Auth;
+use App;
 use App\Models\Product;
 use App\Models\ProductT;
 use App\Models\Estado;
 use App\Models\Ciudad;
 use App\Models\Comisaria;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
+use App\Utilities\ImageConverter;
 class ProductsController extends Controller
 {
         public function __construct(){
@@ -22,7 +31,69 @@ class ProductsController extends Controller
         $ciudades = Ciudad::where('estado_id', $estadoId)->get();
         return response()->json($ciudades);
     }
-
+    public function imageAction(Request $request){
+        if (!$request->session()->has('product.images')) {
+            $request->session()->put('product.images', []);
+            $request->session()->put('product.imageCount', 0);
+        }
+        if(!$request->session()->has('product.randomString')){
+            $request->session()->put('product.randomString', Str::random(4));
+        }
+        $randomString = $request->session()->get('product.randomString');
+        $action = $request->input('action');
+        switch ($action) {
+            case 'add':
+                $imageCount = $request->session()->get('product.imageCount');
+                $uploadedImage = $request->file('uploaded_image');
+                $dateFolder = date('Y-m-d');
+                $uploadPath = 'uploads/' . $dateFolder;
+                $filename = $imageCount . '-' . 'GY-'.date('md').'-'.$randomString . '.' . $uploadedImage->getClientOriginalExtension();
+                $request->session()->increment('product.imageCount');
+                if (!File::exists($uploadPath)) {
+                    File::makeDirectory($uploadPath, 0755, true);
+                }
+                $path = $filename;
+                $webpPath = $dateFolder . '/' . pathinfo($path, PATHINFO_FILENAME) . '.webp';
+                $destinationPath = Storage::disk('webp_images')->path($webpPath);
+                $img = Image::make($uploadedImage->getRealPath())->resize(800, 600);
+                $img->encode('webp', 10)->save($destinationPath);
+                //ImageConverter::convertToWebp($uploadedImage->getRealPath(), $destinationPath);
+    
+                $images = $request->session()->get('product.images');
+                $images[] = [
+                    'path' => '/' . $webpPath //$dateFolder . '/' . $webpPath
+                ];
+                $request->session()->put('product.images', $images);
+                return response()->json(['image' => ['path' => '/' . $webpPath]]); //$dateFolder . '/' . $webpPath
+            case 'delete':
+                $imagePath = $request->input('image_path');
+                $images = $request->session()->get('product.images');
+                $images = array_filter($images, function ($image) use ($imagePath) {
+                    return $image['path'] != $imagePath;
+                });
+                $request->session()->put('product.images', $images);
+                if (file_exists(public_path('uploads/' . $imagePath))) {
+                    unlink(public_path('uploads/' . $imagePath));
+                }
+                //cualquier de los dos sirve
+               /* $webpPath = 'uploads/' . $imagePath;
+                if (File::exists($webpPath)) {
+                    File::delete($webpPath);
+                }*/
+                return response()->json(['success' => true]);
+            case 'update':
+                $newOrder = $request->input('new_order');
+                $images = $request->session()->get('product.images');
+                $orderedImages = [];
+                foreach ($newOrder as $imageId) {
+                    $orderedImages[] = $images[array_search($imageId, array_column($images, 'id'))];
+                }
+                $request->session()->put('product.images', $orderedImages);
+                return response()->json(['success' => true]);
+            default:
+                return response()->json(['error' => 'Accion invalida'], 400);
+        }
+    }
     public function getComisariasByCiudad($ciudadId){
         $comisarias = Comisaria::where('ciudad_id', $ciudadId)->get();
         return response()->json($comisarias);
