@@ -57,7 +57,7 @@ return [
         ],        
         'webp_images' => [
         'driver' => 'local',
-        'root' => 'C:/Users/DELL 3400/Documents/THR/ganadoyucatan/public/uploads'
+        'root' => 'C:/Users/alan.alcolea/Music/gy/ganadoyucatan/public/uploads'
         ],
 
     ],
