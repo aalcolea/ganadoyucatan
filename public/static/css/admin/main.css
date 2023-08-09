@@ -2619,8 +2619,8 @@ fieldset:disabled a.btn {
 
 .btn-primary {
   color: #FFF;
-  background-color: #f6c819;
-  border-color: #f6c819;
+  background-color: #473f3c;
+  border-color: #473f3c;
 }
 
 .btn-primary:hover {
@@ -15214,6 +15214,8 @@ be a descendant of the grid when it is being dragged.
       -ms-flex: 0 0 auto;
           flex: 0 0 auto;
   margin-right: 15px;
+      width: 84px;
+    padding: 6px;
 }
 
 .app-sidebar__user-name {
@@ -15277,8 +15279,8 @@ be a descendant of the grid when it is being dragged.
 }
 
 .treeview.is-expanded [data-toggle='treeview'] {
-  border-left-color: #f6c819;
-  background: #f6c819;
+  border-left-color: #473f3c;
+  background: #473f3c;
 }
 
 .treeview.is-expanded .treeview-menu {
@@ -15297,7 +15299,7 @@ be a descendant of the grid when it is being dragged.
   -webkit-transition: max-height 0.3s ease;
   -o-transition: max-height 0.3s ease;
   transition: max-height 0.3s ease;
-  background: darkgray;
+  background: #473F3C;
   color: brown;
 }
 
@@ -15314,9 +15316,9 @@ be a descendant of the grid when it is being dragged.
 }
 
 .treeview-item.active, .treeview-item:hover, .treeview-item:focus {
-  background: #ccb18f;
+  background: #F4EAE1;
   text-decoration: none;
-  color: #fff;
+  color: black;
 }
 
 .treeview-item .icon {
@@ -15377,14 +15379,14 @@ be a descendant of the grid when it is being dragged.
     margin-left: -3px;
     line-height: 1;
     opacity: 0;
-    background: #f6c819;
+    background: #473f3c;
     border-top-right-radius: 4px;
     border-bottom-right-radius: 4px;
   }
   .sidebar-mini.sidenav-toggled .treeview:hover .app-menu__item {
     overflow: visible;
-    background: #ccb18f;
-    border-left-color: #E1C4A0;
+    background: rgba(188, 184, 144, .10);
+    border-left-color: rgba(188, 184, 144, .10);
     color: #fff;
   }
   .sidebar-mini.sidenav-toggled .treeview:hover .app-menu__label {
@@ -17202,11 +17204,11 @@ be a descendant of the grid when it is being dragged.
 /*chat */
 @import url(http://fonts.googleapis.com/css?family=Montserrat:400,700);
 
-html{    
+/*html{    
   background:url(bg.jpg) repeat;
   font-family: Helvetica, Arial, sans-serif;
 
-}
+}*/
 
 
 .urltag img{

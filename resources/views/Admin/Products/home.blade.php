@@ -1,12 +1,10 @@
-@extends('admin.products.sidebar')
+@extends('admin.sidebar')
+@section('main')
 <style >
 * {
   font-family: sans-serif;
 }
 
-body {
-  background: rgba(0, 247, 255, 1)
-}
 
 .parent {
 /*  display: flex;
@@ -39,6 +37,7 @@ body {
 }
 
 </style>
+
 <main class="app-content" style="background: #fff;">
 <div class="parent">
 	<div class="container text-center" style="margin-block-start: 15%;">
@@ -63,3 +62,4 @@ body {
 		  </div>
 </div>
 </main>
+@endsection

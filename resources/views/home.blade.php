@@ -89,18 +89,18 @@ document.addEventListener("DOMContentLoaded", function() {
             </section>
 
             <section class="footer">
-                <div id="button1" class="buttons-main" onclick="location.href='/tienda_virtual/home'">
-                    <img src="./assets/img/ganado_genetico.png" alt="">
+                <div id="button1" class="buttons-main" onclick="location.href='/tienda'">
+                    <img style="border-radius: 50%" src="{{url('/static/images/genetico.png')}}" alt="Genetico">
                     <p>Ganado genético</p>
                 </div>
 
                 <div class="buttons-main" onclick="location.href='/tienda_virtual/tianguis/tianguisG'" style="background: var(--lightgreen);">
-                    <img src="./assets/img/Venta_de_rancho.png" alt="">
+                    <img style="border-radius: 50%" src="{{url('/static/images/tianguis.png')}}" alt="Tianguis">
                     <p>Tianguis ganadero</p>
                 </div>
 
                <div class="buttons-main" onclick="location.href='/subastas/subastas.php'"    style="background: #D19C97;">
-                    <img src="./assets/img/subasta.png" alt="">
+                    <img style="border-radius: 50%" src="{{url('/static/images/subasta.png')}}" alt="Subastas">
                     <p>Subastas</p>
                 </div>
                 <!--<div class="buttons-main" onclick="location.href='/exposicion/expoIndex.php'" style="background: var(--lightyellow);">

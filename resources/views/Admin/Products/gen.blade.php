@@ -1,4 +1,5 @@
-@extends('admin.products.sidebar')
+@extends('admin.sidebar')
+@section('main')
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <style type="text/css">
   .control-label{
@@ -44,12 +45,12 @@
                       <thead>
                         <tr>
                           <th>Nombre</th>
-                          <th>Cantidad</th>
+                          <th>Raza</th>
                           <th>Precio</th>
                           <th>En venta</th>
                           <th>Estatus</th>
                           <th>Rancho</th>
-                          <th>Peso</th>
+                          <th>Ubicación</th>
                           <th>Acciones</th>
                         </tr>
                       </thead>
@@ -57,13 +58,13 @@
                         @foreach($products as $p)
                           <tr>
                             <td>{{$p->nombre}}</td>
-                            <td>{{$p->stock}}</td>
+                            <td>{{$p->raza}}</td>
                             <td>{{$p->precio}}</td>
-                            <td>{{$p->status}}</td>
-                            <td>{{$p->estatus}}</td>
+                            <td>@if($p->status == 1)<span class="badge badge-success">Activo</span>@else <span class="badge badge-danger">Inactivo</span>@endif</td>
+                            <td>@if($p->estatus == 1) <span class="badge badge-success">Disponible</span>@elseif($p->estatus == 2)<span class="badge badge-warning">Reservado</span> @elseif($p->estatus == 3))<span class="badge badge-danger">Vendido</span> @else <span class="badge badge-info">Enviado</span>@endif</td>
                             <td>{{$p->rancho}}</td>
-                            <td>{{$p->peso}}</td>
-                            <td> </td>
+                            <td>{{$p->location->nombre}}</td>
+                            <td><button style="background-color:#d79e46;border-color: #d79e46;" class="btn btn-info btn-sm" onClick="" title="Ver producto"><i class="far fa-eye"></i></button><button class="btn btn-primary  btn-sm" onClick="" title="Editar producto"><i class="fas fa-pencil-alt"></i></button><button class="btn btn-danger btn-sm" onClick="" title="Eliminar producto"><i class="far fa-trash-alt"></i></button></td>
                           </tr>
                         @endforeach
                       </tbody>
@@ -85,6 +86,16 @@
               @csrf
               <input type="hidden" id="idProducto" name="idProducto" value="">
               <p class="text-primary">Los campos con asterisco (<span class="required">*</span>) son obligatorios.</p>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                <label class="form-check-label" for="flexCheckDefault">
+                  Marcar deste producto como <b>destacado</b>
+                </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                <label class="form-check-label" for="flexCheckDefault">
+                  Este producto es calidad <b style="color: #d79e46;">premium<b>
+                </label>
+              </div>
               <div class="row">
                 <div class="col-md-8">
                     <div class="form-group">
@@ -473,3 +484,4 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 </script>
+@endsection

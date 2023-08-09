@@ -1,4 +1,5 @@
-@extends('admin.products.sidebar')
+@extends('admin.sidebar')
+@section('main')
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <style type="text/css">
   .control-label{
@@ -228,3 +229,4 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>     
 <script src="{{url('/static/js/admin/location.js') }}" >
 </script>
+@endsection
