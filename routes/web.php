@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ApiController;
 use App\Http\Controllers\ConnectController;
+use App\Http\Controllers\TiendaController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,7 +16,7 @@ use App\Http\Controllers\ConnectController;
 */
 
 Route::get('/', function () {
-    return view('home');
+    return view('index');
 });
 
 Route::get('/api/products', [ApiController::class, 'getProducts']);
@@ -25,3 +26,4 @@ Route::get('/login', [ConnectController::class, 'getLogin']);
 Route::post('/login', [ConnectController::class, 'postLogin'])->name('login');
 Route::get('/logout', [ConnectController::class, 'getLogout']);
 Route::get('/migrate-passwords', [ConnectController::class, 'migratePasswords']);
+Route::get('/tienda', [TiendaController::class, 'tiendaHome']);

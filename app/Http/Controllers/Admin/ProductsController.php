@@ -94,6 +94,69 @@ class ProductsController extends Controller
                 return response()->json(['error' => 'Accion invalida'], 400);
         }
     }
+    public function imageActionSub(Request $request){
+        if (!$request->session()->has('product.imagesSub')) {
+            $request->session()->put('product.imagesSub', []);
+            $request->session()->put('product.imageCountSub', 0);
+        }
+        if(!$request->session()->has('product.randomStringSub')){
+            $request->session()->put('product.randomStringSub', Str::random(4));
+        }
+        $randomString = $request->session()->get('product.randomStringSub');
+        $action = $request->input('action');
+        switch ($action) {
+            case 'add':
+                $imageCount = $request->session()->get('product.imageCountSub');
+                $uploadedImage = $request->file('uploaded_image');
+                $dateFolder = date('Y-m-d');
+                $uploadPath = 'uploads/subasta/' . $dateFolder;
+                $filename = $imageCount . '-' . 'GYS-'.date('md').'-'.$randomString . '.' . $uploadedImage->getClientOriginalExtension();
+                $request->session()->increment('product.imageCountSub');
+                if (!File::exists($uploadPath)) {
+                    File::makeDirectory($uploadPath, 0755, true);
+                }
+                $path = $filename;
+                $webpPath = $dateFolder . '/' . pathinfo($path, PATHINFO_FILENAME) . '.webp';
+                $destinationPath = Storage::disk('webp_images_sub')->path($webpPath);
+                $img = Image::make($uploadedImage->getRealPath())->resize(800, 600);
+                $img->encode('webp', 10)->save($destinationPath);
+                //ImageConverter::convertToWebp($uploadedImage->getRealPath(), $destinationPath);
+    
+                $images = $request->session()->get('product.imagesSub');
+                $images[] = [
+                    'path' => '/' . $webpPath //$dateFolder . '/' . $webpPath
+                ];
+                $request->session()->put('product.imagesSub', $images);
+                return response()->json(['image' => ['path' => '/' . $webpPath]]); //$dateFolder . '/' . $webpPath
+            case 'delete':
+                $imagePath = $request->input('image_path');
+                $images = $request->session()->get('product.imagesSub');
+                $images = array_filter($images, function ($image) use ($imagePath) {
+                    return $image['path'] != $imagePath;
+                });
+                $request->session()->put('product.imagesSub', $images);
+                if (file_exists(public_path('uploads/subasta/' . $imagePath))) {
+                    unlink(public_path('uploads/subasta/' . $imagePath));
+                }
+                //cualquier de los dos sirve
+               /* $webpPath = 'uploads/' . $imagePath;
+                if (File::exists($webpPath)) {
+                    File::delete($webpPath);
+                }*/
+                return response()->json(['success' => true]);
+            case 'update':
+                $newOrder = $request->input('new_order');
+                $images = $request->session()->get('product.imagesSub');
+                $orderedImages = [];
+                foreach ($newOrder as $imageId) {
+                    $orderedImages[] = $images[array_search($imageId, array_column($images, 'id'))];
+                }
+                $request->session()->put('product.imagesSub', $orderedImages);
+                return response()->json(['success' => true]);
+            default:
+                return response()->json(['error' => 'Accion invalida'], 400);
+        }
+    }
     public function getComisariasByCiudad($ciudadId){
         $comisarias = Comisaria::where('ciudad_id', $ciudadId)->get();
         return response()->json($comisarias);
@@ -109,14 +172,14 @@ class ProductsController extends Controller
     }   
     public function postNewGen(Request $request){
         $rules = [
-            'name' => 'required',
-            'price' => 'required',
-            'content' => 'required'
+            'txtNombre' => 'required',
+            'txtPrecio' => 'required',
+            'txtDescripcion' => 'required'
         ];
         $messages = [
-            'name.required' => 'Nombre de producto obligatorio',
-            'price.required' => 'Precio obligatorio',
-            'content.required' => 'Por favor agregue una descripcion'
+            'txtNombre.required' => 'Nombre de producto obligatorio',
+            'txtPrecio.required' => 'Precio obligatorio',
+            'txtDescripcion.required' => 'Por favor agregue una descripcion'
         ];
 
         $validator = Validator::make($request->all(), $rules, $messages);
@@ -130,11 +193,12 @@ class ProductsController extends Controller
             if (!$images || count($images) == 0) {
                 return back()->withErrors(['message' => 'Por favor, cargue al menos una imagen.'])->withInput();
             }
+            dd($images);
             $firstImage = $images[0];
             $dateFolder = date('Y-m-d');
             $product = new Product;
             $product->status = '1';
-            $product->name = e($request->input('name'));
+            $product->nombre = e($request->input('name'));
             $product->slug = Str::slug($request->input('slug'));
             $product->category_id = $request->input('category');
             $product->type_id = $request->input('type');
@@ -160,37 +224,18 @@ class ProductsController extends Controller
             $coords = json_encode($coords);
             $latitud = $request->input('latitude');
             $longitud = $request->input('longitude');
-
-            /*  $location = "";
-            if ($latitud >= 20.6855 && $latitud <= 21.8945 && $longitud >= -90.5957 && $longitud <= -87.3730) {
-                $location = "Yucatán";
-              } elseif ($latitud >= 17.8409 && $latitud <= 19.7021 && $longitud >= -92.1094 && $longitud <= -90.1758) {
-                $location = "Campeche";
-              } elseif ($latitud >= 17.4133 && $latitud <= 21.2389 && $longitud >= -88.5839 && $longitud <= -85.2861) {
-                $location = "Quintana Roo";
-              } else {
-                $location = "Ubicación fuera de los estados de Yucatán, Campeche y Quintana Roo";
-              }
-            $test = $latitud.'-'.$longitud;
-              dd($test);*/
             $product->location = $request->input('state');
             $product->sublocation = $request->input('city');
             $product->sSublocation = $request->input('neighborhood');
-            $product->coords = $coords;
             $randomString = Str::random(3);
-            $amenidades = ['key' => 'SH-'.date('md').'-'.$randomString];
-            $amenidades = json_encode($amenidades);
-            $product->amenidades = $amenidades;
-            $product->file_path = $dateFolder;
             $product->image = basename($firstImage['path']);
             $product->save();
             if (count($images) > 1) {
                 for ($i = 1; $i < count($images); $i++) {
                 $imageData = $images[$i];
                 $image = new PGallery;
-                $image->product_id = $product->id;
-                $image->file_path = $dateFolder;
-                $image->file_name = basename($imageData['path']);
+                $image->productid = $product->id;
+                $image->img = rand(0, 999).basename($imageData['path']);
                 $image->save();
                 }
             }
