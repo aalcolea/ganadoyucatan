@@ -26,6 +26,7 @@
 body {
     margin: 0;
     font-family: 'Poppins', sans-serif;
+    overflow-x: hidden;
 }
 
 .navbar {
@@ -129,7 +130,7 @@ Carousel Section
 */
 .carousel-container{
     width: 100vw;
-    height: calc(60vh - 80px);
+    height: calc(75vh - 80px);
     margin-top: 80px;
     background-color: var(--battleship-gray);
     position: relative;
@@ -202,4 +203,52 @@ Carousel Section
 .nav-label {
     font-size: 16px;
     color: #888;
+}
+/*
+TODO
+Tianguis Section
+*/
+.title{
+    font-size: 28px;
+    margin: 4px 0 8px 0;
+    letter-spacing: .3rem;
+}
+.content{
+    font-style: italic;
+    margin: 0;
+    font-size: 16px;
+}
+.mainButton{
+    width: 130px;
+    height: 30px;
+    border-radius: 15px;
+    font-size: 12px;
+    background-color: black;
+    color: var(--white);
+    border: 0px;
+    margin-top: 18px;
+}
+.tianguisGanadero-container{
+    height: 75vh;
+    overflow: hidden;
+    display: flex;
+}
+.tianguisLeft{
+    flex: 55;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 3rem;
+}
+.tianguisRight{
+    flex: 45;
+}
+
+.tianguisLeft hr{
+    border: 2px solid #000;
+    width: 10%;
+    margin-top: 0;
+    margin-bottom: -6px;
+    align-self: flex-start;
+    margin-left: 0;
 }

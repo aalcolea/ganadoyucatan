@@ -26,4 +26,13 @@
             <div class="next-label ">Next</div>
         </div>
     </div>
+    <div class="tianguisGanadero-container">
+        <div class="tianguisLeft">
+            <hr>
+            <p class="title">Tianguis ganadero</p>
+            <p class="content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus nam nobis fuga tempore temporibus expedita similique</p>
+            <button class="mainButton">Ver más</button>
+        </div>
+        <div class="tianguisRight"></div>
+    </div>
 @endsection
