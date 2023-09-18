@@ -21,18 +21,46 @@
             <div class="social-icon"></div>
         </div>
         <div class="nav-buttons">
-            <div class="prev-button"></div>
-            <div class="next-button"></div>
-            <div class="next-label ">Next</div>
+            <div class="prev-button"><</div>
+            <div class="next-button">></div>
+            <div class="next-label ">Siguiente</div>
         </div>
     </div>
     <div class="tianguisGanadero-container">
         <div class="tianguisLeft">
             <hr>
-            <p class="title">Tianguis ganadero</p>
+            <p class="title">Ganado Genético</p>
             <p class="content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus nam nobis fuga tempore temporibus expedita similique</p>
             <button class="mainButton">Ver más</button>
         </div>
         <div class="tianguisRight"></div>
     </div>
+    <div class="ganadoGenetico-container">
+        <div class="geneticoLeft"></div>
+        <div class="geneticoRight">
+            <hr>
+            <p class="title">Tianguis ganadero</p>
+            <p class="content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus nam nobis fuga tempore temporibus expedita similique</p>
+            <button class="mainButton">Ver más</button>
+        </div>
+    </div>
+    <div class="subastaGanadera-container">
+        <div class="subastaLeft">
+            <hr>
+            <p class="title">Subasta ganadera</p>
+            <p class="content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus nam nobis fuga tempore temporibus expedita similique</p>
+            <button class="mainButton">Ver más</button>
+        </div>
+        <div class="subastaRight"></div>
+    </div>
+    <div class="noticias-container">
+        <div class="noticiasLeft"></div>
+        <div class="noticiasRight">
+            <hr>
+            <p class="title">Noticias</p>
+            <p class="content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus nam nobis fuga tempore temporibus expedita similique</p>
+            <button class="mainButton">Ver más</button>
+        </div>
+    </div>
+
 @endsection

@@ -38,6 +38,7 @@ body {
     position: fixed;
     top: 0;
     left: 0;
+    background-color: var(--white);
 }
 
 .navbar__content--left{
@@ -130,7 +131,7 @@ Carousel Section
 */
 .carousel-container{
     width: 100vw;
-    height: calc(75vh - 80px);
+    height: calc(100vh - 80px);
     margin-top: 80px;
     background-color: var(--battleship-gray);
     position: relative;
@@ -158,13 +159,13 @@ Carousel Section
 .point{
     width:  12px;
     height: 12px;
-    background-color: var(--white);
+    background-color: gray;
     border-radius: 50%;
     margin: 0 8px;
     cursor: pointer;
 }
 .point.active {
-    background-color: var(--poppy); /* Cambia el color de fondo del punto activo al color deseado */
+    background-color: white; /* Cambia el color de fondo del punto activo al color deseado */
 }
 .social-media{
     position: absolute;
@@ -182,7 +183,7 @@ Carousel Section
 .nav-buttons {
     position: absolute;
     bottom: 20px;
-    right: 20px;
+    right:  50px;
     transform: translateY(-50%);
     display: flex;
     align-items: center;
@@ -198,6 +199,12 @@ Carousel Section
     align-items: center;
     margin-right: 10px;
     cursor: pointer;
+    font-weight: bold;
+    font-size: 28px;
+}
+
+.prev-button:hover, .next-button:hover{
+    background-color: white;
 }
 
 .nav-label {
@@ -206,7 +213,7 @@ Carousel Section
 }
 /*
 TODO
-Tianguis Section
+Sections
 */
 .title{
     font-size: 28px;
@@ -214,9 +221,10 @@ Tianguis Section
     letter-spacing: .3rem;
 }
 .content{
-    font-style: italic;
+    font-style: normal;
     margin: 0;
     font-size: 16px;
+    width: 55%;
 }
 .mainButton{
     width: 130px;
@@ -228,11 +236,19 @@ Tianguis Section
     border: 0px;
     margin-top: 18px;
 }
-.tianguisGanadero-container{
-    height: 75vh;
+.noticias-container,
+.subastaGanadera-container,
+.tianguisGanadero-container,
+.ganadoGenetico-container{
+    height:   100vh;
     overflow: hidden;
     display: flex;
 }
+.noticias-container,
+.ganadoGenetico-container{
+    background-color: var(--cinereous);
+}
+.subastaLeft,
 .tianguisLeft{
     flex: 55;
     display: flex;
@@ -240,15 +256,44 @@ Tianguis Section
     justify-content: center;
     padding-left: 3rem;
 }
+.noticiasRight,
+.geneticoRight{
+    flex: 55;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-right: 3rem;
+    align-items: flex-end;
+}
+.noticiasRight,
+.geneticoRight{
+    text-align: end;
+}
+.subastaRight,
 .tianguisRight{
     flex: 45;
 }
+.noticiasLeft,
+.geneticoLeft{
+    flex: 45;
+}
 
+.subastaLeft  hr,
 .tianguisLeft hr{
     border: 2px solid #000;
-    width: 10%;
+    width: 5%;
     margin-top: 0;
     margin-bottom: -6px;
     align-self: flex-start;
     margin-left: 0;
 }
+.noticiasRight hr,
+.geneticoRight hr{
+    border: 2px solid #ffffff;
+    width: 5%;
+    margin-top: 0;
+    margin-bottom: -6px;
+    align-self: flex-start;
+    margin-right: 0;
+}
+
