@@ -29,7 +29,7 @@
     <div class="tianguisGanadero-container">
         <div class="tianguisLeft">
             <hr>
-            <p class="title">Ganado Genético</p>
+            <p class="title">Tianguis ganadero</p>
             <p class="content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus nam nobis fuga tempore temporibus expedita similique</p>
             <button class="mainButton">Ver más</button>
         </div>
@@ -39,7 +39,7 @@
         <div class="geneticoLeft"></div>
         <div class="geneticoRight">
             <hr>
-            <p class="title">Tianguis ganadero</p>
+            <p class="title">Ganado Genético</p>
             <p class="content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus nam nobis fuga tempore temporibus expedita similique</p>
             <button class="mainButton">Ver más</button>
         </div>
@@ -62,5 +62,58 @@
             <button class="mainButton">Ver más</button>
         </div>
     </div>
-
+    <div class="contact">
+        <div class="left-contact">
+            <h1>Hacer Contacto</h1>
+            <p>Somos una plataforma dedicada a brindarle servicios al sector ganadero de Yucatán, poniendo a su alcance herramientas digitales que le ayuden a promover sus ganados</p>
+            <div class="social-media--contact-container">
+                <div class="social-icon"></div>
+                <div class="social-icon"></div>
+                <div class="social-icon"></div>
+                <div class="social-icon"></div>
+            </div>
+            <div class="info-contact">
+                <div class="info-containers">
+                    <img src="" alt="pin-ubi">
+                    <div class="info-right">
+                        <p>Dirección</p>
+                        <p>Mérida, Yucatán</p>
+                    </div>
+                </div>
+                <div class="info-containers">
+                    <img src="" alt="whats">
+                    <div class="info-right">
+                        <p>Teléfono:</p>
+                        <p>9991234567</p>
+                    </div>
+                </div>
+                <div class="info-containers">
+                    <img src="" alt="At">
+                    <div class="info-right">
+                        <p>E-Mail:</p>
+                        <p>ganado.yucatan@gmail.com</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="right-contact">
+            <div>
+                <label for="name">Nombre</label>
+                <input type="text" class="input-with-border-bottom" placeholder="Nombre">
+            </div>
+            <div>
+                <label for="mail">Correo electrónico</label>
+                <input type="text" class="input-with-border-bottom" placeholder="Correo electrónico">
+            </div>
+            <div>
+                <label for="phone">Teléfono</label>
+                <input type="text" class="input-with-border-bottom" placeholder="Teléfono">
+            </div>
+            <div>
+                <label for="message">Mensaje</label>
+                <input type="text" class="input-with-border-bottom" placeholder="Mensaje">
+            </div>
+            <button>Enviar mensaje</button>
+        </div>
+    </div>
 @endsection
