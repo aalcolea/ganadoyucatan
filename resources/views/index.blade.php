@@ -16,9 +16,12 @@
             <div class="point"></div>
         </div>
         <div class="social-media">
+            <!-- <div class="social-icon"></div>
             <div class="social-icon"></div>
-            <div class="social-icon"></div>
-            <div class="social-icon"></div>
+            <div class="social-icon"></div> -->
+            <img class="social-icon" width="25" height="25" src="https://img.icons8.com/material-sharp/50/ffffff/youtube-play.png" alt="youtube-play"/>
+            <img class="social-icon" width="25" height="25" src="https://img.icons8.com/windows/50/ffffff/facebook-f--v2.png" alt="facebook-f--v2"/>
+            <img class="social-icon" width="25" height="25" src="https://img.icons8.com/ios/50/ffffff/instagram-new--v1.png" alt="instagram-new--v1"/>
         </div>
         <div class="nav-buttons">
             <div class="prev-button"><</div>
@@ -67,28 +70,27 @@
             <h1>Hacer Contacto</h1>
             <p>Somos una plataforma dedicada a brindarle servicios al sector ganadero de Yucatán, poniendo a su alcance herramientas digitales que le ayuden a promover sus ganados</p>
             <div class="social-media--contact-container">
-                <div class="social-icon"></div>
-                <div class="social-icon"></div>
-                <div class="social-icon"></div>
-                <div class="social-icon"></div>
+                <img class="social-icon" width="25" height="25" src="https://img.icons8.com/material-sharp/50/ffffff/youtube-play.png" alt="youtube-play"/>
+                <img class="social-icon" width="25" height="25" src="https://img.icons8.com/windows/50/ffffff/facebook-f--v2.png" alt="facebook-f--v2"/>
+                <img class="social-icon" width="25" height="25" src="https://img.icons8.com/ios/50/ffffff/instagram-new--v1.png" alt="instagram-new--v1"/>
             </div>
             <div class="info-contact">
                 <div class="info-containers">
-                    <img src="" alt="pin-ubi">
+                    <img width="50" height="50" src="https://img.icons8.com/ios/50/ffffff/marker--v1.png" alt="marker--v1"/>
                     <div class="info-right">
                         <p>Dirección</p>
                         <p>Mérida, Yucatán</p>
                     </div>
                 </div>
                 <div class="info-containers">
-                    <img src="" alt="whats">
+                    <img width="50" height="50" src="https://img.icons8.com/ios/50/ffffff/whatsapp--v1.png" alt="whatsapp--v1"/>
                     <div class="info-right">
                         <p>Teléfono:</p>
                         <p>9991234567</p>
                     </div>
                 </div>
                 <div class="info-containers">
-                    <img src="" alt="At">
+                <img width="50" height="50" src="https://img.icons8.com/external-tanah-basah-glyph-tanah-basah/48/ffffff/external-at-digital-marketing-tanah-basah-glyph-tanah-basah.png" alt="external-at-digital-marketing-tanah-basah-glyph-tanah-basah"/>
                     <div class="info-right">
                         <p>E-Mail:</p>
                         <p>ganado.yucatan@gmail.com</p>
