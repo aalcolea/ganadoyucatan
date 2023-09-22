@@ -61,10 +61,10 @@
                             <td>{{$p->raza}}</td>
                             <td>{{$p->precio}}</td>
                             <td>@if($p->status == 1)<span class="badge badge-success">Activo</span>@else <span class="badge badge-danger">Inactivo</span>@endif</td>
-                            <td>@if($p->estatus == 1) <span class="badge badge-success">Disponible</span>@elseif($p->estatus == 2)<span class="badge badge-warning">Reservado</span> @elseif($p->estatus == 3))<span class="badge badge-danger">Vendido</span> @else <span class="badge badge-info">Enviado</span>@endif</td>
+                            <td>@if($p->estatus == 1) <span class="badge badge-success">Disponible</span>@elseif($p->estatus == 2)<span class="badge badge-warning">Reservado</span> @elseif($p->estatus == 3)<span class="badge badge-danger">Vendido</span> @else <span class="badge badge-info">Enviado</span>@endif</td>
                             <td>{{$p->rancho}}</td>
                             <td>{{$p->location->nombre}}</td>
-                            <td><button style="background-color:#d79e46;border-color: #d79e46;" class="btn btn-info btn-sm" onClick="" title="Ver producto"><i class="far fa-eye"></i></button><button class="btn btn-primary  btn-sm" onClick="" title="Editar producto"><i class="fas fa-pencil-alt"></i></button><button class="btn btn-danger btn-sm" onClick="" title="Eliminar producto"><i class="far fa-trash-alt"></i></button></td>
+                            <td><button style="background-color:#d79e46;border-color: #d79e46;" class="btn btn-info btn-sm" onclick="openProductInNewTab('{{$p->idproducto}}', '{{$p->ruta}}')" target="_blank" title="Ver producto"><i class="far fa-eye"></i></button><button class="btn btn-primary  btn-sm editProductBtn" data-id="{{$p->idproducto}}" id="editProduct" title="Editar producto"><i class="fas fa-pencil-alt"></i></button><button class="btn btn-danger btn-sm" onClick="" title="Eliminar producto"><i class="far fa-trash-alt"></i></button></td>
                           </tr>
                         @endforeach
                       </tbody>
@@ -82,17 +82,18 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-          <form id="formProductos" name="formProductos" class="form-horizontal" action="{{url('admin/products/addNewGen')}}" method="POST" style="padding: 0;">
+        {!!Form::open(['url'=> 'admin/products/addNewGen', 'files' => true, 'style' => 'padding: 0;'])!!}
+          {{-- <form id="formProductos" name="formProductos" class="form-horizontal" action="{{url('admin/products/addNewGen')}}" method="POST" style="padding: 0;"> --}}
               @csrf
               <input type="hidden" id="idProducto" name="idProducto" value="">
               <p class="text-primary">Los campos con asterisco (<span class="required">*</span>) son obligatorios.</p>
               <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                <label class="form-check-label" for="flexCheckDefault">
+                <input class="form-check-input" type="checkbox" name="destacado" id="destacado">
+                <label class="form-check-label" for="destacado">
                   Marcar deste producto como <b>destacado</b>
                 </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                <label class="form-check-label" for="flexCheckDefault">
+                <input class="form-check-input" type="checkbox" name="premium" id="premium">
+                <label class="form-check-label" for="premium">
                   Este producto es calidad <b style="color: #d79e46;">premium<b>
                 </label>
               </div>
@@ -152,7 +153,7 @@
                         </div>
                         <div class="form-group col-md-6">
                             <label class="control-label">Cantidad Disponible<span class="required">*</span></label>
-                            <input class="form-control" maxlength="5" id="txtStock" name="txtStock" type="text" required="">
+                            <input class="form-control" maxlength="5" id="txtStock" name="txtStock" type="number" required="">
                         </div>
                           <div class="form-group col-md-6">
                             <label class="control-label">Nombre del rancho</label>
@@ -264,12 +265,26 @@
         {!!Form::submit('SUBIR', ['class' => 'btn btn-primary', 'style' => 'background: #d79e46; border-color: #d79e46;', 'id' => 'enviarBtn'])!!}
       </div>      
               </div>
-        </form>
+        {!!Form::close()!!} {{-- </form>
+ --}}      </div>
+    </div>
+  </div>
+</div>
+ <div class="modal fade" id="modalForGen" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg" >
+    <div class="modal-content">
+      <div class="modal-header headerRegister">
+        <h5 class="modal-title" id="titleModal">Nuevo Usuario</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div id="userEditInfoContainer"></div>
       </div>
     </div>
   </div>
 </div>
-
     </main>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>     
@@ -483,5 +498,32 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 });
+  $(document).ready(function(){
+     $('.editProductBtn').on('click', function(){
+      var productId = $(this).data('id');
+      var url = 'getProductInfo/' + productId;
+      $('#userEditInfoContainer').empty();
+      $.ajax({
+        type: 'GET',
+        url: url,
+        success: function(response){
+          $('#userEditInfoContainer').html(response);
+          $('#modalForGen').modal('show');
+        },
+        error: function(xhr, status, error){
+
+        }
+      });
+     });
+  });
+  function openProductInNewTab(id, ruta){
+    const url = `/tienda/producto/${id}/${ruta}`;
+    const newTab = window.open(url, '_blank');
+    if(newTab){
+      newTab.focus();
+    }else{
+      alert('El navegador bloqueó la apertura de una nueva pestaña');
+    }
+  }
 </script>
 @endsection

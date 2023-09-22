@@ -18,8 +18,8 @@
                     </div>
                 </div>
                 <div class="navbar__content_right">
-                    <p>Crear tu cuenta</p>
-                    <p>Ingresa</p>
+                    <p onclick="location.href='/register'">Crear tu cuenta</p>
+                    <p onclick="location.href='/login'">Ingresa</p>
                 </div>
             </nav>
             <section class="logo-container">
@@ -29,7 +29,7 @@
                 <div class="squareContainer">
                     <div class="left-part"></div>
                     <div class="middle-container">
-                        <div class="square_tianguis">
+                        <div class="square_tianguis" onclick="location.href='/tianguisTienda'">
                             <img class="slide-top" src="{{url('/static/new/Etiquetas/etiquetas-01.png')}}" alt="">
                             <p>Tianguis Ganadero</p>
                         </div>
@@ -54,7 +54,7 @@
             <section class="footer">
                 <div class="footer-container">
                     <p>Bienvenido al mercado virtual de ganado</p>
-                    <p class="publicar">¡PUBLICA AQUÍ!</p>
+                    <p onclick="location.href='/tianguis'" class="publicar">¡PUBLICA AQUÍ!</p>
                 </div>
                 <a href="https://api.whatsapp.com/send?phone=TUNUMERO&text=Hola,%20quiero%20contactar%20contigo" class="whatsapp-fab" target="_blank">
                     <img width="256" height="256" src="https://img.icons8.com/windows/256/ffffff/whatsapp--v1.png" alt="whatsapp--v1"/>                

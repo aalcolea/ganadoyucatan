@@ -9,9 +9,13 @@
 	<meta property="og:locale" 		content='es_ES'/>
 	<meta property="og:type"        content="website" />
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 	<link rel="stylesheet" type="text/css" href="{{url('/static/tienda/css/util.css')}}">
 	<link rel="stylesheet" type="text/css" href="{{url('/static/tienda/css/main.css')}}">
 	<link rel="stylesheet" type="text/css" href="{{url('/static/css/main.css')}}">
+	<script src="{{url('vendor/sweetalert/sweetalert.all.js')}}"></script>
 	<title>Ganado Yucatán</title>
 	<style>
 		.block2-pic img{
@@ -22,27 +26,6 @@
 	</style>
 </head>
 <body class="animsition">
-	<!-- Modal -->
-	<div class="modal fade" id="modalAyuda" tabindex="-1" aria-hidden="true">
-	  <div class="modal-dialog modal-lg">
-	    <div class="modal-content">
-	      <div class="modal-header">
-	        <h5 class="modal-title">Atención directa</h5>
-	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-	          <span aria-hidden="true">&times;</span>
-	        </button>
-	      </div>
-	      <div class="modal-body">
-	      		<div class="page-content">
-	        		{{-- <?= #$infoPreguntas; ?> --}}
-	      		</div>
-	      </div>
-	      <div class="modal-footer">
-	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-	      </div>
-	    </div>
-	  </div>
-	</div>
 	<!-- Header -->
 	<header>
 		<!-- Header desktop -->
@@ -57,15 +40,12 @@
 					</div>
 
 					<div class="right-top-bar flex-w h-full">
-						<a href="#" class="flex-c-m trans-04 p-lr-25" data-toggle="modal" data-target="#modalAyuda" >
-							Atención directa
-						</a>
 						@if(Auth::guest())
 						<a href="/login" class="flex-c-m trans-04 p-lr-25">
 							Iniciar Sesión
 						</a>
 						@else
-						<a href="admin/products/home" class="flex-c-m trans-04 p-lr-25">
+						<a href="/admin/products/home" class="flex-c-m trans-04 p-lr-25">
 							Mi cuenta
 						</a>
 						<a href="/logout" class="flex-c-m trans-04 p-lr-25">
@@ -92,12 +72,10 @@
 			<div class="container-fluid d-flex justify-content-center">
 				<div class="navbar-nav ">
 					<a class="nav-link" aria-current="page" href="/">Inicio</a>
-					<a class="nav-link" href="/tienda">Bovinos</a>
-					<a class="nav-link" href="/rancho">Ranchos</a> 
+					<a class="nav-link" href="/tienda">Genético</a>
 					<a class="nav-link" href="/subastas">Subasta</a>
 					{{-- <a class="nav-link" href="/exposicion_home.html">Exposición Ganadera</a> --}}
-					<a class="nav-link" href="/contacto">Contacto</a>
-					<a class="nav-link" href="/tianguis">Tianguis Ganadero</a>
+					<a class="nav-link" href="/tianguisTienda">Tianguis Ganadero</a>
 					{{-- <a class="nav-link" href="<?= base_url(); ?>/nosotros">Nosotros</a>  --}}
 				</div>
 				</div>
@@ -112,7 +90,7 @@
 		<div class="wrap-header-mobile">
 			<!-- Logo moblie -->		
 			<div class="logo-mobile">
-				<a href="https://www.ganadoyucatan.com/index.html"><img src="/tienda/images/logo.png" alt="Tienda Virtual"></a>
+				<a href="/"><img src="/tienda/images/logo.png" alt="GanadoYucatan"></a>
 			</div>
 
 			<!-- Icon header -->
@@ -145,9 +123,6 @@
 
 				<li>
 					<div class="right-top-bar flex-w h-full">
-						<a href="#" class="flex-c-m p-lr-10 trans-04" data-toggle="modal" data-target="#modalAyuda">
-							Atención Directa
-						</a>
 						@if(Auth::user())
 						<a href="/admin/products/home" class="flex-c-m trans-04 p-lr-25">
 							Mi cuenta

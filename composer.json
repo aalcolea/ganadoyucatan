@@ -8,6 +8,7 @@
         "php": "^8.0.2",
         "ext-gd": "*",
         "algolia/algoliasearch-client-php": "^1.27",
+        "fruitcake/laravel-cors": "^3.0",
         "guzzlehttp/guzzle": "^7.7",
         "intervention/image": "^2.7",
         "laravel/framework": "^9.19",
@@ -16,7 +17,10 @@
         "laravel/tinker": "^2.7",
         "laravel/ui": "^4.2",
         "laravelcollective/html": "^6.4",
-        "nette/utils": "^4.0"
+        "livewire/livewire": "^2.12",
+        "nette/utils": "^4.0",
+        "pusher/pusher-php-server": "^7.2",
+        "realrashid/sweet-alert": "^7.1"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.8",

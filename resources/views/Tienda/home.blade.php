@@ -73,7 +73,7 @@
 								@foreach($products as $p)
 									<div class="col-md-4">
 										<div class="card mb-3">
-											<img class="card-img-top" src="" alt="FotoProducto"> 
+											<img class="card-img-top" src="{{asset('uploads/'.$p->carpeta.'/'.$p->portada.'.webp')}}" alt="FotoProducto"> 
 											<p id="counting"></p>
 											<div class="card-body card-premium">
 												<h5 class="card-title">{{$p->raza}}</h5>
