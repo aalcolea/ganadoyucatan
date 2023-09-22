@@ -18,20 +18,16 @@ class Chat extends Component
     public function sendMessage(){
     $formData = request()->all();
 
-    // Verifica que el campo 'message' esté presente y no esté vacío
+    
     if (isset($formData['message']) && !empty($formData['message'])) {
-        // El campo 'message' contiene datos, puedes crear el mensaje
         $this->validate(['message' => 'required']);
         Message::create([
             'conversation_id' => $this->conversation->id, 
             'user_id' => auth()->id(),
-            'content' => $formData['message'], // Utiliza el valor del campo 'message'
+            'content' => $formData['message'], 
         ]);
 
-        // Limpia el campo de mensaje después de enviarlo
         $this->message = '';
-
-        // Emite el evento para actualizar la interfaz en tiempo real
         event(new MessageAdded($this->conversation->id));
     } else {
         return 'fialed';
