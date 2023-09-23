@@ -804,7 +804,7 @@ Input, textarea : 14px/1.6 '', Arial, sans-serif;
 .menu-mobile {
   width: 100%;
   background-color: white;
-  display: none;
+  display: block;
 }
 
 .main-menu-m {

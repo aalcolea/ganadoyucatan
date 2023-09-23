@@ -12,15 +12,20 @@ use Auth;
 use App;
 use App\Models\Product;
 use App\Models\ProductT;
+use App\Models\ProductS;
 use App\Models\Estado;
 use App\Models\Ciudad;
 use App\Models\Comisaria;
+use App\Models\PGallery;
+use App\Models\PSubGallery;
+use App\Models\Subasta;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 use App\Utilities\ImageConverter;
+use App\Models\MensajeProducto;
 class ProductsController extends Controller
 {
-        public function __construct(){
+    public function __construct(){
         $this->middleware('auth');
     }
     public function getEstados(){
@@ -193,57 +198,295 @@ class ProductsController extends Controller
             if (!$images || count($images) == 0) {
                 return back()->withErrors(['message' => 'Por favor, cargue al menos una imagen.'])->withInput();
             }
-            dd($images);
-            $firstImage = $images[0];
             $dateFolder = date('Y-m-d');
+            $pathParts = explode('/', $images[0]['path']);
+            $filename = end($pathParts);
+            //$parts = explode('-', $filename);
+            //$sku = $parts[count($parts) - 2];
+            $portada = pathinfo($filename, PATHINFO_FILENAME);
+            $nombre = e($request->input('txtNombre'));
+            $descripcion = e($request->input('txtDescripcion'));
+            $precio = e($request->input('txtPrecio'));
+            $stock = $request->input('txtStock');
+            $tipo = $request->input('txtTipo');
+            $date = date('Y-m-d H:i:s');
+            $ruta = Str::slug($request->input('txtNombre'));
+            $status = $request->input('listStatus');
+            $rancho = e($request->input('txtRancho'));
+            $peso = e($request->input('txtCodigo'));
+            $vendedorid = Auth::id();
+            $raza  = $request->input('txtRaza');
+            $vacunado = $request->input('listVacu');
+            $arete = $request->input('listArete');
+            $certificado = $request->input('listCert');
+            $estatus = $request->input('listEstatus');
+            $ytlin = e($request->input('txtLink'));
+            $estado = $request->input('estados'); 
+            $ciudad = $request->input('ciudades'); 
+            $comisaria = $request->input('comisarias');
+            $destacado = $request->input('destacado');
+            $premium1 = $request->input('premium');
+            $edad = e($request->input('txtEdad')); 
+            $premium = ['destacado' => $destacado,
+            'premium' => $premium1];
+            $premium = json_encode($premium);
+
             $product = new Product;
-            $product->status = '1';
-            $product->nombre = e($request->input('name'));
-            $product->slug = Str::slug($request->input('slug'));
-            $product->category_id = $request->input('category');
-            $product->type_id = $request->input('type');
-            $product->price = $request->input('price');
-            $product->divs = $request->input('div');
-            $product->in_discount = $request->input('indiscount');
-            $product->urgente = false;
-            $product->content = e($request->input('content'));
-            $idv = Auth::id();
-            if(Auth::user()->giroEmp == 1 && Auth::user()->giroEmp != "5"){
-                $product->asesor_id = null;
-            }else{
-                $product->asesor_id = $request->input('asesor');
-            }
-            $product->asesor_id = $request->input('asesor');
-            $product->vendedorid = $idv;
-            $product->location = $request->input('estado');
-            $product->sublocation = $request->input('ciudad');
-            $product->sSublocation = $request->input('comisaria');
-           
-            $coords = [ 'latitud' => $request->input('latitude'),
-                        'longitud' => $request->input('longitude')];           
-            $coords = json_encode($coords);
-            $latitud = $request->input('latitude');
-            $longitud = $request->input('longitude');
-            $product->location = $request->input('state');
-            $product->sublocation = $request->input('city');
-            $product->sSublocation = $request->input('neighborhood');
-            $randomString = Str::random(3);
-            $product->image = basename($firstImage['path']);
+
+            
+            $product->nombre = $nombre;
+            $product->portada = $portada;
+            $product->descripcion = $descripcion;
+            $product->precio = $precio;
+            $product->stock = $stock;
+            $product->tipo = $tipo;
+            $product->datecreated  = $date;
+            $product->ruta = $ruta;
+            $product->status = $status;
+            $product->rancho = $rancho;
+            $product->peso = $peso;
+            $product->vendedorid = $vendedorid;
+            $product->carpeta = date('Y-m-d');
+            $product->raza = $raza;
+            $product->vacunado = $vacunado;
+            $product->arete = $arete;
+            $product->certificado = $certificado;
+            $product->estatus = $estatus;
+            $product->link = $ytlin;
+            $product->estado = $estado;
+            $product->ciudad = $ciudad;
+            $product->comisaria = $comisaria;
+            $product->premium = $premium;
+            $product->edad = $edad;
             $product->save();
-            if (count($images) > 1) {
-                for ($i = 1; $i < count($images); $i++) {
+
+            
+            if(count($images) > 1) {
+                for ($i = 0; $i < count($images); $i++) {
                 $imageData = $images[$i];
                 $image = new PGallery;
-                $image->productid = $product->id;
-                $image->img = rand(0, 999).basename($imageData['path']);
+                $productoid = Product::where('vendedorid', Auth::id())->orderby('datecreated', 'desc')->value('idproducto');
+                $image->productoid = $productoid;
+                $pathParts = explode('/', $images[$i]['path']);
+                $filename = end($pathParts);
+                $image->img = pathinfo($filename, PATHINFO_FILENAME);
                 $image->save();
                 }
             }
             $request->session()->forget('product_images');
             if($product->save()):
-                return redirect('/admin/product/'.$product->id.'/edit')->with('message', 'Inmueble agregado con exito al sistema')->with('typealert', 'success'); 
+                return redirect('/admin/products/addNewGen')->with('message', 'Producto agregado con exito al sistema')->with('typealert', 'success'); 
             endif;
         endif;
+    }
+    public function getProductEdit($id){
+        $product = Product::find($id);
+        return view('partials.productInfo', compact('product'));
+
+    }
+    public function postProductEditGen(Request $request, $id){
+        $rules = [
+            'txtNombre' => 'required',
+            'txtPrecio' => 'required',
+            'txtDescripcion' => 'required'
+        ];
+        $messages = [
+            'txtNombre.required' => 'Nombre de producto obligatorio',
+            'txtPrecio.required' => 'Precio obligatorio',
+            'txtDescripcion.required' => 'Por favor agregue una descripcion'
+        ];
+
+        $validator = Validator::make($request->all(), $rules, $messages);
+        if($validator->fails()){
+            return back()->withErrors($validator)->with('message', 'Se ha producido un error')->with('typealert', 'danger')->withInput();
+        }else{
+            $nombre = e($request->input('txtNombre'));
+            $descripcion = e($request->input('txtDescripcion'));
+            $precio = e($request->input('txtPrecio'));
+            $stock = $request->input('txtStock');
+            $tipo = $request->input('txtTipo');
+            $status = $request->input('listStatus');
+            $rancho = e($request->input('txtRancho'));
+            $peso = e($request->input('txtCodigo'));
+            $vendedorid = Auth::id();
+            $raza  = $request->input('txtRaza');
+            $vacunado = $request->input('listVacu');
+            $arete = $request->input('listArete');
+            $certificado = $request->input('listCert');
+            $estatus = $request->input('listEstatus');
+            $ytlin = e($request->input('txtLink'));
+            /*$estado = $request->input('estados'); 
+            $ciudad = $request->input('ciudades'); 
+            $comisaria = $request->input('comisarias');*/
+            $destacado = $request->input('destacado');
+            $premium1 = $request->input('premium');
+            $edad = e($request->input('txtEdad')); 
+            $premium = ['destacado' => $destacado,
+            'premium' => $premium1];
+            $premium = json_encode($premium);
+
+            $product = Product::find($id);
+
+            $product->nombre = $nombre;
+            $product->descripcion = $descripcion;
+            $product->precio = $precio;
+            $product->stock = $stock;
+            $product->tipo = $tipo;
+            $product->status = $status;
+            $product->rancho = $rancho;
+            $product->peso = $peso;
+            $product->vendedorid = $vendedorid;            
+            $product->raza = $raza;
+            $product->vacunado = $vacunado;
+            $product->arete = $arete;
+            $product->certificado = $certificado;
+            $product->estatus = $estatus;
+            $product->link = $ytlin;/*
+            $product->estado = $estado;
+            $product->ciudad = $ciudad;
+            $product->comisaria = $comisaria;*/
+            $product->premium = $premium;
+            $product->edad = $edad;
+            
+            if($product->save()){
+                return redirect('/admin/products/addNewGen')->with('message', 'Producto agregado con exito al sistema')->with('typealert', 'success'); 
+            }
+        }
+
+    }
+    public function postNewSub(Request $request){
+        $rules = [
+            'txtNombre' => 'required',
+            'txtPrecio' => 'required',
+            'txtDescripcion' => 'required',
+        ];
+        $messages = [
+            'txtNombre.required' => 'Nombre de producto obligatorio',
+            'txtPrecio.required' => 'Precio obligatorio',
+            'txtDescripcion.required' => 'Por favor agregue una descripcion'
+        ];
+
+        $validator = Validator::make($request->all(), $rules, $messages);
+        if($validator->fails()){
+            return back()->withErrors($validator)->with('message', 'Se ha producido un error')->with('typealert', 'danger')->withInput();
+        }
+        else{
+            $imagesJson = $request->input('images');
+            $images = json_decode($imagesJson, true);
+            if (!$images || count($images) == 0) {
+                return back()->withErrors(['message' => 'Por favor, cargue al menos una imagen.'])->withInput();
+            }
+            $dateFolder = date('Y-m-d');
+            $pathParts = explode('/', $images[0]['path']);
+            $filename = end($pathParts);
+            //$parts = explode('-', $filename);
+            //$sku = $parts[count($parts) - 2];
+            $portada = pathinfo($filename, PATHINFO_FILENAME);
+            $nombre = e($request->input('txtNombre'));
+            $descripcion = e($request->input('txtDescripcion'));
+            $precio = e($request->input('txtPrecio'));
+            $stock = $request->input('txtStock');
+            $tipo = $request->input('txtTipo');
+            $date = date('Y-m-d H:i:s');
+            $rancho = e($request->input('txtRancho'));
+            $peso = e($request->input('txtCodigo'));
+            $vendedorid = Auth::id();
+            $vacunado = $request->input('listVacu');
+            $arete = $request->input('listArete');
+            $certificado = $request->input('listCert');
+            $ytlin = e($request->input('txtLink'));
+            $estado = $request->input('estados'); 
+            $ciudad = $request->input('ciudades'); 
+            $comisaria = $request->input('comisarias');
+            $destacado = $request->input('destacado');
+            $premium1 = $request->input('premium');
+            $edad = e($request->input('txtEdad')); 
+            $premium = ['destacado' => $destacado,
+            'premium' => $premium1];
+            $premium = json_encode($premium);
+            $min = e($request->input('min'));
+            $max = e($request->input('max'));
+            $finFecha = $request->input('fecha_fin');
+            $finHora = $request->input('hora_fin');
+            $fecha = $finFecha.' '.$finHora;
+            
+
+            $product = new ProductS;
+
+            $product->nombre = $nombre;
+            $product->portada = $portada;
+            $product->descripcion = $descripcion;
+            $product->precio = $precio;
+            $product->cantidad = $stock;
+            $product->tipo = $tipo;
+            $product->rancho = $rancho;
+            $product->peso = $peso;
+            $product->vendedorid = $vendedorid;
+            $product->carpeta = date('Y-m-d');
+            $product->vacunado = $vacunado;
+            $product->arete = $arete;
+            $product->certificado = $certificado;
+            $product->yt = $ytlin;
+            $product->estado = $estado;
+            $product->ciudad = $ciudad;
+            $product->municipio = $comisaria;
+            /*$product->premium = $premium;*/
+            $product->edad = $edad;
+            $product->precioMin = $min;
+            $product->precioMax = $max;
+            $product->fechaCierre = $fecha;
+            $product->fechaCreado = date('Y-m-d H:i:s');
+            $product->status = '1';
+            $product->save();            
+            if(count($images) > 1) {
+                for ($i = 0; $i < count($images); $i++) {
+                    $imageData = $images[$i];
+                    $image = new PSubGallery;
+                    $productoid = ProductS::where('vendedorid', Auth::id())->orderby('fechaCreado', 'desc')->value('id_producto');
+                    $image->productoid = $productoid;
+                    $pathParts = explode('/', $images[$i]['path']);
+                    $filename = end($pathParts);
+                    $image->img = pathinfo($filename, PATHINFO_FILENAME);
+                    $image->save();
+                }
+            }
+            $request->session()->forget('product_images');
+            
+
+            $sub = new Subasta;
+            $sub->min = $min;
+            $sub->max = $max;
+            $sub->tiempo_ini = date('Y-m-d H:i:s');
+            $sub->tiempo_fin = $fecha;
+            $sub->estado = '1';
+            $sub->subastador = Auth::id();
+            $sub->id_producto = ProductS::where('vendedorid', Auth::id())->orderby('fechaCreado', 'desc')->value('id_producto');
+            if($product->save()){
+                return redirect('/admin/products/addNewSub');
+            }else{
+                echo "hola";
+            }
+            
+/*            if (count($images) > 1) {
+                for ($i = 1; $i < count($images); $i++) {
+                $imageData = $images[$i];
+                $image = new PSubGallery;
+                $image->productid = $product->id;
+                $image->img = rand(0, 999).basename($imageData['path']);
+                $image->save();
+                }
+            }*/
+            
+        }
+    }
+    public function deleteSub($id){
+        $product = ProductS::findOrfail($id);
+        if($product->delete()){
+            return redirect('/admin/products/addNewSub')->with('message', 'Producto eliminado con exito al sistema')->with('typealert', 'success'); 
+        }else{
+            return back('/admin/products/addNewSub')->with('message', 'Error al eliminar el producto eliminado del sistema')->with('typealert', 'warning');
+        }
+
     }
     public function getNewCom(){
         $id = Auth::id();
@@ -253,8 +496,14 @@ class ProductsController extends Controller
     }
     public function getNewSub(){
         $id = Auth::id();
-        $products = ProductT::where('vendedorid', $id)->orderBy('idproducto', 'desc')->paginate(25);
+        $products = ProductS::where('vendedorid', $id)->orderBy('id_producto', 'desc')->paginate(25);
         $data = ['products' => $products];
         return view('Admin.Products.sub', $data);
+    }
+    public function getMensajesHome(){
+        $id = Auth::id();
+        $msg = MensajeProducto::where('vendedorid', $id)->where('status', '0')->get();
+        $data = ['msg' => $msg]; 
+        return view('Admin.mensajesHome', $data);
     }
 }

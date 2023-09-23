@@ -1,6 +1,7 @@
 @extends('admin.sidebar')
 @section('main')
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
 <style type="text/css">
   .control-label{
     color: #c31b36;
@@ -31,7 +32,7 @@
     <main class="app-content">
       <div class="app-title">
         <div style="margin-inline-start: 40%;">
-            <h1>Ganado Comercial
+            <h1>Subasta Ganadera  
                 <br><button style="background-color: #c31b36;border-color: #c31b36" class="btn btn-primary" id="agregar1" type="button"data-bs-toggle="modal" data-bs-target="#agregar"> <i class="fas fa-plus-circle"></i> Publicar Subasta</button>
             </h1>
         </div>
@@ -46,7 +47,7 @@
                         <tr>
                           <th>Nombre</th>
                           <th>Cantidad</th>
-                          <th>Precio</th>
+                          <th>Oferta Actual:</th>
                           <th>En venta</th>
                           <th>Estatus</th>
                           <th>Rancho</th>
@@ -60,11 +61,11 @@
                             <td>{{$p->nombre}}</td>
                             <td>{{$p->stock}}</td>
                             <td>{{$p->precio}}</td>
-                            <td>{{$p->status}}</td>
+                            <td>@if($p->status == 1)<span class="badge badge-success">Abierta</span>@else <span class="badge badge-danger">Finalizada</span>@endif</td>
                             <td>{{$p->estatus}}</td>
                             <td>{{$p->rancho}}</td>
                             <td>{{$p->peso}}</td>
-                            <td> </td>
+                            <td><button style="background-color:#c31b36;border-color: #c31b36;" class="btn btn-info btn-sm" onclick="openProductInNewTab('{{$p->id_producto}}')" target="_blank" title="Ver producto"><i class="far fa-eye"></i></button><button class="btn btn-primary  btn-sm editProductBtn" data-id="{{$p->id_producto}}" id="editProduct" title="Editar producto"><i class="fas fa-pencil-alt"></i></button><a href="{{ route('deleteSub', $p->id_producto) }}" class="btn btn-danger" title="Eliminar producto" onclick="confirmation(event)"><i class="far fa-trash-alt"></i></a></td>
                           </tr>
                         @endforeach
                       </tbody>
@@ -82,6 +83,8 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
+            {!!Form::open(['url'=> 'admin/products/addNewSub', 'files' => true, 'style' => 'padding: 0;'])!!}
+            @csrf
               <input type="hidden" id="idProducto" name="idProducto" value="">
               <p class="text-primary">Los campos con asterisco (<span class="required">*</span>) son obligatorios.</p>
               <div class="row">
@@ -120,7 +123,7 @@
                     <div class="form-group col-md-6">
                       <div class="form-group">
                           <label class="control-label"> Peso del ganado <span class="required">*</span></label>
-                          <input maxlength="5" class="form-control" id="txtCodigo" name="txtCodigo" type="text" placeholder="Peso en kilogramos" required="">
+                          <input maxlength="5" class="form-control" id="txtCodigo" name="txtCodigo" type="number" placeholder="Peso en kilogramos" required="">
                           
                       </div>
                     </div>
@@ -196,25 +199,25 @@
                     <div class="row">
                         <div class="form-group col-md-6">
                             <label class="control-label">Precio minimo</label>
-                            <input type="number" name="minimo" class="form-control">
+                            <input type="number" id="min" name="min" class="form-control">
                         </div>                        
                         <div class="form-group col-md-6">
                             <label class="control-label">Precio maximo</label>
-                            <input type="number" name="maximo" class="form-control"  required>
+                            <input type="number" id="max" name="max" class="form-control"  required>
                         </div>
                         <div class="form-group col-md-6">
                           <label class="control-label">Fecha de cierre</label>
-                          <input type="date" name="fecha_fin" class="form-control" required>
+                          <input type="date" id="fecha_fin" name="fecha_fin" class="form-control" required>
                         </div>                        
                         <div class="form-group col-md-6">
                           <label class="control-label">Hora de cierre</label>
-                            <input type="time" name="hora_fin" class="form-control" required>
+                            <input type="time" id="hora_fin" name="hora_fin" class="form-control" required>
                         </div>
                     </div>
                 </div>
               </div>
               <div class="container">
-                    <input type="file" id="file-input" name="imagenes-cargadas[]" multiple style="display:none;">
+                    <input type="file" id="file-input" name="imagenes-cargadas[]" multiple style="display:none;" required="Agregar al menos una imagen">
                     <button type="button" id="add-images" class="btn btn-primary" style="background: #c31b36; border-color: #c31b36">Agregar imágenes</button>
                     <br>
                     <div id="image-container" class="d-flex flex-wrap mt-3" >
@@ -225,10 +228,7 @@
                 <input type="hidden" name="images" id="images" value="">
               </div>
               
-              <div class="tile-footer">      
-              </div>
-        </form>
-      </div>
+              <div class="tile-footer">
       <div class="modal-footer">
         <div id="loading-icon" class="loading-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="40" height="40">
           <img src="{{url('/static/images/loading.png')}}">
@@ -237,8 +237,12 @@
          {!!Form::submit('SUBIR', ['class' => 'btn btn-primary', 'style' => 'background: #c31b36; border-color: #c31b36;', 'id' => 'enviarBtn'])!!}
       </div>
     </div>
+    {!!Form::close()!!} 
   </div>
-</div>        
+</div>
+</div>
+</div>
+        
     </main>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>     
@@ -449,5 +453,30 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 });
+function openProductInNewTab(id){
+  const url = `/subastas/${id}`;
+  const newTab = window.open(url, '_blank');
+  if(newTab){
+    newTab.focus();
+  }else{
+    alert('Se ha bloqueado la apertura de una nueva ventana');
+  }
+}
+function confirmation(ev){
+  ev.preventDefault();
+  var url = ev.currentTarget.getAttribute('href');
+  swal({
+    title: "¿Desea eliminar esta subasta?",
+    text: "Esta subasta se eliminará para siempre",
+    icon: "warning",
+    buttons: true,
+    dangerMode: true,
+  })
+  .then((confirmCancel)=>{
+    if(confirmCancel){
+      window.location.href= url;
+    }
+  });
+}
 </script>
 @endsection

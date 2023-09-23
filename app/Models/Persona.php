@@ -16,4 +16,7 @@ class Persona extends Model implements Authenticatable
     protected $table = 'persona';
     protected $primaryKey = 'idpersona';
     public $timestamps = false;
+    public function nombreRol(){
+        return $this->hasOne(Roles::class, 'idrol', 'rolid');
+    }
 }
