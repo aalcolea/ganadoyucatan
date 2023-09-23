@@ -306,7 +306,7 @@ Contact
     width:  100%;
     background-color: #000;
     display: flex;
-    padding: 3rem 5rem;
+    padding: 5rem 5rem;
     color: white;
 }
 .left-contact,
@@ -337,8 +337,8 @@ Contact
     font-weight: bold;
 }
 .info-containers img{
-    width:  50px;
-    height: 50px;
+    width:  35px;
+    height: 35px;
     object-fit: cover;
 }
 .input-with-border-bottom {
@@ -367,3 +367,51 @@ Contact
     border: 0;
     margin-top: 18px;
 }
+/*
+TODO
+Footer
+*/
+.footer{
+    height: 50vh;
+    padding-top: 2.5rem;
+    padding-right: 2rem;
+    padding-left: 2rem;
+    display: flex;
+    background-color: #000000e3;
+    color: white;
+
+}
+.footer-right{
+    display: flex;
+}
+.publish{
+    padding-right: 1rem;
+}
+.publish{
+    width: 50%;
+    padding: 0;
+}
+.publish ul{
+    list-style: none;
+}
+.publish   li:nth-child(1),
+.servicios li:nth-child(1)
+{
+    padding-bottom: .8rem;
+}
+.servicios ul{
+    list-style: none;
+}
+.footer-left{
+    width: 50%;
+}
+.footer-p{
+    width: 65%;
+}
+.footer-img{
+    width:  45px;
+    height: 45px;
+    object-fit: contain;
+    margin-bottom: 1rem;
+}
+

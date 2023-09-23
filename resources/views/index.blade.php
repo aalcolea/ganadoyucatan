@@ -76,21 +76,21 @@
             </div>
             <div class="info-contact">
                 <div class="info-containers">
-                    <img width="50" height="50" src="https://img.icons8.com/ios/50/ffffff/marker--v1.png" alt="marker--v1"/>
+                    <img width="35" height="35" src="https://img.icons8.com/ios/50/ffffff/marker--v1.png" alt="marker--v1"/>
                     <div class="info-right">
                         <p>Dirección</p>
                         <p>Mérida, Yucatán</p>
                     </div>
                 </div>
                 <div class="info-containers">
-                    <img width="50" height="50" src="https://img.icons8.com/ios/50/ffffff/whatsapp--v1.png" alt="whatsapp--v1"/>
+                    <img width="35" height="35" src="https://img.icons8.com/ios/50/ffffff/whatsapp--v1.png" alt="whatsapp--v1"/>
                     <div class="info-right">
                         <p>Teléfono:</p>
                         <p>9991234567</p>
                     </div>
                 </div>
                 <div class="info-containers">
-                <img width="50" height="50" src="https://img.icons8.com/external-tanah-basah-glyph-tanah-basah/48/ffffff/external-at-digital-marketing-tanah-basah-glyph-tanah-basah.png" alt="external-at-digital-marketing-tanah-basah-glyph-tanah-basah"/>
+                <img width="35" height="35" src="https://img.icons8.com/external-tanah-basah-glyph-tanah-basah/48/ffffff/external-at-digital-marketing-tanah-basah-glyph-tanah-basah.png" alt="external-at-digital-marketing-tanah-basah-glyph-tanah-basah"/>
                     <div class="info-right">
                         <p>E-Mail:</p>
                         <p>ganado.yucatan@gmail.com</p>
