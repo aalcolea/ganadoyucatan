@@ -136,11 +136,11 @@
                     </div>
                   </div>
 
-                    <div class="row">
+                    <div class="row">{{-- 
                         <div class="form-group col-md-6">
                             <label class="control-label">Precio <span class="required">*</span></label>
                             <input maxlength="11" class="form-control" id="txtPrecio" name="txtPrecio" type="text" required="">
-                        </div>
+                        </div> --}}
                         <div class="form-group col-md-6">
                             <label class="control-label">Cantidad Disponible<span class="required">*</span></label>
                             <input class="form-control" maxlength="5" id="txtStock" name="txtStock" type="text" required="">
@@ -241,6 +241,21 @@
   </div>
 </div>
 </div>
+</div> 
+<div class="modal fade" id="modalForSub" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg" >
+    <div class="modal-content">
+      <div class="modal-header headerRegister">
+        <h5 class="modal-title" id="titleModal">Editar Producto</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div id="subEditInfoContianer"></div>
+      </div>
+    </div>
+  </div>
 </div>
         
     </main>
@@ -478,5 +493,23 @@ function confirmation(ev){
     }
   });
 }
+$(document).ready(function(){
+    $('.editProductBtn').on('click', function(){
+    var productId = $(this).data('id');
+    var url = 'getSubInfo/' + productId;
+    $('#subEditInfoContianer').empty();
+    $.ajax({
+      type: 'GET',
+      url: url,
+      success: function(response){
+        $('#subEditInfoContianer').html(response);
+        $('#modalForSub').modal('show');
+      },
+      error: function (xhr, status, error){
+        //error aun no implementando, recordar
+      }
+    });
+  });
+});
 </script>
 @endsection

@@ -20,6 +20,7 @@ Route::post('/products/addNewSub', [ProductsController::class, 'postNewSub'])->n
 Route::get('/products/deleteSub/{id}', [ProductsController::class, 'deleteSub'])->name('deleteSub');
 Route::get('/products/getProductInfo/{id}', [ProductsController::class, 'getProductEdit'])->name('getProductEdit');
 Route::post('/products/postProductInfo/{id}', [ProductsController::class, 'postProductEditGen'])->name('postProductEdit');
+Route::get('/products/getSubInfo/{id}', [ProductsController::class, 'getSubEdit'])->name('getSubEdit');
 /*mensajes*/
 Route::get('/mensajes', [ProductsController::class, 'getMensajesHome'])->name('mensajesHome');
 /*Usuarios*/

@@ -9,4 +9,5 @@ class Subasta extends Model
 {
     use HasFactory;
     protected $table = 'subasta';
+    public $timestamps = false;
 }

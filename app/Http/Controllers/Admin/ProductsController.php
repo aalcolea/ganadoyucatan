@@ -284,6 +284,10 @@ class ProductsController extends Controller
         return view('partials.productInfo', compact('product'));
 
     }
+    public function getSubEdit($id){
+        $product = ProductS::find($id);
+        return view('partials.subInfo', compact('product'));
+    }
     public function postProductEditGen(Request $request, $id){
         $rules = [
             'txtNombre' => 'required',
@@ -357,12 +361,10 @@ class ProductsController extends Controller
     public function postNewSub(Request $request){
         $rules = [
             'txtNombre' => 'required',
-            'txtPrecio' => 'required',
             'txtDescripcion' => 'required',
         ];
         $messages = [
             'txtNombre.required' => 'Nombre de producto obligatorio',
-            'txtPrecio.required' => 'Precio obligatorio',
             'txtDescripcion.required' => 'Por favor agregue una descripcion'
         ];
 
@@ -384,7 +386,7 @@ class ProductsController extends Controller
             $portada = pathinfo($filename, PATHINFO_FILENAME);
             $nombre = e($request->input('txtNombre'));
             $descripcion = e($request->input('txtDescripcion'));
-            $precio = e($request->input('txtPrecio'));
+            //$precio = e($request->input('txtPrecio'));
             $stock = $request->input('txtStock');
             $tipo = $request->input('txtTipo');
             $date = date('Y-m-d H:i:s');
@@ -416,7 +418,7 @@ class ProductsController extends Controller
             $product->nombre = $nombre;
             $product->portada = $portada;
             $product->descripcion = $descripcion;
-            $product->precio = $precio;
+            //$product->precio = $precio;
             $product->cantidad = $stock;
             $product->tipo = $tipo;
             $product->rancho = $rancho;
@@ -461,6 +463,7 @@ class ProductsController extends Controller
             $sub->estado = '1';
             $sub->subastador = Auth::id();
             $sub->id_producto = ProductS::where('vendedorid', Auth::id())->orderby('fechaCreado', 'desc')->value('id_producto');
+            $sub->save();
             if($product->save()){
                 return redirect('/admin/products/addNewSub');
             }else{
