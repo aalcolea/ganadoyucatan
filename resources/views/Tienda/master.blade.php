@@ -1,5 +1,4 @@
 @include('Tienda.header')
-@include('sweetalert::alert')
 @section('view')
 
 
