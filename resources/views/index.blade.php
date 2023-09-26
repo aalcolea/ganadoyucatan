@@ -34,7 +34,7 @@
             <hr>
             <p class="title">Tianguis ganadero</p>
             <p class="content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus nam nobis fuga tempore temporibus expedita similique</p>
-            <button class="mainButton">Ver más</button>
+            <button onclick="location.href='/tianguisTienda'" class="mainButton">Ver más</button>
         </div>
         <div class="tianguisRight"></div>
     </div>
