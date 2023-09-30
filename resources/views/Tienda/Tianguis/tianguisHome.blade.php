@@ -205,66 +205,68 @@
 		</div>
 		<div class="container-tienda">
 			<div class="filtro-container">
-				<h2>Filtro</h2>
-				<hr>
-                <div class="filtro-container-down">
-                    <h3>Filtrar por preferencia</h3>
-                    <div class="filter-preference">
-                        <img src="" alt="">
-                        <div class="text-input-container">
-                            <p>Ganado comercial</p>
-                            <input type="radio" class="radio-input" id="opcion1" name="opcion" value="opcion1">
-                        </div>
-                    </div>
-                    <div class="filter-preference">
-                        <img src="" alt="">
-                        <div class="text-input-container">
-                            <p>Destacado</p>
-                            <input type="radio" class="radio-input" id="opcion1" name="opcion" value="opcion1">
-                        </div>
-                    </div>
-                    <div class="filter-preference">
-                        <img src="" alt="">
-                        <div class="text-input-container">
-                            <p>Urgente</p>
-                            <input type="radio" class="radio-input" id="opcion1" name="opcion" value="opcion1">
-                        </div>
-                    </div>
+                <div class="filtro-container-info">
+                    <h2>Filtro</h2>
                     <hr>
-                    <h3>Filtrar por locación</h3>
-                    <div class="label-dropdown">
-                        <select>
-                            <option value="seleccionar">Estado</option>
-                            <option value="opcion1">Opción 1</option>
-                            <option value="opcion2">Opción 2</option>
-                            <option value="opcion3">Opción 3</option>
-                        </select>
-                    </div>
-                    <div class="label-dropdown">
-                        <select>
-                            <option value="seleccionar">Ciudad</option>
-                            <option value="opcion1">Opción 1</option>
-                            <option value="opcion2">Opción 2</option>
-                            <option value="opcion3">Opción 3</option>
-                        </select>
-                    </div>
-                    <div class="label-dropdown">
-                        <select>
-                            <option value="seleccionar">Tipo</option>
-                            <option value="opcion1">Opción 1</option>
-                            <option value="opcion2">Opción 2</option>
-                            <option value="opcion3">Opción 3</option>
-                        </select>
-                    </div>
-                    <hr>
-                    <div class="price-filter">
-                        <div class="min-price-handle"></div>
-                        <div class="max-price-handle"></div>
-                        <div class="price-line"></div>
-                    </div>
-                    <p class="range-price">Rango de precio: $<span class="range-price" id="min-price">0</span> - $<span class="range-price" id="max-price">1000</span></p>
-                    <div class="align-center">
-                        <button class="mainButton">Buscar</button>
+                    <div class="filtro-container-down">
+                        <h3>Filtrar por preferencia</h3>
+                        <div class="filter-preference">
+                            <img src="" alt="">
+                            <div class="text-input-container">
+                                <p>Ganado comercial</p>
+                                <input type="radio" class="radio-input" id="opcion1" name="opcion" value="opcion1">
+                            </div>
+                        </div>
+                        <div class="filter-preference">
+                            <img src="" alt="">
+                            <div class="text-input-container">
+                                <p>Destacado</p>
+                                <input type="radio" class="radio-input" id="opcion1" name="opcion" value="opcion1">
+                            </div>
+                        </div>
+                        <div class="filter-preference">
+                            <img src="" alt="">
+                            <div class="text-input-container">
+                                <p>Urgente</p>
+                                <input type="radio" class="radio-input" id="opcion1" name="opcion" value="opcion1">
+                            </div>
+                        </div>
+                        <hr>
+                        <h3>Filtrar por locación</h3>
+                        <div class="label-dropdown">
+                            <select>
+                                <option value="seleccionar">Estado</option>
+                                <option value="opcion1">Opción 1</option>
+                                <option value="opcion2">Opción 2</option>
+                                <option value="opcion3">Opción 3</option>
+                            </select>
+                        </div>
+                        <div class="label-dropdown">
+                            <select>
+                                <option value="seleccionar">Ciudad</option>
+                                <option value="opcion1">Opción 1</option>
+                                <option value="opcion2">Opción 2</option>
+                                <option value="opcion3">Opción 3</option>
+                            </select>
+                        </div>
+                        <div class="label-dropdown">
+                            <select>
+                                <option value="seleccionar">Tipo</option>
+                                <option value="opcion1">Opción 1</option>
+                                <option value="opcion2">Opción 2</option>
+                                <option value="opcion3">Opción 3</option>
+                            </select>
+                        </div>
+                        <hr>
+                        <div class="price-filter">
+                            <div class="min-price-handle"></div>
+                            <div class="max-price-handle"></div>
+                            <div class="price-line"></div>
+                        </div>
+                        <p class="range-price">Rango de precio: $<span class="range-price" id="min-price">0</span> - $<span class="range-price" id="max-price">1000</span></p>
+                        <div class="align-center">
+                            <button class="mainButton">Buscar</button>
+                        </div>
                     </div>
                 </div>
 			</div>
@@ -289,21 +291,99 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <h2>Ganado comercial</h2>
-                <div class="container-normal">
-                <div class="card-tianguis">
-                    <img src="" alt="" srcset="">
-                    <div class="card-description">
-                        <div class="icons">
-                            <img src="" alt="">
+                    <div class="card-tianguis">
+                        <img class="img-products" src="https://images.pexels.com/photos/36347/cow-pasture-animal-almabtrieb.jpg?auto=compress&cs=tinysrgb&w=400" alt="" srcset="">
+                        <div class="card-description">
+                            <div class="icons">
+                                <img src="https://ganadoyucatan.com/assets/img/stylized-cow-line-art.svg" alt="">
+                                <img src="https://ganadoyucatan.com/assets/img/stylized-cow-line-art.svg" alt="">
+                                <img src="https://ganadoyucatan.com/assets/img/stylized-cow-line-art.svg" alt="">
+                            </div>
+                            <div class="card-description--info">
+                                <p class="raza">Toros para semental</p>
+                                <p class="description" >Novillas para empadre</p>
+                                <button class="mainButton">Ver más</button>
+                            </div>
+                            <div class="card-description--footer">
+                                <p>Yucatán, Panaba</p>
+                            </div>
                         </div>
-                        <p class="raza">Toros para semental</p>
-                        <p>Novillas para empadre</p>
-                        <button></button>
-                        <p>Yucatán, Panaba</p>
+                    </div>
+                    <div class="card-tianguis">
+                        <img class="img-products" src="https://images.pexels.com/photos/36347/cow-pasture-animal-almabtrieb.jpg?auto=compress&cs=tinysrgb&w=400" alt="" srcset="">
+                        <div class="card-description">
+                            <div class="icons">
+                                <img src="https://ganadoyucatan.com/assets/img/stylized-cow-line-art.svg" alt="">
+                                <img src="https://ganadoyucatan.com/assets/img/stylized-cow-line-art.svg" alt="">
+                                <img src="https://ganadoyucatan.com/assets/img/stylized-cow-line-art.svg" alt="">
+                            </div>
+                            <div class="card-description--info">
+                                <p class="raza">Toros para semental</p>
+                                <p class="description" >Novillas para empadre</p>
+                                <button class="mainButton">Ver más</button>
+                            </div>
+                            <div class="card-description--footer">
+                                <p>Yucatán, Panaba</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
+                <p class="title-container--cards">Ganado Comercial</p>
+                <div class="container-normal">
+                    <div class="card-tianguis--normal">
+                        <img class="img-products" src="https://images.pexels.com/photos/36347/cow-pasture-animal-almabtrieb.jpg?auto=compress&cs=tinysrgb&w=400" alt="" srcset="">
+                        <div class="card-description">
+                            <div class="icons">
+                                <img src="https://ganadoyucatan.com/assets/img/stylized-cow-line-art.svg" alt="">
+                                <img src="https://ganadoyucatan.com/assets/img/stylized-cow-line-art.svg" alt="">
+                                <img src="https://ganadoyucatan.com/assets/img/stylized-cow-line-art.svg" alt="">
+                            </div>
+                            <div class="card-description--info">
+                                <p class="raza">Toros para semental</p>
+                                <p class="description" >Novillas para empadre</p>
+                                <button class="mainButton">Ver más</button>
+                            </div>
+                            <div class="card-description--footer">
+                                <p>Yucatán, Panaba</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-tianguis--normal">
+                        <img class="img-products" src="https://images.pexels.com/photos/36347/cow-pasture-animal-almabtrieb.jpg?auto=compress&cs=tinysrgb&w=400" alt="" srcset="">
+                        <div class="card-description">
+                            <div class="icons">
+                                <img src="https://ganadoyucatan.com/assets/img/stylized-cow-line-art.svg" alt="">
+                                <img src="https://ganadoyucatan.com/assets/img/stylized-cow-line-art.svg" alt="">
+                                <img src="https://ganadoyucatan.com/assets/img/stylized-cow-line-art.svg" alt="">
+                            </div>
+                            <div class="card-description--info">
+                                <p class="raza">Toros para semental</p>
+                                <p class="description" >Novillas para empadre</p>
+                                <button class="mainButton">Ver más</button>
+                            </div>
+                            <div class="card-description--footer">
+                                <p>Yucatán, Panaba</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-tianguis--normal">
+                        <img class="img-products" src="https://images.pexels.com/photos/36347/cow-pasture-animal-almabtrieb.jpg?auto=compress&cs=tinysrgb&w=400" alt="" srcset="">
+                        <div class="card-description">
+                            <div class="icons">
+                                <img src="https://ganadoyucatan.com/assets/img/stylized-cow-line-art.svg" alt="">
+                                <img src="https://ganadoyucatan.com/assets/img/stylized-cow-line-art.svg" alt="">
+                                <img src="https://ganadoyucatan.com/assets/img/stylized-cow-line-art.svg" alt="">
+                            </div>
+                            <div class="card-description--info">
+                                <p class="raza">Toros para semental</p>
+                                <p class="description" >Novillas para empadre</p>
+                                <button class="mainButton">Ver más</button>
+                            </div>
+                            <div class="card-description--footer">
+                                <p>Yucatán, Panaba</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 		</div>
@@ -314,6 +394,9 @@
 	const priceLine = document.querySelector('.price-line');
 	const minPriceLabel = document.getElementById('min-price');
 	const maxPriceLabel = document.getElementById('max-price');
+
+    const filtroContainerInfo = document.querySelector('.filtro-container-info');
+    const scrollThreshold = 200;
 
 	let isDraggingMin = false;
 	let isDraggingMax = false;

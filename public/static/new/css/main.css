@@ -485,7 +485,7 @@ Tienda
     border-radius: 50%;
 }
 .container-tienda{
-    height: 100vh;
+    height: auto;
     width:  100%;
 
     display: flex;
@@ -498,6 +498,8 @@ Tienda Filtro
     width: 25%;
 
     margin: 3rem 5rem;
+}
+.filtro-container-info{
     border: .2px solid rgba(43, 43, 43, 0.089);
 }
 .filtro-container h2{
@@ -579,12 +581,24 @@ Tienda Cards
     font-size: var(--large);
     font-weight: var(--light)
 }
-.container-destacadas{
-    display: flex;
-    justify-content: space-between;
+.container-destacadas,
+.container-normal{
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-gap: 1.5rem;
+    box-sizing: border-box;
+    margin-bottom: 1.5rem;
 }
 .card-tianguis{
     border: 3px solid orange;
+    display: flex;
+    width: 80%;
+    height: 180px;
+    padding: 8px;
+    border-radius: 10px;
+}
+.card-tianguis--normal{
+    border: 1px solid var(--cinereous);
     display: flex;
     width: 80%;
     height: 180px;
