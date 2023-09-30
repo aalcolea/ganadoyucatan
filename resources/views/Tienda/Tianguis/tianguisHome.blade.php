@@ -1,35 +1,10 @@
-@extends('Tienda.master')
-@section('view')
+@extends('layout')
+@section('content')
 	<title>Tianguis Ganadero - Ganado Yucatán</title>
 
-	<style>
-		label{
-			font-size: 14px;
-			color: var(--blue);
-			display: flex!important;
-			align-items: center;
-			justify-content: flex-start;
-			font-family: var(--bs-font-sans-serif);
-			line-height: 1.5;
-			font-weight: bolder;
-			margin-bottom: 4px;
-		}
-		select{
-			border: 1px solid #ced4da;
-			width: 100%;
-			font-size: 1rem!important;
-			font-family: inherit!important;
-			color: var(--blue)!important;
-		}
-		@media screen and (max-width: 767px) {
-    #test {
-    display: none;
-  }
-}
-	</style>
-	<div class="container">
+	<!-- <div class="container">
 		<img src="/assets/img/tianguis-ganadero.png" class="img-fluid img-thumbnail" alt="...">
-{{-- 		<div class="row p-t-23">
+    	<div class="row p-t-23">
 			<div class="col-md-4">
 				<h3 class="ltext-103 cl5">
 					<a href="/tianguis/tianguisG/1" class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
@@ -51,7 +26,7 @@
 					</a>
 				</h3>
 			</div>
-		</div> --}}
+		</div>
 		<div class="row">
 			<div class="col-md-3 p-t-84">
 				<span>Filtro avanzado</span>
@@ -140,7 +115,7 @@
 							<span class="sr-only">Next</span>
 						</a>
 					</div>
-				</div>	
+				</div>
 			</div>
 			<div class="col-md-9">
 				<div class="bg0 p-t-23 p-b-140">
@@ -161,11 +136,11 @@
 											if ($portada->count() > 0) {
     											$portada = $portada[0]->ruta;
 										}
-										
+
 										@endphp
 											<div class="col-md-4">
 												<div class="card mb-3">
-													<img class="card-img-top" src="{{asset('uploads/'.$portada)}}" alt="nombreProducto"> 
+													<img class="card-img-top" src="{{asset('uploads/'.$portada)}}" alt="nombreProducto">
 													<p id="counting"></p>
 													<div class="card-body card-tianguis">
 														<h5 class="card-title">{{$p->raza}}</h5>
@@ -176,7 +151,7 @@
 																<p><?= number_format($p->precio) ?></p>
 															</div>
 															<div class="col-sm ">
-																<a href="/tianguis/producto/{{$p->idproducto}}" class="btn btn-secondary btn-lg">Ver más</a><!-- onclick="countingClicks()"  -->
+																<a href="/tianguis/producto/{{$p->idproducto}}" class="btn btn-secondary btn-lg">Ver más</a><!-- onclick="countingClicks()"
 															</div>
 														</div>
 													</div>
@@ -192,40 +167,190 @@
 			</div>
 		</div>
 		  <div class="row d-md-none">
-    <div class="col-12">
-      <div id="carouselExampleIndicators" class="carousel slide" name="caroge" data-bs-ride="carousel">
-        
-						<div class="carousel-inner">
-							<div class="carousel-item active">
-							<img class="d-block w-100" src="/assets/img/vet.jpeg" alt="First slide">
-							</div>
-							<div class="carousel-item">
-							<img class="d-block w-100" src="/assets/img/alvarez.jpeg" alt="Second slide">
-							</div>
-							<div class="carousel-item">
-							<img class="d-block w-100" src="/assets/img/el manglar.jpg" alt="Third slide">
-							</div>
-						</div>
-						<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-							<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-							<span class="sr-only">Previous</span>
-						</a>
-						<a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-							<span class="carousel-control-next-icon" aria-hidden="true"></span>
-							<span class="sr-only">Next</span>
-						</a>
-      </div>
-    </div>
-  </div>
-</div>
-	</div>
-@endsection
+          <div class="col-12">
 
+
+          <div id="carouselExampleIndicators" class="carousel slide" name="caroge" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                <img class="d-block w-100" src="/assets/img/vet.jpeg" alt="First slide">
+                </div>
+                <div class="carousel-item">
+                <img class="d-block w-100" src="/assets/img/alvarez.jpeg" alt="Second slide">
+                </div>
+                <div class="carousel-item">
+                <img class="d-block w-100" src="/assets/img/el manglar.jpg" alt="Third slide">
+                </div>
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+        </div>
+        </div>
+        </div>
+	</div> -->
+
+	//TODO Nueva sección de tienda
+	<div class="tienda-section">
+		<div class="banner-main">
+			<img class="icon-banner" src="https://ganadoyucatan.com/assets/img/stylized-cow-line-art.svg" alt="">
+			<h1>TIANGUIS GANADERO</h1>
+			<p>Un espacio dedicado al apoyo del sector ganadero</p>
+		</div>
+		<div class="container-tienda">
+			<div class="filtro-container">
+				<h2>Filtro</h2>
+				<hr>
+                <div class="filtro-container-down">
+                    <h3>Filtrar por preferencia</h3>
+                    <div class="filter-preference">
+                        <img src="" alt="">
+                        <div class="text-input-container">
+                            <p>Ganado comercial</p>
+                            <input type="radio" class="radio-input" id="opcion1" name="opcion" value="opcion1">
+                        </div>
+                    </div>
+                    <div class="filter-preference">
+                        <img src="" alt="">
+                        <div class="text-input-container">
+                            <p>Destacado</p>
+                            <input type="radio" class="radio-input" id="opcion1" name="opcion" value="opcion1">
+                        </div>
+                    </div>
+                    <div class="filter-preference">
+                        <img src="" alt="">
+                        <div class="text-input-container">
+                            <p>Urgente</p>
+                            <input type="radio" class="radio-input" id="opcion1" name="opcion" value="opcion1">
+                        </div>
+                    </div>
+                    <hr>
+                    <h3>Filtrar por locación</h3>
+                    <div class="label-dropdown">
+                        <select>
+                            <option value="seleccionar">Estado</option>
+                            <option value="opcion1">Opción 1</option>
+                            <option value="opcion2">Opción 2</option>
+                            <option value="opcion3">Opción 3</option>
+                        </select>
+                    </div>
+                    <div class="label-dropdown">
+                        <select>
+                            <option value="seleccionar">Ciudad</option>
+                            <option value="opcion1">Opción 1</option>
+                            <option value="opcion2">Opción 2</option>
+                            <option value="opcion3">Opción 3</option>
+                        </select>
+                    </div>
+                    <div class="label-dropdown">
+                        <select>
+                            <option value="seleccionar">Tipo</option>
+                            <option value="opcion1">Opción 1</option>
+                            <option value="opcion2">Opción 2</option>
+                            <option value="opcion3">Opción 3</option>
+                        </select>
+                    </div>
+                    <hr>
+                    <div class="price-filter">
+                        <div class="min-price-handle"></div>
+                        <div class="max-price-handle"></div>
+                        <div class="price-line"></div>
+                    </div>
+                    <p class="range-price">Rango de precio: $<span class="range-price" id="min-price">0</span> - $<span class="range-price" id="max-price">1000</span></p>
+                    <div class="align-center">
+                        <button class="mainButton">Buscar</button>
+                    </div>
+                </div>
+			</div>
+            <div class="container-cards">
+                <p class="title-container--cards">Publicaciones destacadas</p>
+                <div class="container-destacadas">
+                    <div class="card-tianguis">
+                        <img class="img-products" src="https://images.pexels.com/photos/36347/cow-pasture-animal-almabtrieb.jpg?auto=compress&cs=tinysrgb&w=400" alt="" srcset="">
+                        <div class="card-description">
+                            <div class="icons">
+                                <img src="https://ganadoyucatan.com/assets/img/stylized-cow-line-art.svg" alt="">
+                                <img src="https://ganadoyucatan.com/assets/img/stylized-cow-line-art.svg" alt="">
+                                <img src="https://ganadoyucatan.com/assets/img/stylized-cow-line-art.svg" alt="">
+                            </div>
+                            <div class="card-description--info">
+                                <p class="raza">Toros para semental</p>
+                                <p class="description" >Novillas para empadre</p>
+                                <button class="mainButton">Ver más</button>
+                            </div>
+                            <div class="card-description--footer">
+                                <p>Yucatán, Panaba</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h2>Ganado comercial</h2>
+                <div class="container-normal">
+                <div class="card-tianguis">
+                    <img src="" alt="" srcset="">
+                    <div class="card-description">
+                        <div class="icons">
+                            <img src="" alt="">
+                        </div>
+                        <p class="raza">Toros para semental</p>
+                        <p>Novillas para empadre</p>
+                        <button></button>
+                        <p>Yucatán, Panaba</p>
+                    </div>
+                </div>
+                </div>
+            </div>
+		</div>
+	</div>
 <script>
+	const minPriceHandle = document.querySelector('.min-price-handle');
+	const maxPriceHandle = document.querySelector('.max-price-handle');
+	const priceLine = document.querySelector('.price-line');
+	const minPriceLabel = document.getElementById('min-price');
+	const maxPriceLabel = document.getElementById('max-price');
+
+	let isDraggingMin = false;
+	let isDraggingMax = false;
+
+	minPriceHandle.addEventListener('mousedown', () => {
+		isDraggingMin = true;
+	});
+
+	maxPriceHandle.addEventListener('mousedown', () => {
+		isDraggingMax = true;
+	});
+
+	document.addEventListener('mouseup', () => {
+		isDraggingMin = false;
+		isDraggingMax = false;
+	});
+
+	document.addEventListener('mousemove', (e) => {
+		if (isDraggingMin || isDraggingMax) {
+			const priceFilterRect = priceLine.getBoundingClientRect();
+			const mouseX = e.clientX - priceFilterRect.left;
+			const priceRange = priceFilterRect.width;
+
+			if (isDraggingMin) {
+				const minPrice = (mouseX / priceRange) * 1000; // Adjust the maximum value as needed
+				minPriceLabel.textContent = Math.round(minPrice);
+				minPriceHandle.style.left = `${mouseX}px`;
+			} else if (isDraggingMax) {
+				const maxPrice = (mouseX / priceRange) * 1000; // Adjust the maximum value as needed
+				maxPriceLabel.textContent = Math.round(maxPrice);
+				maxPriceHandle.style.right = `${priceRange - mouseX}px`;
+			}
+		}
+	});
 
 </script>
+@endsection
 
-<!-- Minified JS library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<!-- Compiled and minified Bootstrap JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
+
+
