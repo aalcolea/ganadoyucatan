@@ -284,7 +284,7 @@
                             <div class="card-description--info">
                                 <p class="raza">Toros para semental</p>
                                 <p class="description" >Novillas para empadre</p>
-                                <button class="mainButton">Ver más</button>
+                                <button class="mainButton" onclick="location.href='/tianguisTienda'">Ver más</button>
                             </div>
                             <div class="card-description--footer">
                                 <p>Yucatán, Panaba</p>
@@ -330,60 +330,32 @@
                 </div>
                 <p class="title-container--cards">Ganado Comercial</p>
                 <div class="container-normal">
-                    <div class="card-tianguis--normal">
-                        <img class="img-products" src="https://images.pexels.com/photos/36347/cow-pasture-animal-almabtrieb.jpg?auto=compress&cs=tinysrgb&w=400" alt="" srcset="">
-                        <div class="card-description">
-                            <div class="icons">
-                                <img src="https://ganadoyucatan.com/assets/img/stylized-cow-line-art.svg" alt="">
-                                <img src="https://ganadoyucatan.com/assets/img/stylized-cow-line-art.svg" alt="">
-                                <img src="https://ganadoyucatan.com/assets/img/stylized-cow-line-art.svg" alt="">
-                            </div>
-                            <div class="card-description--info">
-                                <p class="raza">Toros para semental</p>
-                                <p class="description" >Novillas para empadre</p>
-                                <button class="mainButton">Ver más</button>
-                            </div>
-                            <div class="card-description--footer">
-                                <p>Yucatán, Panaba</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-tianguis--normal">
-                        <img class="img-products" src="https://images.pexels.com/photos/36347/cow-pasture-animal-almabtrieb.jpg?auto=compress&cs=tinysrgb&w=400" alt="" srcset="">
-                        <div class="card-description">
-                            <div class="icons">
-                                <img src="https://ganadoyucatan.com/assets/img/stylized-cow-line-art.svg" alt="">
-                                <img src="https://ganadoyucatan.com/assets/img/stylized-cow-line-art.svg" alt="">
-                                <img src="https://ganadoyucatan.com/assets/img/stylized-cow-line-art.svg" alt="">
-                            </div>
-                            <div class="card-description--info">
-                                <p class="raza">Toros para semental</p>
-                                <p class="description" >Novillas para empadre</p>
-                                <button class="mainButton">Ver más</button>
-                            </div>
-                            <div class="card-description--footer">
-                                <p>Yucatán, Panaba</p>
+                    @foreach($products as $p)
+                            @php
+                                $portada = $p->portada;
+                                if ($portada->count() > 0) {
+                                    $portada = $portada[0]->ruta;
+                                }
+                            @endphp
+                        <div class="card-tianguis--normal">
+                            <img class="img-products" src="{{asset('uploads/'.$portada)}}" alt="" srcset="">
+                            <div class="card-description">
+                                <div class="icons">
+                                    <img src="https://ganadoyucatan.com/assets/img/stylized-cow-line-art.svg" alt="">
+                                    <img src="https://ganadoyucatan.com/assets/img/stylized-cow-line-art.svg" alt="">
+                                    <img src="https://ganadoyucatan.com/assets/img/stylized-cow-line-art.svg" alt="">
+                                </div>
+                                <div class="card-description--info">
+                                    <p class="raza">{{$p->raza}}</p>
+                                    <p class="description" >{{$p->nombre}}</p>
+                                    <button class="mainButton" onclick="location.href='/tianguis/producto/{{$p->idproducto}}'">Ver más</button>
+                                </div>
+                                <div class="card-description--footer">
+                                    <p>{{$p->location->nombre}}</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="card-tianguis--normal">
-                        <img class="img-products" src="https://images.pexels.com/photos/36347/cow-pasture-animal-almabtrieb.jpg?auto=compress&cs=tinysrgb&w=400" alt="" srcset="">
-                        <div class="card-description">
-                            <div class="icons">
-                                <img src="https://ganadoyucatan.com/assets/img/stylized-cow-line-art.svg" alt="">
-                                <img src="https://ganadoyucatan.com/assets/img/stylized-cow-line-art.svg" alt="">
-                                <img src="https://ganadoyucatan.com/assets/img/stylized-cow-line-art.svg" alt="">
-                            </div>
-                            <div class="card-description--info">
-                                <p class="raza">Toros para semental</p>
-                                <p class="description" >Novillas para empadre</p>
-                                <button class="mainButton">Ver más</button>
-                            </div>
-                            <div class="card-description--footer">
-                                <p>Yucatán, Panaba</p>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
 		</div>
