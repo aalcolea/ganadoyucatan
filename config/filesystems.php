@@ -63,6 +63,10 @@ return [
         'driver' => 'local',
         'root' => 'C:/Users/alan.alcolea/Music/gy/ganadoyucatan/public/uploads/subasta'
         ],
+        'webp_images_com' => [
+        'driver' => 'local',
+        'root' => 'C:/Users/alan.alcolea/Music/gy/ganadoyucatan/public/uploads/tianguis'
+        ],
 
     ],
 

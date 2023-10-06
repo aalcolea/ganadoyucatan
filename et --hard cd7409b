@@ -1,0 +1,30 @@
+[33mcommit b50756d0348263b389f8bbdaac0436b13bf35028[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m)[m
+Merge: cd7409b 2cb6c42
+Author: Alan Alejandro Alcolea Campos <alan.alcolea@netlogistik.com>
+Date:   Wed Oct 4 09:58:34 2023 -0600
+
+    Merge branch 'DesignHumo' of https://github.com/aalcolea/ganadoyucatan
+
+[33mcommit 2cb6c424fbe18b8a59c3b0b921209162ee7db450[m[33m ([m[1;31morigin/DesignHumo[m[33m)[m
+Author: Luizandro Martin <lmartin@xazar.com.mx>
+Date:   Tue Oct 3 12:55:39 2023 -0600
+
+    Show cards normales
+
+[33mcommit 7329d3748cb75c84651469f3b9405fdeb69eb4c1[m
+Author: Luizandro Martin <lmartin@xazar.com.mx>
+Date:   Sat Sep 30 16:52:40 2023 -0600
+
+    Contenedor de ganado comercial
+
+[33mcommit e614b65c60e170f261f9fa759e191b140e6727d7[m
+Author: Luizandro Martin <lmartin@xazar.com.mx>
+Date:   Sat Sep 30 15:21:04 2023 -0600
+
+    Uso de JS Filtro, Diseño filtro y cards
+
+[33mcommit 3bd84499e74fc9140d74bdff0fc73951f9092ca3[m
+Author: Luizandro Martin <lmartin@xazar.com.mx>
+Date:   Tue Sep 26 17:37:54 2023 -0600
+
+    redirección a Tianguis Ganadero
