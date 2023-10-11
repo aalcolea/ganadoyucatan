@@ -18,7 +18,7 @@ use App\Models\Ciudad;
 use App\Models\Comisaria;
 use App\Models\PGallery;
 use App\Models\PSubGallery;
-use App\Models\PTbGallery;
+use App\Models\PTGallery;
 use App\Models\Subasta;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
@@ -353,6 +353,10 @@ class ProductsController extends Controller
         $product = ProductS::find($id);
         return view('partials.subInfo', compact('product'));
     }
+    public function getComEdit($id){
+        $product = ProductT::findOrfail($id);
+        return view('partials.comInfo', compact('product'));
+    }
     public function postProductEditGen(Request $request, $id){
         $rules = [
             'txtNombre' => 'required',
@@ -504,7 +508,7 @@ class ProductsController extends Controller
             $product->fechaCierre = $fecha;
             $product->fechaCreado = date('Y-m-d H:i:s');
             $product->status = '1';
-            $product->save();            
+            $product->save();
             if(count($images) > 1) {
                 for ($i = 0; $i < count($images); $i++) {
                     $imageData = $images[$i];
@@ -548,12 +552,20 @@ class ProductsController extends Controller
         }
     }
     public function postNewCom(Request $request){
+        $imagesJson = $request->input('images');
+        $images = json_decode($imagesJson, true);
+        if (!$images || count($images) == 0) {
+            return back()->withErrors(['message' => 'Por favor, cargue al menos una imagen.'])->withInput();
+        }
+        $dateFolder = date('Y-m-d');
+        $pathParts = explode('/', $images[0]['path']);
+        $filename = end($pathParts);
         $estado = $request->input('estados', 1);
         $ciudad = $request->input('ciudades', 1);
-        $nombre = $request->input('nombre');
-        $descripcion = $request->input('descripcion');
+        $nombre = $request->input('txtNombre');
+        $descripcion = $request->input('txtDescripcion');
         $precio = $request->input('precio');
-        $numero = $request->input('numero');
+        $numero = Auth::user()->email_user;
         $ruta = strtolower(str_replace(" ", "-", $nombre));
         $pesoG = $request->input('pesoG');
         $txtStock = $request->input('txtStock');
@@ -561,10 +573,14 @@ class ProductsController extends Controller
         $listVacu = $request->input('listVacu');
         $listArete = $request->input('listArete');
         $listCert = $request->input('listCert');
-        $lisTipo = $request->input('lisTipo');
+        $lisTipo = $request->input('txtTipo');
         $txtLink = $request->input('txtLink');
-        $propietario = $request->input('propietario');
+        $estatus = $request->input('listEstatus');
+        $rancho = $request->input('txtRancho');
+        $propietario = Auth::user()->nombres;
+        $tipo = $request->input('txtTipo');
         $id_producto = DB::table('productot')->insertGetId([
+            'nombre' => $nombre,
             'estado' => $estado,
             'ciudad' => $ciudad,
             'nombre' => $nombre,
@@ -574,45 +590,37 @@ class ProductsController extends Controller
             'ruta' => $ruta,
             'peso' => $pesoG,
             'stock' => $txtStock,
+            'rancho'=> $rancho,
             'raza' => $txtRaza,
+            'estatus' => $estatus,
             'vacunado' => $listVacu,
             'arete' => $listArete,
             'certificado' => $listCert,
             'tipo' => $lisTipo,
             'link' => $txtLink,
             'propietario' => $propietario,
-            'vendedorid' => '252',
+            'vendedorid' => Auth::id(),
+            'imagen' => '1',
         ]);
-        $ruta_carpeta = "uploads/tianguis/$id_producto";
-        if (!File::makeDirectory($ruta_carpeta, 0755, true)) {
-            return "Error al crear la carpeta del producto $id_producto";
-        }
-        $includesImages = [];
-        for ($i = 1; $i <= 9; $i++) {
-            $imagen = "imagen" . $i;
-            if ($request->hasFile($imagen) && $request->file($imagen)->isValid()) {
-                $uploadPath = "tianguis/$id_producto";
-                $ruta = "$ruta_carpeta/" . $request->file($imagen)->getClientOriginalName();
-                $randomString = Str::random(3);
-                $filename = 'GYT-'.date('md').'-'.$randomString . '.' . $request->file($imagen)->getClientOriginalExtension();
-                $path = $filename;
-                $ruta_webp = $uploadPath . '/' . pathinfo($path, PATHINFO_FILENAME) . '.webp';
-                $destinationPath = Storage::disk('webp_images')->path($ruta_webp);
-                $img = Image::make($request->file($imagen)->getRealPath())->resize(800, 600);
-                $img->encode('webp', 10)->save($destinationPath);
-                $includesImages[] = $ruta_webp;
+        if(count($images) > 1) {
+            for ($i = 0; $i < count($images); $i++) {
+                $imageData = $images[$i];
+                $image = new PTGallery;
+                $productoid = ProductT::where('vendedorid', Auth::id())->orderby('datecreated', 'desc')->value('idproducto');
+                $image->id_producto = $productoid;
+                $pathParts = explode('/', $images[$i]['path']);
+                $filename = end($pathParts);
+                $image->ruta = pathinfo($filename, PATHINFO_FILENAME);
+                $image->save();
             }
         }
-        foreach ($includesImages as $ruta_webp) {
-            DB::table('imagent')->insert([
-                'id_producto' => $id_producto,
-                'ruta' => $ruta_webp,
-            ]);
-        }
+        $request->session()->forget('product.imagesCom');
+        $request->session()->forget('product.imageCountCom');
+        $request->session()->forget('product.randomStringCom');
         if ($id_producto) {
-            return "HOLA";
+            return redirect('/admin/products/addNewCom')->with('message', 'Producto agregado con exito al sistema')->with('typealert', 'success'); 
         } else {
-            return "Error al agregar el producto";
+            return back('/admin/products/addNewCom')->with('message', 'Error al agregar el producto a  l sistema')->with('typealert', 'warning');
         }
     }
     public function deleteSub($id){
@@ -625,7 +633,7 @@ class ProductsController extends Controller
 
     }
     public function deletecom($id){
-        $product = Product::findOrfail($id);
+        $product = ProductT::findOrfail($id);
         if($product->delete()){
             return redirect('/admin/products/addNewCom')->with('message', 'Producto eliminado con exito al sistema')->with('typealert', 'success'); 
         }else{

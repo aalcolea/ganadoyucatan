@@ -24,6 +24,7 @@ Route::get('/products/deleteCom/{id}', [ProductsController::class, 'deleteCom'])
 Route::get('/products/getProductInfo/{id}', [ProductsController::class, 'getProductEdit'])->name('getProductEdit');
 Route::post('/products/postProductInfo/{id}', [ProductsController::class, 'postProductEditGen'])->name('postProductEdit');
 Route::get('/products/getSubInfo/{id}', [ProductsController::class, 'getSubEdit'])->name('getSubEdit');
+Route::get('/products/getComInfo/{id}', [ProductsController::class, 'getComEdit'])->name('getComEdit');
 /*mensajes*/
 Route::get('/mensajes', [ProductsController::class, 'getMensajesHome'])->name('mensajesHome');
 /*Usuarios*/

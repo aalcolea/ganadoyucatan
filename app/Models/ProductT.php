@@ -9,6 +9,7 @@ class ProductT extends Model
 {
     use HasFactory;
     protected $table = 'productoT';
+    protected $primaryKey = 'idproducto';
     public function portada(){
         return $this->hasMany(PTGallery::class, 'id_producto', 'idproducto');
     }

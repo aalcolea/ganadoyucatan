@@ -122,7 +122,7 @@
                     <div class="form-group col-md-6">
                       <div class="form-group">
                           <label class="control-label"> Peso del ganado <span class="required">*</span></label>
-                          <input maxlength="5" class="form-control" id="txtCodigo" name="txtCodigo" type="text" placeholder="Peso en kilogramos" required="">
+                          <input maxlength="5" class="form-control" id="pesoG" name="pesoG" type="text" placeholder="Peso en kilogramos" required="">
                           
                       </div>
                     </div>
@@ -138,7 +138,7 @@
                     <div class="row">
                         <div class="form-group col-md-6">
                             <label class="control-label">Precio <span class="required">*</span></label>
-                            <input maxlength="11" class="form-control" id="txtPrecio" name="txtPrecio" type="text" required="">
+                            <input maxlength="11" class="form-control" id="precio" name="precio" type="text" required="">
                         </div>
                         <div class="form-group col-md-6">
                             <label class="control-label">Cantidad Disponible<span class="required">*</span></label>
@@ -225,10 +225,10 @@
                         <div class="form-group col-md-6">
                             <label class="control-label"   for="listEstatus">Estatus</label>
                             <select class="form-control selectpicker" id="listEstatus" name="listEstatus" >
-                              <option value="1">Disponible</option>
-                              <option value="2">Reservado</option>
-                              <option value="3">Vendido</option>
-                              <option value="4">Enviado</option>
+                              <option value="Disponible">Disponible</option>
+                              <option value="Reservado">Reservado</option>
+                              <option value="Vendido">Vendido</option>
+                              <option value="Enviado">Enviado</option>
                             </select>
                         </div>
                     </div>
@@ -261,7 +261,22 @@
       </div>
     </div>
   </div>
-</div>        
+</div> 
+<div class="modal fade" id="modalForCom" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg" >
+    <div class="modal-content">
+      <div class="modal-header headerRegister" style="background: #425b28; border-color: #425b28;">
+        <h5 class="modal-title" id="titleModal">Editar Producto</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div id="comEditInfoContainer"></div>
+      </div>
+    </div>
+  </div>
+</div>       
     </main>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>     
@@ -496,5 +511,23 @@ function confirmation(ev){
     }
   });
 }
+$(document).ready(function(){
+    $('.editProductBtn').on('click', function(){
+    var productId = $(this).data('id');
+    var url = 'getComInfo/' + productId;
+    $('#comEditInfoContainer').empty();
+    $.ajax({
+      type: 'GET',
+      url: url,
+      success: function(response){
+        $('#comEditInfoContainer').html(response);
+        $('#modalForCom').modal('show');
+      },
+      error: function(xhr, status, error){
+        //
+      }
+    });
+  }); 
+});
 </script>
 @endsection

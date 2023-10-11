@@ -14,6 +14,18 @@
 		<div class="row">
 			<div class="col-md-6">
 				<div class="img-container">
+					@if($product->imagen != null)
+					<img src="{{ asset('uploads/tianguis/'.substr($product->datecreated, 0, 10).'/'.$images[0]['ruta'].'.webp')}}" class="img-fluid img-main--product" id="MainImg">
+					<div class="row" style="padding: 1rem 0;">
+						@php for($i = 0; $i < count($images); $i++){ @endphp
+						<div class="hover-img col-sm-3" style="padding-right: 0;">
+							<img src="{{ asset('uploads/tianguis/'.substr($product->datecreated, 0, 10).'/'.$images[$i]['ruta'].'.webp')}}" alt="" class="small-img">
+						</div>
+						@php
+						}
+						@endphp
+					</div>
+					@else
 					<img src="{{ asset('uploads/'.$images[0]['ruta'])}}" class="img-fluid img-main--product" id="MainImg">
 					<div class="row" style="padding: 1rem 0;">
 						@php for($i = 0; $i < count($images); $i++){ @endphp
@@ -24,6 +36,7 @@
 						}
 						@endphp
 					</div>
+					@endif
 				</div>
 			</div>
 				<div class="tianguis-description col-md-6">
