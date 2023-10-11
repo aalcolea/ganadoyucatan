@@ -234,6 +234,27 @@ class ProductsController extends Controller
     public function getProductsHome(){
         return view('Admin.Products.home');
     }
+    public function getTianguisAll(){
+        $products = ProductT::where('status', '1')->orderBy('idproducto')->get();
+        $aprob = ProductT::where('status', '2')->where('vendedorid', Auth::id())->orderBy('idproducto')->get();
+
+        return view('Admin.Products.aprob', compact('products', 'aprob'));
+    }
+    public function getTianguisView($id){
+        $product = ProductT::findOrfail($id);
+        $images = PTGallery::where('id_producto', $id)->get();
+        $data = ['product' => $product, 'images' => $images];
+        return view('partials.tianguisProductInfo', $data);
+    }
+    public function aprobTianguisProduct($id){
+        $product = ProductT::findOrFail($id);
+        $product->status = '2';
+        if($product->save()){
+            return redirect('admin/products/TianguisAdmin')->with('message', 'Producto aprobado con éxito')->with('typealert', 'success');
+        }else{
+            return back()->with('message', 'Error al aprobar el producto')->with('typealert', 'warning');
+        }
+    }
     public function getNewGen(){
         $id = Auth::id();
         $products = Product::where('vendedorid', $id)->orderBy('idproducto', 'desc')->paginate(25);

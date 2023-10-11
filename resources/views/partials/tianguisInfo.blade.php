@@ -1,18 +1,8 @@
-{!!Form::open(['url'=> 'admin/products/postProductInfo/'.$product->idproducto, 'files' => true, 'style' => 'padding: 0;'])!!}
+{!!Form::open(['url'=> 'admin/products/postcomtInfo/'.$product->idproducto, 'files' => true, 'style' => 'padding: 0;'])!!}
           {{-- <form id="formProductos" name="formProductos" class="form-horizontal" action="{{url('admin/products/addNewGen')}}" method="POST" style="padding: 0;"> --}}
               @csrf
               <input type="hidden" id="idProducto" name="idProducto" value="{{$product->idproducto}}">
               <p class="text-primary">Los campos con asterisco (<span class="required">*</span>) son obligatorios.</p>
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="destacado" id="destacado">
-                <label class="form-check-label" for="destacado">
-                  Marcar deste producto como <b>destacado</b>
-                </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <input class="form-check-input" type="checkbox" name="premium" id="premium">
-                <label class="form-check-label" for="premium">
-                  Este producto es calidad <b style="color: #d79e46;">premium<b>
-                </label>
-              </div>
               <div class="row">
                 <div class="col-md-8">
                     <div class="form-group">
@@ -32,17 +22,13 @@
                       <select class="form-control" name="estados" id="estados">
                         <option value="1" {{ $product->estado == 1 ? 'selected' : '' }}>Yucatán</option>
                         <option value="2" {{ $product->estado == 2 ? 'selected' : '' }}>Campeche</option>
-                        <option value="2" {{ $product->estado == 3 ? 'selected' : '' }}>Quintana Roo</option>
+                        <option value="3" {{ $product->estado == 3 ? 'selected' : '' }}>Quintana Roo</option>
+                        <option value="4" {{ $product->estado == 4 ? 'selected' : '' }}>Chiapas</option>
                       </select>
                     </div>
                     <div class="form-group">
                         <label class="control-label" for="ciudades">Ciudad:</label>
                         <select  class="form-control" name="ciudades" id="ciudades">
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label" for="comisarias">Comisarias:</label>
-                        <select class="form-control"  name="comisarias" id="comisarias">
                         </select>
                     </div>
                 </div>
@@ -161,10 +147,10 @@
                             <label class="control-label"   for="listEstatus">Estatus</label>
                             <select class="form-control selectpicker" id="listEstatus" name="listEstatus" >
                               <option value="{{$product->estatus}}" selected hidden>{{$product->estatus}}</option>
-                              <option value="1">Disponible</option>
-                              <option value="2">Reservado</option>
-                              <option value="3">Vendido</option>
-                              <option value="4">Enviado</option>
+                              <option value="Disponible">Disponible</option>
+                              <option value="Reservado">Reservado</option>
+                              <option value="Vendido">Vendido</option>
+                              <option value="Enviado">Enviado</option>
                             </select>
                         </div>
                     </div>
@@ -175,12 +161,12 @@
                     <input type="file" id="newFile-input" name="imagenes-cargadas[]" multiple style="display:none;">
                     <button type="button" id="add-Newimages" class="btn btn-primary" style="background: #d79e46; border-color: #d79e46">Agregar imágenes</button>
                   </div>
-                  @foreach($product->images as $image)
+{{--                   @foreach($product->images as $image)
                       <div class="image-wrapper" data-path="{{ $image->path }}">
                           <img style="width: 10rem;height: 7.5rem;" src="{{ asset('uploads/'.$product->carpeta).'/'.$image->img.'.webp'}}" alt="imagen">
                           <button type="button" class="delete-image" data-path="{{ $image->path }}">Eliminar</button>
                       </div>
-                  @endforeach
+                  @endforeach --}}
               </div>
               <div class="tile-footer">
       <div class="modal-footer">
@@ -192,6 +178,14 @@
       </div>      
               </div>
 {!!Form::close()!!}
+<script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>     
+<script src="{{url('/static/js/admin/location.js') }}" >
+</script>    
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
 <script >
 document.getElementById('add-Newimages').addEventListener('click', () =>{
   let newFileInput = document.getElementById('newFile-input');

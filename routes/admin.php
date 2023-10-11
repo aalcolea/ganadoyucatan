@@ -10,21 +10,29 @@ Route::get('/get-ciudades-by-estado/{estadoId}', [ProductsController::class, 'ge
 Route::get('/get-comisarias-by-ciudad/{ciudadId}', [ProductsController::class, 'getComisariasByCiudad']);
 /*productos*/
 Route::get('/products/home', [ProductsController::class, 'getProductsHome'])->name('productsHome');
-Route::get('/products/addNewGen', [ProductsController::class, 'getNewGen'])->name('getNewGen');
+Route::get('/products/TianguisAdmin', [ProductsController::class, 'getTianguisAll'])->name('getTianguisAll');
+Route::get('/products/TianguisAdminInfo/{id}', [ProductsController::class, 'getTianguisView'])->name('getTianguisView');
+Route::get('/products/aprobProduct/{id}', [ProductsController::class, 'aprobTianguisProduct'])->name('aprobProduct');
+
 Route::post('/products/image-action', [ProductsController::class, 'imageAction'])->name('product.image_action');
 Route::post('/products/image-actionS', [ProductsController::class, 'imageActionSub'])->name('product.image_actionS');
 Route::post('/products/image-actionC', [ProductsController::class, 'imageActionCom'])->name('product.image_actionC');
+
 Route::post('/products/addNewGen', [ProductsController::class, 'postNewGen'])->name('addNewGen');
-Route::get('/products/addNewCom', [ProductsController::class, 'getNewCom'])->name('getNewCom');
-Route::post('/products/addNewCom', [ProductsController::class, 'postNewCom'])->name('postNewCom');
-Route::get('/products/addNewSub', [ProductsController::class, 'getNewSub'])->name('getNewSub');
-Route::post('/products/addNewSub', [ProductsController::class, 'postNewSub'])->name('postNewSub');
-Route::get('/products/deleteSub/{id}', [ProductsController::class, 'deleteSub'])->name('deleteSub');
-Route::get('/products/deleteCom/{id}', [ProductsController::class, 'deleteCom'])->name('deleteCom');
+Route::get('/products/addNewGen', [ProductsController::class, 'getNewGen'])->name('getNewGen');
 Route::get('/products/getProductInfo/{id}', [ProductsController::class, 'getProductEdit'])->name('getProductEdit');
 Route::post('/products/postProductInfo/{id}', [ProductsController::class, 'postProductEditGen'])->name('postProductEdit');
-Route::get('/products/getSubInfo/{id}', [ProductsController::class, 'getSubEdit'])->name('getSubEdit');
+
+Route::get('/products/addNewCom', [ProductsController::class, 'getNewCom'])->name('getNewCom');
+Route::post('/products/addNewCom', [ProductsController::class, 'postNewCom'])->name('postNewCom');
 Route::get('/products/getComInfo/{id}', [ProductsController::class, 'getComEdit'])->name('getComEdit');
+Route::get('/products/deleteCom/{id}', [ProductsController::class, 'deleteCom'])->name('deleteCom');
+
+Route::get('/products/addNewSub', [ProductsController::class, 'getNewSub'])->name('getNewSub');
+Route::post('/products/addNewSub', [ProductsController::class, 'postNewSub'])->name('postNewSub');
+Route::get('/products/getSubInfo/{id}', [ProductsController::class, 'getSubEdit'])->name('getSubEdit');
+Route::get('/products/deleteSub/{id}', [ProductsController::class, 'deleteSub'])->name('deleteSub');
+
 /*mensajes*/
 Route::get('/mensajes', [ProductsController::class, 'getMensajesHome'])->name('mensajesHome');
 /*Usuarios*/

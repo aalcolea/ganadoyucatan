@@ -136,7 +136,7 @@ class TiendaController extends Controller
             'tipo' => $lisTipo,
             'link' => $txtLink,
             'propietario' => $propietario,
-            'vendedorid' => '252',
+            'vendedorid' => '1',
         ]);
         $ruta_carpeta = "uploads/tianguis/$id_producto";
         if (!File::makeDirectory($ruta_carpeta, 0755, true)) {

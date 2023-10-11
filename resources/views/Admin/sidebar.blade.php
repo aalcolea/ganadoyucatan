@@ -92,10 +92,10 @@
                 </a></li>
                 <?php } ?>
                 <?php if(Auth::user()->rolid == '1'){ ?>
-                <li><a class="treeview-item" href="{{url('/admin')}}/ganado"><i class="icon fa fa-circle-o"></i> Ganado Subido</a></li>
+                <li><a class="treeview-item" href="{{url('/admin')}}/products/ganado"><i class="icon fa fa-circle-o"></i> Ganado Subido</a></li>
                 <?php } ?>
                 <?php if(Auth::user()->rolid == '1'){ ?>
-                <li><a class="treeview-item" href="{{url('/admin')}}/TianguisAdmin"><i class="icon fa fa-circle-o"></i> Tianguis Ganadero</a></li>
+                <li><a class="treeview-item" href="{{url('/admin')}}/products/TianguisAdmin"><i class="icon fa fa-circle-o"></i> Tianguis Ganadero</a></li>
                 <?php } ?>
 {{--                 <?php if(Auth::user()->rolid == '1'){ ?>
                 <li><a class="app-menu__item" href="{{url('/admin')}}/expo">
