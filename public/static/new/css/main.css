@@ -708,6 +708,10 @@ Tienda products
     display: flex;
     padding: 2rem 4rem;
 }
+.route span{
+    padding-left: 10px;
+    padding-right: 10px;
+}
 .images-various img {
     max-width: 100%;
     height: 33.3%;
@@ -820,7 +824,7 @@ Tienda products
 }
 
 .relationated-product{
-    padding: 0 4rem;
+    padding: 2rem 4rem;
     background-color: antiquewhite;
 }
 .relationated-product-cards{
@@ -842,4 +846,14 @@ Tienda products
     padding-bottom: 2rem;
     font-size: var(--large);
     font-weight: var(--semibold);
+}
+.contact-button{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.contact-button a{
+    text-decoration: none;
+    margin-top: 18px;
+    color: black;
 }
