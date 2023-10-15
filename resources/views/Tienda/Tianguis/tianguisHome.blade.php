@@ -208,6 +208,7 @@
                 <div class="filtro-container-info">
                     <h2>Filtro</h2>
                     <hr>
+                    <form class="tianguis-form" action="/tianguis/testT" method="get"></form>
                     <div class="filtro-container-down">
                         <h3>Filtrar por preferencia</h3>
                         <div class="filter-preference">
@@ -234,28 +235,35 @@
                         <hr>
                         <h3>Filtrar por locación</h3>
                         <div class="label-dropdown">
-                            <select>
-                                <option value="seleccionar">Estado</option>
-                                <option value="opcion1">Opción 1</option>
-                                <option value="opcion2">Opción 2</option>
-                                <option value="opcion3">Opción 3</option>
+                            <select id="estados">
+                                <option value="" selected disabled hidden>Estado</option>
                             </select>
                         </div>
                         <div class="label-dropdown">
-                            <select>
-                                <option value="seleccionar">Ciudad</option>
-                                <option value="opcion1">Opción 1</option>
-                                <option value="opcion2">Opción 2</option>
-                                <option value="opcion3">Opción 3</option>
-                            </select>
+                            <select id="ciudades">
+								<option value="" selected disabled hidden>Ciudad</option>
+							</select>
                         </div>
                         <div class="label-dropdown">
-                            <select>
-                                <option value="seleccionar">Tipo</option>
-                                <option value="opcion1">Opción 1</option>
-                                <option value="opcion2">Opción 2</option>
-                                <option value="opcion3">Opción 3</option>
-                            </select>
+                            <select class="form-control selectpicker" id="lisTipo" name="lisTipo" >
+								<option value="" selected disabled hidden>Seleccione un tipo</option>
+								<option value="Destetes">Destetes</option>
+								<option value="Novillas">Novillas</option>
+								<option value="Ternero">Ternero</option>
+								<option value="Toro de engorda">Toro de engorda</option>
+								<option value="Vaca de engorda">Vaca de engorda</option>
+								<option value="Vaquillona">Vaquillona</option>
+								<option value="Vaquillonas preñadas">Vaquillonas preñadas</option>
+								<option value="Ganado para matadero">Ganado para matadero</option>
+								<option value="Vaca terminada<">Vaca terminada</option>
+								<option value="Toro terminado">Toro terminado</option>
+								<option value="Novillonas de registro">Novillonas de registro</option>
+								<option value="Novillonas preñada">Novillonas preñadas</option>
+								<option value="Toro para cebar">Toro para cebar</option>
+								<option value="Vaca para cebar">Vaca para cebar</option>
+								<option value="Vaca Semiterminada">Vaca Semiterminada</option>
+								<option value="Toro Semiterminado">Toro Semiterminado</option>
+							</select>
                         </div>
                         <hr>
                         <div class="price-filter">

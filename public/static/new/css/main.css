@@ -241,6 +241,16 @@ Sections
     border: 0;
     margin-top: 18px;
 }
+.secondaryButton{
+    width: 110px;
+    height: 20px;
+    border-radius: 15px;
+    font-size: 12px;
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+    margin-top: 18px;
+}
 .noticias-container,
 .subastaGanadera-container,
 .tianguisGanadero-container,
@@ -615,12 +625,11 @@ Tienda Cards
     width: 60%;
 }
 .icons{
-    height: 20%;
+    height: 13%;
     width: 100%;
     display: flex;
     justify-content: end;
     gap: 10px;
-    background-color: #00000091;
 }
 .icons img{
     height: auto;
@@ -651,3 +660,186 @@ Tienda Cards
     font-size: var(--small);
     font-weight: var(--extraLight);
 } */
+/*
+TODO
+Tienda products
+*/
+.container-product--Main{
+    background-color: antiquewhite;
+}
+.productTienda-section{
+    margin-top: 80px;
+    width: 100vw;
+    z-index: 1;
+}
+.banner-product--tienda{
+    height: 40vh;
+    background-image: url();
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    background-color: gray;
+}
+.information-product--container{
+    display: flex;
+    padding-bottom: 2rem;
+}
+.images-product{
+    width: 60%;
+}
+.information-product{
+    width: 40%;
+    padding-right: 5rem;
+
+}
+.product-container {
+    display: flex;
+    align-items: flex-start;
+    padding: 20px;
+}
+
+.images-various {
+    display: flex;
+    flex-direction: column;
+}
+.route{
+    display: flex;
+    padding: 2rem 4rem;
+}
+.images-various img {
+    max-width: 100%;
+    height: 33.3%;
+}
+
+.main-image img {
+
+}
+.container {
+    width: 60%;
+    padding: 0 4rem;
+}
+.parent {
+    display: grid;
+    grid-template-columns: 30% 70%;
+    grid-template-rows: repeat(3, 120px);
+    grid-column-gap: 10px;
+    grid-row-gap:    10px;
+    overflow: hidden;
+}
+.left, .right{
+    height: 100%;
+    width:  100%;
+    object-fit: cover;
+}
+.div1 { grid-area: 1 / 1 / 2 / 2; }
+.div2 { grid-area: 2 / 1 / 3 / 2; }
+.div3 { grid-area: 3 / 1 / 4 / 2; }
+.div4 { grid-area: 1 / 2 / 4 / 3; }
+.description-product{
+    display: flex;
+    height: auto;
+}
+.container-desc{
+    display: grid;
+    grid-template-columns: 36% 60%;
+    grid-template-rows: repeat(4, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    padding-bottom: 5rem;
+}
+.desc-left{
+    width: 40%;
+    padding-left: 4rem;
+}
+.desc-right{
+    width: 60%;
+    padding-right: 4rem;
+}
+.desc1 { grid-area: 1 / 1 / 2 / 2; }
+.desc2 { grid-area: 1 / 2 / 2 / 3; }
+.desc3 { grid-area: 2 / 1 / 3 / 2; }
+.desc4 { grid-area: 2 / 2 / 3 / 3; }
+.desc5 { grid-area: 3 / 1 / 4 / 2; }
+.desc6 { grid-area: 3 / 2 / 4 / 3; }
+.desc7 { grid-area: 4 / 1 / 5 / 2; }
+.desc8 { grid-area: 4 / 2 / 5 / 3; }
+.desc1, .desc2, .desc3, .desc4, .desc5, .desc6, .desc7, .desc8{
+    display: flex;
+    align-items: center;
+    padding: 12px 0;
+}
+.desc1, .desc2, .desc5, .desc6{
+    background: antiquewhite;
+}
+.container-desc span{
+    font-weight: var(--semibold);
+    padding-right: 10px;
+    font-size: var(--medium);
+}
+.desc-right hr{
+    background-color: var(--softlines);
+    height: 1px;
+    border: none;
+}
+.container-reseñas{
+    height: auto;
+    width: 100%;
+
+    padding-bottom: 1rem;
+    padding-top: 1rem;
+}
+.card-reseñas{
+    background-image: url('../background/_fondo-main-nav.jpg');
+    padding: 1rem;
+    display: flex;
+
+    margin-bottom: 1rem;
+}
+.reseña{
+    padding-right: 1rem;
+    width: 65%;
+}
+.reseña-description{
+    font-size: var(--medium);
+    font-weight: var(--light);
+}
+.reseña-name{
+    font-size: var(--medium);
+    font-weight: var(--semibold);
+}
+.dierecis{
+    background-image: url('../Iconos/vacaroja.png');
+    background-position: center;
+    background-size: 100%;
+    background-position-x: 40px;
+    background-repeat: no-repeat;
+
+    width: 35%;
+}
+
+.relationated-product{
+    padding: 0 4rem;
+    background-color: antiquewhite;
+}
+.relationated-product-cards{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-column-gap: 15px;
+    grid-row-gap: 15px;
+}
+.card-relationated{
+    display: flex;
+    width: 80%;
+    height: 180px;
+    padding: 8px;
+    border-radius: 10px;
+    background-color: white;
+}
+.interest{
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    font-size: var(--large);
+    font-weight: var(--semibold);
+}
