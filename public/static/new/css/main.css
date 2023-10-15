@@ -236,8 +236,8 @@ Sections
     height: 30px;
     border-radius: 15px;
     font-size: 12px;
-    background-color: black;
-    color: var(--white);
+    background-color: white;
+    color: black;
     border: 0;
     margin-top: 18px;
 }
@@ -259,9 +259,22 @@ Sections
     overflow: hidden;
     display: flex;
 }
-.noticias-container,
 .ganadoGenetico-container{
-    background-color: var(--cinereous);
+    background-image: url('../background/_ganado\ genetico.jpg');
+    color: white;
+}
+.tianguisGanadero-container{
+    background-image: url('../background/_tianguis.jpg');
+    color: white;
+
+}
+.subastaGanadera-container{
+    background-image: url('../background/_subasta.jpg');
+    color: white;
+}
+.noticias-container{
+    background-image: url('../background/_noticias.jpg');
+    color: white;
 }
 .subastaLeft,
 .tianguisLeft{
@@ -295,7 +308,7 @@ Sections
 
 .subastaLeft  hr,
 .tianguisLeft hr{
-    border: 2px solid #000;
+    border: 2px solid white;
     width: 5%;
     margin-top: 0;
     margin-bottom: -6px;
@@ -304,7 +317,7 @@ Sections
 }
 .noticiasRight hr,
 .geneticoRight hr{
-    border: 2px solid #000;
+    border: 2px solid white;
     width: 5%;
     margin-top: 0;
     margin-bottom: -6px;
@@ -323,6 +336,7 @@ Contact
     display: flex;
     padding: 5rem 5rem;
     color: white;
+    background-image: url('../background/_contacto.jpg');
 }
 .left-contact,
 .right-contact{
@@ -392,9 +406,9 @@ Footer
     padding-right: 2rem;
     padding-left: 2rem;
     display: flex;
-    background-color: #000000e3;
     color: white;
-
+    background-image: url('../background/_footer.jpg');
+    background-position-y: -10rem;
 }
 .footer-right{
     display: flex;

@@ -3,12 +3,13 @@
 @section('content')
     <div class="carousel-container">
         <div class="image-container">
+            <div class="image">
+                <img src="{{ asset('static/new/background/_header-1.jpg') }}" alt="" srcset="">
+            </div>
+            <div class="image">
+                <img src="{{ asset('static/new/background/_header-1.jpg') }}" alt="" srcset="">
+            </div>
             <div class="image"></div>
-            <div class="image"></div>
-            <div class="image"></div>
-            <!-- <img class="image active" src="https://images.pexels.com/photos/17792525/pexels-photo-17792525/free-photo-of-mano-a-mano.jpeg?auto=compress&cs=tinysrgb&w=400&lazy=load" alt="">
-            <img class="image" src="https://images.pexels.com/photos/12352425/pexels-photo-12352425.jpeg?auto=compress&cs=tinysrgb&w=400&lazy=load" alt="">
-            <img class="image" src="https://images.pexels.com/photos/13438929/pexels-photo-13438929.jpeg?auto=compress&cs=tinysrgb&w=400&lazy=load" alt=""> -->
         </div>
         <div class="navigation-points">
             <div class="point"></div>
@@ -16,9 +17,6 @@
             <div class="point"></div>
         </div>
         <div class="social-media">
-            <!-- <div class="social-icon"></div>
-            <div class="social-icon"></div>
-            <div class="social-icon"></div> -->
             <img class="social-icon" width="25" height="25" src="https://img.icons8.com/material-sharp/50/ffffff/youtube-play.png" alt="youtube-play"/>
             <img class="social-icon" width="25" height="25" src="https://img.icons8.com/windows/50/ffffff/facebook-f--v2.png" alt="facebook-f--v2"/>
             <img class="social-icon" width="25" height="25" src="https://img.icons8.com/ios/50/ffffff/instagram-new--v1.png" alt="instagram-new--v1"/>
