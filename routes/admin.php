@@ -13,6 +13,8 @@ Route::get('/products/home', [ProductsController::class, 'getProductsHome'])->na
 Route::get('/products/TianguisAdmin', [ProductsController::class, 'getTianguisAll'])->name('getTianguisAll');
 Route::get('/products/TianguisAdminInfo/{id}', [ProductsController::class, 'getTianguisView'])->name('getTianguisView');
 Route::get('/products/aprobProduct/{id}', [ProductsController::class, 'aprobTianguisProduct'])->name('aprobProduct');
+Route::get('/products/getAllGanado', [ProductsController::class, 'getAllGanado'])->name('getAllGanado');
+Route::get('/products/deleteGen/{id}', [ProductsController::class, 'deleteGen'])->name('deleteGen');
 
 Route::post('/products/image-action', [ProductsController::class, 'imageAction'])->name('product.image_action');
 Route::post('/products/image-actionS', [ProductsController::class, 'imageActionSub'])->name('product.image_actionS');

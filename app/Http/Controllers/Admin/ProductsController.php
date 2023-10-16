@@ -231,6 +231,12 @@ class ProductsController extends Controller
         $comisarias = Comisaria::where('ciudad_id', $ciudadId)->get();
         return response()->json($comisarias);
     }    
+    public function getAllGanado(){
+        $subastas = ProductS::paginate(10);
+        $products = Product::paginate(10);
+        $data = ['products' => $products, 'subastas' => $subastas];
+        return view('Admin.Products.ganado', $data);
+    }
     public function getProductsHome(){
         return view('Admin.Products.home');
     }
@@ -560,16 +566,6 @@ class ProductsController extends Controller
                 echo "hola";
             }
             
-/*            if (count($images) > 1) {
-                for ($i = 1; $i < count($images); $i++) {
-                $imageData = $images[$i];
-                $image = new PSubGallery;
-                $image->productid = $product->id;
-                $image->img = rand(0, 999).basename($imageData['path']);
-                $image->save();
-                }
-            }*/
-            
         }
     }
     public function postNewCom(Request $request){
@@ -647,7 +643,7 @@ class ProductsController extends Controller
     public function deleteSub($id){
         $product = ProductS::findOrfail($id);
         if($product->delete()){
-            return redirect('/admin/products/addNewSub')->with('message', 'Producto eliminado con exito al sistema')->with('typealert', 'success'); 
+            return back()->with('message', 'Producto eliminado con exito al sistema')->with('typealert', 'success'); 
         }else{
             return back('/admin/products/addNewSub')->with('message', 'Error al eliminar el producto eliminado del sistema')->with('typealert', 'warning');
         }
@@ -660,6 +656,15 @@ class ProductsController extends Controller
         }else{
             return back('/admin/products/addNewCom')->with('message', 'Error al eliminar el producto eliminado del sistema')->with('typealert', 'warning');
         }
+    }
+    public function deleteGen($id){
+        $product = Product::findOrfail($id);
+        if($product->delete()){
+            return back()->with('message', 'Producto eliminado con exito al sistema')->with('typealert', 'success'); 
+        }else{
+            return back()->with('message', 'Error al eliminar el producto eliminado del sistema')->with('typealert', 'warning');
+        }
+
     }
     public function getNewCom(){
         $id = Auth::id();

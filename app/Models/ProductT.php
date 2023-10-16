@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\PTGallery;
+use App\Models\Visits;
 use App\Models\Ciudad;
 class ProductT extends Model
 {
@@ -20,5 +21,8 @@ class ProductT extends Model
     }
     public function ciudad(){
         return $this->hasOne(Ciudad::class, 'id', 'ciudad');
+    }
+    public function visits(){
+        return $this->hasMany(Visits::class, 'idproducto', 'idproducto')->where('type', 'com')->whereMonth('fecha', now()->month);
     }
 }

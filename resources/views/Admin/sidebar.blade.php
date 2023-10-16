@@ -92,7 +92,7 @@
                 </a></li>
                 <?php } ?>
                 <?php if(Auth::user()->rolid == '1'){ ?>
-                <li><a class="treeview-item" href="{{url('/admin')}}/products/ganado"><i class="icon fa fa-circle-o"></i> Ganado Subido</a></li>
+                <li><a class="treeview-item" href="{{url('/admin')}}/products/getAllGanado"><i class="icon fa fa-circle-o"></i> Ganado Subido</a></li>
                 <?php } ?>
                 <?php if(Auth::user()->rolid == '1'){ ?>
                 <li><a class="treeview-item" href="{{url('/admin')}}/products/TianguisAdmin"><i class="icon fa fa-circle-o"></i> Tianguis Ganadero</a></li>
