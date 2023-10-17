@@ -156,18 +156,35 @@
                     </div>
                 </div>
               </div>
+              <div class="container">
+                    <input type="file" id="file-input" name="imagenes-cargadas[]" multiple style="display:none;">
+                    <button type="button" id="add-images" class="btn btn-primary" style="background: #d79e46; border-color: #d79e46">Agregar imágenes</button>
+                    <br>    
+                    <div id="image-container" class="d-flex flex-wrap mt-3">
+                    @foreach($product->images as $image)
+                      <div class="image-wrapper" data-path="{{ $image->path }}">
+                      <img style="width: 10rem;height: 7.5rem;" src="{{ asset('uploads/'.$product->carpeta).'/'.$image->img.'.webp'}}" alt="imagen">
+                      <button type="button" class="delete-image" data-path="{{ $image->path }}">Eliminar</button>
+                      </div>
+                    @endforeach
+                    </div>
+                <div id="hidden-inputs"></div>
+                <input type="hidden" name="deleted_images" id="deleted_images">
+                <input type="hidden" name="images" id="images" value="">
+              </div>
+              {{-- 
               <div id="image-container" class="d-flex flex-wrap mt-3">
               <div class="container">
                     <input type="file" id="newFile-input" name="imagenes-cargadas[]" multiple style="display:none;">
                     <button type="button" id="add-Newimages" class="btn btn-primary" style="background: #d79e46; border-color: #d79e46">Agregar imágenes</button>
                   </div>
-{{--                   @foreach($product->images as $image)
+                   @foreach($product->images as $image)
                       <div class="image-wrapper" data-path="{{ $image->path }}">
                           <img style="width: 10rem;height: 7.5rem;" src="{{ asset('uploads/'.$product->carpeta).'/'.$image->img.'.webp'}}" alt="imagen">
                           <button type="button" class="delete-image" data-path="{{ $image->path }}">Eliminar</button>
                       </div>
-                  @endforeach --}}
-              </div>
+                  @endforeach
+              </div> --}}
               <div class="tile-footer">
       <div class="modal-footer">
 <div id="loading-icon" class="loading-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="40" height="40">
@@ -186,9 +203,3 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
-<script >
-document.getElementById('add-Newimages').addEventListener('click', () =>{
-  let newFileInput = document.getElementById('newFile-input');
-  newFileInput.click();
-});
-</script>

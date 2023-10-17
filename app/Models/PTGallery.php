@@ -11,6 +11,4 @@ class PTGallery extends Model
     use HasFactory;
     protected $table = 'imagent';
     public $timestamps = false;
-
-
 }

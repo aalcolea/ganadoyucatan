@@ -31,7 +31,7 @@
     <main class="app-content">
       <div class="app-title">
         <div style="margin-inline-start: 40%;">
-            <h1>Ganado Comercial
+            <h1>Ganado Yucatán Peninsular
             </h1>
         </div>
       </div>
@@ -64,7 +64,7 @@
                             <td>@if($p->status == 1)<span class="badge badge-success">Activo</span>@else <span class="badge badge-danger">Inactivo</span>@endif</td>
                             <td>{{$p->owner->nombres}}</td>
                             <td>{{$p->descripcion}}</td>
-                            <td><button style="background-color:#425b28;border-color: #425b28;" class="btn btn-info btn-sm" data-id="{{$p->idproducto}}" id="viewProduct" title="Ver producto"><i style="color:white;" class="far fa-eye"></i></button>
+                            <td><button class="btn btn-primary btn-sm" onclick="openGenInNewTab('{{$p->idproducto}}', '{{$p->ruta}}')" target="_blank" title="Ver producto"><i style="color:white;" class="far fa-eye"></i></button>
                               {{-- <a href="{{ route('aprobProduct', $p->idproducto) }}"onclick="aprob(event)"><button class="btn btn-primary  btn-sm aprobProductBtn" data-id="{{$p->idproducto}}" id="aprobProducrt" title="Aprobar producto"><i class="fa-solid fa-check-double"></i></i></button></a> --}}
                               <a  href="{{ route('deleteGen', $p->idproducto) }}" class="btn btn-danger" title="Eliminar producto" onclick="confirmation(event)"><i class="far fa-trash-alt"></i></a></td>
                           </tr>
@@ -95,7 +95,7 @@
                             <td>@if($p->fechaCierre <= date('Y-m-d h:i:s'))<span class="badge badge-success">Abierta</span>@else <span class="badge badge-danger">Cerrada</span>@endif</td>
                             <td>{{$p->owner->nombres}}</td>
                             <td>{{$p->descripcion}}</td>
-                            <td><a class="btn" ><button style="background-color:#425b28;border-color: #425b28;" class="btn btn-info btn-sm" onclick="openProductInNewTab('{{$p->id_producto}}')" target="_blank" title="Ver producto"><i style="color:white;" class="far fa-eye"></i></button></a><a href="{{ route('deleteSub', $p->id_producto) }}" class="btn btn-danger" title="Eliminar producto" onclick="confirmation(event)"><i class="far fa-trash-alt"></i></a></td>
+                            <td><a class="btn" ><button class="btn btn-primary btn-sm" onclick="openSubInNewTab('{{$p->id_producto}}')" target="_blank" title="Ver producto"><i style="color:white;" class="far fa-eye"></i></button></a><a href="{{ route('deleteSub', $p->id_producto) }}" class="btn btn-danger" title="Eliminar producto" onclick="confirmation(event)"><i class="far fa-trash-alt"></i></a></td>
                           </tr>
                         @endforeach
                       </tbody>
@@ -163,13 +163,22 @@ function confirmation(ev){
     }
   });
 }
-  function openProductInNewTab(id){
-  const url = `/tianguis/producto/${id}`;
+  function openGenInNewTab(id, ruta){
+  const url = `/tienda/producto/${id}/${ruta}`;
   const newTab = window.open(url, '_blank');
   if(newTab){
     newTab.focus();
   }else{
     alert('Se ha bloqueado la apertura de una nueva ventana');
+  }
+}
+function openSubInNewTab(id){
+  const url =  `/subastas/${id}`;
+  const newTab = window.open(url, '_blank');
+  if(newTab){
+    newTab.focus();
+  }else{
+    alerT('Se ha bloqueado la apertura de una nueva ventada');
   }
 }
 </script>

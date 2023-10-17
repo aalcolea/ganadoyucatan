@@ -38,6 +38,18 @@ class ProductsController extends Controller
         $ciudades = Ciudad::where('estado_id', $estadoId)->get();
         return response()->json($ciudades);
     }
+
+    public function getProductImages($id){
+        $product = Product::with(['images' => function ($query){
+            $query->with(['product' => function($query){
+                $query->select('idproducto', 'carpeta');
+            }]);
+        }])->find($id);
+        $images = $product->images->map(function($image){
+            return ['id' => $image->id, 'productid' => $image->productoid, 'img' => $image->img, 'imagePath'=> $image->product->carpeta.'/'.$image->img];
+        });
+        return response()->json($images);
+    }
     public function imageAction(Request $request){
         if (!$request->session()->has('product.images')) {
             $request->session()->put('product.images', []);
@@ -372,7 +384,7 @@ class ProductsController extends Controller
         endif;
     }
     public function getProductEdit($id){
-        $product = Product::find($id);
+        $product = Product::with('images')->find($id);
         return view('partials.productInfo', compact('product'));
 
     }
