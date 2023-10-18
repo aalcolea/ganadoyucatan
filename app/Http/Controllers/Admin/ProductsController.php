@@ -384,8 +384,17 @@ class ProductsController extends Controller
         endif;
     }
     public function getProductEdit($id){
+        //$product = Product::with('images')->find($id);
+        //return view('partials.productInfo', compact('product'));
         $product = Product::with('images')->find($id);
-        return view('partials.productInfo', compact('product'));
+        $images = $product->images->map(function($image) {
+            return [
+                'path' => '/'.$image->product->carpeta.'/'.$image->img.'.webp',
+                'url' => asset('uploads/' . $image->product->carpeta . '/' . $image->img . '.webp')
+            ];
+        });
+        return view('partials.productInfo', compact('product', 'images'));
+        //return view('partials.productInfo', compact('product'));
 
     }
     public function getSubEdit($id){

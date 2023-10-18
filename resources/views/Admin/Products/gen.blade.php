@@ -354,7 +354,7 @@ function addImage(image) {
     newImage.style.marginBlockEnd = '5px';
     newImage.style.marginBlockStart = '5px';
     newImage.style.maxHeight =  '125';
-    console.log(image);
+    console.log('hola' + image);
     newImage.setAttribute('data-path', image.path);
     newImage.innerHTML = `
         <img style="width: 10rem; height: 7.5rem" src="{{ url('/') }}${image.url}" alt="Image">
@@ -533,12 +533,14 @@ document.addEventListener('DOMContentLoaded', function () {
           url: 'getProductImages/' + productId,
           success: function(response) {
               response.forEach(function(imageData) {
-                  const image = {
-                      path: imageData.imagePath + '.webp',
-                      //url: '/uploads/' + imageData.imagePath
+                let image = {
+                    path: imageData.imagePath,
+                    url: '/uploads/' + imageData.imagePath
+            
                   };
-                  //onsole.log(imageData.imagePath);
-                  addImage(image);
+                let imageJson = JSON.stringify(image);
+                let imageObj = JSON.parse(imageJson);
+                addImage(imageObj);
               });
           },
           error: function(xhr, status, error) {
