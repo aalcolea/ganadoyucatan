@@ -35,7 +35,7 @@ body {
 }
 /* Estilos de la barra de navegación */
 .navbar {
-    width: 100%;
+    width: 100vw;
     height: 5rem;
     display: flex;
     align-items: center;
@@ -113,23 +113,62 @@ body {
 }
 
 .menu-list {
-    position: absolute;
-    top: 100%;
-    right: 0;
-    background-color: var(--brownBlack);
+    position: fixed;
+    top:  0;
+    left: 0;
+
+    /* background: url('../background/_bkg-menu-abierto.jpg'); */
+    background-color: #000;
     border-radius: 4px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out;
     z-index: 1;
-}
 
+    width: 100%;
+    height: 100vh;
+
+}
 .menu-open .menu-list {
     opacity: 1;
     visibility: visible;
 }
-
+.menu-top{
+    display: flex;
+    height: 25%;
+    width: 100%;
+    align-items: center;
+    justify-content: space-around;
+    color: white;
+}
+.close-menu{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.menu-central{
+    height: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8rem;
+}
+.menu-content{
+    text-align: end;
+    color: white;
+    letter-spacing: 2px;
+}
+.menu-content p:nth-child(1){
+    font-weight: var(--semibold);
+    font-size: var(--large);
+    margin-bottom: 1rem;
+    color: white;
+}
+.click-menu{
+    cursor: pointer;
+}
 /*
 TODO
 Carousel Section
