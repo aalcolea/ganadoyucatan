@@ -199,7 +199,7 @@
 	//TODO Nueva sección de tienda
 	<div class="tienda-section">
 		<div class="banner-main">
-			<img class="icon-banner" src="https://ganadoyucatan.com/assets/img/stylized-cow-line-art.svg" alt="">
+			<img class="icon-banner" src="{{ asset('static/new/Iconos/tianguis.png') }}" alt="">
 			<h1>TIANGUIS GANADERO</h1>
 			<p>Un espacio dedicado al apoyo del sector ganadero</p>
 		</div>
@@ -273,7 +273,7 @@
                         </div>
                         <p class="range-price">Rango de precio: $<span class="range-price" id="min-price">0</span> - $<span class="range-price" id="max-price">1000</span></p>
                         <div class="align-center">
-                            <button class="mainButton">Buscar</button>
+                            <button class="mainButtonB">Buscar</button>
                         </div>
                     </div>
                 </div>
@@ -285,14 +285,14 @@
                         <img class="img-products" src="https://images.pexels.com/photos/36347/cow-pasture-animal-almabtrieb.jpg?auto=compress&cs=tinysrgb&w=400" alt="" srcset="">
                         <div class="card-description">
                             <div class="icons">
-                                <img src="https://ganadoyucatan.com/assets/img/stylized-cow-line-art.svg" alt="">
-                                <img src="https://ganadoyucatan.com/assets/img/stylized-cow-line-art.svg" alt="">
-                                <img src="https://ganadoyucatan.com/assets/img/stylized-cow-line-art.svg" alt="">
+                                <img src="{{ asset('static/new/Iconos/reloj-verde.png') }}" alt="">
+                                <img src="{{ asset('static/new/Iconos/estrella-verde.png') }}" alt="">
+                                <img src="{{ asset('static/new/Iconos/vaca-verde.png') }}" alt="">
                             </div>
                             <div class="card-description--info">
                                 <p class="raza">Toros para semental</p>
                                 <p class="description" >Novillas para empadre</p>
-                                <button class="mainButton" onclick="location.href='/tianguisTienda'">Ver más</button>
+                                <button class="secondaryButton" onclick="location.href='/tianguisTienda'">Ver más</button>
                             </div>
                             <div class="card-description--footer">
                                 <p>Yucatán, Panaba</p>
@@ -303,14 +303,14 @@
                         <img class="img-products" src="https://images.pexels.com/photos/36347/cow-pasture-animal-almabtrieb.jpg?auto=compress&cs=tinysrgb&w=400" alt="" srcset="">
                         <div class="card-description">
                             <div class="icons">
-                                <img src="https://ganadoyucatan.com/assets/img/stylized-cow-line-art.svg" alt="">
-                                <img src="https://ganadoyucatan.com/assets/img/stylized-cow-line-art.svg" alt="">
-                                <img src="https://ganadoyucatan.com/assets/img/stylized-cow-line-art.svg" alt="">
+                                <img src="{{ asset('static/new/Iconos/reloj-verde.png') }}" alt="">
+                                <img src="{{ asset('static/new/Iconos/estrella-verde.png') }}" alt="">
+                                <img src="{{ asset('static/new/Iconos/vaca-verde.png') }}" alt="">
                             </div>
                             <div class="card-description--info">
                                 <p class="raza">Toros para semental</p>
                                 <p class="description" >Novillas para empadre</p>
-                                <button class="mainButton">Ver más</button>
+                                <button class="secondaryButton">Ver más</button>
                             </div>
                             <div class="card-description--footer">
                                 <p>Yucatán, Panaba</p>
@@ -321,20 +321,25 @@
                         <img class="img-products" src="https://images.pexels.com/photos/36347/cow-pasture-animal-almabtrieb.jpg?auto=compress&cs=tinysrgb&w=400" alt="" srcset="">
                         <div class="card-description">
                             <div class="icons">
-                                <img src="https://ganadoyucatan.com/assets/img/stylized-cow-line-art.svg" alt="">
-                                <img src="https://ganadoyucatan.com/assets/img/stylized-cow-line-art.svg" alt="">
-                                <img src="https://ganadoyucatan.com/assets/img/stylized-cow-line-art.svg" alt="">
+                                <img src="{{ asset('static/new/Iconos/reloj-verde.png') }}" alt="">
+                                <img src="{{ asset('static/new/Iconos/estrella-verde.png') }}" alt="">
+                                <img src="{{ asset('static/new/Iconos/vaca-verde.png') }}" alt="">
                             </div>
                             <div class="card-description--info">
                                 <p class="raza">Toros para semental</p>
                                 <p class="description" >Novillas para empadre</p>
-                                <button class="mainButton">Ver más</button>
+                                <button class="secondaryButton">Ver más</button>
                             </div>
                             <div class="card-description--footer">
                                 <p>Yucatán, Panaba</p>
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="publicidad-container">
+                    <hr>
+                    <h1 class="content-publicidad">Espacio <br>publicitario</h1>
+                    <button class="secondaryButton" style="margin-left: 2rem;">Solicitar <br>publicidad</button>
                 </div>
                 <p class="title-container--cards">Ganado Comercial</p>
                 <div class="container-normal">
@@ -349,14 +354,14 @@
                             <img class="img-products" src="{{asset('uploads/'.$portada)}}" alt="" srcset="">
                             <div class="card-description">
                                 <div class="icons">
-                                    <img src="https://ganadoyucatan.com/assets/img/stylized-cow-line-art.svg" alt="">
-                                    <img src="https://ganadoyucatan.com/assets/img/stylized-cow-line-art.svg" alt="">
-                                    <img src="https://ganadoyucatan.com/assets/img/stylized-cow-line-art.svg" alt="">
+                                    <img src="{{ asset('static/new/Iconos/reloj-verde.png') }}" alt="">
+                                    <img src="{{ asset('static/new/Iconos/estrella-verde.png') }}" alt="">
+                                    <img src="{{ asset('static/new/Iconos/vaca-verde.png') }}" alt="">
                                 </div>
                                 <div class="card-description--info">
                                     <p class="raza">{{$p->raza}}</p>
                                     <p class="description" >{{$p->nombre}}</p>
-                                    <button class="mainButton" onclick="location.href='/tianguis/producto/{{$p->idproducto}}'">Ver más</button>
+                                    <button class="secondaryButton" onclick="location.href='/tianguis/producto/{{$p->idproducto}}'">Ver más</button>
                                 </div>
                                 <div class="card-description--footer">
                                     <p>{{$p->location->nombre}}</p>

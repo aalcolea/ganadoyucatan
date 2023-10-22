@@ -1,10 +1,11 @@
 @extends('header')
 @section('title', 'Login -')
 @section('content')
-	 <script src="https://kit.fontawesome.com/e9dc34ceb0.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{{url('/static/new/css/login.css')}}">
+	<script src="https://kit.fontawesome.com/e9dc34ceb0.js" crossorigin="anonymous"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
-                @if(Session::has('message'))
+                <!-- @if(Session::has('message'))
                         <div class="alert alert-{{Session::get('typealert')}}" style="display:none;">
                             {{Session::get('message')}}
                             @if ($errors->any())
@@ -46,7 +47,7 @@
                     </div>
 
                     <p class="social-text">Visita nuestras redes sociales:</p>
-                    
+
                     <div class="social-media">
                         <a href="https://www.facebook.com/ganadoyucatan" class="social-icon">
                             <i class="fa-brands fa-facebook"></i>
@@ -56,7 +57,7 @@
                         </a>
                         <!-- <a href="#" class="social-icon">
                             <i class="fa-brands fa-google"></i>
-                        </a> -->
+                        </a>
                     </div>
 {{--                 </form>
  --}}                {!! Form::close() !!}
@@ -84,7 +85,7 @@
                     </button>
 
                     <p class="social-text">O entra con:</p>
-                    
+
                     <div class="social-media">
                         <a href="#" class="social-icon">
                             <i class="fa-brands fa-facebook"></i>
@@ -119,4 +120,24 @@
                 <img src="./assets/img/vaquita.png" alt="" class="image">
             </div>
         </div>
+    </div>-->
+    <div class="container-login">
+        <div class="login-form">
+            <img src="{{url('/static/new/iconos/logo-red.png')}}" alt="">
+            <p class="main-text">BIENVENIDO DE NUEVO</p>
+            <P class="secondary-text">Disfruta de los beneficios de tu suscripción anual</P>
+            <form action="{{url('/login')}}" class="sign-in-form" id="formLogin" name="formLogin">
+                <hr>
+                <div class="form-group">
+                    <label for="telefono">Telefono</label>
+                    <input type="tel" id="telefono" placeholder="Telefono">
+                </div>
+                <div class="form-group">
+                    <label for="telefono">Contraseña</label>
+                    <input type="password" id="contrasena" placeholder="Contraseña">
+                </div>
+                <button class="mainButton" type="submit">Entrar</button>
+            </form>
+        </div>
     </div>
+

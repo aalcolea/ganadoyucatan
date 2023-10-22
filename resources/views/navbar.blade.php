@@ -26,7 +26,7 @@
                     <div class="menu-content">
                         <p>Publicación</p>
                         <p class="click-menu" onclick="location.href='{{ url('/register') }}'">Crear tu cuenta</p>
-                        <p class="click-menu">Ingresa</p>
+                        <p class="click-menu" onclick="location.href='{{url('/login')}}'">Ingresa</p>
                         <p class="click-menu">Publica aquí</p>
                     </div>
                     <div class="menu-content">

@@ -113,6 +113,10 @@
                     <input type="text" id="nombre" placeholder="Nombre">
                 </div>
                 <div class="form-group">
+                    <label for="telefono">Telefono</label>
+                    <input type="number" id="telefono" placeholder="Telefono">
+                </div>
+                <div class="form-group">
                     <label for="telefono">Contraseña</label>
                     <input type="password" id="contrasena" placeholder="Contraseña">
                 </div>

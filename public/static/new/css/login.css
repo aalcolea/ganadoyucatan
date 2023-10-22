@@ -26,13 +26,12 @@
 h1, h2, h3, p{
     margin: 0;
 }
-
 body {
     margin: 0;
     font-family: 'Poppins', sans-serif;
     overflow-x: hidden;
 }
-.container-register{
+.container-login{
     width: 100vw;
     height: 100vh;
     display: flex;
@@ -40,7 +39,7 @@ body {
     align-items: center;
     justify-content: center;
 }
-.register-form{
+.login-form{
     width:  30%;
     height: auto;
     border-radius: 4px;
@@ -52,7 +51,7 @@ body {
     background-position-x: 200px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
-.register-form img{
+.login-form img{
     height: 100px;
     width: 100px;
     object-fit: cover;
@@ -74,12 +73,12 @@ body {
     margin: 1rem 4rem;
     line-height: 1;
 }
-.register-form hr{
+.login-form hr{
     background-color: var(--softlines);
     height: 1px;
     border: none;
 }
-.sign-up-form{
+.sign-in-form{
     padding: 0 2rem;
 }
 .form-group{
