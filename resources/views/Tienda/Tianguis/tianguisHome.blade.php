@@ -212,21 +212,21 @@
                     <div class="filtro-container-down">
                         <h3>Filtrar por preferencia</h3>
                         <div class="filter-preference">
-                            <img src="" alt="">
+                            <img src="{{ asset('static/new/Iconos/vacanegra.png') }}" alt="">
                             <div class="text-input-container">
                                 <p>Ganado comercial</p>
                                 <input type="radio" class="radio-input" id="opcion1" name="opcion" value="opcion1">
                             </div>
                         </div>
                         <div class="filter-preference">
-                            <img src="" alt="">
+                            <img src="{{ asset('static/new/Iconos/estrellanegro.png') }}" alt="">
                             <div class="text-input-container">
                                 <p>Destacado</p>
                                 <input type="radio" class="radio-input" id="opcion1" name="opcion" value="opcion1">
                             </div>
                         </div>
                         <div class="filter-preference">
-                            <img src="" alt="">
+                            <img src="{{ asset('static/new/Iconos/relojnegro.png') }}" alt="">
                             <div class="text-input-container">
                                 <p>Urgente</p>
                                 <input type="radio" class="radio-input" id="opcion1" name="opcion" value="opcion1">
@@ -292,7 +292,7 @@
                             <div class="card-description--info">
                                 <p class="raza">Toros para semental</p>
                                 <p class="description" >Novillas para empadre</p>
-                                <button class="secondaryButton" onclick="location.href='/tianguisTienda'">Ver más</button>
+                                <button class="buttonTienda" onclick="location.href='/tianguisTienda'">Ver más</button>
                             </div>
                             <div class="card-description--footer">
                                 <p>Yucatán, Panaba</p>
@@ -310,7 +310,7 @@
                             <div class="card-description--info">
                                 <p class="raza">Toros para semental</p>
                                 <p class="description" >Novillas para empadre</p>
-                                <button class="secondaryButton">Ver más</button>
+                                <button class="buttonTienda">Ver más</button>
                             </div>
                             <div class="card-description--footer">
                                 <p>Yucatán, Panaba</p>
@@ -328,7 +328,7 @@
                             <div class="card-description--info">
                                 <p class="raza">Toros para semental</p>
                                 <p class="description" >Novillas para empadre</p>
-                                <button class="secondaryButton">Ver más</button>
+                                <button class="buttonTienda">Ver más</button>
                             </div>
                             <div class="card-description--footer">
                                 <p>Yucatán, Panaba</p>
@@ -361,7 +361,7 @@
                                 <div class="card-description--info">
                                     <p class="raza">{{$p->raza}}</p>
                                     <p class="description" >{{$p->nombre}}</p>
-                                    <button class="secondaryButton" onclick="location.href='/tianguis/producto/{{$p->idproducto}}'">Ver más</button>
+                                    <button class="buttonTienda" onclick="location.href='/tianguis/producto/{{$p->idproducto}}'">Ver más</button>
                                 </div>
                                 <div class="card-description--footer">
                                     <p>{{$p->location->nombre}}</p>

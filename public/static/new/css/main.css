@@ -305,6 +305,21 @@ Sections
     margin-top: 18px;
     cursor: pointer;
 }
+.buttonTienda{
+    width: 140px;
+    height: 40px;
+    border-radius: 20px;
+    font-size: 12px;
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+    margin-top: 18px;
+    cursor: pointer;
+}
+.buttonTienda:hover{
+    background-color: #000;
+    color: white;
+}
 .noticias-container,
 .subastaGanadera-container,
 .tianguisGanadero-container,
@@ -566,6 +581,8 @@ Tienda
     height: auto;
     width:  100%;
 
+    background: url('../background/_bkg.jpg');
+
     display: flex;
 }
 /*
@@ -579,6 +596,7 @@ Tienda Filtro
 }
 .filtro-container-info{
     border: .2px solid rgba(43, 43, 43, 0.089);
+    background-color: white;
 }
 .filtro-container h2{
     text-align: center;
@@ -602,6 +620,7 @@ Tienda Filtro
 .filter-preference{
     display: flex;
     align-items: center;
+    margin-bottom: 12px;
 }
 .filter-preference img{
     width:  20px;
@@ -617,6 +636,7 @@ Tienda Filtro
 }
 .text-input-container p{
     margin-right: 8px;
+    font-size: var(--small);
 }
 .text-input-container input{
     margin: 0;
@@ -674,6 +694,7 @@ Tienda Cards
     height: 180px;
     padding: 8px;
     border-radius: 10px;
+    background-color: white;
 }
 .card-tianguis--normal{
     border: 1px solid var(--cinereous);
@@ -682,6 +703,7 @@ Tienda Cards
     height: 180px;
     padding: 8px;
     border-radius: 10px;
+    background-color: white;
 }
 .img-products{
     width: 40%;
