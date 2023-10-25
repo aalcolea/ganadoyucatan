@@ -1,4 +1,52 @@
 {!!Form::open(['url'=> 'admin/products/postProductInfo/'.$product->idproducto, 'files' => true, 'style' => 'padding: 0;'])!!}
+
+<script >
+    
+  function handleDeleteImagePart(imagePath, id) {
+    let formData = new FormData();
+    formData.append('image_path', imagePath);
+    formData.append('action', 'delete');
+    formData.append('_token', '{{ csrf_token() }}');
+
+    fetch('{{ route('product.image_action') }}', {
+        method: 'POST',
+        body: formData
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                let portada = imagePath.substring(12, 26);
+                let container = document.getElementById('image-containerDelete');
+                let imageWrapper = container.querySelector(`.image-wrapperDelete[data-path="${imagePath}"]`);
+                deleteImage = container.removeChild(imageWrapper);
+                deleteImage;
+                if(deleteImage){
+                    $.ajax({
+                        type : 'GET',
+                        url: 'deleteGenImage/' + id + '/' + portada,
+                        success: function(response){
+                            swal({
+                            title: "Imagen Eliminada",
+                            text: "Imagen eliminada con éxito",
+                            icon: "success",
+                            buttons: true
+                            });
+                        }, error: function(xhr, status, error) {
+              
+                          }
+                    });
+                }
+                //imagesArray = imagesArray.filter(images => image.path !== imagePath);
+                
+            } else {
+                alert('Error al eliminar la imagen');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+}
+</script>
           {{-- <form id="formProductos" name="formProductos" class="form-horizontal" action="{{url('admin/products/addNewGen')}}" method="POST" style="padding: 0;"> --}}
               @csrf
               <input type="hidden" id="idProducto" name="idProducto" value="{{$product->idproducto}}">
@@ -159,14 +207,15 @@
               <div class="container">
                     <input type="file" id="file-input" name="imagenes-cargadas[]" multiple style="display:none;">
                     <button type="button" id="add-images" class="btn btn-primary" style="background: #d79e46; border-color: #d79e46">Agregar imágenes</button>
-                    <br>    
-                <div id="image-container" class="d-flex flex-wrap mt-3">
+                    <br>
+                <div id="image-containerDelete" class="d-flex flex-wrap mt-3" >
                     @foreach($images as $image)
-                        <div class="image-wrapper" data-path="{{ $image['path'] }}">
+                        <div class="image-wrapperDelete" data-path="{{ $image['path'] }}" style="position: relative; margin-inline-end: 10px; margin-block: 5px; border: 3px inset rgb(162, 80, 255); border-radius: 5px;">
                             <img style="width: 10rem;height: 7.5rem;" src="{{ $image['url'] }}" alt="imagen">
-                            <button type="button" class="delete-image" data-path="{{ $image['path'] }}">Eliminar</button>
+                            <button type="button"  data-path="{{ $image['path'] }}" style=" position: absolute;top: 0;right: 0;width: 30px;height: 30px;background-color: #f3395b;border-radius: 50%;color: white;font-size: 18px;text-align: center;line-height: 27px;vertical-align: middle;cursor: pointer;border: none;" onclick="handleDeleteImagePart('{{ $image['path'] }}', {{$product->idproducto}})">X</button>
                         </div>
                     @endforeach
+
                 </div>
 
                 <div id="hidden-inputs"></div>
@@ -188,9 +237,9 @@
               </div> --}}
               <div class="tile-footer">
       <div class="modal-footer">
-<div id="loading-icon" class="loading-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="40" height="40">
-  <img src="{{url('/static/images/loading.png')}}">
-</div>
+        <div id="loading-icon" class="loading-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="40" height="40">
+          <img src="{{url('/static/images/loading.png')}}">
+        </div>
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="background:red; border-color: red;">Cerrar</button>
         {!!Form::submit('SUBIR', ['class' => 'btn btn-primary', 'style' => 'background: #d79e46; border-color: #d79e46;', 'id' => 'enviarBtn'])!!}
       </div>      
@@ -204,264 +253,3 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
-<script >
-let imagesArray = [];
-let deletedImages = [];
-let maxFiles = 12;
-
-  document.getElementById('agregar1').addEventListener('click', () => {
-  let container = document.getElementById('image-container');
-    container.innerHTML = ''
-  });;
-
-function updateImagesInput() {
-    let imagesInput = document.getElementById('images');
-    imagesInput.value = JSON.stringify(imagesArray);
-    let imageWrapper = document.querySelector('.image-wrapper[data-index="0"]');
-    let firstImageWrapper = document.querySelector('.image-wrapper');
-    let imageWrappers = document.querySelectorAll('.image-wrapper');
-    imageWrappers.forEach((imageWrapper) => {
-        if (imageWrapper.getAttribute('data-index') !== '0') {
-            imageWrapper.style.border = '';
-            imageWrapper.style.borderRadius = '';
-            let label = imageWrapper.querySelector('.image-label');
-            if (label) {
-                label.remove();
-            }
-        } else {
-            imageWrapper.style.border = '3px inset #a250ff';
-            imageWrapper.style.borderRadius = '5px';
-            let label = imageWrapper.querySelector('.image-label');
-            if (label) {
-                label.innerHTML = 'Imagen principal';
-            } else {
-                label = document.createElement('div');
-                label.classList.add('image-label');
-                label.innerHTML = 'Imagen principal';
-                imageWrapper.appendChild(label);
-            }
-        }
-    });
-    if (!imageWrapper) {
-        firstImageWrapper.style.border = '3px inset #a250ff';
-        firstImageWrapper.style.borderRadius = '5px';
-        label = document.createElement('div');
-        label.classList.add('image-label');
-        label.innerHTML = 'Imagen principal';
-        firstImageWrapper.appendChild(label);
-    }
-}
-function addImage(image) {
-    let container = document.getElementById('image-container');
-    container.innerHTML = '';
-    let newImage = document.createElement('div');
-    newImage.setAttribute('class', 'image-wrapper');
-    newImage.style.position = 'relative';
-    newImage.style.marginInlineEnd = '10px';
-    newImage.style.marginBlockEnd = '5px';
-    newImage.style.marginBlockStart = '5px';
-    newImage.style.maxHeight =  '125';
-    console.log('hola' + image);
-    newImage.setAttribute('data-path', image.path);
-    newImage.innerHTML = `
-        <img style="width: 10rem; height: 7.5rem" src="{{ url('/') }}${image.url}" alt="Image">
-        <div class="loading-text" style="position:absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">Cargando...</div>
-        <button type="button" class="delete-image" style="  position: absolute;top: 0;right: 0;width: 30px;height: 30px;background-color: #f3395b;border-radius: 50%;color: white;font-size: 18px;text-align: center;line-height: 27px;vertical-align: middle;cursor: pointer;border: none;" data-path="${image.path}">&#x2715;</button>
-    `;
-    container.appendChild(newImage);
-    imagesArray.push(image);
-    updateImagesInput();
-    let imageElement = newImage.querySelector('img');
-    imageElement.onload = function() {
-        newImage.querySelector('.loading-text').style.display = 'none';
-    }
-}
-
-function deleteImage(imagePath) {
-    console.log("Image path:", imagePath);
-    let container = document.getElementById('image-container');
-    let imageWrapper = container.querySelector(`.image-wrapper[data-path="${imagePath}"]`);
-    console.log(imageWrapper);
-    container.removeChild(imageWrapper);
-    imagesArray = imagesArray.filter(image => image.path !== imagePath);
-    updateImagesInput();
-}
-function updateImageOrder(){
-  let container = document.getElementById('image-container');
-  let imageWrapper = container.querySelectorAll('.image-wrapper');
-  imagesArray = [];
-  for (let i = 0; i < imagesWrappers.length; i++){
-    let imageId = parseInt(imageWrappers[i].getAttribute('data-id'));
-    let image = {
-      id: imageId,
-      order: i
-    };
-    imagesArray.push(image);
-  }
-  updateImagesInput();
-}
-function handleAddImage(file) {
-    let loadingIcon = document.getElementById('loading-icon');
-    loadingIcon.style.display = 'block';
-    document.getElementById('enviarBtn').disabled = true;
-    let formData = new FormData();
-    formData.append('uploaded_image', file);
-    formData.append('action', 'add');
-    formData.append('_token', '{{ csrf_token() }}');
-
-    fetch('{{ route('product.image_action') }}', {
-        method: 'POST',
-        body: formData
-    })
-        .then(response => response.json())
-        .then(data => {
-            let image = {
-                path: data.image.path,
-                url: '/uploads/' + data.image.path
-            };
-            addImage(image);
-            loadingIcon.style.display = 'none';
-            document.getElementById('enviarBtn').disabled = false;
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            document.getElementById('loading-icon').style.display = 'none';
-            loadingIcon.classList.remove('rotate');
-            document.getElementById('add-images').disabled = false;
-        });
-}
-
-function handleDeleteImage(imagePath) {
-    console.log("Image path:", imagePath);
-    let formData = new FormData();
-    formData.append('image_path', imagePath);
-    formData.append('action', 'delete');
-    formData.append('_token', '{{ csrf_token() }}');
-
-    fetch('{{ route('product.image_action') }}', {
-        method: 'POST',
-        body: formData
-    })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                deleteImage(imagePath);
-            } else {
-                alert('Error al eliminar la imagen');
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
-}
-function handleUpdateImageOrder(newOrder){
-  fetch('{{route('product.image_action')}}', {
-    method: 'POST',
-    headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': '{{ csrf_token() }}'
-    },
-    body: JSON.stringify({
-      action: 'update', 
-      new_oder: newOrder
-    })
-  }).then(response => response.json()).then(data =>{
-    if(data.error){
-      alert('Error al cambiar la posición la imagen');
-    }else{
-      updateImageOrder();
-    }
-  }).catch(error => {
-    console.error('Error:', error);
-  });
-}
-/*nuevas funciones (listeners) */
-document.getElementById('add-images').addEventListener('click', () => {
-  let fileInput = document.getElementById('file-input');
-  fileInput.click();
-});
-document.getElementById('file-input').addEventListener('change', (event) => {
-    let files = event.target.files;
-    if (imagesArray.length + files.length <= maxFiles) {
-        for (let i = 0; i < files.length; i++) {
-            handleAddImage(files[i]);
-        }
-    } else {
-        alert('Has alcanzado el límite máximo de imágenes permitidas.');
-    }
-});
-document.addEventListener('click', function (event) {
-    if (event.target.matches('.delete-image')) {
-        let imagePath = event.target.getAttribute('data-path');
-        handleDeleteImage(imagePath);
-    }
-});
-document.addEventListener('DOMContentLoaded', function () {
-    let sortable = Sortable.create(document.getElementById('image-container'), {
-        animation: 150,
-        onEnd: function (evt) {
-            let oldIndex = evt.oldIndex;
-            let newIndex = evt.newIndex;
-            let movedItem = imagesArray.splice(oldIndex, 1)[0];
-            imagesArray.splice(newIndex, 0, movedItem);
-            let imageWrappers = document.querySelectorAll('#image-container > div');
-            for (let i = 0; i < imageWrappers.length; i++) {
-                imageWrappers[i].setAttribute('data-index', i);
-            }
-
-            updateImagesInput();
-        }
-    });
-});
-  $(document).ready(function(){
-     $('.editProductBtn').on('click', function(){
-      var productId = $(this).data('id');
-      var url = 'getProductInfo/' + productId;
-      $('#userEditInfoContainer').empty();
-      $.ajax({
-        type: 'GET',
-        url: url,
-        success: function(response){
-          $('#userEditInfoContainer').html(response);
-          loadExistingImages(productId);
-          $('#modalForGen').modal('show');
-        },
-        error: function(xhr, status, error){
-          //recordar poner los errores
-        }
-      });
-     });
-  });
-  function loadExistingImages(productId) {
-      let container = document.getElementById('image-container');
-      container.innerHTML = '';
-      $.ajax({
-          type: 'GET',
-          url: 'getProductImages/' + productId,
-          success: function(response) {
-              response.forEach(function(imageData) {
-                let image = {
-                    path: imageData.imagePath,
-                    url: '/uploads/' + imageData.imagePath
-            
-                  };
-                let imageJson = JSON.stringify(image);
-                let imageObj = JSON.parse(imageJson);
-                addImage(imageObj);
-              });
-          },
-          error: function(xhr, status, error) {
-              //ERRORes aqui igual
-          }
-      });
-  }
-  function openProductInNewTab(id, ruta){
-    const url = `/tienda/producto/${id}/${ruta}`;
-    const newTab = window.open(url, '_blank');
-    if(newTab){
-      newTab.focus();
-    }else{
-      alert('El navegador bloqueó la apertura de una nueva pestaña');
-    }
-  }
-</script>

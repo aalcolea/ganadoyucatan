@@ -26,6 +26,7 @@ Route::post('/products/addNewGen', [ProductsController::class, 'postNewGen'])->n
 Route::get('/products/addNewGen', [ProductsController::class, 'getNewGen'])->name('getNewGen');
 Route::get('/products/getProductInfo/{id}', [ProductsController::class, 'getProductEdit'])->name('getProductEdit');
 Route::post('/products/postProductInfo/{id}', [ProductsController::class, 'postProductEditGen'])->name('postProductEdit');
+Route::get('/products/deleteGenImage/{id}/{portada}', [ProductsController::class, 'deleteGenImage'])->name('deleteGenImage');
 
 Route::get('/products/addNewCom', [ProductsController::class, 'getNewCom'])->name('getNewCom');
 Route::post('/products/addNewCom', [ProductsController::class, 'postNewCom'])->name('postNewCom');

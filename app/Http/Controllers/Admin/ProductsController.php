@@ -397,6 +397,44 @@ class ProductsController extends Controller
         //return view('partials.productInfo', compact('product'));
 
     }
+    public function deleteGenImage($id, $portada){
+        $product = Product::findOrfail($id);
+        $image = $product->portada;
+        if($image == $portada){
+            $images = $product->images('productoid', $id)->get();
+            $image = $images->first(function ($image) use ($portada) {
+                return $image->img == $portada;
+            });
+            if($image){
+                if($image->delete()){
+                    $image = $product->images('productoid', $id)->first();
+                    if($image != null){
+                        $product->portada = $image->img;
+                        if($product->save()){
+
+                        }else{
+                            return back()->with('message', 'Error al actualizar la portada')->with('typealert', 'warning');
+                        }
+
+                    }else{
+                        $product->carpeta = 'default';
+                        $product->portada = 'default';
+                        $product->save(); 
+                    }
+                }else{
+                    echo "Error al eliminar imagen";
+                }
+            }
+        }else{
+            $images = $product->images('productoid', $id)->get();
+            $image = $images->first(function ($image) use ($portada){
+                return $image->img == $portada;
+            });
+            if($image){
+                $image->delete();
+            }
+        }
+    }
     public function getSubEdit($id){
         $product = ProductS::find($id);
         return view('partials.subInfo', compact('product'));
