@@ -42,7 +42,7 @@
             <hr>
             <p class="title">Ganado Genético</p>
             <p class="content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus nam nobis fuga tempore temporibus expedita similique</p>
-            <button class="mainButton">Ver más</button>
+            <button onclick="location.href='/tienda'" class="mainButton">Ver más</button>
         </div>
     </div>
     <div class="subastaGanadera-container">
@@ -50,7 +50,7 @@
             <hr>
             <p class="title">Subasta ganadera</p>
             <p class="content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus nam nobis fuga tempore temporibus expedita similique</p>
-            <button class="mainButton">Ver más</button>
+            <button onclick="location.href='/subastas/subastas.php'" class="mainButton">Ver más</button>
         </div>
         <div class="subastaRight"></div>
     </div>

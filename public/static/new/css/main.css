@@ -19,10 +19,11 @@
 
     --battleship-gray: #938B84ff;
     --poppy: #E41434ff;
-    --green-tianguis: #3e5b29;
     --cinereous: #A0958Cff;
     --gamboge: #EA9F3Cff;
 
+    --green-tianguis: #3e5b29;
+    --gold-genetica: #dd9f50;
 }
 h1, h2, h3, p{
     margin: 0;
@@ -570,7 +571,24 @@ Tienda
     color: white;
     background: url('../background/_header-tianguis-ganadero.jpg');
 }
+.banner-main-genetico{
+    height: 80vh;
+    background-image: url();
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    background: url('../background/_header-tianguis-genetica.jpg');
+}
 .banner-main img{
+    width: 60px;
+    height:60px;
+    object-fit: cover;
+
+    border-radius: 50%;
+}
+.banner-main-genetico img{
     width: 60px;
     height:60px;
     object-fit: cover;
@@ -695,6 +713,9 @@ Tienda Cards
     padding: 8px;
     border-radius: 10px;
     background-color: white;
+}
+.border-gold{
+    border: 3px solid var(--gold-genetica)
 }
 .card-tianguis--normal{
     border: 1px solid var(--cinereous);
