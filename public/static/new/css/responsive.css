@@ -1,0 +1,96 @@
+@media screen and (max-width: 767px) {
+    .navbar__content--left p{
+        display: none;
+    }
+    html{
+        overflow-x: hidden;
+    }
+    .image img{
+        width: 100%;
+        height: 520px;
+        object-fit: cover;
+    }
+    .subastaLeft,
+    .tianguisLeft{
+        flex: 90;
+    }
+    .subastaLeft  hr,
+    .tianguisLeft hr{
+        width: 10%;
+    }
+    .subastaRight,
+    .tianguisRight{
+        flex: 10;
+    }
+    .noticiasRight,
+    .geneticoRight{
+        flex: 90;
+    }
+    .noticiasRight hr,
+    .geneticoRight hr{
+        width: 10%;
+    }
+    .noticiasLeft,
+    .geneticoLeft{
+    flex: 10;
+    }
+    .content{
+        width: 80%;
+    }
+    .noticias-container,
+    .subastaGanadera-container,
+    .tianguisGanadero-container,
+    .ganadoGenetico-container{
+        background-size: cover;
+        background-position: bottom;
+    }
+    .contact{
+        padding: 2rem 0;
+        text-align: center;
+        height: auto;
+        flex-direction: column;
+    }
+    .social-media--contact-container{
+        justify-content: center;
+    }
+    .left-contact{
+        padding-right: 0;
+    }
+    .right-contact div{
+        width: 100%;
+        align-items: center;
+    }
+    .info-contact{
+        display: none;
+    }
+    .nav-buttons{
+        bottom: 50%;
+        width: 100%;
+        justify-content: space-between;
+        right: 0;
+    }
+    .next-button{
+        margin-right: 0;
+    }
+    .next-label{
+        display: none;
+    }
+    .footer{
+        background-size: cover;
+        flex-direction: column;
+        background-position-y: 0;
+        padding-left:  0;
+        padding-right: 0;
+        height: auto;
+    }
+    .footer-left{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    .footer-right{
+        align-items: center;
+    }
+}

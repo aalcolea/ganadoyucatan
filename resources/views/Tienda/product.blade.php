@@ -1,93 +1,6 @@
-@extends('Tienda.master')
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"/>
-		<script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
-		<link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
-		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
-		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
-
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
-@section('view')
-<style >
-		a.gmail-share-button {
-  display: inline-block;
-  background-color: #ea4335;
-  color: white;
-  padding: 10px;
-  opacity: 87%;
-  border-radius: 5px;
-  text-decoration: none;
-}
- {
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-}
-
-body { font-family: sans-serif; }
-
-.gallery{
-	width: 540px; 
-	height:450px;
-}
-.flickity-viewport{
-	height: 450px;
-}
-.flickity-slider{
-	height: 450px;
-}
-.gallery-cell {
-  width: 100%;
-  height: 100%;
-  margin-right: 10px;
-}
-
-/* cell number */
-.gallery-cell:before {
-  display: block;
-  text-align: center;
-  line-height: 200px;
-  font-size: 80px;
-  color: white;
-}
-    .modal {
-        display: none;
-        position: fixed;
-        z-index: 1;
-        padding-top: 50px;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        overflow: auto;
-        background-color: rgba(0, 0, 0, 0.9);
-    }
-
-    .modal-content {
-        margin: auto;
-        display: block;
-        max-width: 80%;
-        max-height: 80%;
-    }
-
-    .close {
-        color: white;
-        position: absolute;
-        top: 15px;
-        right: 25px;
-        font-size: 35px;
-        font-weight: bold;
-        cursor: pointer;
-    }
-@media only screen and (max-width: 414px) {
-.gallery{
-	width: 345px;
-    padding-inline-start: 1rem;
-    margin-top: 1rem;
-}
-.embed-responsive-item{
-	width: 380px; 
-}
-	</style>
-	<body>
+@extends('layout')
+@section('content')
+	<!-- <body>
 		<?php
 			$p = $product[0];
 			$videoURL = $p['link'];
@@ -96,7 +9,7 @@ body { font-family: sans-serif; }
 		?>
 
 
-{{-- 		<?php 
+{{-- 		<?php
  			include "conex.php";
  			date_default_timezone_set("America/Merida");
 
@@ -126,7 +39,7 @@ body { font-family: sans-serif; }
 		?> --}}
 
 		<hr>
-		<!-- breadcrumb -->
+		<!-- breadcrumb
 		<div class="container">
 			<div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg p-b-20">
 				<a href="/" class="stext-109 cl8 hov-cl1 trans-04">
@@ -142,7 +55,7 @@ body { font-family: sans-serif; }
 				</span>
 			</div>
 		</div>
-		<!-- producto detalles -->
+		<!-- producto detalles
 		<div class="container m-b-5">
 			<div class="row">
 			    <div class="col-md-6 tianguis-description">
@@ -192,13 +105,13 @@ body { font-family: sans-serif; }
 						<div class="cards-back--content">
 							<div class="CTA-Form">
 								<div class="CTA-Form--header">
-									<p class="CTA-P--header">Contacta al vendedor</p>	
+									<p class="CTA-P--header">Contacta al vendedor</p>
 								</div>
 								{!!Form::open(['url'=> 'tienda/producto/'.$p->idproducto.'/'.$p->ruta, 'id' => 'frmContactoT'])!!}
 									@csrf
           							<div class="">
           							   <input class="" type="text" id="vendedorid" name="vendedorid" value="<?= $p['vendedorid']; ?>" style="display: none;">
-          							  
+
           							</div>
 									<div class="form-group">
 										<label for="exampleInputEmail1">Nombre Completo</label>
@@ -228,25 +141,6 @@ body { font-family: sans-serif; }
 					    <span class="close">&times;</span>
 					    <img class="modal-content" id="expandedImg">
 					</div>
-					<!-- <div class="img-container">
-						<img src="" alt="" class="img-fluid img-main--product" id="MainImg">
-						//<div id="fullpage" onclick="this.style.display='none';"></div> 
-						<div class="row" style="padding: 1rem 0;">
-							<div class="hover-img col-sm-3" style="padding-right: 0;">
-								<img src="" alt="" class="small-img">
-							</div>
-							<div class="hover-img col-sm-3" style="padding-right: 0;">
-								<img src="" alt="" class="small-img">
-							</div>
-							<div class="hover-img col-sm-3">
-								<img src=" ?>" alt="" class="small-img">
-							</div>
-							<div class="hover-img col-sm-3" style="padding-left: 0;">
-								<img src="" alt="" class="small-img">
-							</div>
-						</div>
-					</div>-->
-					<!-- <div class="addthis_inline_share_toolbox"></div> -->
 					<h6><i class="fas fa-eye"></i><?php //echo $contar; ?></h6>
 					<div class="col-md-6">
 						<div class="btn_wrap">
@@ -256,7 +150,7 @@ body { font-family: sans-serif; }
   									<a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=<?=$urlShared;?>&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore"><i class="fab fa-facebook-f"></i></a>
 									</div>
 								<a href="https://api.whatsapp.com/send?text=<?=$p['ruta'];?>%20<?=$urlShared;?>" data-action="share/whatsapp/share"><i id="whats" class="fab fa-whatsapp" style="color:#23c861;"></i></a>
-								
+
                                 <a href="<?=$urlShared?>">
                                     <i class="fa-solid fa-link" id="copyLinkBtn" name="testA" ></i>
                                 </a>
@@ -264,75 +158,176 @@ body { font-family: sans-serif; }
 						</div>
 					</div>
 				</div>
-
-				
 			</div>
 		</div>
 
-		<div id="fullpage" onclick="this.style.display='none';"></div>
 
-						
+
 	</body>
 	</html>
-	<script>
-    const expandableImages = document.querySelectorAll('.gallery-cell');
-    const modal = document.getElementById('modal');
-    const expandedImg = document.getElementById('expandedImg');
-    const closeBtn = document.querySelector('.close');
-
-    expandableImages.forEach(img => {
-        img.addEventListener('click', (e) => {
-            e.preventDefault();
-            modal.style.display = 'block';
-            expandedImg.src = img.href;
-        });
-    });
-
-    closeBtn.addEventListener('click', () => {
-        modal.style.display = 'none';
-    });
-
-    window.addEventListener('click', (event) => {
-        if (event.target === modal) {
-            modal.style.display = 'none';
-        }
-    });
-</script>
-<script>
-	smallimg[0].onclick = function() {
-		MainImg.src = smallimg[0].src;
-	}
-	smallimg[1].onclick = function() {
-		MainImg.src = smallimg[1].src;
-	}
-	smallimg[2].onclick = function() {
-		MainImg.src = smallimg[2].src;
-	}
-	smallimg[3].onclick = function() {
-		MainImg.src = smallimg[3].src;
-	}
-
-	imgs.forEach(img => {
-		img.addEventListener('click', function(){
-			fullPage.style.backgroundImage = 'url(' + img.src + ')';
-			fullPage.style.display = 'block';
-		});
-	});
-	const copyLinkBtn = document.getElementById('copyLinkBtn');
-
-	copyLinkBtn.addEventListener('click', (e) => {	
-	e.preventDefault();
-	navigator.clipboard.writeText(window.location.href);
-	alert('¡Enlace copiado, compártelo con tus conocidos!').then( () => {
-		copyLinkBtn.removeEventListener('click');
-	});
-});
-
-</script>
 
 @if(Session::has('alert.success'))
     <script>
         Swal.fire('Éxito', '{{ Session::get('alert.success') }}', 'success');
     </script>
-@endif
+@endif -->
+<div class="productTienda-section">
+    <div class="banner-product--tienda">
+        <h1>TIANGUIS GANADERO</h1>
+    </div>
+    <div class="container-product--Main">
+        <div class="route">
+            <p>Inicio<span>></span></p><p>Tianguis genético</p><span>></span><p>Nombre del producto</p>
+        </div>
+        <div class="information-product--container">
+            <div class="container">
+                <div class="parent">
+                    <div class="div1">
+                        <img class="left" src="https://images.pexels.com/photos/36347/cow-pasture-animal-almabtrieb.jpg?auto=compress&cs=tinysrgb&w=400" alt="Imagen 1">
+                    </div>
+                    <div class="div2">
+                        <img class="left" src="https://images.pexels.com/photos/36347/cow-pasture-animal-almabtrieb.jpg?auto=compress&cs=tinysrgb&w=400" alt="Imagen 1">
+                    </div>
+                    <div class="div3">
+                        <img class="left" src="https://images.pexels.com/photos/36347/cow-pasture-animal-almabtrieb.jpg?auto=compress&cs=tinysrgb&w=400" alt="Imagen 1">
+                    </div>
+                    <div class="div4">
+                        <img class="right" src="https://images.pexels.com/photos/36347/cow-pasture-animal-almabtrieb.jpg?auto=compress&cs=tinysrgb&w=400" alt="Imagen 1">
+                    </div>
+                </div>
+            </div>
+            <div class="information-product">
+                <p class="description">Novillona Brahman Rojo con registro Genelógico</p>
+                <p class="raza">Panaba, Yucatán</p>
+                <p class="description">$160,000.00 MXN</p>
+                <p class="info">Lorem ipsum dolor sit amet consectetur adipisicing elit. Et aliquid molestiae error quidem, nesciunt esse praesentium reiciendis nam iusto quasi asperiores harum, inventore culpa ex perferendis cupiditate dolorum reprehenderit quisquam.</p>
+                <div class="contact-button">
+                    <button class="mainButton">Contacto</button>
+                    <a href="#">Hacer contacto <span>></span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="description-product">
+        <div class="desc-left">
+            <p>Descripción del ganado <span> ></span></p>
+        </div>
+        <div class="desc-right">
+            <h2>Descripción del Ganado</h2>
+            <div class="container-desc">
+                <div class="desc1"><span>Peso: </span><p>0kg</p></div>
+                <div class="desc2"><span>Edad: </span><p>6meses</p></div>
+                <div class="desc3"><span>Raza: </span><p>Brahman Rojo</p></div>
+                <div class="desc4"><span>Tipo: </span><p>Simbra</p></div>
+                <div class="desc5"><span>Rancho:</span><p>Ganaderia el pedregal</p></div>
+                <div class="desc6"><span>Arete: </span><p>Con Arete</p></div>
+                <div class="desc7"><span>Certificado:</span><p>Certificado</p></div>
+                <div class="desc8"><span>A cargo</span><p>David Dominguez</p></div>
+            </div>
+            <hr>
+            <h2>Reseñas del ganado</h2>
+            <div class="container-reseñas">
+                <div class="card-reseñas">
+                    <div class="reseña">
+                        <p class="reseña-description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem, numquam quibusdam! Ullam maxime repudiandae veritatis tenetur unde neque, consectetur totam alias sint necessitatibus cum, dolorem laboriosam aperiam modi quam debitis.</p>
+                        <p class="reseña-name">-Roberto Pérez</p>
+                    </div>
+                    <div class="dierecis">
+                        <!-- <img src="" alt="" srcset=""> -->
+                    </div>
+                </div>
+
+                <div class="card-reseñas">
+                    <div class="reseña">
+                        <p class="reseña-description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem, numquam quibusdam! Ullam maxime repudiandae veritatis tenetur unde neque, consectetur totam alias sint necessitatibus cum, dolorem laboriosam aperiam modi quam debitis.</p>
+                        <p class="reseña-name">-Roberto Pérez</p>
+                    </div>
+                    <div class="dierecis">
+                        <!-- <img src="" alt="" srcset=""> -->
+                    </div>
+                </div>
+
+                <div class="card-reseñas">
+                    <div class="reseña">
+                        <p class="reseña-description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem, numquam quibusdam! Ullam maxime repudiandae veritatis tenetur unde neque, consectetur totam alias sint necessitatibus cum, dolorem laboriosam aperiam modi quam debitis.</p>
+                        <p class="reseña-name">-Roberto Pérez</p>
+                    </div>
+                    <div class="dierecis">
+                        <!-- <img src="" alt="" srcset=""> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="relationated-product">
+        <p class="interest">Más ganado que te podría interesar</p>
+        <div class="relationated-product-cards">
+            <div class="card-relationated">
+                <img class="img-products" src="https://images.pexels.com/photos/36347/cow-pasture-animal-almabtrieb.jpg?auto=compress&cs=tinysrgb&w=400" alt="" srcset="">
+                <div class="card-description">
+                    <div class="icons">
+                        <img src="{{ asset('static/new/Iconos/pinestrella.png') }}" alt="">
+                        <img src="{{ asset('static/new/Iconos/pinmoño.png') }}" alt="">
+                        <img src="{{ asset('static/new/Iconos/pinvaca.png') }}" alt="">
+                    </div>
+                    <div class="card-description--info">
+                        <p class="raza">Toros para semental</p>
+                        <p class="description" >Novillas para empadre</p>
+                        <button class="secondaryButton" onclick="location.href='/tianguisTienda'">Ver más</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-relationated">
+                <img class="img-products" src="https://images.pexels.com/photos/36347/cow-pasture-animal-almabtrieb.jpg?auto=compress&cs=tinysrgb&w=400" alt="" srcset="">
+                <div class="card-description">
+                    <div class="icons">
+                        <img src="{{ asset('static/new/Iconos/pinestrella.png') }}" alt="">
+                        <img src="{{ asset('static/new/Iconos/pinmoño.png') }}" alt="">
+                        <img src="{{ asset('static/new/Iconos/pinvaca.png') }}" alt="">
+                    </div>
+                    <div class="card-description--info">
+                        <p class="raza">Toros para semental</p>
+                        <p class="description" >Novillas para empadre</p>
+                        <button class="secondaryButton" onclick="location.href='/tianguisTienda'">Ver más</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-relationated">
+                <img class="img-products" src="https://images.pexels.com/photos/36347/cow-pasture-animal-almabtrieb.jpg?auto=compress&cs=tinysrgb&w=400" alt="" srcset="">
+                <div class="card-description">
+                    <div class="icons">
+                        <img src="{{ asset('static/new/Iconos/pinestrella.png') }}" alt="">
+                        <img src="{{ asset('static/new/Iconos/pinmoño.png') }}" alt="">
+                        <img src="{{ asset('static/new/Iconos/pinvaca.png') }}" alt="">
+                    </div>
+                    <div class="card-description--info">
+                        <p class="raza">Toros para semental</p>
+                        <p class="description" >Novillas para empadre</p>
+                        <button class="secondaryButton" onclick="location.href='/tianguisTienda'">Ver más</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-relationated">
+                <img class="img-products" src="https://images.pexels.com/photos/36347/cow-pasture-animal-almabtrieb.jpg?auto=compress&cs=tinysrgb&w=400" alt="" srcset="">
+                <div class="card-description">
+                    <div class="icons">
+                        <img src="{{ asset('static/new/Iconos/pinestrella.png') }}" alt="">
+                        <img src="{{ asset('static/new/Iconos/pinmoño.png') }}" alt="">
+                        <img src="{{ asset('static/new/Iconos/pinvaca.png') }}" alt="">
+                    </div>
+                    <div class="card-description--info">
+                        <p class="raza">Toros para semental</p>
+                        <p class="description" >Novillas para empadre</p>
+                        <button class="secondaryButton" onclick="location.href='/tianguisTienda'">Ver más</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 @endsection

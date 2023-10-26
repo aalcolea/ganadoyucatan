@@ -57,10 +57,9 @@ body {
     margin-left: 4rem;
     margin-right: 1.5rem;
     border-radius: 50%;
-    background-color: rgb(43, 43, 43);
     border-radius: 50%;
-    width: 80px;
-    height: 80px;
+    width: 90px;
+    height: 90px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -68,8 +67,8 @@ body {
 }
 
 .navbar--logo img{
-    width:  45px;
-    height: 45px;
+    width:  100%;
+    height: 100%;
     object-fit: contain;
 }
 
@@ -118,8 +117,8 @@ body {
     top:  0;
     left: 0;
 
-    /* background: url('../background/_bkg-menu-abierto.jpg'); */
-    background-color: #000;
+    background: url('../background/_pic\ copia.jpg');
+    /* background-color: #000; */
     border-radius: 4px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     opacity: 0;
@@ -400,11 +399,11 @@ TODO
 Contact
 */
 .contact{
-    height: 55vh;
+    height: auto;
     width:  100%;
     background-color: #000;
     display: flex;
-    padding: 5rem 5rem;
+    padding: 5rem 0rem;
     color: white;
     background-image: url('../background/_contacto.jpg');
 }
@@ -414,6 +413,7 @@ Contact
 }
 .left-contact{
     padding-right: 2.5rem;
+    padding-left:  2.5rem;
 }
 .left-contact h1{
     font-weight: bold;
@@ -471,14 +471,14 @@ TODO
 Footer
 */
 .footer{
-    height: 50vh;
+    height: auto;
     padding-top: 2.5rem;
     padding-right: 2rem;
     padding-left: 2rem;
     display: flex;
     color: white;
     background-image: url('../background/_footer.jpg');
-    background-position-y: -10rem;
+    background-size: contain;
 }
 .footer-right{
     display: flex;
@@ -806,13 +806,12 @@ Tienda products
 }
 .banner-product--tienda{
     height: 40vh;
-    background-image: url();
+    background-image: url('../background/../background/_header-tianguis-ganadero.jpg');
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
-    background-color: gray;
+    color: white;
 }
 .information-product--container{
     display: flex;
@@ -967,7 +966,7 @@ Tienda products
 }
 .card-relationated{
     display: flex;
-    width: 80%;
+    width: 95%;
     height: 180px;
     padding: 8px;
     border-radius: 10px;

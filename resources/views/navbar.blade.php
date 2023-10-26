@@ -1,6 +1,6 @@
 <nav class="navbar">
     <div class="navbar__content--left">
-        <div class="navbar--logo"><img src="https://ganadoyucatan.com/assets/img/stylized-cow-line-art.svg" alt="Cow" srcset=""></div>
+        <div class="navbar--logo"><img src="{{ asset('static/new/Iconos/Forma2710.png') }}" alt="Cow" srcset=""></div>
         <p>Tianguis Ganadero</p>
         <p>Ganado genético</p>
         <p>Subasta</p>
