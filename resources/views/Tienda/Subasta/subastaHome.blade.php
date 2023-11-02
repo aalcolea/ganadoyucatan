@@ -1,163 +1,11 @@
-@extends('Tienda.master')
-@section('view')
+@extends('layout')
+@section('content')
 	<title>Suabasta Ganadera - Ganado Yucatán</title>
-	<style>
-   body {
-    margin-top: 0px;
-    padding-top: 0px;
-    font-family: 'League Spartan', sans-serif;
-   }
-   .wrapper {
-    padding-left: 0px;
-    margin-left: 0px;
-   }
-
-        .footer{
-            font-family: 'League Spartan', sans-serif;
-        }
-
-        .back-main{
-            display: flex;
-            flex-direction: row;
-            height: 30vh;
-            width: 100%;
-        }
-        .back-main .item:nth-child(1){
-            width: 60%;
-            background-color: whitesmoke;
-            margin-inline-start: 20%;
-        }
-        .list-unlisted{
-          text-align: initial;
-          padding: 0;
-          margin: 5px 0 5px 0;
-
-          color: #21223e;
-          font-size: 12px;
-          margin-right: 5px;
-          margin-left: 40px;
-        }
-        .info-container{
-            display: grid;
-            justify-items: center;
-        }
-        .back-main .item:nth-child(2){
-            width: 40%;
-            background-color: #21223e;
-            border-left: 5px solid yellow;
-        }
-        .first-plane{
-            z-index: 1;
-        }
-        .slider{
-            width: 280px;
-            height: 175px;
-            margin: auto;
-            overflow: hidden;
-            z-index: 2;
-        }
-        .slider ul{
-            display: flex;
-            padding: 0;
-            width: 400%;
-
-            animation: cambio 20s infinite;
-
-        }
-        .slider li{
-            width: 100%;
-            list-style: none;
-        }
-        .slider img{
-            width: 280px;
-            height: 135px;
-            object-fit: cover;
-            margin-top: 2rem
-        
-        
-        }
-        h3{
-            font-family: sans-serif;
-            text-align: center;
-            margin-bottom: 4px;
-            margin-top: 1px;
-            color: black;
-        }
-
-        
-        h3:hover{
-            color: rgb(255, 255, 255);
-        }
-        @keyframes cambio{
-            0%  {margin-left: 0;}
-            20% {margin-left: 0;}
-
-            25% {margin-left: -100%;}
-            45% {margin-left: -100%;}
-
-            50% {margin-left: -200%;}
-            70% {margin-left: -200%;}
-
-            75% {margin-left: -300%;}
-            100% {margin-left: -300%;}
-
-        }
-        .banner{
-            /* width: 100vw; */
-            height: 50vh;
-        }
-        .banner img{
-            width: 100%;
-            height: 50vh;
-            object-fit: cover;
-        }
-        @media (max-width: 640px){
-        .banner{
-          height: 25vh;
-        }
-        .banner img{
-          width: 100%;
-          height: 25vh;
-          object-fit: contain;
-        }
-      }
-
-        .rows{
-          margin-right: -15px;
-          margin-left: -15px;
-          /* background-color: #21223e; */
-          color: #f6c819;
-        }
-        .btn-infos {
-          color: white;
-          background-color: #f6c819;
-          border-color: #21223e;
-        }
-        .breadcrumbs {
-          padding: 8px 15px;
-          margin-bottom: 20px;
-          list-style: none;
-          background-color: #21223e;
-          border-radius: 4px;
-        }
-
- </style>
 </head>
-
-<body>
-    <div class="banner">
-      <img src="{{asset('static/tienda/img/subasta-ganadera.png')}}" alt="" srcset="">
-    </div>
-
-    <div id="wrapper">
-
-        <!-- Navigation -->
-          <!--aqui termina navigation-->
+    <!-- <div id="wrapper">
         <div id="page-wrapper">
-
             <div class="container-fluid">
-
-                <!-- Page Heading -->
+                  Page Heading
                 <div class="rows">
                     <div class="col-lg-12">
                         <ol class="breadcrumbs">
@@ -170,8 +18,6 @@
                         </ol>
                     </div>
                 </div>
-
-                <!-- Listado de subastas -->
                 <div class="rows">
 				@foreach($products as $p)
                     <div class="col-sm-6 col-md-4">
@@ -205,7 +51,6 @@
         </div>
 
     </div>
-    <!-- /#wrapper -->
     <div class="footer">
         <div class="back-main">
             <div class="item">
@@ -219,19 +64,228 @@
                   </div>
             </div>
         </div>
-    </div>
- <script >
- 	var closingTime = '';
+    </div> -->
 
- 	function updatetiempo(){
- 		var now = new Date().getTime();
- 		var endTime = new Date(closingTime).getTime();
- 		var timeRamain = endTime - now;
+ <!-- //TODO Nueva sección de subastas -->
+ <div class="tienda-section">
+		<div class="banner-main-subasta">
+			<img class="icon-banner" src="{{ asset('static/new/Iconos/pinmoño.png') }}" alt="">
+			<h1>SUBASTA GANADERA</h1>
+			<p>Las mejores razas las encuentras aquí</p>
+		</div>
+		<div class="container-tienda">
+			<div class="filtro-container">
+                <div class="filtro-container-info">
+                    <h2>Filtro</h2>
+                    <hr>
+                    <form class="tianguis-form" action="/tianguis/testT" method="get"></form>
+                    <div class="filtro-container-down">
+                        <h3>Filtrar por preferencia</h3>
+                        <div class="filter-preference">
+                            <img src="{{ asset('static/new/Iconos/vacanegra.png') }}" alt="">
+                            <div class="text-input-container">
+                                <p>Ganado comercial</p>
+                                <input type="radio" class="radio-input" id="opcion1" name="opcion" value="opcion1">
+                            </div>
+                        </div>
+                        <div class="filter-preference">
+                            <img src="{{ asset('static/new/Iconos/estrellanegro.png') }}" alt="">
+                            <div class="text-input-container">
+                                <p>Destacado</p>
+                                <input type="radio" class="radio-input" id="opcion1" name="opcion" value="opcion1">
+                            </div>
+                        </div>
+                        <div class="filter-preference">
+                            <img src="{{ asset('static/new/Iconos/relojnegro.png') }}" alt="">
+                            <div class="text-input-container">
+                                <p>Urgente</p>
+                                <input type="radio" class="radio-input" id="opcion1" name="opcion" value="opcion1">
+                            </div>
+                        </div>
+                        <hr>
+                        <h3>Filtrar por locación</h3>
+                        <div class="label-dropdown">
+                            <select id="estados">
+                                <option value="" selected disabled hidden>Estado</option>
+                            </select>
+                        </div>
+                        <div class="label-dropdown">
+                            <select id="ciudades">
+								<option value="" selected disabled hidden>Ciudad</option>
+							</select>
+                        </div>
+                        <div class="label-dropdown">
+                            <select class="form-control selectpicker" id="lisTipo" name="lisTipo" >
+								<option value="" selected disabled hidden>Seleccione un tipo</option>
+								<option value="Destetes">Destetes</option>
+								<option value="Novillas">Novillas</option>
+								<option value="Ternero">Ternero</option>
+								<option value="Toro de engorda">Toro de engorda</option>
+								<option value="Vaca de engorda">Vaca de engorda</option>
+								<option value="Vaquillona">Vaquillona</option>
+								<option value="Vaquillonas preñadas">Vaquillonas preñadas</option>
+								<option value="Ganado para matadero">Ganado para matadero</option>
+								<option value="Vaca terminada<">Vaca terminada</option>
+								<option value="Toro terminado">Toro terminado</option>
+								<option value="Novillonas de registro">Novillonas de registro</option>
+								<option value="Novillonas preñada">Novillonas preñadas</option>
+								<option value="Toro para cebar">Toro para cebar</option>
+								<option value="Vaca para cebar">Vaca para cebar</option>
+								<option value="Vaca Semiterminada">Vaca Semiterminada</option>
+								<option value="Toro Semiterminado">Toro Semiterminado</option>
+							</select>
+                        </div>
+                        <hr>
+                        <div class="price-filter">
+                            <div class="min-price-handle"></div>
+                            <div class="max-price-handle"></div>
+                            <div class="price-line"></div>
+                        </div>
+                        <p class="range-price">Rango de precio: $<span class="range-price" id="min-price">0</span> - $<span class="range-price" id="max-price">1000</span></p>
+                        <div class="align-center">
+                            <button class="mainButtonB">Buscar</button>
+                        </div>
+                    </div>
+                </div>
+			</div>
+            <div class="container-cards">
+                <p class="title-container--cards">Publicaciones destacadas</p>
+                <div class="container-destacadas">
+                    <div class="card-tianguis border-red">
+                        <img class="img-products" src="https://images.pexels.com/photos/36347/cow-pasture-animal-almabtrieb.jpg?auto=compress&cs=tinysrgb&w=400" alt="" srcset="">
+                        <div class="card-description">
+                            <div class="icons">
+                                <img src="{{ asset('static/new/Iconos/pinestrella.png') }}" alt="">
+                                <img src="{{ asset('static/new/Iconos/pinmoño.png') }}" alt="">
+                                <img src="{{ asset('static/new/Iconos/pinvaca.png') }}" alt="">
+                            </div>
+                            <div class="card-description--info">
+                                <p class="raza">Toros para semental</p>
+                                <p class="description" >Novillas para empadre</p>
+                                <button class="buttonTienda" onclick="location.href='/tianguisTienda'">Ver más</button>
+                            </div>
+                            <div class="card-description--footer">
+                                <p>Yucatán, Panaba</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-tianguis  border-red">
+                        <img class="img-products" src="https://images.pexels.com/photos/36347/cow-pasture-animal-almabtrieb.jpg?auto=compress&cs=tinysrgb&w=400" alt="" srcset="">
+                        <div class="card-description">
+                            <div class="icons">
+                                <img src="{{ asset('static/new/Iconos/pinestrella.png') }}" alt="">
+                                <img src="{{ asset('static/new/Iconos/pinmoño.png') }}" alt="">
+                                <img src="{{ asset('static/new/Iconos/pinvaca.png') }}" alt="">
+                            </div>
+                            <div class="card-description--info">
+                                <p class="raza">Toros para semental</p>
+                                <p class="description" >Novillas para empadre</p>
+                                <button class="buttonTienda">Ver más</button>
+                            </div>
+                            <div class="card-description--footer">
+                                <p>Yucatán, Panaba</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-tianguis  border-red">
+                        <img class="img-products" src="https://images.pexels.com/photos/36347/cow-pasture-animal-almabtrieb.jpg?auto=compress&cs=tinysrgb&w=400" alt="" srcset="">
+                        <div class="card-description">
+                            <div class="icons">
+                            <img src="{{ asset('static/new/Iconos/pinestrella.png') }}" alt="">
+                                <img src="{{ asset('static/new/Iconos/pinmoño.png') }}" alt="">
+                                <img src="{{ asset('static/new/Iconos/pinvaca.png') }}" alt="">
+                            </div>
+                            <div class="card-description--info">
+                                <p class="raza">Toros para semental</p>
+                                <p class="description" >Novillas para empadre</p>
+                                <button class="buttonTienda">Ver más</button>
+                            </div>
+                            <div class="card-description--footer">
+                                <p>Yucatán, Panaba</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="publicidad-container">
+                    <hr>
+                    <h1 class="content-publicidad">Espacio <br>publicitario</h1>
+                    <button class="secondaryButton" style="margin-left: 2rem;">Solicitar <br>publicidad</button>
+                </div>
+                <p class="title-container--cards">Ganado Comercial</p>
+                <div class="container-normal">
+                    @foreach($products as $p)
+                            @php
+                                $portada = $p->portada;
+                                if ($portada->count() > 0) {
+                                    $portada = $portada[0]->ruta;
+                                }
+                            @endphp
+                        <div class="card-tianguis--normal">
+                            <img class="img-products" src="{{asset('uploads/'.$portada)}}" alt="" srcset="">
+                            <div class="card-description">
+                                <div class="icons">
+                                    <img src="{{ asset('static/new/Iconos/reloj-verde.png') }}" alt="">
+                                    <img src="{{ asset('static/new/Iconos/estrella-verde.png') }}" alt="">
+                                    <img src="{{ asset('static/new/Iconos/vaca-verde.png') }}" alt="">
+                                </div>
+                                <div class="card-description--info">
+                                    <p class="raza">{{$p->raza}}</p>
+                                    <p class="description" >{{$p->nombre}}</p>
+                                    <button class="buttonTienda" onclick="location.href='/tianguis/producto/{{$p->idproducto}}'">Ver más</button>
+                                </div>
+                                <div class="card-description--footer">
+                                    <p>{{$p->location->nombre}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+		</div>
+	</div>
+<script>
+	const minPriceHandle = document.querySelector('.min-price-handle');
+	const maxPriceHandle = document.querySelector('.max-price-handle');
+	const priceLine = document.querySelector('.price-line');
+	const minPriceLabel = document.getElementById('min-price');
+	const maxPriceLabel = document.getElementById('max-price');
 
- 		if(timeRamain < 0){
- 			clearInterval(countDownInterval);
- 			document.getElementById('countdown').innerHTML = '';
- 		}
- 	}
- </script>
+    const filtroContainerInfo = document.querySelector('.filtro-container-info');
+    const scrollThreshold = 200;
+
+	let isDraggingMin = false;
+	let isDraggingMax = false;
+
+	minPriceHandle.addEventListener('mousedown', () => {
+		isDraggingMin = true;
+	});
+
+	maxPriceHandle.addEventListener('mousedown', () => {
+		isDraggingMax = true;
+	});
+
+	document.addEventListener('mouseup', () => {
+		isDraggingMin = false;
+		isDraggingMax = false;
+	});
+
+	document.addEventListener('mousemove', (e) => {
+		if (isDraggingMin || isDraggingMax) {
+			const priceFilterRect = priceLine.getBoundingClientRect();
+			const mouseX = e.clientX - priceFilterRect.left;
+			const priceRange = priceFilterRect.width;
+
+			if (isDraggingMin) {
+				const minPrice = (mouseX / priceRange) * 1000; // Adjust the maximum value as needed
+				minPriceLabel.textContent = Math.round(minPrice);
+				minPriceHandle.style.left = `${mouseX}px`;
+			} else if (isDraggingMax) {
+				const maxPrice = (mouseX / priceRange) * 1000; // Adjust the maximum value as needed
+				maxPriceLabel.textContent = Math.round(maxPrice);
+				maxPriceHandle.style.right = `${priceRange - mouseX}px`;
+			}
+		}
+	});
+
+</script>
     @endsection

@@ -1,7 +1,7 @@
 @extends('layout')
 @section('content')
 	<title>Tianguis Ganadero - Ganado Yucatán</title>
-
+</head>
 	<!-- <div class="container">
 		<img src="/assets/img/tianguis-ganadero.png" class="img-fluid img-thumbnail" alt="...">
     	<div class="row p-t-23">
@@ -198,7 +198,7 @@
 
 	<!-- //TODO Nueva sección de tienda -->
 	<div class="tienda-section">
-		<div class="banner-main">
+		<div class="banner-main-subasta">
 			<img class="icon-banner" src="{{ asset('static/new/Iconos/tianguis.png') }}" alt="">
 			<h1>TIANGUIS GANADERO</h1>
 			<p>Un espacio dedicado al apoyo del sector ganadero</p>

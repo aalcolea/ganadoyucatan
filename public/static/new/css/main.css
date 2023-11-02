@@ -24,6 +24,7 @@
 
     --green-tianguis: #3e5b29;
     --gold-genetica: #dd9f50;
+    --red-subasta: #b32e3b;
 }
 h1, h2, h3, p{
     margin: 0;
@@ -568,7 +569,6 @@ Tienda
 }
 .banner-main{
     height: 80vh;
-    background-image: url();
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -576,15 +576,30 @@ Tienda
     color: white;
     background: url('../background/_header-tianguis-ganadero.jpg');
 }
+.banner-main-subasta{
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    background: url('../background/_header-subasta-ganadera.jpg');
+}
 .banner-main-genetico{
     height: 80vh;
-    background-image: url();
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     color: white;
     background: url('../background/_header-tianguis-genetica.jpg');
+}
+.banner-main-subasta img{
+    width: 60px;
+    height:60px;
+    object-fit: cover;
+
+    border-radius: 50%;
 }
 .banner-main img{
     width: 60px;
@@ -718,6 +733,9 @@ Tienda Cards
     padding: 8px;
     border-radius: 10px;
     background-color: white;
+}
+.border-red{
+    border: 3px solid var(--red-subasta);
 }
 .border-gold{
     border: 3px solid var(--gold-genetica)
