@@ -1,10 +1,9 @@
 <nav class="navbar">
     <div class="navbar__content--left">
-        <div class="navbar--logo"><img src="{{ asset('static/new/Iconos/Forma2710.png') }}" alt="Cow" srcset=""></div>
-        <p>Tianguis Ganadero</p>
-        <p>Ganado genético</p>
-        <p>Subasta</p>
-        <p>Noticias</p>
+        <div onclick="location.href='/tianguisTienda'" class="navbar--logo"><img src="{{ asset('static/new/Iconos/Forma2710.png') }}" alt="Cow" srcset=""></div>
+        <p onclick="location.href='/tianguisTienda'">Tianguis Ganadero</p>
+        <p onclick="location.href='/tienda'">Ganado genético</p>
+        <p onclick="location.href='/subastas'">Subasta</p>
     </div>
     <div class="navbar__content--right">
         <p>MENU</p>
@@ -27,14 +26,12 @@
                         <p>Publicación</p>
                         <p class="click-menu" onclick="location.href='{{ url('/register') }}'">Crear tu cuenta</p>
                         <p class="click-menu" onclick="location.href='{{url('/login')}}'">Ingresa</p>
-                        <p class="click-menu">Publica aquí</p>
                     </div>
                     <div class="menu-content">
                         <p>Servicios</p>
-                        <p>Tianguis ganadero</p>
-                        <p class="click-menu">Ganadero genético</p>
-                        <p class="click-menu">Subasta</p>
-                        <p class="click-menu">Noticias</p>
+                        <p class="click-menu" onclick="location.href='/tienda'">Ganado genético</p>
+                        <p class="click-menu" onclick="location.href='/tianguisTienda'">Tianguis Ganadero</p>
+                        <p class="click-menu" onclick="location.href='/subastas'">Subasta</p>
                     </div>
                 </div>
                 <div class="menu-social">

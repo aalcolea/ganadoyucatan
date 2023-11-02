@@ -147,7 +147,7 @@
                 <p class="description">$160,000.00 MXN</p>
                 <p class="info">Lorem ipsum dolor sit amet consectetur adipisicing elit. Et aliquid molestiae error quidem, nesciunt esse praesentium reiciendis nam iusto quasi asperiores harum, inventore culpa ex perferendis cupiditate dolorum reprehenderit quisquam.</p>
                 <div class="contact-button">
-                    <button class="mainButton">Contacto</button>
+                    <button class="mainButtonB">Contacto</button>
                     <a href="#">Hacer contacto <span>></span></a>
                 </div>
             </div>

@@ -93,4 +93,100 @@
     .footer-right{
         align-items: center;
     }
+    .menu-central{
+        gap: 0;
+    }
+    .input-with-border-bottom{
+        width: 65%;
+    }
+    /*
+    TODO: En esta parte va a ir el responsive de las tiendas
+    */
+    .banner-main,
+    .banner-main-genetico
+    {
+        text-align: center;
+    }
+    .container-tienda{
+        flex-direction: column;
+    }
+    .filtro-container{
+        width: 100%;
+        margin: 3rem 0;
+    }
+    .card-tianguis{
+        width: 93%;
+    }
+    .card-tianguis--normal{
+        width: 93%;
+    }
+    .icons{
+        height: 8%;
+    }
+    .raza,
+    .card-description--footer p{
+        font-size: 12px;
+    }
+    .card-description--info{
+        height: 82%;
+    }
+    .publicidad-container{
+        width: 100%;
+    }
+    /*
+        TODO: En esta parte va a ir el responsive del single de products
+    */
+    .banner-product--tienda{
+        background-position: center;
+        background-size: cover;
+        text-align: center;
+        height: 65vh;
+    }
+    .route{
+        padding: .5rem .5rem;
+        font-size: var(--medium);
+    }
+    .container{
+        width: 100%;
+        padding: 0;
+    }
+    .information-product--container{
+        flex-direction: column;
+    }
+    .information-product{
+        width: 95%;
+        padding: 12px 0;
+    }
+    .desc-left{
+        display: none;
+    }
+    .desc-right{
+        width: 100%;
+        padding: 0 .5rem;
+    }
+    .container-desc{
+        grid-template-columns: 50% 50%;
+    }
+    .container-desc p{
+        font-size: var(--small);
+    }
+    .container-desc span{
+        font-size: 13px;
+        padding-right: 2px;
+    }
+    .reseña{
+        padding-right: 0;
+        width: 75%;
+    }
+    .dierecis{
+        width: 25%;
+    }
+    .relationated-product{
+        padding: 2rem .5rem;
+    }
+    .relationated-product-cards{
+        grid-template-columns: repeat(1, 1fr);
+    }
 }
+
+

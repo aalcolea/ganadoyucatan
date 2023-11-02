@@ -196,7 +196,7 @@
         </div>
 	</div> -->
 
-	//TODO Nueva sección de tienda
+	<!-- //TODO Nueva sección de tienda -->
 	<div class="tienda-section">
 		<div class="banner-main">
 			<img class="icon-banner" src="{{ asset('static/new/Iconos/tianguis.png') }}" alt="">

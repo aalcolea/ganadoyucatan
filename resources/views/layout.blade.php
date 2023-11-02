@@ -20,7 +20,7 @@
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         const menuContainer = document.querySelector(".menu-container");
-        const menuList = document.querySelector(".menu-list");
+        const closeMenu = document.querySelector(".close-menu");
         const hamburgerMenu = document.querySelector(".hamburger-menu");
 
         // Toggle the menu when the hamburger icon is clicked
@@ -29,7 +29,7 @@
         });
 
         // Close the menu when a menu item is clicked
-        menuList.addEventListener("click", function () {
+        closeMenu.addEventListener("click", function () {
             menuContainer.classList.remove("menu-open");
         });
     });

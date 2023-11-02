@@ -101,7 +101,9 @@
 		</div>
 	</section> -->
 
-    //TODO Nueva sección de tienda
+    <!--
+        TODO Nueva sección de tienda
+    -->
     <div class="tienda-section">
 		<div class="banner-main-genetico">
 			<img class="icon-banner" src="{{ asset('static/new/Iconos/geneticoMoño.png') }}" alt="">
@@ -191,7 +193,7 @@
                         <img class="img-products" src="https://images.pexels.com/photos/36347/cow-pasture-animal-almabtrieb.jpg?auto=compress&cs=tinysrgb&w=400" alt="" srcset="">
                         <div class="card-description">
                             <div class="icons">
-                                0<img src="{{ asset('static/new/Iconos/relojDorado.png') }}" alt="">
+                                <img src="{{ asset('static/new/Iconos/relojDorado.png') }}" alt="">
                                 <img src="{{ asset('static/new/Iconos/estrellaDorada.png') }}" alt="">
                                 <img src="{{ asset('static/new/Iconos/vacaDorada.png') }}" alt="">
                             </div>
