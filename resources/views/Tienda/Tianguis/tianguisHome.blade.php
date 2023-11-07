@@ -451,7 +451,6 @@
 </script> -->
 <script>
 document.addEventListener("DOMContentLoaded", function () {
-  // Debes declarar inputElements antes de usarlo.
   const inputElements = document.querySelectorAll(".range-slider input");
   const minValue = document.getElementById("min-value");
   const maxValue = document.getElementById("max-value");
