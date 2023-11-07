@@ -165,11 +165,11 @@
 										@endphp
 											<div class="col-md-4">
 												<div class="card mb-3">
-													@if($p->imagen != null)
+{{-- 													@if($p->imagen != null)
 													<img src="{{ asset('uploads/tianguis/'.substr($p->datecreated, 0, 10).'/'.$portada.'.webp')}}"class="card-img-top" alt="nombreProducto">
 													@else
 													<img class="card-img-top" src="{{asset('uploads/'.$portada)}}" alt="nombreProducto">
-													@endif
+													@endif --}}
 													<p id="counting"></p>
 													<div class="card-body card-tianguis">
 														<h5 class="card-title">{{$p->raza}}</h5>

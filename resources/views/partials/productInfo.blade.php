@@ -1,7 +1,8 @@
 {!!Form::open(['url'=> 'admin/products/postProductInfo/'.$product->idproducto, 'files' => true, 'style' => 'padding: 0;'])!!}
 
 <script >
-    
+  let imagesArrayPart = [];
+  let deletedImagesPart = [];
   function handleDeleteImagePart(imagePath, id) {
     let formData = new FormData();
     formData.append('image_path', imagePath);
@@ -45,6 +46,29 @@
         .catch(error => {
             console.error('Error:', error);
         });
+}
+document.getElementById('add-imagesPart').addEventListener('click', () => {
+  let fileInput = document.getElementById('file-inputPart');
+  fileInput.click();
+});
+document.getElementById('file-inputPart').addEventListener('change', (event) => {
+  let files = event.target.files;
+  if(imagesArrayPart.length + files.length <= maxFiles){
+    for(let i = 0; i < files.length; i++){
+      handleAddImagePart(files[i]);
+    }
+  }else{
+        alert('Has alcanzado el límite máximo de imágenes permitidas.');
+  }
+});
+function handleAddImagePart(file){
+    let loadingIcon = document.getElementById('loading-icon');
+    loadingIcon.style.display = 'block';
+    imagePath = `{{$product->datecreated}}`;
+    let dataPath =  imagePath.substring(0, 10);
+    let formData = new FormData();
+    formData.append('uploaded_imagePart', file);
+    formData.append('action', 'add');
 }
 </script>
           {{-- <form id="formProductos" name="formProductos" class="form-horizontal" action="{{url('admin/products/addNewGen')}}" method="POST" style="padding: 0;"> --}}
@@ -205,8 +229,8 @@
                 </div>
               </div>
               <div class="container">
-                    <input type="file" id="file-input" name="imagenes-cargadas[]" multiple style="display:none;">
-                    <button type="button" id="add-images" class="btn btn-primary" style="background: #d79e46; border-color: #d79e46">Agregar imágenes</button>
+                    <input type="file" id="file-inputPart" name="imagenes-cargadas[]" multiple style="display:none;">
+                    <button type="button" id="add-imagesPart" class="btn btn-primary" style="background: #d79e46; border-color: #d79e46">Agregar imágenes</button>
                     <br>
                 <div id="image-containerDelete" class="d-flex flex-wrap mt-3" >
                     @foreach($images as $image)
