@@ -53,6 +53,10 @@
 				<span class="stext-109 cl4">
 					<?= $p['nombre'] ?>
 				</span>
+				<?php echo '  -'; ?>
+				<span class="stext-109 cl4">
+					Visitas: {{$p->visits->count()}}
+				</span>
 			</div>
 		</div>
 		<!-- producto detalles

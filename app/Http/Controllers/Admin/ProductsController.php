@@ -18,9 +18,11 @@ use App\Models\Ciudad;
 use App\Models\Comisaria;
 use App\Models\PGallery;
 use App\Models\PSubGallery;
+use App\Models\PTGallery;
 use App\Models\Subasta;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\DB;
 use App\Utilities\ImageConverter;
 use App\Models\MensajeProducto;
 class ProductsController extends Controller
@@ -35,6 +37,18 @@ class ProductsController extends Controller
     public function getCiudadesByEstado($estadoId){
         $ciudades = Ciudad::where('estado_id', $estadoId)->get();
         return response()->json($ciudades);
+    }
+
+    public function getProductImages($id){
+        $product = Product::with(['images' => function ($query){
+            $query->with(['product' => function($query){
+                $query->select('idproducto', 'carpeta');
+            }]);
+        }])->find($id);
+        $images = $product->images->map(function($image){
+            return ['id' => $image->id, 'productid' => $image->productoid, 'img' => $image->img, 'imagePath'=> $image->product->carpeta.'/'.$image->img];
+        });
+        return response()->json($images);
     }
     public function imageAction(Request $request){
         if (!$request->session()->has('product.images')) {
@@ -162,12 +176,102 @@ class ProductsController extends Controller
                 return response()->json(['error' => 'Accion invalida'], 400);
         }
     }
+    public function imageActionCom(Request $request){
+        if (!$request->session()->has('product.imagesCom')) {
+            $request->session()->put('product.imagesCom', []);
+            $request->session()->put('product.imageCountCom', 0);
+        }
+        if(!$request->session()->has('product.randomStringCom')){
+            $request->session()->put('product.randomStringCom', Str::random(4));
+        }
+        $randomString = $request->session()->get('product.randomStringCom');
+        $action = $request->input('action');
+        switch ($action) {
+            case 'add':
+                $imageCount = $request->session()->get('product.imageCountCom');
+                $uploadedImage = $request->file('uploaded_image');
+                $dateFolder = date('Y-m-d');
+                $uploadPath = 'uploads/tianguis/' . $dateFolder;
+                $filename = $imageCount . '-' . 'GYC-'.date('md').'-'.$randomString . '.' . $uploadedImage->getClientOriginalExtension();
+                $request->session()->increment('product.imageCountCom');
+                if (!File::exists($uploadPath)) {
+                    File::makeDirectory($uploadPath, 0755, true);
+                }
+                $path = $filename;
+                $webpPath = $dateFolder . '/' . pathinfo($path, PATHINFO_FILENAME) . '.webp';
+                $destinationPath = Storage::disk('webp_images_com')->path($webpPath);
+                $img = Image::make($uploadedImage->getRealPath())->resize(800, 600);
+                $img->encode('webp', 10)->save($destinationPath);
+                //ImageConverter::convertToWebp($uploadedImage->getRealPath(), $destinationPath);
+    
+                $images = $request->session()->get('product.imagesCom');
+                $images[] = [
+                    'path' => '/' . $webpPath //$dateFolder . '/' . $webpPath
+                ];
+                $request->session()->put('product.imagesCom', $images);
+                return response()->json(['image' => ['path' => '/' . $webpPath]]); //$dateFolder . '/' . $webpPath
+            case 'delete':
+                $imagePath = $request->input('image_path');
+                $images = $request->session()->get('product.imagesCom');
+                $images = array_filter($images, function ($image) use ($imagePath) {
+                    return $image['path'] != $imagePath;
+                });
+                $request->session()->put('product.imagesCom', $images);
+                if (file_exists(public_path('uploads/tianguis/' . $imagePath))) {
+                    unlink(public_path('uploads/tianguis/' . $imagePath));
+                }
+                //cualquier de los dos sirve
+               /* $webpPath = 'uploads/' . $imagePath;
+                if (File::exists($webpPath)) {
+                    File::delete($webpPath);
+                }*/
+                return response()->json(['success' => true]);
+            case 'update':
+                $newOrder = $request->input('new_order');
+                $images = $request->session()->get('product.imagesCom');
+                $orderedImages = [];
+                foreach ($newOrder as $imageId) {
+                    $orderedImages[] = $images[array_search($imageId, array_column($images, 'id'))];
+                }
+                $request->session()->put('product.imagesCom', $orderedImages);
+                return response()->json(['success' => true]);
+            default:
+                return response()->json(['error' => 'Accion invalida'], 400);
+        }
+    }
     public function getComisariasByCiudad($ciudadId){
         $comisarias = Comisaria::where('ciudad_id', $ciudadId)->get();
         return response()->json($comisarias);
     }    
+    public function getAllGanado(){
+        $subastas = ProductS::paginate(10);
+        $products = Product::paginate(10);
+        $data = ['products' => $products, 'subastas' => $subastas];
+        return view('Admin.Products.ganado', $data);
+    }
     public function getProductsHome(){
         return view('Admin.Products.home');
+    }
+    public function getTianguisAll(){
+        $products = ProductT::where('status', '1')->orderBy('idproducto')->get();
+        $aprob = ProductT::where('status', '2')->where('vendedorid', Auth::id())->orderBy('idproducto')->get();
+
+        return view('Admin.Products.aprob', compact('products', 'aprob'));
+    }
+    public function getTianguisView($id){
+        $product = ProductT::findOrfail($id);
+        $images = PTGallery::where('id_producto', $id)->get();
+        $data = ['product' => $product, 'images' => $images];
+        return view('partials.tianguisProductInfo', $data);
+    }
+    public function aprobTianguisProduct($id){
+        $product = ProductT::findOrFail($id);
+        $product->status = '2';
+        if($product->save()){
+            return redirect('admin/products/TianguisAdmin')->with('message', 'Producto aprobado con éxito')->with('typealert', 'success');
+        }else{
+            return back()->with('message', 'Error al aprobar el producto')->with('typealert', 'warning');
+        }
     }
     public function getNewGen(){
         $id = Auth::id();
@@ -280,9 +384,64 @@ class ProductsController extends Controller
         endif;
     }
     public function getProductEdit($id){
-        $product = Product::find($id);
-        return view('partials.productInfo', compact('product'));
+        //$product = Product::with('images')->find($id);
+        //return view('partials.productInfo', compact('product'));
+        $product = Product::with('images')->find($id);
+        $images = $product->images->map(function($image) {
+            return [
+                'path' => '/'.$image->product->carpeta.'/'.$image->img.'.webp',
+                'url' => asset('uploads/' . $image->product->carpeta . '/' . $image->img . '.webp')
+            ];
+        });
+        return view('partials.productInfo', compact('product', 'images'));
+        //return view('partials.productInfo', compact('product'));
 
+    }
+    public function deleteGenImage($id, $portada){
+        $product = Product::findOrfail($id);
+        $image = $product->portada;
+        if($image == $portada){
+            $images = $product->images('productoid', $id)->get();
+            $image = $images->first(function ($image) use ($portada) {
+                return $image->img == $portada;
+            });
+            if($image){
+                if($image->delete()){
+                    $image = $product->images('productoid', $id)->first();
+                    if($image != null){
+                        $product->portada = $image->img;
+                        if($product->save()){
+
+                        }else{
+                            return back()->with('message', 'Error al actualizar la portada')->with('typealert', 'warning');
+                        }
+
+                    }else{
+                        $product->carpeta = 'default';
+                        $product->portada = 'default';
+                        $product->save(); 
+                    }
+                }else{
+                    echo "Error al eliminar imagen";
+                }
+            }
+        }else{
+            $images = $product->images('productoid', $id)->get();
+            $image = $images->first(function ($image) use ($portada){
+                return $image->img == $portada;
+            });
+            if($image){
+                $image->delete();
+            }
+        }
+    }
+    public function getSubEdit($id){
+        $product = ProductS::find($id);
+        return view('partials.subInfo', compact('product'));
+    }
+    public function getComEdit($id){
+        $product = ProductT::findOrfail($id);
+        return view('partials.comInfo', compact('product'));
     }
     public function postProductEditGen(Request $request, $id){
         $rules = [
@@ -357,12 +516,10 @@ class ProductsController extends Controller
     public function postNewSub(Request $request){
         $rules = [
             'txtNombre' => 'required',
-            'txtPrecio' => 'required',
             'txtDescripcion' => 'required',
         ];
         $messages = [
             'txtNombre.required' => 'Nombre de producto obligatorio',
-            'txtPrecio.required' => 'Precio obligatorio',
             'txtDescripcion.required' => 'Por favor agregue una descripcion'
         ];
 
@@ -384,7 +541,7 @@ class ProductsController extends Controller
             $portada = pathinfo($filename, PATHINFO_FILENAME);
             $nombre = e($request->input('txtNombre'));
             $descripcion = e($request->input('txtDescripcion'));
-            $precio = e($request->input('txtPrecio'));
+            //$precio = e($request->input('txtPrecio'));
             $stock = $request->input('txtStock');
             $tipo = $request->input('txtTipo');
             $date = date('Y-m-d H:i:s');
@@ -416,7 +573,7 @@ class ProductsController extends Controller
             $product->nombre = $nombre;
             $product->portada = $portada;
             $product->descripcion = $descripcion;
-            $product->precio = $precio;
+            //$product->precio = $precio;
             $product->cantidad = $stock;
             $product->tipo = $tipo;
             $product->rancho = $rancho;
@@ -437,7 +594,7 @@ class ProductsController extends Controller
             $product->fechaCierre = $fecha;
             $product->fechaCreado = date('Y-m-d H:i:s');
             $product->status = '1';
-            $product->save();            
+            $product->save();
             if(count($images) > 1) {
                 for ($i = 0; $i < count($images); $i++) {
                     $imageData = $images[$i];
@@ -461,30 +618,110 @@ class ProductsController extends Controller
             $sub->estado = '1';
             $sub->subastador = Auth::id();
             $sub->id_producto = ProductS::where('vendedorid', Auth::id())->orderby('fechaCreado', 'desc')->value('id_producto');
+            $sub->save();
             if($product->save()){
                 return redirect('/admin/products/addNewSub');
             }else{
                 echo "hola";
             }
             
-/*            if (count($images) > 1) {
-                for ($i = 1; $i < count($images); $i++) {
+        }
+    }
+    public function postNewCom(Request $request){
+        $imagesJson = $request->input('images');
+        $images = json_decode($imagesJson, true);
+        if (!$images || count($images) == 0) {
+            return back()->withErrors(['message' => 'Por favor, cargue al menos una imagen.'])->withInput();
+        }
+        $dateFolder = date('Y-m-d');
+        $pathParts = explode('/', $images[0]['path']);
+        $filename = end($pathParts);
+        $estado = $request->input('estados', 1);
+        $ciudad = $request->input('ciudades', 1);
+        $nombre = $request->input('txtNombre');
+        $descripcion = $request->input('txtDescripcion');
+        $precio = $request->input('precio');
+        $numero = Auth::user()->email_user;
+        $ruta = strtolower(str_replace(" ", "-", $nombre));
+        $pesoG = $request->input('pesoG');
+        $txtStock = $request->input('txtStock');
+        $txtRaza = $request->input('txtRaza');
+        $listVacu = $request->input('listVacu');
+        $listArete = $request->input('listArete');
+        $listCert = $request->input('listCert');
+        $lisTipo = $request->input('txtTipo');
+        $txtLink = $request->input('txtLink');
+        $estatus = $request->input('listEstatus');
+        $rancho = $request->input('txtRancho');
+        $propietario = Auth::user()->nombres;
+        $tipo = $request->input('txtTipo');
+        $id_producto = DB::table('productot')->insertGetId([
+            'nombre' => $nombre,
+            'estado' => $estado,
+            'ciudad' => $ciudad,
+            'nombre' => $nombre,
+            'descripcion' => $descripcion,
+            'precio' => $precio,
+            'numero' => $numero,
+            'ruta' => $ruta,
+            'peso' => $pesoG,
+            'stock' => $txtStock,
+            'rancho'=> $rancho,
+            'raza' => $txtRaza,
+            'estatus' => $estatus,
+            'vacunado' => $listVacu,
+            'arete' => $listArete,
+            'certificado' => $listCert,
+            'tipo' => $lisTipo,
+            'link' => $txtLink,
+            'propietario' => $propietario,
+            'vendedorid' => Auth::id(),
+            'imagen' => '1',
+        ]);
+        if(count($images) > 1) {
+            for ($i = 0; $i < count($images); $i++) {
                 $imageData = $images[$i];
-                $image = new PSubGallery;
-                $image->productid = $product->id;
-                $image->img = rand(0, 999).basename($imageData['path']);
+                $image = new PTGallery;
+                $productoid = ProductT::where('vendedorid', Auth::id())->orderby('datecreated', 'desc')->value('idproducto');
+                $image->id_producto = $productoid;
+                $pathParts = explode('/', $images[$i]['path']);
+                $filename = end($pathParts);
+                $image->ruta = pathinfo($filename, PATHINFO_FILENAME);
                 $image->save();
-                }
-            }*/
-            
+            }
+        }
+        $request->session()->forget('product.imagesCom');
+        $request->session()->forget('product.imageCountCom');
+        $request->session()->forget('product.randomStringCom');
+        if ($id_producto) {
+            return redirect('/admin/products/addNewCom')->with('message', 'Producto agregado con exito al sistema')->with('typealert', 'success'); 
+        } else {
+            return back('/admin/products/addNewCom')->with('message', 'Error al agregar el producto a  l sistema')->with('typealert', 'warning');
         }
     }
     public function deleteSub($id){
         $product = ProductS::findOrfail($id);
         if($product->delete()){
-            return redirect('/admin/products/addNewSub')->with('message', 'Producto eliminado con exito al sistema')->with('typealert', 'success'); 
+            return back()->with('message', 'Producto eliminado con exito al sistema')->with('typealert', 'success'); 
         }else{
             return back('/admin/products/addNewSub')->with('message', 'Error al eliminar el producto eliminado del sistema')->with('typealert', 'warning');
+        }
+
+    }
+    public function deletecom($id){
+        $product = ProductT::findOrfail($id);
+        if($product->delete()){
+            return redirect('/admin/products/addNewCom')->with('message', 'Producto eliminado con exito al sistema')->with('typealert', 'success'); 
+        }else{
+            return back('/admin/products/addNewCom')->with('message', 'Error al eliminar el producto eliminado del sistema')->with('typealert', 'warning');
+        }
+    }
+    public function deleteGen($id){
+        $product = Product::findOrfail($id);
+        if($product->delete()){
+            return back()->with('message', 'Producto eliminado con exito al sistema')->with('typealert', 'success'); 
+        }else{
+            return back()->with('message', 'Error al eliminar el producto eliminado del sistema')->with('typealert', 'warning');
         }
 
     }

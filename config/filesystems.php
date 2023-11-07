@@ -57,11 +57,15 @@ return [
         ],        
         'webp_images' => [
         'driver' => 'local',
-        'root' => 'C:/Users/alan.alcolea/Music/gy/ganadoyucatan/public/uploads'
+        'root' => env('LOCAL_UPLOAD_PATH')
         ],
         'webp_images_sub' => [
         'driver' => 'local',
-        'root' => 'C:/Users/alan.alcolea/Music/gy/ganadoyucatan/public/uploads/subasta'
+        'root' => env('LOCAL_UPLOAD_PATH') . '/subasta'
+        ],
+        'webp_images_com' => [
+        'driver' => 'local',
+        'root' => env('LOCAL_UPLOAD_PATH') . '/tianguis'
         ],
 
     ],

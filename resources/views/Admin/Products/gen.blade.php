@@ -301,6 +301,11 @@
 let imagesArray = [];
 let deletedImages = [];
 let maxFiles = 12;
+$
+  document.getElementById('agregar1').addEventListener('click', () => {
+  let container = document.getElementById('image-container');
+    container.innerHTML = ''
+  });;
 
 function updateImagesInput() {
     let imagesInput = document.getElementById('images');
@@ -341,6 +346,7 @@ function updateImagesInput() {
 }
 function addImage(image) {
     let container = document.getElementById('image-container');
+    container.innerHTML = '';
     let newImage = document.createElement('div');
     newImage.setAttribute('class', 'image-wrapper');
     newImage.style.position = 'relative';
@@ -348,6 +354,7 @@ function addImage(image) {
     newImage.style.marginBlockEnd = '5px';
     newImage.style.marginBlockStart = '5px';
     newImage.style.maxHeight =  '125';
+    //console.log('hola' + image);
     newImage.setAttribute('data-path', image.path);
     newImage.innerHTML = `
         <img style="width: 10rem; height: 7.5rem" src="{{ url('/') }}${image.url}" alt="Image">
@@ -364,7 +371,7 @@ function addImage(image) {
 }
 
 function deleteImage(imagePath) {
-    console.log("Image path:", imagePath);
+    /*console.log("Vista:", imagePath);*/
     let container = document.getElementById('image-container');
     let imageWrapper = container.querySelector(`.image-wrapper[data-path="${imagePath}"]`);
     console.log(imageWrapper);
@@ -418,6 +425,7 @@ function handleAddImage(file) {
 }
 
 function handleDeleteImage(imagePath) {
+    console.log("Image path:", imagePath);
     let formData = new FormData();
     formData.append('image_path', imagePath);
     formData.append('action', 'delete');
@@ -498,8 +506,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 });
-  $(document).ready(function(){
-     $('.editProductBtn').on('click', function(){
+  $(document).on('click', '.editProductBtn', function() {
       var productId = $(this).data('id');
       var url = 'getProductInfo/' + productId;
       $('#userEditInfoContainer').empty();
@@ -508,14 +515,38 @@ document.addEventListener('DOMContentLoaded', function () {
         url: url,
         success: function(response){
           $('#userEditInfoContainer').html(response);
+          loadExistingImages(productId);
           $('#modalForGen').modal('show');
+          
         },
         error: function(xhr, status, error){
-
+          //recordar poner los errores
         }
-      });
      });
   });
+  function loadExistingImages(productId) {
+      let container = document.getElementById('image-container');
+      container.innerHTML = '';
+      $.ajax({
+          type: 'GET',
+          url: 'getProductImages/' + productId,
+          success: function(response) {
+              response.forEach(function(imageData) {
+                let image = {
+                    path: imageData.imagePath,
+                    url: '/uploads/' + imageData.imagePath
+            
+                  };
+                let imageJson = JSON.stringify(image);
+                let imageObj = JSON.parse(imageJson);
+                addImage(imageObj);
+              });
+          },
+          error: function(xhr, status, error) {
+              //ERRORes aqui igual
+          }
+      });
+  }
   function openProductInNewTab(id, ruta){
     const url = `/tienda/producto/${id}/${ruta}`;
     const newTab = window.open(url, '_blank');
@@ -525,5 +556,7 @@ document.addEventListener('DOMContentLoaded', function () {
       alert('El navegador bloqueó la apertura de una nueva pestaña');
     }
   }
+  
+
 </script>
 @endsection

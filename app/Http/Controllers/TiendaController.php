@@ -13,6 +13,7 @@ use App\Models\PGallery;
 use App\Models\PTGallery;
 use App\Models\PSubGallery;
 use App\Models\MensajeProducto;
+use App\Models\Visits;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
@@ -40,7 +41,12 @@ class TiendaController extends Controller
     public function tiendaProducto($id, $ruta){
         $product = Product::where('idproducto', $id)->where('ruta', $ruta)->get();
         $images = PGallery::where('productoid', $id)->get();
-        //dd($product);
+        Visits::create([
+            'ip' => request()->ip(),
+            'idproducto' => $id,
+            'fecha' => date('Y-m-d h:i:s'),
+            'vendedorid' => $product[0]['vendedorid'],
+            'type' => 'gen']);
         $data = ['product' => $product, 'images' => $images];
         return view('Tienda.product', $data);
     }
@@ -91,7 +97,12 @@ class TiendaController extends Controller
         $product = $product[0];
         
         $images = PTGallery::where('id_producto', $id)->get();
-        //dd($product);
+        Visits::create([
+            'ip' => request()->ip(),
+            'idproducto' => $id,
+            'fecha' => date('Y-m-d h:i:s'),
+            'vendedorid' => $product['vendedorid'],
+            'type' => 'com']);
         $data = ['product' => $product, 'images' => $images];
         return view('Tienda.Tianguis.tianguisProduct', $data);
     }
@@ -136,7 +147,7 @@ class TiendaController extends Controller
             'tipo' => $lisTipo,
             'link' => $txtLink,
             'propietario' => $propietario,
-            'vendedorid' => '252',
+            'vendedorid' => '1',
         ]);
         $ruta_carpeta = "uploads/tianguis/$id_producto";
         if (!File::makeDirectory($ruta_carpeta, 0755, true)) {
@@ -173,6 +184,12 @@ class TiendaController extends Controller
     public function getSubasta($id){
         $p = ProductS::where('status', 1)->findOrFail($id);
         $images = PSubGallery::where('productoid', $id)->get();
+        Visits::create([
+            'ip' => request()->ip(),
+            'idproducto' => $id,
+            'fecha' => date('Y-m-d h:i:s'),
+            'vendedorid' => $p['vendedorid'],
+            'type' => 'sub']);
         $data = ['p' => $p, 'images' => $images];
         return view('Tienda.Subasta.subastaProduct', $data);
     }

@@ -35,7 +35,7 @@
       <header class="app-header">
       <!-- Sidebar toggle button--><a class="app-sidebar__toggle" href="#" data-toggle="sidebar" aria-label="Hide Sidebar"><i class="fas fa-bars"></i></a>
       <!-- Navbar Right Menu-->
-      <ul class="app-nav"> <a href="{{ route('startChat') }}"><button id="startSupportChatButton">Iniciar Conversación de Soporte</button></a>
+      <ul class="app-nav"> {{-- <a href="{{ route('startChat') }}"><button id="startSupportChatButton">Iniciar Conversación de Soporte</button></a> --}}
         <!-- User Menu-->
         <a onmouseover="this.style.background='rgba(188, 184, 144, .10)';" onmouseout="this.style.background='#f6f6f6';" href="{{url('/admin/products/home')}}" style="color: #000000;margin-block-start: 1%;margin-inline-end: 1%;text-decoration: none;">Inicio&nbsp;&nbsp;<i class="fa-solid fa-house" ></i></a>
         <li class="dropdown"><a class="app-nav__item" href="#" data-toggle="dropdown" aria-label="Open Profile Menu"><i style="color: #000000" class="fa fa-user fa-lg"></i></a>
@@ -92,10 +92,10 @@
                 </a></li>
                 <?php } ?>
                 <?php if(Auth::user()->rolid == '1'){ ?>
-                <li><a class="treeview-item" href="{{url('/admin')}}/ganado"><i class="icon fa fa-circle-o"></i> Ganado Subido</a></li>
+                <li><a class="treeview-item" href="{{url('/admin')}}/products/getAllGanado"><i class="icon fa fa-circle-o"></i> Ganado Subido</a></li>
                 <?php } ?>
                 <?php if(Auth::user()->rolid == '1'){ ?>
-                <li><a class="treeview-item" href="{{url('/admin')}}/TianguisAdmin"><i class="icon fa fa-circle-o"></i> Tianguis Ganadero</a></li>
+                <li><a class="treeview-item" href="{{url('/admin')}}/products/TianguisAdmin"><i class="icon fa fa-circle-o"></i> Tianguis Ganadero</a></li>
                 <?php } ?>
 {{--                 <?php if(Auth::user()->rolid == '1'){ ?>
                 <li><a class="app-menu__item" href="{{url('/admin')}}/expo">
