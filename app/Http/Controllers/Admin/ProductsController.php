@@ -240,19 +240,17 @@ class ProductsController extends Controller
         }
     }
     public function imageActionPart(Request $request){
-        if (!$request->session()->has('product.images')) {
-            $request->session()->put('product.images', []);
+        if (!$request->session()->has('product.imagesPart')) {
+            $request->session()->put('product.imagesPart', []);
             $request->session()->put('product.imageCount', 0);
         }
-        if(!$request->session()->has('product.randomString')){
-            $request->session()->put('product.randomString', Str::random(4));
-        }
+        
         $randomString = $request->session()->get('product.randomString');
         $action = $request->input('action');
         switch ($action) {
             case 'add':
                 $imageCount = $request->session()->get('product.imageCount');
-                $uploadedImage = $request->file('uploaded_image');
+                $uploadedImage = $request->file('uploaded_imagePart');
                 $dateFolder = date('Y-m-d');
                 $uploadPath = 'uploads/' . $dateFolder;
                 $filename = $imageCount . '-' . 'GY-'.date('md').'-'.$randomString . '.' . $uploadedImage->getClientOriginalExtension();
@@ -267,37 +265,12 @@ class ProductsController extends Controller
                 $img->encode('webp', 10)->save($destinationPath);
                 //ImageConverter::convertToWebp($uploadedImage->getRealPath(), $destinationPath);
     
-                $images = $request->session()->get('product.images');
+                $images = $request->session()->get('product.imagesPart');
                 $images[] = [
                     'path' => '/' . $webpPath //$dateFolder . '/' . $webpPath
                 ];
-                $request->session()->put('product.images', $images);
+                $request->session()->put('product.imagesPart', $images);
                 return response()->json(['image' => ['path' => '/' . $webpPath]]); //$dateFolder . '/' . $webpPath
-            case 'delete':
-                $imagePath = $request->input('image_path');
-                $images = $request->session()->get('product.images');
-                $images = array_filter($images, function ($image) use ($imagePath) {
-                    return $image['path'] != $imagePath;
-                });
-                $request->session()->put('product.images', $images);
-                if (file_exists(public_path('uploads/' . $imagePath))) {
-                    unlink(public_path('uploads/' . $imagePath));
-                }
-                //cualquier de los dos sirve
-               /* $webpPath = 'uploads/' . $imagePath;
-                if (File::exists($webpPath)) {
-                    File::delete($webpPath);
-                }*/
-                return response()->json(['success' => true]);
-            case 'update':
-                $newOrder = $request->input('new_order');
-                $images = $request->session()->get('product.images');
-                $orderedImages = [];
-                foreach ($newOrder as $imageId) {
-                    $orderedImages[] = $images[array_search($imageId, array_column($images, 'id'))];
-                }
-                $request->session()->put('product.images', $orderedImages);
-                return response()->json(['success' => true]);
             default:
                 return response()->json(['error' => 'Accion invalida'], 400);
         }

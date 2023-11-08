@@ -19,6 +19,11 @@ Route::get('/products/deleteGen/{id}', [ProductsController::class, 'deleteGen'])
 Route::post('/products/image-action', [ProductsController::class, 'imageAction'])->name('product.image_action');
 Route::post('/products/image-actionS', [ProductsController::class, 'imageActionSub'])->name('product.image_actionS');
 Route::post('/products/image-actionC', [ProductsController::class, 'imageActionCom'])->name('product.image_actionC');
+
+
+
+Route::post('/products/image-actionPart', [ProductsController::class, 'imageActionPart'])->name('product.image_actionPart');
+
 /*----*/
 Route::get('products/getProductImages/{id}', [ProductsController::class, 'getProductImages'])->name('getProductImages');
 
