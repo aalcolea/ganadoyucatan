@@ -64,11 +64,14 @@ document.getElementById('file-inputPart').addEventListener('change', (event) => 
 function handleAddImagePart(file){
     let loadingIcon = document.getElementById('loading-icon');
     loadingIcon.style.display = 'block';
-    imagePath = `{{$product->datecreated}}`;
-    let dataPath =  imagePath.substring(0, 10);
+    imagePath = `{{$product->portada}}`;
+    let dataPath =  imagePath.substring(5, 15);
+    console.log(dataPath);
     let formData = new FormData();
     formData.append('uploaded_imagePart', file);
     formData.append('action', 'add');
+    formData.append('data', dataPath);
+    formData.append('_token', '{{ csrf_token() }}');
 }
 </script>
           {{-- <form id="formProductos" name="formProductos" class="form-horizontal" action="{{url('admin/products/addNewGen')}}" method="POST" style="padding: 0;"> --}}

@@ -70,7 +70,7 @@ class ConnectController extends Controller
             $user->telefono = e($request->input('telefono'));
             $user->email_user = e($request->input('telefono'));
             $user->password = Hash::make($request->input('password'));
-            $user->asociacion = e($request->input('asociacion'));
+            //$user->asociacion = e($request->input('asociacion'));
             $user->rolid = '6';
             $user->datecreated =  date('Y-m-d H:i:s');
             $user->estado = e($request->input('intEstado'));
