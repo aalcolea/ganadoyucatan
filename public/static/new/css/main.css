@@ -885,7 +885,9 @@ Tienda products
 }
 .banner-product--tienda{
     height: 40vh;
-    background-image: url('../background/../background/_header-tianguis-ganadero.jpg');
+    background-image: url('../background/../background/_header-tianguis-genetica.jpg');
+    background-size: cover;
+    background-position: center;
     display: flex;
     flex-direction: column;
     justify-content: center;

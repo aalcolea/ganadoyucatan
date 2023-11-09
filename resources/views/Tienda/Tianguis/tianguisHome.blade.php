@@ -272,12 +272,6 @@
 							</select>
                         </div>
                         <hr>
-                        <!-- <div class="price-filter">
-                            <div class="min-price-handle"></div>
-                            <div class="max-price-handle"></div>
-                            <div class="price-line"></div>
-                        </div>
-                        <p class="range-price">Rango de precio: $<span class="range-price" id="min-price">0</span> - $<span class="range-price" id="max-price">1000</span></p> -->
                         <div class="card">
                             <h4>Price Range Slider</h4>
 
