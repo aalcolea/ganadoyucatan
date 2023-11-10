@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Estado;
+use App\Models\Ciudad;
 use App\Models\Persona;
 use App\Models\Visits;
 class Product extends Model
@@ -16,6 +17,9 @@ class Product extends Model
     protected $createdAt = 'datecreated';
     public function location(){
         return $this->hasOne(Estado::class, 'id', 'estado');
+    }
+    public function ciudades(){
+        return $this->hasOne(Ciudad::class, 'id', 'ciudad');
     }
     public function owner(){
         return $this->hasOne(Persona::class, 'idpersona', 'vendedorid');

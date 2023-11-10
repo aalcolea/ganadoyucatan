@@ -190,56 +190,56 @@
                 <p class="title-container--cards">Publicaciones destacadas</p>
                 <div class="container-destacadas">
                     <div class="card-tianguis border-gold">
-                        <img class="img-products" src="https://images.pexels.com/photos/36347/cow-pasture-animal-almabtrieb.jpg?auto=compress&cs=tinysrgb&w=400" alt="" srcset="">
+                        <img class="img-products" src="{{asset('uploads/'.$random[0]->carpeta.'/'.$random[0]->portada.'.webp')}}" alt="" srcset="">
                         <div class="card-description">
                             <div class="icons">
-                                <img src="{{ asset('static/new/Iconos/relojDorado.png') }}" alt="">
+                                {{-- <img src="{{ asset('static/new/Iconos/relojDorado.png') }}" alt="">
                                 <img src="{{ asset('static/new/Iconos/estrellaDorada.png') }}" alt="">
-                                <img src="{{ asset('static/new/Iconos/vacaDorada.png') }}" alt="">
+                                <img src="{{ asset('static/new/Iconos/vacaDorada.png') }}" alt=""> --}}
                             </div>
                             <div class="card-description--info">
-                                <p class="raza">Toros para semental</p>
-                                <p class="description" >Novillas para empadre</p>
-                                <button class="buttonTienda" onclick="location.href='/tianguisTienda'">Ver más</button>
+                                <p class="raza">{{$random[0]->raza}}</p>
+                                <p class="description" >{{substr($random[0]->descripcion, 0, 15)}}...</p>
+                                <button class="buttonTienda" onclick="location.href='/tienda/producto/{{$random[0]->idproducto}}/{{$random[0]->ruta}}'">Ver más</button>
                             </div>
                             <div class="card-description--footer">
-                                <p>Yucatán, Panaba</p>
+                                <p>{{$random[0]->location->nombre}} , {{$random[0]->ciudades->nombre}}</p>
                             </div>
                         </div>
                     </div>
                     <div class="card-tianguis border-gold">
-                        <img class="img-products" src="https://images.pexels.com/photos/36347/cow-pasture-animal-almabtrieb.jpg?auto=compress&cs=tinysrgb&w=400" alt="" srcset="">
+                        <img class="img-products" src="{{asset('uploads/'.$random[1]->carpeta.'/'.$random[1]->portada.'.webp')}}" alt="" srcset="">
                         <div class="card-description">
                             <div class="icons">
-                                <img src="{{ asset('static/new/Iconos/relojDorado.png') }}" alt="">
+                                {{-- <img src="{{ asset('static/new/Iconos/relojDorado.png') }}" alt="">
                                 <img src="{{ asset('static/new/Iconos/estrellaDorada.png') }}" alt="">
-                                <img src="{{ asset('static/new/Iconos/vacaDorada.png') }}" alt="">
+                                <img src="{{ asset('static/new/Iconos/vacaDorada.png') }}" alt=""> --}}
                             </div>
                             <div class="card-description--info">
-                                <p class="raza">Toros para semental</p>
-                                <p class="description" >Novillas para empadre</p>
-                                <button class="buttonTienda">Ver más</button>
+                                <p class="raza">{{$random[1]->raza}}</p>
+                                <p class="description" >{{substr($random[1]->descripcion, 0, 15)}}...</p>
+                                <button class="buttonTienda" onclick="location.href='/tienda/producto/{{$random[1]->idproducto}}/{{$random[1]->ruta}}'">Ver más</button>
                             </div>
                             <div class="card-description--footer">
-                                <p>Yucatán, Panaba</p>
+                                <p>{{$random[1]->location->nombre}} , {{$random[1]->ciudades->nombre}}</p>
                             </div>
                         </div>
                     </div>
                     <div class="card-tianguis border-gold">
-                        <img class="img-products" src="https://images.pexels.com/photos/36347/cow-pasture-animal-almabtrieb.jpg?auto=compress&cs=tinysrgb&w=400" alt="" srcset="">
+                        <img class="img-products" src="{{asset('uploads/'.$random[2]->carpeta.'/'.$random[2]->portada.'.webp')}}" alt="" srcset="">
                         <div class="card-description">
                             <div class="icons">
-                                <img src="{{ asset('static/new/Iconos/relojDorado.png') }}" alt="">
+                                {{-- <img src="{{ asset('static/new/Iconos/relojDorado.png') }}" alt="">
                                 <img src="{{ asset('static/new/Iconos/estrellaDorada.png') }}" alt="">
-                                <img src="{{ asset('static/new/Iconos/vacaDorada.png') }}" alt="">
+                                <img src="{{ asset('static/new/Iconos/vacaDorada.png') }}" alt=""> --}}
                             </div>
                             <div class="card-description--info">
-                                <p class="raza">Toros para semental</p>
-                                <p class="description" >Novillas para empadre</p>
-                                <button class="buttonTienda">Ver más</button>
+                                <p class="raza">{{$random[2]->raza}}</p>
+                                <p class="description" >{{substr($random[2]->descripcion, 0, 15)}}...</p>
+                                <button class="buttonTienda" onclick="location.href='/tienda/producto/{{$random[2]->idproducto}}/{{$random[2]->ruta}}'">Ver más</button>
                             </div>
                             <div class="card-description--footer">
-                                <p>Yucatán, Panaba</p>
+                                <p>{{$random[2]->location->nombre}} , {{$random[2]->ciudades->nombre}}</p>
                             </div>
                         </div>
                     </div>
@@ -256,9 +256,9 @@
                             <img class="img-products" src="{{asset('uploads/'.$p->carpeta.'/'.$p->portada.'.webp')}}" alt="" srcset="">
                             <div class="card-description">
                                 <div class="icons">
-                                    <img src="{{ asset('static/new/Iconos/relojDorado.png') }}" alt="">
+                                    {{-- <img src="{{ asset('static/new/Iconos/relojDorado.png') }}" alt="">
                                     <img src="{{ asset('static/new/Iconos/vacaDorada.png') }}" alt="">
-                                    <img src="{{ asset('static/new/Iconos/estrellaDorada.png') }}" alt="">
+                                    <img src="{{ asset('static/new/Iconos/estrellaDorada.png') }}" alt=""> --}}
                                 </div>
                                 <div class="card-description--info">
                                     <p class="raza">{{$p->raza}}</p>

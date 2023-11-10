@@ -34,8 +34,8 @@ class TiendaController extends Controller
     }
     public function tiendaHome(){
         $products = Product::where('status', '1')->orderBy('idproducto', 'desc')->paginate(9);
-        
-        $data = ['products' => $products];
+        $random = Product::where('status', '1')->get()->random(3);
+        $data = ['products' => $products, 'random' => $random];
         return view('Tienda.home', $data);
     }
     public function tiendaProducto($id, $ruta){
