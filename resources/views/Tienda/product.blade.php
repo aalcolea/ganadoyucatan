@@ -177,11 +177,11 @@
 @endif -->
 <div class="productTienda-section">
     <div class="banner-product--tienda">
-        <h1>TIANGUIS GANADERO</h1>
+        <h1>Ganado genético</h1>
     </div>
     <div class="container-product--Main">
         <div class="route">
-            <p>Inicio<span>></span></p><p>Tianguis genético</p><span>></span><p>Nombre del producto</p>
+            <p>Inicio<span>></span></p><p>Ganado genético</p><span>></span><p>Nombre del producto</p>
         </div>
         <div class="information-product--container">
             <div class="container">

@@ -174,12 +174,27 @@
 							</select>
                         </div>
                         <hr>
-                        <div class="price-filter">
-                            <div class="min-price-handle"></div>
-                            <div class="max-price-handle"></div>
-                            <div class="price-line"></div>
+                        <div class="card">
+                            <h4>Price Range Slider</h4>
+
+                            <div class="price-content">
+                                <div>
+                                <label>Min</label>
+                                <p id="min-value">$50</p>
+                                </div>
+
+                                <div>
+                                <label>Max</label>
+                                <p id="max-value">$500</p>
+                                </div>
+                            </div>
+
+                            <div class="range-slider">
+                                <div class="range-fill"></div>
+                                <input type="range" class="min-price" value="100" min="0" max="500" step="10" />
+                                <input type="range" class="max-price" value="250" min="0" max="500" step="10" />
+                            </div>
                         </div>
-                        <p class="range-price">Rango de precio: $<span class="range-price" id="min-price">0</span> - $<span class="range-price" id="max-price">1000</span></p>
                         <div class="align-center">
                             <button class="mainButtonB">Buscar</button>
                         </div>
@@ -275,5 +290,43 @@
             </div>
 		</div>
 	</div>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const inputElements = document.querySelectorAll(".range-slider input");
+  const minValue = document.getElementById("min-value");
+  const maxValue = document.getElementById("max-value");
+  const rangeFill = document.querySelector(".range-fill");
+
+  // Function to validate range and update the fill color on slider
+  function validateRange() {
+    const minPrice = parseInt(inputElements[0].value);
+    const maxPrice = parseInt(inputElements[1].value);
+
+    if (minPrice > maxPrice) {
+      const tempValue = maxPrice;
+      maxPrice = minPrice;
+      minPrice = tempValue;
+    }
+
+    const minPercentage = ((minPrice) / 500) * 100;
+    const maxPercentage = ((maxPrice) / 500) * 100;
+
+    rangeFill.style.left = minPercentage + "%";
+    rangeFill.style.width = maxPercentage - minPercentage + "%";
+
+    minValue.innerHTML = "$" + minPrice;
+    maxValue.innerHTML = "$" + maxPrice;
+  }
+
+  // Add an event listener to each input element
+  inputElements.forEach((element) => {
+    element.addEventListener("input", validateRange);
+  });
+
+  // Initial call to validateRange
+  validateRange();
+});
+</script>
+
 
 @endsection
