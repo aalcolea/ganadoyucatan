@@ -176,7 +176,7 @@
     </script>
 @endif -->
 <div class="productTienda-section">
-    <div class="banner-product--tienda">
+    <div class="banner-product--genetica">
         <h1>Ganado genético</h1>
     </div>
     <div class="container-product--Main">
