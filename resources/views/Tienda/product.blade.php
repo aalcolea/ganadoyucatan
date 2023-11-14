@@ -207,7 +207,7 @@
                 <p class="info">Lorem ipsum dolor sit amet consectetur adipisicing elit. Et aliquid molestiae error quidem, nesciunt esse praesentium reiciendis nam iusto quasi asperiores harum, inventore culpa ex perferendis cupiditate dolorum reprehenderit quisquam.</p>
                 <div class="contact-button">
                     <button class="secondaryButton">Contacto</button>
-                    <a href="#">Hacer contacto <span>></span></a>
+                    <a id="openModal" href="#">Hacer contacto <span>></span></a>
                 </div>
             </div>
         </div>
@@ -333,5 +333,60 @@
     </div>
 </div>
 
+<!--Modal Contact-->
+<div id="modal">
+    <div class="contact-form">
+        <img class="contact-form-img" src="{{url('/static/new/iconos/logo-red.png')}}" alt="">
+        <div class="close-menu-contact">
+            <img src="https://img.icons8.com/ios-glyphs/30/000000/delete-sign.png" alt="delete-sign"/>
+        </div>
+        <p class="main-text">Contáctanos</p>
+        <P class="secondary-text">Ponte en contacto con nosotros</P>
+        <form action="contact-form" id="form-contact-group">
+            <hr>
+            <div class="form-group">
+                <label for="name">Nombre:</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Correo:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">Teléfono:</label>
+                <input type="tel" id="phone" name="phone">
+            </div>
+            <div class="form-group">
+                <label for="message">Mensaje:</label>
+                <textarea id="message" name="message" rows="4" required></textarea>
+            </div>
+            <button class="mainButtonC" type="submit">Enviar</button>
+        </form>
+    </div>
+</div>
+<script>
+    const openModalButton = document.getElementById('openModal');
+    const modal = document.getElementById('modal');
+    const closeModalSpan = document.querySelector('.close-menu-contact img');
+    const form = document.getElementById('form-contact-group');
 
+    openModalButton.addEventListener('click', () => {
+        modal.style.display = 'flex';
+    });
+
+    closeModalSpan.addEventListener('click', () => {
+        modal.style.display = 'none';
+    });
+
+    window.addEventListener('click', (event) => {
+        if (event.target === modal) {
+            modal.style.display = 'none';
+        }
+    });
+
+    form.addEventListener('submit', (event) => {
+        event.preventDefault();
+        modal.style.display = 'none';
+    });
+</script>
 @endsection
