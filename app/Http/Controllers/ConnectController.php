@@ -48,7 +48,6 @@ class ConnectController extends Controller
             'nombre' => 'required',
             'telefono' => 'required|numeric|unique:persona,email_user|min:10',
             'password' => 'required:min:6',
-            'txtaso' => 'required'
         ];
         $messages = [
             'nombre.required' => 'Nombre requerido',
@@ -58,7 +57,6 @@ class ConnectController extends Controller
             'telefono.min' => 'Numero con almenos 10 digitos',
             'password.required' => 'Por favor escriba una contrasena',
             'password.min' => 'La contrasena debe contener al menos 6 caracteres',
-            'txtaso.required' => 'Indique la asociación a la que pertenece por favor'
         ];
 
         $validator = Validator::make($request->all(), $rules, $messages);
@@ -73,6 +71,7 @@ class ConnectController extends Controller
             //$user->asociacion = e($request->input('asociacion'));
             $user->rolid = '6';
             $user->datecreated =  date('Y-m-d H:i:s');
+            $user->updated_at = date('Y-m-d H:i:s');
             $user->estado = e($request->input('intEstado'));
             if($request->hasFile('imagen')){
                 $imagen = $request->file('imagen');
@@ -85,7 +84,7 @@ class ConnectController extends Controller
             }
             if($user->save()){
                 if(Auth::attempt(['email_user' => $request->input('email'), 'password' => $request->input('password')], true)){
-                    echo "Registrado";
+                   return redirect('/admin/products/home');
                 }
             }else{
                 return back()->with('message', 'Se ha producdio un al registrarse')->with('typealert', 'danger');

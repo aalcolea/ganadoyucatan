@@ -32,14 +32,51 @@ class TiendaController extends Controller
         $ciudades = Ciudad::where('estado_id', $estadoId)->get();
         return response()->json($ciudades);
     }
-    public function tiendaHome(){
-        $products = Product::where('status', '1')->orderBy('idproducto', 'desc')->paginate(9);
-        $random = Product::where('status', '1')->get()->random(3);
-        $data = ['products' => $products, 'random' => $random];
-        return view('Tienda.home', $data);
+public function tiendaHome(Request $request){
+    $query = Product::where('status', '1');
+    if ($request->has('estado_id')) {
+        $query->where('estado', $request->estado_id);
+    }    if ($request->has('ciudad_id')) {
+        $query->where('ciudad', $request->ciudad_id);
     }
+    if ($request->has('lisTipo')) {
+        $query->where('tipo', $request->lisTipo);
+    }
+    if ($request->has('min_price')) {
+        $query->where('precio', '>=', $request->min_price);
+    }
+    if ($request->has('max_price')) {
+       
+        $query->where('precio', '<=', $request->max_price);
+    } 
+    $products = $query->orderBy('idproducto', 'desc')->paginate(10);
+
+    if ($products->count() >= 10) {
+        $random = $query->get()->random(3);
+        $products = $query->orderBy('idproducto', 'desc')->whereNotIn('idproducto', [$random[0]->idproducto, $random[1]->idproducto, $random[2]->idproducto])->paginate(9);
+    }else{
+        $random = null;
+    }
+
+    $estados = Estado::all();
+    $data = ['products' => $products, 'random' => $random, 'estados' => $estados];
+
+    return view('Tienda.home', $data);
+}
     public function tiendaProducto($id, $ruta){
         $product = Product::where('idproducto', $id)->where('ruta', $ruta)->get();
+        $random = Product::where('status', '1')->whereNot('idproducto', $id)->get();
+        if ($random->count() >= 4) {
+            $random = Product::where('status', '1')->whereNot('idproducto', $id)->get()->random(6);
+        }else if($random->count() == 3){
+            $random = Product::where('status', '1')->whereNot('idproducto', $id)->get()->random(3);
+        }else if($random->count() == 2){
+            $random = Product::where('status', '1')->whereNot('idproducto', $id)->get()->random(2);
+        }else if($random->count() == 1){
+            $random = Product::where('status', '1')->whereNot('idproducto', $id)->get();
+        }else{
+           $random = null;
+        }
         $images = PGallery::where('productoid', $id)->get();
         Visits::create([
             'ip' => request()->ip(),
@@ -47,7 +84,7 @@ class TiendaController extends Controller
             'fecha' => date('Y-m-d h:i:s'),
             'vendedorid' => $product[0]['vendedorid'],
             'type' => 'gen']);
-        $data = ['product' => $product, 'images' => $images];
+        $data = ['product' => $product, 'images' => $images, 'random' => $random];
         return view('Tienda.product', $data);
     }
     public function tiendaProductoMsg(Request $request, $id, $ruta){
@@ -86,7 +123,14 @@ class TiendaController extends Controller
     }
     public function getTianguisTienda(){
         $products = ProductT::where('status', '2')->orderBy('idproducto', 'desc')->paginate(9);
-        $data = ['products' => $products];
+        $random = ProductT::where('status', '2')->get();
+        if ($products->count() >= 10) {
+            $random = ProductT::where('status', '2')->get()->random(3);
+            $products = ProductT::where('status', '2')->orderBy('idproducto', 'desc')->whereNotIn('idproducto', [$random[0]->idproducto, $random[1]->idproducto, $random[2]->idproducto])->paginate(9);
+        }else{
+           $random = null;
+        }
+        $data = ['products' => $products,'random' => $random];
         return view('Tienda.Tianguis.tianguisHome', $data);
     }
     public function getTianguis(){
@@ -94,8 +138,19 @@ class TiendaController extends Controller
     }
     public function tianguisProducto($id){
         $product = ProductT::where('idproducto', $id)->get();
+        $random = ProductT::where('status', '2')->whereNot('idproducto', $id)->get();
+        if ($random->count() >= 4) {
+            $random = ProductT::where('status', '2')->whereNot('idproducto', $id)->get()->random(4);
+        }else if($random->count() == 3){
+            $random = ProductT::where('status', '2')->whereNot('idproducto', $id)->get()->random(3);
+        }else if($random->count() == 2){
+            $random = ProductT::where('status', '2')->whereNot('idproducto', $id)->get()->random(2);
+        }else if($random->count() == 1){
+            $random = ProductT::where('status', '2')->whereNot('idproducto', $id)->get();
+        }else{
+           $random = null;
+        }
         $product = $product[0];
-        
         $images = PTGallery::where('id_producto', $id)->get();
         Visits::create([
             'ip' => request()->ip(),
@@ -103,13 +158,20 @@ class TiendaController extends Controller
             'fecha' => date('Y-m-d h:i:s'),
             'vendedorid' => $product['vendedorid'],
             'type' => 'com']);
-        $data = ['product' => $product, 'images' => $images];
+        $data = ['product' => $product, 'images' => $images, 'random' => $random];
         return view('Tienda.Tianguis.tianguisProduct', $data);
     }
     public function getSubastas(){
         $today = now()->format('Y-m-d H:i:s');
         $products = ProductS::where('status', '1')->where('fechaCierre', '>', $today)->get();
-        $data = ['products' => $products];
+        $random = ProductS::where('status', '1')->get();
+        if ($products->count() >= 10) {
+            $random = ProductS::where('status', '1')->get()->random(3);
+            $products = ProductS::where('status', '1')->orderBy('idproducto', 'desc')->whereNotIn('idproducto', [$random[0]->idproducto, $random[1]->idproducto, $random[2]->idproducto])->paginate(9);
+        }else{
+           $random = null;
+        }
+        $data = ['products' => $products, 'random' => $random];
 
         return view('Tienda.Subasta.subastaHome', $data);
     }

@@ -1,12 +1,13 @@
 @extends('layout')
 @section('content')
-	<!-- <body>
-		<?php
+<?php
 			$p = $product[0];
 			$videoURL = $p['link'];
 			$convertedURL = str_replace("watch?v=","embed/", $videoURL);
 			$urlShared = url("/tienda/producto/".$p['idproducto']."/".$p['ruta']);
 		?>
+	<!-- <body>
+		
 
 
 {{-- 		<?php
@@ -39,7 +40,7 @@
 		?> --}}
 
 		<hr>
-		<!-- breadcrumb
+		 breadcrumb
 		<div class="container">
 			<div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg p-b-20">
 				<a href="/" class="stext-109 cl8 hov-cl1 trans-04">
@@ -59,7 +60,7 @@
 				</span>
 			</div>
 		</div>
-		<!-- producto detalles
+		 producto detalles
 		<div class="container m-b-5">
 			<div class="row">
 			    <div class="col-md-6 tianguis-description">
@@ -181,30 +182,44 @@
     </div>
     <div class="container-product--Main">
         <div class="route">
-            <p>Inicio<span>></span></p><p>Ganado genético</p><span>></span><p>Nombre del producto</p>
+            <p>Inicio<span>></span></p><p>Ganado genético</p><span>></span><p>{{$p->nombre}}</p>
         </div>
         <div class="information-product--container">
             <div class="container">
                 <div class="parent">
                     <div class="div1">
-                        <img class="left" src="https://images.pexels.com/photos/36347/cow-pasture-animal-almabtrieb.jpg?auto=compress&cs=tinysrgb&w=400" alt="Imagen 1">
+                        @if($p->link)
+                    	<img src="{{asset('uploads/'.$p->carpeta.'/'.$p->portada.'.webp')}}" alt="Imagen 1">
+                        @else
+                    		@if(isset($images[0]))
+    							<img class="left" src="{{ asset('uploads/' . $p->carpeta . '/' . $images[0]['img'] . '.webp') }}" alt="Imagen 1">
+							@endif
+                        @endif
                     </div>
                     <div class="div2">
-                        <img class="left" src="https://images.pexels.com/photos/36347/cow-pasture-animal-almabtrieb.jpg?auto=compress&cs=tinysrgb&w=400" alt="Imagen 1">
+                    	@if(isset($images[1]))
+    						<img class="left" src="{{ asset('uploads/' . $p->carpeta . '/' . $images[1]['img'] . '.webp') }}" alt="Imagen 1">
+						@endif
                     </div>
                     <div class="div3">
-                        <img class="left" src="https://images.pexels.com/photos/36347/cow-pasture-animal-almabtrieb.jpg?auto=compress&cs=tinysrgb&w=400" alt="Imagen 1">
+                    	@if(isset($images[2]))
+    						<img class="left" src="{{ asset('uploads/' . $p->carpeta . '/' . $images[2]['img'] . '.webp') }}" alt="Imagen 1">
+						@endif
                     </div>
                     <div class="div4">
-                        <img class="right" src="https://images.pexels.com/photos/36347/cow-pasture-animal-almabtrieb.jpg?auto=compress&cs=tinysrgb&w=400" alt="Imagen 1">
+                    	@if($p->link)
+                    	<iframe width="540" height="450" class="embed-responsive-item" src="<?php echo $convertedURL; ?>" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    	@else
+                        <img src="{{asset('uploads/'.$p->carpeta.'/'.$p->portada.'.webp')}}" alt="Imagen 1">
+                        @endif
                     </div>
                 </div>
             </div>
             <div class="information-product">
-                <p class="description">Novillona Brahman Rojo con registro Genelógico</p>
-                <p class="raza">Panaba, Yucatán</p>
-                <p class="description">$160,000.00 MXN</p>
-                <p class="info">Lorem ipsum dolor sit amet consectetur adipisicing elit. Et aliquid molestiae error quidem, nesciunt esse praesentium reiciendis nam iusto quasi asperiores harum, inventore culpa ex perferendis cupiditate dolorum reprehenderit quisquam.</p>
+                <p class="description">{{$p->nombre}}</p>
+                <p class="raza">{{$p->location->nombre}} , {{$p->ciudades->nombre}}</p>
+                <p class="description">${{$p->precio}} MXN</p>
+                <p class="info">{{substr($p->descripcion, 0, 50)}}</p>
                 <div class="contact-button">
                     <button class="secondaryButton">Contacto</button>
                     <a href="#">Hacer contacto <span>></span></a>
@@ -214,22 +229,23 @@
     </div>
     <div class="description-product">
         <div class="desc-left">
-            <p>Descripción del ganado <span> ></span></p>
+        	Visitas: {{$p->visits->count()}}
+            <p>{{$p->descripcion}} <span> </span></p>
         </div>
         <div class="desc-right">
             <h2>Descripción del Ganado</h2>
             <div class="container-desc">
-                <div class="desc1"><span>Peso: </span><p>0kg</p></div>
-                <div class="desc2"><span>Edad: </span><p>6meses</p></div>
-                <div class="desc3"><span>Raza: </span><p>Brahman Rojo</p></div>
-                <div class="desc4"><span>Tipo: </span><p>Simbra</p></div>
-                <div class="desc5"><span>Rancho:</span><p>Ganaderia el pedregal</p></div>
-                <div class="desc6"><span>Arete: </span><p>Con Arete</p></div>
-                <div class="desc7"><span>Certificado:</span><p>Certificado</p></div>
-                <div class="desc8"><span>A cargo</span><p>David Dominguez</p></div>
+                <div class="desc1"><span>Peso: </span><p>{{$p->peso}}</p></div>
+                <div class="desc2"><span>Edad: </span><p>{{$p->edad}}</p></div>
+                <div class="desc3"><span>Raza: </span><p>{{$p->raza}}</p></div>
+                <div class="desc4"><span>Tipo: </span><p>{{$p->tipo}}</p></div>
+                <div class="desc5"><span>Rancho:</span><p>{{$p->rancho}}</p></div>
+                <div class="desc6"><span>Arete: </span><p>{{$p->arete}}</p></div>
+                <div class="desc7"><span>Certificado:</span><p>{{$p->certificado}}</p></div>
+                <div class="desc8"><span>A cargo</span><p>{{$p->owner->nombres}} {{$p->owner->apellidos}}</p></div>
             </div>
             <hr>
-            <h2>Reseñas del ganado</h2>
+{{--             <h2>Reseñas del ganado</h2>
             <div class="container-reseñas">
                 <div class="card-reseñas">
                     <div class="reseña">
@@ -260,75 +276,34 @@
                         <!-- <img src="" alt="" srcset=""> -->
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
     </div>
     <div class="relationated-product">
         <p class="interest">Más ganado que te podría interesar</p>
         <div class="relationated-product-cards">
-            <div class="card-relationated">
-                <img class="img-products" src="https://images.pexels.com/photos/36347/cow-pasture-animal-almabtrieb.jpg?auto=compress&cs=tinysrgb&w=400" alt="" srcset="">
-                <div class="card-description">
-                    <div class="icons">
-                        <img src="{{ asset('static/new/Iconos/pinestrella.png') }}" alt="">
-                        <img src="{{ asset('static/new/Iconos/pinmoño.png') }}" alt="">
-                        <img src="{{ asset('static/new/Iconos/pinvaca.png') }}" alt="">
-                    </div>
-                    <div class="card-description--info">
-                        <p class="raza">Toros para semental</p>
-                        <p class="description" >Novillas para empadre</p>
-                        <button class="secondaryButton" onclick="location.href='/tianguisTienda'">Ver más</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card-relationated">
-                <img class="img-products" src="https://images.pexels.com/photos/36347/cow-pasture-animal-almabtrieb.jpg?auto=compress&cs=tinysrgb&w=400" alt="" srcset="">
-                <div class="card-description">
-                    <div class="icons">
-                        <img src="{{ asset('static/new/Iconos/pinestrella.png') }}" alt="">
-                        <img src="{{ asset('static/new/Iconos/pinmoño.png') }}" alt="">
-                        <img src="{{ asset('static/new/Iconos/pinvaca.png') }}" alt="">
-                    </div>
-                    <div class="card-description--info">
-                        <p class="raza">Toros para semental</p>
-                        <p class="description" >Novillas para empadre</p>
-                        <button class="secondaryButton" onclick="location.href='/tianguisTienda'">Ver más</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card-relationated">
-                <img class="img-products" src="https://images.pexels.com/photos/36347/cow-pasture-animal-almabtrieb.jpg?auto=compress&cs=tinysrgb&w=400" alt="" srcset="">
-                <div class="card-description">
-                    <div class="icons">
-                        <img src="{{ asset('static/new/Iconos/pinestrella.png') }}" alt="">
-                        <img src="{{ asset('static/new/Iconos/pinmoño.png') }}" alt="">
-                        <img src="{{ asset('static/new/Iconos/pinvaca.png') }}" alt="">
-                    </div>
-                    <div class="card-description--info">
-                        <p class="raza">Toros para semental</p>
-                        <p class="description" >Novillas para empadre</p>
-                        <button class="secondaryButton" onclick="location.href='/tianguisTienda'">Ver más</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card-relationated">
-                <img class="img-products" src="https://images.pexels.com/photos/36347/cow-pasture-animal-almabtrieb.jpg?auto=compress&cs=tinysrgb&w=400" alt="" srcset="">
-                <div class="card-description">
-                    <div class="icons">
-                        <img src="{{ asset('static/new/Iconos/pinestrella.png') }}" alt="">
-                        <img src="{{ asset('static/new/Iconos/pinmoño.png') }}" alt="">
-                        <img src="{{ asset('static/new/Iconos/pinvaca.png') }}" alt="">
-                    </div>
-                    <div class="card-description--info">
-                        <p class="raza">Toros para semental</p>
-                        <p class="description" >Novillas para empadre</p>
-                        <button class="secondaryButton" onclick="location.href='/tianguisTienda'">Ver más</button>
-                    </div>
-                </div>
-            </div>
+    		@for ($index = 0; $index <= 5; $index++)
+       	 		@if (isset($random[$index]))
+            	<div class="card-relationated">
+            	    <img class="img-products" src="{{ asset('uploads/'.$random[$index]->carpeta.'/'.$random[$index]->portada.'.webp') }}" alt="" srcset="">
+            	    <div class="card-description">
+            	        <div class="icons">
+            	            {{-- <img src="{{ asset('static/new/Iconos/pinestrella.png') }}" alt="">
+            	            <img src="{{ asset('static/new/Iconos/pinmoño.png') }}" alt="">
+            	            <img src="{{ asset('static/new/Iconos/pinvaca.png') }}" alt=""> --}}
+            	        </div>
+            	        <div class="card-description--info">
+            	            <p class="raza">{{$random[$index]->nombre}}</p>
+            	            <p class="description" >{{$random[$index]->nombre}}</p>
+            	            <button class="secondaryButton" onclick="location.href='/tienda/producto/{{$random[$index]->idproducto}}/{{$random[$index]->ruta}}'">Ver más</button>
+            	        </div>
+            	    </div>
+            	</div>
+        		@endif
+    		@endfor
+            @if (is_null($random))
+        		<p>Por el momento no existen elementos para mostrar</p>
+    		@endif
         </div>
     </div>
 </div>

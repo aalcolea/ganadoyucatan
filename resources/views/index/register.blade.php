@@ -123,7 +123,7 @@
                 </div>
                 <div class="form-group">
                     <label for="ubicacion">Ubicación</label>
-                    <select type="text" id="ubicacion" name="intEstado" placeholder="Ubicación">
+                    <select type="text" id="intEstado" name="intEstado" placeholder="Ubicación">
                         <option selected value="1">Yucatan</option>
                         <option value="2">Campeche</option>
                         <option value="3">Quintana Roo</option>

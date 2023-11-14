@@ -2,14 +2,14 @@
 use App\Http\Controllers\Admin\ProductsController;
 use App\Http\Controllers\Admin\UsersController;
 use App\Http\Controllers\Admin\ConversationController;
-Route::prefix('/admin')->group(function(){
+Route::prefix('/admin')->middleware(['verificarRol'])->group(function(){
 
 /*ciudades*/
 Route::get('/get-estados', [ProductsController::class, 'getEstados']);
 Route::get('/get-ciudades-by-estado/{estadoId}', [ProductsController::class, 'getCiudadesByEstado']);
 Route::get('/get-comisarias-by-ciudad/{ciudadId}', [ProductsController::class, 'getComisariasByCiudad']);
 /*productos*/
-Route::get('/products/home', [ProductsController::class, 'getProductsHome'])->name('productsHome');
+Route::get('/products/home', [ProductsController::class, 'getProductsHome'])->name('productsHome')->withoutMiddleware(['verificarRol']);
 Route::get('/products/TianguisAdmin', [ProductsController::class, 'getTianguisAll'])->name('getTianguisAll');
 Route::get('/products/TianguisAdminInfo/{id}', [ProductsController::class, 'getTianguisView'])->name('getTianguisView');
 Route::get('/products/aprobProduct/{id}', [ProductsController::class, 'aprobTianguisProduct'])->name('aprobProduct');

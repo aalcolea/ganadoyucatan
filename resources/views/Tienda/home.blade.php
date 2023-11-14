@@ -118,7 +118,7 @@
                     <hr>
                     <form class="tianguis-form" action="/tianguis/testT" method="get"></form>
                     <div class="filtro-container-down">
-                        <h3>Filtrar por preferencia</h3>
+{{--                         <h3>Filtrar por preferencia</h3>
                         <div class="filter-preference">
                             <img src="{{ asset('static/new/Iconos/vacanegra.png') }}" alt="">
                             <div class="text-input-container">
@@ -139,12 +139,15 @@
                                 <p>Urgente</p>
                                 <input type="radio" class="radio-input" id="opcion1" name="opcion" value="opcion1">
                             </div>
-                        </div>
+                        </div> --}}
                         <hr>
                         <h3>Filtrar por locación</h3>
                         <div class="label-dropdown">
                             <select id="estados">
                                 <option value="" selected disabled hidden>Estado</option>
+                                @foreach($estados as $e)
+                                	<option value="{{$e->id}}" data-estado-id="{{$e->id}}">{{$e->nombre}}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="label-dropdown">
@@ -154,23 +157,12 @@
                         </div>
                         <div class="label-dropdown">
                             <select class="form-control selectpicker" id="lisTipo" name="lisTipo" >
-								<option value="" selected disabled hidden>Seleccione un tipo</option>
-								<option value="Destetes">Destetes</option>
-								<option value="Novillas">Novillas</option>
-								<option value="Ternero">Ternero</option>
-								<option value="Toro de engorda">Toro de engorda</option>
-								<option value="Vaca de engorda">Vaca de engorda</option>
-								<option value="Vaquillona">Vaquillona</option>
-								<option value="Vaquillonas preñadas">Vaquillonas preñadas</option>
-								<option value="Ganado para matadero">Ganado para matadero</option>
-								<option value="Vaca terminada<">Vaca terminada</option>
-								<option value="Toro terminado">Toro terminado</option>
-								<option value="Novillonas de registro">Novillonas de registro</option>
-								<option value="Novillonas preñada">Novillonas preñadas</option>
-								<option value="Toro para cebar">Toro para cebar</option>
-								<option value="Vaca para cebar">Vaca para cebar</option>
-								<option value="Vaca Semiterminada">Vaca Semiterminada</option>
-								<option value="Toro Semiterminado">Toro Semiterminado</option>
+								<option value="" selected disabled hidden>Seleccione un tipo</option><option value="Toro">Toro</option>
+                              <option value="Torete">Torete</option>
+                              <option value="Novillonas de registro puro">Novillonas de registro puro</option>
+                              <option value="Destetes de resgistro puro">Destetes de resgistro puro </option>
+                              <option value="Semental joven">Semental joven</option>
+                              <option value="Semental">Semental</option>
 							</select>
                         </div>
                         <hr>
@@ -196,7 +188,7 @@
                             </div>
                         </div>
                         <div class="align-center">
-                            <button class="mainButtonB">Buscar</button>
+                            <button id="filterButton" class="mainButtonB">Buscar</button>
                         </div>
                     </div>
                 </div>
@@ -204,61 +196,28 @@
             <div class="container-cards">
                 <p class="title-container--cards">Publicaciones destacadas</p>
                 <div class="container-destacadas">
-                    <div class="card-tianguis border-gold">
-                        <img class="img-products" src="{{asset('uploads/'.$random[0]->carpeta.'/'.$random[0]->portada.'.webp')}}" alt="" srcset="">
-                        <div class="card-description">
-                            <div class="icons">
-                                {{-- <img src="{{ asset('static/new/Iconos/relojDorado.png') }}" alt="">
-                                <img src="{{ asset('static/new/Iconos/estrellaDorada.png') }}" alt="">
-                                <img src="{{ asset('static/new/Iconos/vacaDorada.png') }}" alt=""> --}}
-                            </div>
-                            <div class="card-description--info">
-                                <p class="raza">{{$random[0]->raza}}</p>
-                                <p class="description" >{{substr($random[0]->descripcion, 0, 15)}}...</p>
-                                <button class="buttonTienda" onclick="location.href='/tienda/producto/{{$random[0]->idproducto}}/{{$random[0]->ruta}}'">Ver más</button>
-                            </div>
-                            <div class="card-description--footer">
-                                <p>{{$random[0]->location->nombre}} , {{$random[0]->ciudades->nombre}}</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-tianguis border-gold">
-                        <img class="img-products" src="{{asset('uploads/'.$random[1]->carpeta.'/'.$random[1]->portada.'.webp')}}" alt="" srcset="">
-                        <div class="card-description">
-                            <div class="icons">
-                                {{-- <img src="{{ asset('static/new/Iconos/relojDorado.png') }}" alt="">
-                                <img src="{{ asset('static/new/Iconos/estrellaDorada.png') }}" alt="">
-                                <img src="{{ asset('static/new/Iconos/vacaDorada.png') }}" alt=""> --}}
-                            </div>
-                            <div class="card-description--info">
-                                <p class="raza">{{$random[1]->raza}}</p>
-                                <p class="description" >{{substr($random[1]->descripcion, 0, 15)}}...</p>
-                                <button class="buttonTienda" onclick="location.href='/tienda/producto/{{$random[1]->idproducto}}/{{$random[1]->ruta}}'">Ver más</button>
-                            </div>
-                            <div class="card-description--footer">
-                                <p>{{$random[1]->location->nombre}} , {{$random[1]->ciudades->nombre}}</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-tianguis border-gold">
-                        <img class="img-products" src="{{asset('uploads/'.$random[2]->carpeta.'/'.$random[2]->portada.'.webp')}}" alt="" srcset="">
-                        <div class="card-description">
-                            <div class="icons">
-                                {{-- <img src="{{ asset('static/new/Iconos/relojDorado.png') }}" alt="">
-                                <img src="{{ asset('static/new/Iconos/estrellaDorada.png') }}" alt="">
-                                <img src="{{ asset('static/new/Iconos/vacaDorada.png') }}" alt=""> --}}
-                            </div>
-                            <div class="card-description--info">
-                                <p class="raza">{{$random[2]->raza}}</p>
-                                <p class="description" >{{substr($random[2]->descripcion, 0, 15)}}...</p>
-                                <button class="buttonTienda" onclick="location.href='/tienda/producto/{{$random[2]->idproducto}}/{{$random[2]->ruta}}'">Ver más</button>
-                            </div>
-                            <div class="card-description--footer">
-                                <p>{{$random[2]->location->nombre}} , {{$random[2]->ciudades->nombre}}</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    			@for ($index = 0; $index <= 2; $index++)
+       	 			@if (isset($random[$index]))
+                    	<div class="card-tianguis">
+                    	    <img class="img-products" src="{{asset('uploads/'.$random[$index]->carpeta.'/'.$random[$index]->portada.'.webp')}}" alt="" srcset="">
+                    	    <div class="card-description">
+                    	        <div class="icons">
+                    	            {{-- <img src="{{ asset('static/new/Iconos/reloj-verde.png') }}" alt="">
+                    	            <img src="{{ asset('static/new/Iconos/estrella-verde.png') }}" alt="">
+                    	            <img src="{{ asset('static/new/Iconos/vaca-verde.png') }}" alt=""> --}}
+                    	        </div>
+                    	        <div class="card-description--info">
+                    	            <p class="raza">{{$random[$index]->nombre}}</p>
+                    	            <p class="description" >{{substr($random[$index]->descripcion, 0, 15)}}</p>
+                    	            <button class="buttonTienda" onclick="location.href='/tienda/producto/{{$random[0]->idproducto}}/{{$random[0]->ruta}}'">Ver más</button>
+                    	        </div>
+                    	        <div class="card-description--footer">
+                    	            <p>{{$random[$index]->location->nombre}} , {{$random[$index]->ciudades->nombre}}</p>
+                    	        </div>
+                    	    </div>
+                    	</div>
+                    @endif
+                @endfor
                 <div class="publicidad-container">
                     <hr>
                     <h1 class="content-publicidad">Espacio <br>publicitario</h1>
@@ -325,6 +284,61 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Initial call to validateRange
   validateRange();
+});
+/*select ciudades*/
+document.addEventListener('DOMContentLoaded', function(){
+    var estadoSelected = document.getElementById('estados');
+    var ciudadesSelect = document.getElementById('ciudades');
+
+    estadoSelected.addEventListener('change', function(){
+        var estadoId = this.options[this.selectedIndex].getAttribute('data-estado-id');
+
+        getCiudades(estadoId, function (ciudades) {
+            ciudadesSelect.innerHTML = '<option value="" selected disabled hidden>Ciudad</option>';
+            ciudades.forEach(function (ciudad) {
+                var option = document.createElement('option');
+                option.value = ciudad.id;
+                option.text = ciudad.nombre;
+                ciudadesSelect.add(option);
+            });
+            ciudadesSelect.removeAttribute('disabled');
+        });
+    });
+	function getCiudades(estadoId, callback){
+		fetch('/get-ciudades-by-estado/' + estadoId).then(response => response.json()).then(data => callback(data)).catch(error => console.error("Error al obtener ciudades", error));
+	}
+	var estadosSelect = document.getElementById('estados');
+	var ciudadesSelect = document.getElementById('ciudades');
+	var lisTipoSelect = document.getElementById('lisTipo');
+	var minPriceInput = document.querySelector('.min-price');
+	var maxPriceInput = document.querySelector('.max-price');
+	var buscarFitlro = document.getElementById('filterButton');
+	
+	buscarFitlro.addEventListener('click', function() {
+		actualizarFiltros();
+	});
+
+	function actualizarFiltros() {
+    	var estadoId = estadosSelect.options[estadosSelect.selectedIndex].getAttribute('data-estado-id');
+    	var ciudadId = ciudadesSelect.value ? ciudadesSelect.value : null;
+    	var lisTipo = lisTipoSelect.value ?  lisTipoSelect.value : null;
+    	var minPrice = minPriceInput.value ? minPriceInput.value : null;
+    	var maxPrice = maxPriceInput.value ? maxPriceInput : null;
+    	queryEstado = '';
+    	queryCiudad = '';
+    	queryTipo = '';
+    	if(estadoId != null){
+    		queryEstado = 'estado_id=' + estadoId;
+    	}
+    	if(ciudadId != null){
+    		queryCiudad = '&ciudad_id=' + ciudadId;
+    	}
+    	if(lisTipo != null){
+    		queryTipo = '&lisTipo=' + lisTipo;
+    	}
+
+		window.location.href = '/tienda?' + queryEstado + queryCiudad + queryTipo; //+  +  '&min_price=' + minPrice + '&max_price=' + maxPrice;
+	}
 });
 </script>
 
