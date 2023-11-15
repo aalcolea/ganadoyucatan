@@ -135,22 +135,28 @@
     </div>
     <div class="container-product--Main">
         <div class="route">
-            <p>Inicio<span>></span></p><p>Tianguis genético</p><span>></span><p>Nombre del producto</p>
+            <p>Inicio<span>></span></p><p>Tianguis ganadero</p><span>></span><p>Nombre del producto</p>
         </div>
         <div class="information-product--container">
             <div class="container">
-                <div class="parent">
+            <div class="parent">
                     <div class="div1">
-                        <img class="left" src="https://images.pexels.com/photos/36347/cow-pasture-animal-almabtrieb.jpg?auto=compress&cs=tinysrgb&w=400" alt="Imagen 1">
+                        <img class="left" onclick="swapImages('div1')" src="https://images.pexels.com/photos/15835031/pexels-photo-15835031/free-photo-of-nieve-ciudad-coches-carretera.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load" alt="Imagen 1">
                     </div>
                     <div class="div2">
-                        <img class="left" src="https://images.pexels.com/photos/36347/cow-pasture-animal-almabtrieb.jpg?auto=compress&cs=tinysrgb&w=400" alt="Imagen 1">
+                        <img class="left" onclick="swapImages('div2')" src="https://images.pexels.com/photos/36347/cow-pasture-animal-almabtrieb.jpg?auto=compress&cs=tinysrgb&w=400" alt="Imagen 1">
                     </div>
                     <div class="div3">
-                        <img class="left" src="https://images.pexels.com/photos/36347/cow-pasture-animal-almabtrieb.jpg?auto=compress&cs=tinysrgb&w=400" alt="Imagen 1">
+                        <img class="left" onclick="swapImages('div3')" src="https://images.pexels.com/photos/19010243/pexels-photo-19010243/free-photo-of-nieve-amanecer-paisaje-puesta-de-sol.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load" alt="Imagen 1">
                     </div>
                     <div class="div4">
-                        <img class="right" src="https://images.pexels.com/photos/36347/cow-pasture-animal-almabtrieb.jpg?auto=compress&cs=tinysrgb&w=400" alt="Imagen 1">
+                        <div class="right-container">
+                            <img class="right"onclick="swapImages('div4')" src="https://images.pexels.com/photos/13633065/pexels-photo-13633065.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Imagen 1">
+                            <button class="fullscreen-button" onclick="openFullscreen()">
+                                <img width="24" height="24" src="https://img.icons8.com/fluency-systems-regular/48/fullscreen.png" alt="fullscreen"/>
+                            </button>
+                            <span class="close-button" onclick="closeFullscreen()">CERRAR</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -354,5 +360,31 @@
         event.preventDefault();
         modal.style.display = 'none';
     });
+</script>
+<script>
+    function swapImages(divId) {
+        var clickedImageSrc = document.querySelector('.' + divId + ' img').src;
+        var largeImageSrc = document.querySelector('.div4 img').src;
+
+        document.querySelector('.' + divId + ' img').src = largeImageSrc;
+        document.querySelector('.div4 img').src = clickedImageSrc;
+    }
+
+    function openFullscreen() {
+        var fullscreenImage = document.createElement('img');
+        fullscreenImage.classList.add('fullscreen-image');
+        fullscreenImage.classList.add('active');
+        fullscreenImage.src = document.querySelector('.div4 img').src;
+        fullscreenImage.onclick = closeFullscreen;
+
+        document.body.appendChild(fullscreenImage);
+    }
+
+    function closeFullscreen() {
+        var fullscreenImage = document.querySelector('.fullscreen-image');
+        if (fullscreenImage) {
+            fullscreenImage.remove();
+        }
+    }
 </script>
 @endsection
