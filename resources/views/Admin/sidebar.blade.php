@@ -37,6 +37,7 @@
       <!-- Navbar Right Menu-->
       <ul class="app-nav"> {{-- <a href="{{ route('startChat') }}"><button id="startSupportChatButton">Iniciar Conversación de Soporte</button></a> --}}
         <!-- User Menu-->
+        <a id="subscriptionWarning" class="alert alert-warning" role="alert" style="display: none;"></a>
         <a onmouseover="this.style.background='rgba(188, 184, 144, .10)';" onmouseout="this.style.background='#f6f6f6';" href="{{url('/admin/products/home')}}" style="color: #000000;margin-block-start: 1%;margin-inline-end: 1%;text-decoration: none;">Inicio&nbsp;&nbsp;<i class="fa-solid fa-house" ></i></a>
         <li class="dropdown"><a class="app-nav__item" href="#" data-toggle="dropdown" aria-label="Open Profile Menu"><i style="color: #000000" class="fa fa-user fa-lg"></i></a>
           <ul class="dropdown-menu settings-menu dropdown-menu-right">          
@@ -123,24 +124,34 @@
     <script src="{{url('/static/js/admin/main.js')}}"></script>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const startChatButton = document.getElementById('startSupportChatButton');
-
-        startChatButton.addEventListener('click', () => {
-            axios.post('/api/support-conversations')
-                .then(response => {
-                    // Redireccionar al chat con la ID de la conversación creada
-                    window.location.href = '/support/conversations/' + response.data.conversation_id;
-                })
-                .catch(error => {
-                    console.error(error);
-                });
-        });
+document.addEventListener('DOMContentLoaded', function(){
+    var subscriptionWarning = document.getElementById('subscriptionWarning');
+    var fechaDePago = new Date('{{Auth::user()->updated_at}}'); 
+    console.log('Fecha de pago: ' + fechaDePago);
+    var today = new Date();
+    console.log('Fecha actual: ' + today);
+    var differenceInDays = Math.floor((today - fechaDePago) / (1000 * 60 * 60 * 24));
+    console.log('REsultado operacion: ' + differenceInDays);   
+    if (differenceInDays <= 31 && differenceInDays >= 26) {
+        console.log('activar recordatorio');
+        subscriptionWarning.textContent = 'En ' + Math.floor(31 - differenceInDays) + ' días vence tu suscripción. Favor de renovarla.';
+        subscriptionWarning.style.display = 'block';
+    }
+});
+/*en mantenimiento */
+document.addEventListener('DOMContentLoaded', function () {
+    const startChatButton = document.getElementById('startSupportChatButton');
+    startChatButton.addEventListener('click', () => {
+        axios.post('/api/support-conversations')
+            .then(response => {
+                window.location.href = '/support/conversations/' + response.data.conversation_id;
+            })
+            .catch(error => {
+                console.error(error);
+            });
     });
+});
 </script>
-
-
-
     @section('main')
     @show   
   </body>

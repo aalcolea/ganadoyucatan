@@ -30,7 +30,7 @@ class CambiarRolUser extends Command
      */
     public function handle()
     {
-        $usuarios = Persona::where('rolid', 6)->where('updated_at', '<=', now()->subDays(14))->get();
+        $usuarios = Persona::where('rolid', 6)->where('updated_at', '<=', now()->subDays(31))->get();
         foreach ($usuarios as $usuario) {
             $usuario->update(['rolid' => 0]);
         }

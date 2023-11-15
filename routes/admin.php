@@ -46,9 +46,10 @@ Route::get('/products/deleteSub/{id}', [ProductsController::class, 'deleteSub'])
 /*mensajes*/
 Route::get('/mensajes', [ProductsController::class, 'getMensajesHome'])->name('mensajesHome');
 /*Usuarios*/
-Route::get('/users', [UsersController::class, 'getUsers'])->name('usersHome');
-Route::get('/get-user-info/{id}', [UsersController::class, 'getUserInfo']);
-Route::post('/users/edit/{id}', [UsersController::class, 'postEditUser'])->name('postEditUser');
+Route::get('/users', [UsersController::class, 'getUsers'])->name('usersHome')->middleware(['IsAdmin']);
+Route::get('/get-user-info/{id}', [UsersController::class, 'getUserInfo'])->middleware(['IsAdmin']);
+Route::post('/users/edit/{id}', [UsersController::class, 'postEditUser'])->name('postEditUser')->middleware(['IsAdmin']);
+Route::get('/reactiveAccount/{id}', [UsersController::class, 'reactiveAccount'])->name('reactiveAccount')->middleware(['IsAdmin']);
 Route::get('users/profile', [UsersController::class, 'getUProfInfo']);
 /*chat soporte*/
  Route::get('/conversation', [ConversationController::class, 'index'])->name('conversationIndex');

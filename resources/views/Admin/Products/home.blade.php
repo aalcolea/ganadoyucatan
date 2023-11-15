@@ -61,5 +61,31 @@
 		  	</div>
 		  </div>
 </div>
+@if(auth()->check() && auth()->user()->rolid == 0)
+    <div class="modal fade" id="subscriptionModal" tabindex="-1" aria-labelledby="subscriptionModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 style="color:red; font-weight: bolder;" class="modal-title" id="subscriptionModalLabel">
+                        <i class="bi bi-exclamation-triangle-fill text-warning me-2"></i>
+                        AVISO DE SUSCRIPCIÓN VENCIDA
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Su suscripción ha vencido. Por favor, renuévela para seguir disfrutando de los beneficios que Ganado Yucatán Peninsular tiene para usted.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function() {
+            $('#subscriptionModal').modal('show');
+        });
+    </script>
+@endif
 </main>
 @endsection

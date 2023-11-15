@@ -42,7 +42,7 @@
                             <td>{{$u->datecreated}}</td>
                             <td>{{$u->ult_vez}}</td>
                             <td>@if($u->asociacion == null) Sin asociacón @else {{$u->asociacion}} @endif</td>
-                            <td>@if($u->rolid != 1)<button class="btn btn-primary  btn-sm editUserBtn" data-id="{{$u->idpersona}}" id="editUser" title="Editar usuario"><i class="fas fa-pencil-alt"></i></button><button class="btn btn-danger btn-sm btnDelUsuario" title="Eliminar usuario"><i class="far fa-trash-alt"></i></button>@else<button class="btn btn-secondary btn-sm" disabled ><i class="fas fa-pencil-alt"></i></button><button class="btn btn-secondary btn-sm" disabled ><i class="far fa-trash-alt"></i></button>@endif</td>
+                            <td>@if($u->rolid != 1)<button class="btn btn-primary  btn-sm editUserBtn" data-id="{{$u->idpersona}}" id="editUser" title="Editar usuario"><i class="fas fa-pencil-alt"></i></button><button class="btn btn-danger btn-sm btnDelUsuario" title="Eliminar usuario"><i class="far fa-trash-alt"></i></button>@else<button class="btn btn-secondary btn-sm" disabled ><i class="fas fa-pencil-alt"></i></button><button class="btn btn-secondary btn-sm" disabled ><i class="far fa-trash-alt"></i></button>@endif @if($u->rolid == 0)<button class="btn btn-sm reactiveBtn" data-id="{{$u->idpersona}}" style="border-color: black;" title="Reactivar Suscripción" ><i class="fa-solid fa-forward" style="color: #00ff6e;"></i></button>@else<button class="btn btn-sm" style="border-color: black;" title="Reactivar Suscripción" disabled ><i class="fa-solid fa-forward"></i></button>@endif</td>
                           </tr>
                         @endforeach
                       </tbody>
@@ -149,6 +149,31 @@
                 }
             });
         });
+    });
+    document.addEventListener('DOMContentLoaded', function(){
+      var reactiveBtn = document.querySelectorAll('.reactiveBtn');
+
+      reactiveBtn.forEach(function(button){
+        button.addEventListener('click', function(){
+          var userId = this.dataset.id;
+          var url = 'reactiveAccount/' + userId;
+          fetch(url).then(function(response){
+            if(!response.ok){
+              throw new Error('Error');
+            }
+            return response.text();
+          }).then(function(response){
+              swal({
+              title: '¡Listo!',
+              text: 'Usuario reactivado con éxito',
+              icon: 'success',
+              button: 'Entendido'
+            });
+          }).catch(function(error){
+            console.error('Error:', error);
+          });
+      });
+      });
     });
 </script>
 

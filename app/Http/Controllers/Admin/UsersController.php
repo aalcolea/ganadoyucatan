@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Auth, Hash;
+use Carbon\Carbon;
 use App\Models\Persona;
 class UsersController extends Controller
 {
@@ -28,6 +29,14 @@ class UsersController extends Controller
         $data = ['user'=> $user];
         return view('Admin.Users.profile', $data);
     }
+   /* public function postUProfInfo(Request $request, $id){
+        $nombre = e($request->input('txtNombre'));
+        $apellido = e($request->input('txtApellido'));
+        
+        $u = Persona::findOrFail($id);
+        
+
+    }*/
     public function postEditUser(Request $request, $id){
         $nombre = e($request->input('txtNombre'));
         $apellido = e($request->input('txtApellido'));
@@ -43,6 +52,20 @@ class UsersController extends Controller
         $u->rolid = $rolid;
         $u->status = $status;
         $u->password = $pass;
-        $u->save(); 
+        if($u->save()){
+            return back();
+        } 
+    }
+    public function reactiveAccount($id){
+        $user = Persona::find($id);
+        $currentDateTime = Carbon::now();
+        $user->rolid = '6';
+        $user->updated_at = $currentDateTime;
+        if($user->save()){
+            return true;
+        }else{
+            return false;
+        }
+
     }
 }
