@@ -23,6 +23,8 @@ Route::post('/products/image-actionC', [ProductsController::class, 'imageActionC
 
 
 Route::post('/products/image-actionPart', [ProductsController::class, 'imageActionPart'])->name('product.image_actionPart');
+Route::post('/products/add-images', [ProductsController::class, 'addImages'])->name('product.add_images');
+
 
 /*----*/
 Route::get('products/getProductImages/{id}', [ProductsController::class, 'getProductImages'])->name('getProductImages');
@@ -51,6 +53,7 @@ Route::get('/get-user-info/{id}', [UsersController::class, 'getUserInfo'])->midd
 Route::post('/users/edit/{id}', [UsersController::class, 'postEditUser'])->name('postEditUser')->middleware(['IsAdmin']);
 Route::get('/reactiveAccount/{id}', [UsersController::class, 'reactiveAccount'])->name('reactiveAccount')->middleware(['IsAdmin']);
 Route::get('users/profile', [UsersController::class, 'getUProfInfo']);
+Route::post('users/profile/{id}', [UsersController::class, 'postUProfInfo']);
 /*chat soporte*/
  Route::get('/conversation', [ConversationController::class, 'index'])->name('conversationIndex');
   Route::get('/conversation/{conversation}', [ConversationController::class, 'show'])->name('conversationShow');

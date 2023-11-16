@@ -38,11 +38,11 @@
                           <tr>
                             <td>{{$u->nombres.' '.$u->apellidos}}</td>
                             <td>{{$u->email_user}}</td>
-                            <td>{{$u->estado}}</td>
+                            <td>{{$u->ubi->nombre}}</td>
                             <td>{{$u->datecreated}}</td>
                             <td>{{$u->ult_vez}}</td>
                             <td>@if($u->asociacion == null) Sin asociacón @else {{$u->asociacion}} @endif</td>
-                            <td>@if($u->rolid != 1)<button class="btn btn-primary  btn-sm editUserBtn" data-id="{{$u->idpersona}}" id="editUser" title="Editar usuario"><i class="fas fa-pencil-alt"></i></button><button class="btn btn-danger btn-sm btnDelUsuario" title="Eliminar usuario"><i class="far fa-trash-alt"></i></button>@else<button class="btn btn-secondary btn-sm" disabled ><i class="fas fa-pencil-alt"></i></button><button class="btn btn-secondary btn-sm" disabled ><i class="far fa-trash-alt"></i></button>@endif @if($u->rolid == 0)<button class="btn btn-sm reactiveBtn" data-id="{{$u->idpersona}}" style="border-color: black;" title="Reactivar Suscripción" ><i class="fa-solid fa-forward" style="color: #00ff6e;"></i></button>@else<button class="btn btn-sm" style="border-color: black;" title="Reactivar Suscripción" disabled ><i class="fa-solid fa-forward"></i></button>@endif</td>
+                            <td>@if($u->rolid != 1)<button class="btn btn-primary  btn-sm editUserBtn" data-id="{{$u->idpersona}}" id="editUser" title="Editar usuario"><i class="fas fa-pencil-alt"></i></button><button class="btn btn-danger btn-sm btnDelUsuario" title="Eliminar usuario"><i class="far fa-trash-alt"></i></button>@else<button class="btn btn-secondary btn-sm" disabled ><i class="fas fa-pencil-alt"></i></button><button class="btn btn-secondary btn-sm" disabled ><i class="far fa-trash-alt"></i></button>@endif<button class="btn btn-sm reactiveBtn" data-id="{{$u->idpersona}}" style="border-color: black;" title="Reactivar Suscripción" ><i class="fa-solid fa-forward" style="color: #00ff6e;"></i></button></td>
                           </tr>
                         @endforeach
                       </tbody>
