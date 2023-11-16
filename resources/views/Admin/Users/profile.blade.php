@@ -88,13 +88,14 @@
   <div class="modal-dialog modal-lg" >
     <div class="modal-content">
       <div class="modal-header " style="background-color: rgba(188, 184, 144, .10)">
-        <h5 class="modal-title" id="titleModal">Nuevo Usuario</h5>
+        <h5 class="modal-title" id="titleModal">Editar información</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-            <form id="formUsuario" name="formUsuario" class="form-horizontal">
+            <form method="POST" action="/admin/users/profile/{{$user->idpersona}}" id="formUsuario" name="formUsuario" class="form-horizontal">
+              @csrf
               <input type="hidden" id="idUsuario" name="idUsuario" value="">
               <p class="text-primary">Todos los campos son obligatorios.</p>
               <div class="form-row">                <div class="form-group col-md-6">
@@ -109,13 +110,17 @@
               <div class="form-row">
                 <div class="form-group col-md-6">
                   <label for="txtTelefono">Teléfono</label>
-                  <input type="text" class="form-control valid validNumber" id="txtEmail" name="txtEmail" disabled value="{{$user->email_user}}" onkeypress="return controlTag(event);">
+                  <input type="text" class="form-control valid validNumber" id="txtEmail" name="txtEmail" disabled value="{{$user->email_user}}" >
                 </div>
               </div>
              <div class="form-row">
                 <div class="form-group col-md-6">
-                  <label for="txtPassword">Password</label>
-                  <input type="password" class="form-control" id="txtPassword" name="txtPassword" >
+                  <label for="txtPassword">Contraseña</label>
+                  <input type="password" class="form-control" id="password" name="password" >
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="txtPassword">Repetir contraseña</label>
+                  <input type="password" class="form-control" id="cpassword" name="cpassword" >
                 </div>
              </div>
               <div class="tile-footer">

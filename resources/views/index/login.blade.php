@@ -126,18 +126,20 @@
             <img src="{{url('/static/new/iconos/logo-red.png')}}" alt="">
             <p class="main-text">BIENVENIDO DE NUEVO</p>
             <P class="secondary-text">Disfruta de los beneficios de tu suscripción anual</P>
-            <form action="{{url('/login')}}" class="sign-in-form" id="formLogin" name="formLogin">
+            {!! Form::open(['url' => '/login', 'class' => 'sign-in-form', 'id' => 'formLogin', 'name' => 'formLogin']) !!}
+            @csrf
                 <hr>
                 <div class="form-group">
                     <label for="telefono">Telefono</label>
-                    <input type="tel" id="telefono" placeholder="Telefono">
+                    <input type="tel" id="email" name="email" placeholder="Telefono">
                 </div>
                 <div class="form-group">
                     <label for="telefono">Contraseña</label>
-                    <input type="password" id="contrasena" placeholder="Contraseña">
+                    <input type="password" id="password" name="password" placeholder="Contraseña">
                 </div>
-                <button class="mainButton" type="submit">Entrar</button>
-            </form>
+                {!!Form::submit('Entra', ['class' => 'mainButton'])!!}
+                {{-- <button class="mainButton" type="submit">Entrar</button> --}}
+           {!! Form::close() !!}
         </div>
     </div>
 

@@ -19,8 +19,11 @@ class ProductT extends Model
     public function location(){
         return $this->hasOne(Estado::class, 'id', 'estado');
     }
-    public function ciudad(){
+    public function ciudades(){
         return $this->hasOne(Ciudad::class, 'id', 'ciudad');
+    }
+    public function owner(){
+        return $this->hasOne(Persona::class, 'idpersona', 'vendedorid');
     }
     public function visits(){
         return $this->hasMany(Visits::class, 'idproducto', 'idproducto')->where('type', 'com')->whereMonth('fecha', now()->month);

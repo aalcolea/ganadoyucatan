@@ -2,14 +2,14 @@
 use App\Http\Controllers\Admin\ProductsController;
 use App\Http\Controllers\Admin\UsersController;
 use App\Http\Controllers\Admin\ConversationController;
-Route::prefix('/admin')->group(function(){
+Route::prefix('/admin')->middleware(['verificarRol'])->group(function(){
 
 /*ciudades*/
 Route::get('/get-estados', [ProductsController::class, 'getEstados']);
 Route::get('/get-ciudades-by-estado/{estadoId}', [ProductsController::class, 'getCiudadesByEstado']);
 Route::get('/get-comisarias-by-ciudad/{ciudadId}', [ProductsController::class, 'getComisariasByCiudad']);
 /*productos*/
-Route::get('/products/home', [ProductsController::class, 'getProductsHome'])->name('productsHome');
+Route::get('/products/home', [ProductsController::class, 'getProductsHome'])->name('productsHome')->withoutMiddleware(['verificarRol']);
 Route::get('/products/TianguisAdmin', [ProductsController::class, 'getTianguisAll'])->name('getTianguisAll');
 Route::get('/products/TianguisAdminInfo/{id}', [ProductsController::class, 'getTianguisView'])->name('getTianguisView');
 Route::get('/products/aprobProduct/{id}', [ProductsController::class, 'aprobTianguisProduct'])->name('aprobProduct');
@@ -19,6 +19,13 @@ Route::get('/products/deleteGen/{id}', [ProductsController::class, 'deleteGen'])
 Route::post('/products/image-action', [ProductsController::class, 'imageAction'])->name('product.image_action');
 Route::post('/products/image-actionS', [ProductsController::class, 'imageActionSub'])->name('product.image_actionS');
 Route::post('/products/image-actionC', [ProductsController::class, 'imageActionCom'])->name('product.image_actionC');
+
+
+
+Route::post('/products/image-actionPart', [ProductsController::class, 'imageActionPart'])->name('product.image_actionPart');
+Route::post('/products/add-images', [ProductsController::class, 'addImages'])->name('product.add_images');
+
+
 /*----*/
 Route::get('products/getProductImages/{id}', [ProductsController::class, 'getProductImages'])->name('getProductImages');
 
@@ -41,10 +48,12 @@ Route::get('/products/deleteSub/{id}', [ProductsController::class, 'deleteSub'])
 /*mensajes*/
 Route::get('/mensajes', [ProductsController::class, 'getMensajesHome'])->name('mensajesHome');
 /*Usuarios*/
-Route::get('/users', [UsersController::class, 'getUsers'])->name('usersHome');
-Route::get('/get-user-info/{id}', [UsersController::class, 'getUserInfo']);
-Route::post('/users/edit/{id}', [UsersController::class, 'postEditUser'])->name('postEditUser');
+Route::get('/users', [UsersController::class, 'getUsers'])->name('usersHome')->middleware(['IsAdmin']);
+Route::get('/get-user-info/{id}', [UsersController::class, 'getUserInfo'])->middleware(['IsAdmin']);
+Route::post('/users/edit/{id}', [UsersController::class, 'postEditUser'])->name('postEditUser')->middleware(['IsAdmin']);
+Route::get('/reactiveAccount/{id}', [UsersController::class, 'reactiveAccount'])->name('reactiveAccount')->middleware(['IsAdmin']);
 Route::get('users/profile', [UsersController::class, 'getUProfInfo']);
+Route::post('users/profile/{id}', [UsersController::class, 'postUProfInfo']);
 /*chat soporte*/
  Route::get('/conversation', [ConversationController::class, 'index'])->name('conversationIndex');
   Route::get('/conversation/{conversation}', [ConversationController::class, 'show'])->name('conversationShow');

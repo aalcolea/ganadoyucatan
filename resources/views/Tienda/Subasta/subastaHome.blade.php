@@ -80,7 +80,7 @@
                     <hr>
                     <form class="tianguis-form" action="/tianguis/testT" method="get"></form>
                     <div class="filtro-container-down">
-                        <h3>Filtrar por preferencia</h3>
+                       {{--  <h3>Filtrar por preferencia</h3>
                         <div class="filter-preference">
                             <img src="{{ asset('static/new/Iconos/vacanegra.png') }}" alt="">
                             <div class="text-input-container">
@@ -101,7 +101,7 @@
                                 <p>Urgente</p>
                                 <input type="radio" class="radio-input" id="opcion1" name="opcion" value="opcion1">
                             </div>
-                        </div>
+                        </div> --}}
                         <hr>
                         <h3>Filtrar por locación</h3>
                         <div class="label-dropdown">
@@ -151,60 +151,28 @@
             <div class="container-cards">
                 <p class="title-container--cards">Publicaciones destacadas</p>
                 <div class="container-destacadas">
-                    <div class="card-tianguis border-red">
-                        <img class="img-products" src="https://images.pexels.com/photos/36347/cow-pasture-animal-almabtrieb.jpg?auto=compress&cs=tinysrgb&w=400" alt="" srcset="">
-                        <div class="card-description">
-                            <div class="icons">
-                                <img src="{{ asset('static/new/Iconos/pinestrella.png') }}" alt="">
-                                <img src="{{ asset('static/new/Iconos/pinmoño.png') }}" alt="">
-                                <img src="{{ asset('static/new/Iconos/pinvaca.png') }}" alt="">
-                            </div>
-                            <div class="card-description--info">
-                                <p class="raza">Toros para semental</p>
-                                <p class="description" >Novillas para empadre</p>
-                                <button class="buttonTienda" onclick="location.href='/tianguisTienda'">Ver más</button>
-                            </div>
-                            <div class="card-description--footer">
-                                <p>Yucatán, Panaba</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-tianguis  border-red">
-                        <img class="img-products" src="https://images.pexels.com/photos/36347/cow-pasture-animal-almabtrieb.jpg?auto=compress&cs=tinysrgb&w=400" alt="" srcset="">
-                        <div class="card-description">
-                            <div class="icons">
-                                <img src="{{ asset('static/new/Iconos/pinestrella.png') }}" alt="">
-                                <img src="{{ asset('static/new/Iconos/pinmoño.png') }}" alt="">
-                                <img src="{{ asset('static/new/Iconos/pinvaca.png') }}" alt="">
-                            </div>
-                            <div class="card-description--info">
-                                <p class="raza">Toros para semental</p>
-                                <p class="description" >Novillas para empadre</p>
-                                <button class="buttonTienda">Ver más</button>
-                            </div>
-                            <div class="card-description--footer">
-                                <p>Yucatán, Panaba</p>
+                @for ($index = 0; $index <= 2; $index++)
+                    @if (isset($random[$index]))
+                        <div class="card-tianguis">
+                            <img class="img-products" src="https://images.pexels.com/photos/36347/cow-pasture-animal-almabtrieb.jpg?auto=compress&cs=tinysrgb&w=400" alt="" srcset="">
+                            <div class="card-description">
+                                <div class="icons">
+                                    {{-- <img src="{{ asset('static/new/Iconos/reloj-verde.png') }}" alt="">
+                                    <img src="{{ asset('static/new/Iconos/estrella-verde.png') }}" alt="">
+                                    <img src="{{ asset('static/new/Iconos/vaca-verde.png') }}" alt=""> --}}
+                                </div>
+                                <div class="card-description--info">
+                                    <p class="raza">{{$random[$index]->nombre}}</p>
+                                    <p class="description" >{{substr($random[$index]->descripcion, 0, 15)}}</p>
+                                    <button class="buttonTienda" onclick="location.href='/tianguis/producto/{{$random[$index]->idproducto}}'">Ver más</button>
+                                </div>
+                                <div class="card-description--footer">
+                                    <p>{{$random[$index]->location->nombre}} , {{$random[$index]->ciudades->nombre}}</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="card-tianguis  border-red">
-                        <img class="img-products" src="https://images.pexels.com/photos/36347/cow-pasture-animal-almabtrieb.jpg?auto=compress&cs=tinysrgb&w=400" alt="" srcset="">
-                        <div class="card-description">
-                            <div class="icons">
-                            <img src="{{ asset('static/new/Iconos/pinestrella.png') }}" alt="">
-                                <img src="{{ asset('static/new/Iconos/pinmoño.png') }}" alt="">
-                                <img src="{{ asset('static/new/Iconos/pinvaca.png') }}" alt="">
-                            </div>
-                            <div class="card-description--info">
-                                <p class="raza">Toros para semental</p>
-                                <p class="description" >Novillas para empadre</p>
-                                <button class="buttonTienda">Ver más</button>
-                            </div>
-                            <div class="card-description--footer">
-                                <p>Yucatán, Panaba</p>
-                            </div>
-                        </div>
-                    </div>
+                    @endif
+                @endfor
                 </div>
                 <div class="publicidad-container">
                     <hr>
@@ -214,19 +182,13 @@
                 <p class="title-container--cards">Ganado Comercial</p>
                 <div class="container-normal">
                     @foreach($products as $p)
-                            @php
-                                $portada = $p->portada;
-                                if ($portada->count() > 0) {
-                                    $portada = $portada[0]->ruta;
-                                }
-                            @endphp
                         <div class="card-tianguis--normal">
-                            <img class="img-products" src="{{asset('uploads/'.$portada)}}" alt="" srcset="">
+                            <img class="img-products" src="{{asset('uploads/subasta/'.$p->carpeta.'/'.$p->portada.'.webp')}}" alt="" srcset="">
                             <div class="card-description">
                                 <div class="icons">
-                                    <img src="{{ asset('static/new/Iconos/reloj-verde.png') }}" alt="">
+                                    {{-- <img src="{{ asset('static/new/Iconos/reloj-verde.png') }}" alt="">
                                     <img src="{{ asset('static/new/Iconos/estrella-verde.png') }}" alt="">
-                                    <img src="{{ asset('static/new/Iconos/vaca-verde.png') }}" alt="">
+                                    <img src="{{ asset('static/new/Iconos/vaca-verde.png') }}" alt=""> --}}
                                 </div>
                                 <div class="card-description--info">
                                     <p class="raza">{{$p->raza}}</p>

@@ -239,6 +239,42 @@ class ProductsController extends Controller
                 return response()->json(['error' => 'Accion invalida'], 400);
         }
     }
+    public function imageActionPart(Request $request){
+        if (!$request->session()->has('product.imagesPart')) {
+            $request->session()->put('product.imagesPart', []);
+            $request->session()->put('product.imageCount', 0);
+        }
+        
+        $randomString = $request->session()->get('product.randomString');
+        $action = $request->input('action');
+        switch ($action) {
+            case 'add':
+                $imageCount = $request->session()->get('product.imageCount');
+                $uploadedImage = $request->file('uploaded_imagePart');
+                $dateFolder = date('Y-m-d');
+                $uploadPath = 'uploads/' . $dateFolder;
+                $filename = $imageCount . '-' . 'GY-'.date('md').'-'.$randomString . '.' . $uploadedImage->getClientOriginalExtension();
+                $request->session()->increment('product.imageCount');
+                if (!File::exists($uploadPath)) {
+                    File::makeDirectory($uploadPath, 0755, true);
+                }
+                $path = $filename;
+                $webpPath = $dateFolder . '/' . pathinfo($path, PATHINFO_FILENAME) . '.webp';
+                $destinationPath = Storage::disk('webp_images')->path($webpPath);
+                $img = Image::make($uploadedImage->getRealPath())->resize(800, 600);
+                $img->encode('webp', 10)->save($destinationPath);
+                //ImageConverter::convertToWebp($uploadedImage->getRealPath(), $destinationPath);
+    
+                $images = $request->session()->get('product.imagesPart');
+                $images[] = [
+                    'path' => '/' . $webpPath //$dateFolder . '/' . $webpPath
+                ];
+                $request->session()->put('product.imagesPart', $images);
+                return response()->json(['image' => ['path' => '/' . $webpPath]]); //$dateFolder . '/' . $webpPath
+            default:
+                return response()->json(['error' => 'Accion invalida'], 400);
+        }
+    }
     public function getComisariasByCiudad($ciudadId){
         $comisarias = Comisaria::where('ciudad_id', $ciudadId)->get();
         return response()->json($comisarias);
@@ -400,6 +436,7 @@ class ProductsController extends Controller
     public function deleteGenImage($id, $portada){
         $product = Product::findOrfail($id);
         $image = $product->portada;
+        
         if($image == $portada){
             $images = $product->images('productoid', $id)->get();
             $image = $images->first(function ($image) use ($portada) {
@@ -742,5 +779,51 @@ class ProductsController extends Controller
         $msg = MensajeProducto::where('vendedorid', $id)->where('status', '0')->get();
         $data = ['msg' => $msg]; 
         return view('Admin.mensajesHome', $data);
+    }
+      /**/
+    public function addImages(Request $request) {
+        $productId = $request->input('product_id');
+        //$dateFolder = $request->input('dataPath');
+        $product = Product::find($productId);
+        $dateFolder = $product->carpeta;
+        $name = substr($product->portada, 1, 13);
+        if (!$product) {
+            return response()->json(['error' => 'Producto no encontrado'], 404);
+        }
+        $uploadedImages = $request->file('uploaded_images');
+        $countUploadedImages = count($uploadedImages);
+        $images = [];
+        foreach ($uploadedImages as $uploadedImage) {
+            //$dateFolder = date('Y-m-d');
+            //$dateFolder = $request->input('dataPath');
+            $uploadPath = 'uploads/' . $dateFolder;
+            $filename = uniqid() . '.' . $uploadedImage->getClientOriginalExtension();
+    
+            if (!File::exists($uploadPath)) {
+                File::makeDirectory($uploadPath, 0755, true);
+            }
+            $newIndex =  rand(500, 1000);
+            for ($i = $newIndex; $i < $newIndex + $countUploadedImages; $i++) {
+                $path = $i . $name;
+
+            }
+            //$path = $filename;
+            $webpPath = $dateFolder . '/' . pathinfo($path, PATHINFO_FILENAME) . '.webp';
+            $destinationPath = Storage::disk('webp_images')->path($webpPath);
+    
+            $img = Image::make($uploadedImage->getRealPath())->resize(800, 600);
+            $img->encode('webp', 10)->save($destinationPath);
+            $image = new PGallery;
+            $image->productoid = $productId;
+            $image->img = $path;
+            $image->save();
+            $images[] = [
+                'path' => '/' . $webpPath,
+            ];
+        }
+    
+        /*$product->images()->createMany($images);*/
+    
+        return response()->json(['image' => ['path' => '/' . $webpPath]]);
     }
 }
