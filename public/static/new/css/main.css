@@ -885,6 +885,17 @@ Tienda products
 }
 .banner-product--tienda{
     height: 40vh;
+    background-image: url('../background/../background/_header-tianguis-ganadero.jpg');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+.banner-product--genetica{
+    height: 40vh;
     background-image: url('../background/../background/_header-tianguis-genetica.jpg');
     background-size: cover;
     background-position: center;
@@ -994,6 +1005,51 @@ Tienda products
     padding-right: 10px;
     font-size: var(--medium);
 }
+
+.right-container {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+}
+.fullscreen-button {
+    position: absolute;
+    bottom: 20px;
+    right:  15px;
+    z-index: 1;
+
+    background-color: antiquewhite;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    color: #333;
+    font-weight: bold;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+    width: 29px;
+    height: 29px;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.fullscreen-button:hover{
+    background-color: #f2f2f2;
+}
+.fullscreen-image {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background-color: rgba(0, 0, 0, 0.9);
+    z-index: 9999;
+    display: none;
+}
+.fullscreen-image.active {
+    display: block;
+}
 .desc-right hr{
     background-color: var(--softlines);
     height: 1px;
@@ -1068,4 +1124,115 @@ Tienda products
     text-decoration: none;
     margin-top: 18px;
     color: black;
+}
+
+/*
+Styles of Modal of contact in stores
+*/
+#modal{
+    display: none;
+    position: fixed;
+    z-index: 10;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    /* background-image: url('../background/_header-tianguis-genetica.jpg'); */
+
+}
+.contact-form{
+    width:  30%;
+    height: auto;
+    border-radius: 4px;
+    background-color: white;
+    background-image: url('../Iconos/vacaroja.png');
+    background-size: 200px 200px;
+    background-repeat: no-repeat;
+    background-position-y: 240px;
+    background-position-x: 200px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.close-menu-contact{
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 10px;
+    margin-top: -40px;
+}
+.close-menu-contact img{
+    cursor: pointer;
+}
+.contact-form-img{
+    height: 100px;
+    width: 100px;
+    object-fit: cover;
+    border-radius: 50px;
+    display: block;
+    margin: 0 auto;
+    margin-top: -50px;
+}
+.main-text{
+    font-size: var(--large);
+    font-weight: var(--light);
+    text-align: center;
+    margin-top: 1rem;
+    line-height: 1;
+}
+.secondary-text{
+    font-size: var(--small);
+    text-align: center;
+    margin: 1rem 4rem;
+    line-height: 1;
+}
+.contact-form hr{
+    background-color: var(--softlines);
+    height: 1px;
+    border: none;
+}
+#form-contact-group{
+    padding: 0 2rem;
+    margin-bottom: 16px;
+}
+.form-group{
+    margin-bottom: 8px;
+}
+.contact-form label{
+    display: block;
+    font-weight: var(--light);
+    font-size: var(--medium);
+    margin-bottom: 0px;
+}
+.contact-form input{
+    width: 100%;
+    padding: 8px;
+    border: none;
+    border-bottom: 1px solid #CCC;
+    outline: none;
+}
+.contact-form input::placeholder{
+    color: #ccc;
+}
+.contact-form textarea{
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #CCC;
+    outline: none;
+}
+.mainButtonC{
+    margin: 0 auto;
+    width: 100%;
+    height: 30px;
+    border-radius: 15px;
+    font-size: 12px;
+    background-color: black;
+    color: white;
+    border: 0;
+    margin-top: 1rem;
+}
+@media screen and (max-width: 767px) {
+    .contact-form{
+        width: 90%;
+    }
 }

@@ -177,7 +177,7 @@
     </script>
 @endif -->
 <div class="productTienda-section">
-    <div class="banner-product--tienda">
+    <div class="banner-product--genetica">
         <h1>Ganado genético</h1>
     </div>
     <div class="container-product--Main">
@@ -189,29 +189,39 @@
                 <div class="parent">
                     <div class="div1">
                         @if($p->link)
-                    	<img src="{{asset('uploads/'.$p->carpeta.'/'.$p->portada.'.webp')}}" alt="Imagen 1">
+                    	<img onclick="swapImages('div1')" src="{{asset('uploads/'.$p->carpeta.'/'.$p->portada.'.webp')}}" alt="Imagen 1">
                         @else
                     		@if(isset($images[0]))
-    							<img class="left" src="{{ asset('uploads/' . $p->carpeta . '/' . $images[0]['img'] . '.webp') }}" alt="Imagen 1">
+    							<img class="left"  onclick="swapImages('div1')" src="{{ asset('uploads/' . $p->carpeta . '/' . $images[0]['img'] . '.webp') }}" alt="Imagen 1">
 							@endif
                         @endif
                     </div>
                     <div class="div2">
                     	@if(isset($images[1]))
-    						<img class="left" src="{{ asset('uploads/' . $p->carpeta . '/' . $images[1]['img'] . '.webp') }}" alt="Imagen 1">
+    						<img class="left" onclick="swapImages('div2')" src="{{ asset('uploads/' . $p->carpeta . '/' . $images[1]['img'] . '.webp') }}" alt="Imagen 1">
 						@endif
                     </div>
                     <div class="div3">
                     	@if(isset($images[2]))
-    						<img class="left" src="{{ asset('uploads/' . $p->carpeta . '/' . $images[2]['img'] . '.webp') }}" alt="Imagen 1">
+    						<img class="left" onclick="swapImages('div3')" src="{{ asset('uploads/' . $p->carpeta . '/' . $images[2]['img'] . '.webp') }}" alt="Imagen 1">
 						@endif
                     </div>
                     <div class="div4">
+                    <div class="right-container">
                     	@if($p->link)
-                    	<iframe width="540" height="450" class="embed-responsive-item" src="<?php echo $convertedURL; ?>" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    	<iframe width="540" onclick="swapImages('div4')" height="450" class="embed-responsive-item" src="<?php echo $convertedURL; ?>" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                      <button class="fullscreen-button" onclick="openFullscreen()">
+                                <img width="24" height="24" src="https://img.icons8.com/fluency-systems-regular/48/fullscreen.png" alt="fullscreen"/>
+                            </button>
+                            <span class="close-button" onclick="closeFullscreen()">CERRAR</span>
                     	@else
-                        <img src="{{asset('uploads/'.$p->carpeta.'/'.$p->portada.'.webp')}}" alt="Imagen 1">
+                        <img onclick="swapImages('div4')" src="{{asset('uploads/'.$p->carpeta.'/'.$p->portada.'.webp')}}" alt="Imagen 1">
+                        <button class="fullscreen-button" onclick="openFullscreen()">
+                                <img width="24" height="24" src="https://img.icons8.com/fluency-systems-regular/48/fullscreen.png" alt="fullscreen"/>
+                            </button>
+                            <span class="close-button" onclick="closeFullscreen()">CERRAR</span>
                         @endif
+                        </div>
                     </div>
                 </div>
             </div>
@@ -222,7 +232,7 @@
                 <p class="info">{{substr($p->descripcion, 0, 50)}}</p>
                 <div class="contact-button">
                     <button class="secondaryButton">Contacto</button>
-                    <a href="#">Hacer contacto <span>></span></a>
+                    <a id="openModal" href="#">Hacer contacto <span>></span></a>
                 </div>
             </div>
         </div>
@@ -308,5 +318,86 @@
     </div>
 </div>
 
+<!--Modal Contact-->
+<div id="modal">
+    <div class="contact-form">
+        <img class="contact-form-img" src="{{url('/static/new/iconos/logo-red.png')}}" alt="">
+        <div class="close-menu-contact">
+            <img src="https://img.icons8.com/ios-glyphs/30/000000/delete-sign.png" alt="delete-sign"/>
+        </div>
+        <p class="main-text">Contáctanos</p>
+        <P class="secondary-text">Ponte en contacto con nosotros</P>
+        <form action="contact-form" id="form-contact-group">
+            <hr>
+            <div class="form-group">
+                <label for="name">Nombre:</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Correo:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">Teléfono:</label>
+                <input type="tel" id="phone" name="phone">
+            </div>
+            <div class="form-group">
+                <label for="message">Mensaje:</label>
+                <textarea id="message" name="message" rows="4" required></textarea>
+            </div>
+            <button class="mainButtonC" type="submit">Enviar</button>
+        </form>
+    </div>
+</div>
+<script>
+    const openModalButton = document.getElementById('openModal');
+    const modal = document.getElementById('modal');
+    const closeModalSpan = document.querySelector('.close-menu-contact img');
+    const form = document.getElementById('form-contact-group');
 
+    openModalButton.addEventListener('click', () => {
+        modal.style.display = 'flex';
+    });
+
+    closeModalSpan.addEventListener('click', () => {
+        modal.style.display = 'none';
+    });
+
+    window.addEventListener('click', (event) => {
+        if (event.target === modal) {
+            modal.style.display = 'none';
+        }
+    });
+
+    form.addEventListener('submit', (event) => {
+        event.preventDefault();
+        modal.style.display = 'none';
+    });
+</script>
+<script>
+    function swapImages(divId) {
+        var clickedImageSrc = document.querySelector('.' + divId + ' img').src;
+        var largeImageSrc = document.querySelector('.div4 img').src;
+
+        document.querySelector('.' + divId + ' img').src = largeImageSrc;
+        document.querySelector('.div4 img').src = clickedImageSrc;
+    }
+
+    function openFullscreen() {
+        var fullscreenImage = document.createElement('img');
+        fullscreenImage.classList.add('fullscreen-image');
+        fullscreenImage.classList.add('active');
+        fullscreenImage.src = document.querySelector('.div4 img').src;
+        fullscreenImage.onclick = closeFullscreen;
+
+        document.body.appendChild(fullscreenImage);
+    }
+
+    function closeFullscreen() {
+        var fullscreenImage = document.querySelector('.fullscreen-image');
+        if (fullscreenImage) {
+            fullscreenImage.remove();
+        }
+    }
+</script>
 @endsection
