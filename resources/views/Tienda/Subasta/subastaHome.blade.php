@@ -214,14 +214,8 @@
                 <p class="title-container--cards">Ganado Comercial</p>
                 <div class="container-normal">
                     @foreach($products as $p)
-                            @php
-                                $portada = $p->portada;
-                                if ($portada->count() > 0) {
-                                    $portada = $portada[0]->ruta;
-                                }
-                            @endphp
                         <div class="card-tianguis--normal">
-                            <img class="img-products" src="{{asset('uploads/'.$portada)}}" alt="" srcset="">
+                            <img class="img-products" src="{{asset('uploads/subasta/'.$p->carpeta.'/'.$p->portada.'.webp')}}" alt="" srcset="">
                             <div class="card-description">
                                 <div class="icons">
                                     <img src="{{ asset('static/new/Iconos/reloj-verde.png') }}" alt="">
@@ -229,12 +223,14 @@
                                     <img src="{{ asset('static/new/Iconos/vaca-verde.png') }}" alt="">
                                 </div>
                                 <div class="card-description--info">
-                                    <p class="raza">{{$p->raza}}</p>
+                                    <p class="raza">{{$p->fechaCiere}}</p>
                                     <p class="description" >{{$p->nombre}}</p>
-                                    <button class="buttonTienda" onclick="location.href='/tianguis/producto/{{$p->idproducto}}'">Ver más</button>
+                                    <p><?php echo "$$p->min.00 - $$p->max.00"; ?></p>
+                                    <p><?php echo "OFERTAAKI.00"; ?></p>
+                                    <button class="buttonTienda" onclick="location.href='{{url('subastas/'.$p->id_producto)}}'">Ver más</button>
                                 </div>
                                 <div class="card-description--footer">
-                                    <p>{{$p->location->nombre}}</p>
+                                    <p></p>
                                 </div>
                             </div>
                         </div>
