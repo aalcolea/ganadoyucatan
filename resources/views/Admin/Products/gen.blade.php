@@ -301,7 +301,7 @@
 let imagesArray = [];
 let deletedImages = [];
 let maxFiles = 12;
-$
+
   document.getElementById('agregar1').addEventListener('click', () => {
   let container = document.getElementById('image-container');
     container.innerHTML = ''
@@ -346,7 +346,6 @@ function updateImagesInput() {
 }
 function addImage(image) {
     let container = document.getElementById('image-container');
-    container.innerHTML = '';
     let newImage = document.createElement('div');
     newImage.setAttribute('class', 'image-wrapper');
     newImage.style.position = 'relative';

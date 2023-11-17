@@ -17,6 +17,9 @@ class ProductS extends Model
     public function visits(){
         return $this->hasMany(Visits::class, 'idproducto', 'id_producto')->where('type', 'sub')->whereMonth('fecha', now()->month);
     }
+    public function ciudad(){
+        return $this->hasOne(Ciudad::class, 'id', 'ciudad');
+    }
     public function owner(){
         return $this->hasOne(Persona::class, 'idpersona', 'vendedorid');
     }

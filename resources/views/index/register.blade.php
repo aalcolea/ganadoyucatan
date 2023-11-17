@@ -106,26 +106,31 @@
             <img src="{{url('/static/new/iconos/logo-red.png')}}" alt="">
             <p class="main-text">TE DAMOS LA BIENVENIDA <br>GANADERO</p>
             <P class="secondary-text">Disfuta de los beneficios de tu suscripción anual</P>
-            <form id="formRegister" action="{{url('/register')}}" class="sign-up-form form" enctype="multipart/form-data">
+             {!! Form::open(['url' => '/register', 'class' => 'sign-up-form form', 'enctype' => 'multipart/form-data', 'id' => 'formRegister']) !!}
+                @csrf
                 <hr>
                 <div class="form-group">
                     <label for="nombre">Nombre</label>
-                    <input type="text" id="nombre" placeholder="Nombre">
+                    <input type="text" id="nombre" name="nombre" placeholder="Nombre">
                 </div>
                 <div class="form-group">
                     <label for="telefono">Telefono</label>
-                    <input type="number" id="telefono" placeholder="Telefono">
+                    <input type="number" id="telefono" name="telefono" placeholder="Telefono">
                 </div>
                 <div class="form-group">
                     <label for="telefono">Contraseña</label>
-                    <input type="password" id="contrasena" placeholder="Contraseña">
+                    <input type="password" id="password" name="password" placeholder="Contraseña">
                 </div>
                 <div class="form-group">
                     <label for="ubicacion">Ubicación</label>
-                    <input type="text" id="ubicacion" placeholder="Ubicación">
+                    <select type="text" id="intEstado" name="intEstado" placeholder="Ubicación">
+                        <option selected value="1">Yucatan</option>
+                        <option value="2">Campeche</option>
+                        <option value="3">Quintana Roo</option>
+                    </select>
                 </div>
                 <button class="mainButton" type="submit">Entrar</button>
-            </form>
+            {!! Form::close() !!}
         </div>
     </div>
 

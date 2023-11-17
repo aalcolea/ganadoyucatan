@@ -19,4 +19,7 @@ class Persona extends Model implements Authenticatable
     public function nombreRol(){
         return $this->hasOne(Roles::class, 'idrol', 'rolid');
     }
+    public function ubi(){
+        return $this->hasOne(Estado::class, 'id', 'estado');
+    }
 }

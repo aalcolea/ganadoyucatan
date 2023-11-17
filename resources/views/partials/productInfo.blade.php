@@ -1,8 +1,6 @@
 {!!Form::open(['url'=> 'admin/products/postProductInfo/'.$product->idproducto, 'files' => true, 'style' => 'padding: 0;'])!!}
 
 <script >
-  let imagesArrayPart = [];
-  let deletedImagesPart = [];
   function handleDeleteImagePart(imagePath, id) {
     let formData = new FormData();
     formData.append('image_path', imagePath);
@@ -51,24 +49,66 @@ document.getElementById('add-imagesPart').addEventListener('click', () => {
   let fileInput = document.getElementById('file-inputPart');
   fileInput.click();
 });
-document.getElementById('file-inputPart').addEventListener('change', (event) => {
-  let files = event.target.files;
-  if(imagesArrayPart.length + files.length <= maxFiles){
-    for(let i = 0; i < files.length; i++){
-      handleAddImagePart(files[i]);
-    }
-  }else{
-        alert('Has alcanzado el límite máximo de imágenes permitidas.');
-  }
-});
-function handleAddImagePart(file){
-    let loadingIcon = document.getElementById('loading-icon');
-    loadingIcon.style.display = 'block';
-    imagePath = `{{$product->datecreated}}`;
-    let dataPath =  imagePath.substring(0, 10);
+  document.getElementById('file-inputPart').addEventListener('change', (event) => {
+        let files = event.target.files;
+        if (files.length > 0) {
+            handleAddImagesPart(files);
+        }
+    });
+
+function handleAddImagesPart(files) {
     let formData = new FormData();
-    formData.append('uploaded_imagePart', file);
-    formData.append('action', 'add');
+    formData.append('_token', '{{ csrf_token() }}');
+    formData.append('product_id', {{ $product->idproducto }});
+    formData.append('dataPath', {{$product->carpeta}});
+    
+    for (let i = 0; i < files.length; i++) {
+        formData.append('uploaded_images[]', files[i]);
+    }
+    fetch('{{ route('product.add_images') }}', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => { 
+        let image = {
+                path: data.image.path,
+                url: '/uploads/' + data.image.path
+        };
+        updateImagesView(image);
+    })
+    .catch(error => {
+        console.log('hola');
+        console.error('Error:', error);
+    });
+}
+
+function updateImagesView(newImages) {
+    let container = document.getElementById('image-containerDelete');
+    newImages.forEach(image => {
+        let newImage = document.createElement('div');
+        newImage.setAttribute('class', 'image-wrapperDelete');
+        newImage.style.position = 'relative';
+        newImage.style.marginInlineEnd = '10px';
+        newImage.style.marginBlockEnd = '5px';
+        newImage.style.marginBlockStart = '5px';
+        newImage.style.maxHeight = '125';
+        newImage.setAttribute('data-path', image.path);
+        newImage.innerHTML = `
+            <img style="width: 10rem; height: 7.5rem" src="{{ url('/') }}${image.url}" alt="Image">
+            <div class="loading-text" style="position:absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">Cargando...</div>
+            <button type="button" class="delete-image" style="position: absolute;top: 0;right: 0;width: 30px;height: 30px;background-color: #f3395b;border-radius: 50%;color: white;font-size: 18px;text-align: center;line-height: 27px;vertical-align: middle;cursor: pointer;border: none;" data-path="${image.path}">&#x2715;</button>
+            `;
+
+        container.appendChild(newImage);
+    });
+    imagesArrayPart = imagesArrayPart.concat(newImages);
+    updateImagesInputPart();
+}
+
+function updateImagesInputPart() {
+    let imagesInput = document.getElementById('images');
+    imagesInput.value = JSON.stringify(imagesArrayPart);
 }
 </script>
           {{-- <form id="formProductos" name="formProductos" class="form-horizontal" action="{{url('admin/products/addNewGen')}}" method="POST" style="padding: 0;"> --}}
