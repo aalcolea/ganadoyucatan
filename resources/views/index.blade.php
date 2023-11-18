@@ -124,7 +124,7 @@
     const nextButton = document.querySelector(".next-button");
     let currentIndex = 0;
 
-        // Función para mostrar la imagen activa y el punto activo
+    // Función para mostrar la imagen activa y el punto activo
     function showSlide(index) {
         images.forEach((image, i) => {
             if (i == index) {
