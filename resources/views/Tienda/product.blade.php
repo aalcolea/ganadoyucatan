@@ -187,25 +187,27 @@
         <div class="information-product--container">
             <div class="container">
                 <div class="parent">
+                @if($p->link)
                     <div class="div1">
-                        @if($p->link)
-                    	<img onclick="swapImages('div1')" src="{{asset('uploads/'.$p->carpeta.'/'.$p->portada.'.webp')}}" alt="Imagen 1">
-                        @else
-                    		@if(isset($images[0]))
-    							<img class="left"  onclick="swapImages('div1')" src="{{ asset('uploads/' . $p->carpeta . '/' . $images[0]['img'] . '.webp') }}" alt="Imagen 1">
-							@endif
-                        @endif
+                       <img onclick="swapImages('div1')" src="{{asset('uploads/'.$p->carpeta.'/'.$p->portada.'.webp')}}" alt="Imagen 1">
+                   </div>
+                @else
+                    <div class="div1">
+                    	@if(isset($images[0]))
+    						<img class="left"  onclick="swapImages('div1')" src="{{ asset('uploads/' . $p->carpeta . '/' . $images[0]['img'] . '.webp') }}" alt="Imagen 1">
+						@endif
                     </div>
+                @endif
+                @if(isset($images[1]))
                     <div class="div2">
-                    	@if(isset($images[1]))
     						<img class="left" onclick="swapImages('div2')" src="{{ asset('uploads/' . $p->carpeta . '/' . $images[1]['img'] . '.webp') }}" alt="Imagen 1">
-						@endif
                     </div>
+				@endif
+                @if(isset($images[2]))
                     <div class="div3">
-                    	@if(isset($images[2]))
     						<img class="left" onclick="swapImages('div3')" src="{{ asset('uploads/' . $p->carpeta . '/' . $images[2]['img'] . '.webp') }}" alt="Imagen 1">
-						@endif
                     </div>
+				@endif
                     <div class="div4">
                     <div class="right-container">
                     	@if($p->link)

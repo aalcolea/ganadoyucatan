@@ -143,8 +143,8 @@
                     <div class="div1">
 
                         @if($p->link)
-                            @if(isset($images[0]))
-                                <img class="left" onclick="swapImages('div1')" src="{{ asset('uploads/'.$images[0]['ruta'])}}" alt="Imagen 1">
+                            @if(isset($images[1]))
+                                <img class="left" onclick="swapImages('div1')" src="{{ asset('uploads/'.$images[1]['ruta'])}}" alt="Imagen 1">
                             @endif
                         @else
                             @if(isset($images[1]))
@@ -152,14 +152,14 @@
                             @endif
                         @endif
                     </div>
-                    @if(isset($images[1]))
+                    @if(isset($images[2]))
                     <div class="div2">
-                        <img class="left"  onclick="swapImages('div2')" src="{{ asset('uploads/'.$images[1]['ruta'])}}" alt="Imagen 1">
+                        <img class="left"  onclick="swapImages('div2')" src="{{ asset('uploads/'.$images[2]['ruta'])}}" alt="Imagen 1">
                     </div>
                     @endif
-                    @if(isset($images[2]))
+                    @if(isset($images[3]))
                     <div class="div3">
-                        <img class="left" onclick="swapImages('div3')" src="{{ asset('uploads/'.$images[2]['ruta'])}}" alt="Imagen 1">
+                        <img class="left" onclick="swapImages('div3')" src="{{ asset('uploads/'.$images[3]['ruta'])}}" alt="Imagen 1">
                     </div>
                     @endif
                     <div class="div4">

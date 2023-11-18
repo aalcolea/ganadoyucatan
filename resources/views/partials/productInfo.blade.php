@@ -51,18 +51,47 @@ document.getElementById('add-imagesPart').addEventListener('click', () => {
 });
   document.getElementById('file-inputPart').addEventListener('change', (event) => {
         let files = event.target.files;
-        if (files.length > 0) {
-            handleAddImagesPart(files);
+        let images = {{count($images)}};
+        if (images + files.length <= 12) {
+            //for (let i = 0; i < files.length; i++) {
+                //console.log(files);
+                handleAddImagesPart(files);
+            //}
+        }else {
+            alert('Has alcanzado el límite máximo(12) de imágenes permitidas.');
         }
     });
 
 function handleAddImagesPart(files) {
+    let filesArray = [...files];
+
+    filesArray.forEach(file => {
     let formData = new FormData();
     formData.append('_token', '{{ csrf_token() }}');
     formData.append('product_id', {{ $product->idproducto }});
     formData.append('dataPath', {{$product->carpeta}});
+        
+        formData.append('uploaded_images[]', file);
     
-    for (let i = 0; i < files.length; i++) {
+    fetch('{{ route('product.add_images') }}', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => { 
+        let image = {
+                path: data.image.path,
+                url: '/uploads' + data.image.path
+        };
+        console.log(image);
+        updateImagesView(image);
+    })
+    .catch(error => {
+        console.log('hola');
+        console.error('Error:', error);
+    });
+    })
+    /*for (let i = 0; i < files.length; i++) {
         formData.append('uploaded_images[]', files[i]);
     }
     fetch('{{ route('product.add_images') }}', {
@@ -73,19 +102,20 @@ function handleAddImagesPart(files) {
     .then(data => { 
         let image = {
                 path: data.image.path,
-                url: '/uploads/' + data.image.path
+                url: '/uploads' + data.image.path
         };
+        console.log(image);
         updateImagesView(image);
     })
     .catch(error => {
         console.log('hola');
         console.error('Error:', error);
-    });
+    });*/
 }
 
-function updateImagesView(newImages) {
+function updateImagesView(image) {
     let container = document.getElementById('image-containerDelete');
-    newImages.forEach(image => {
+    //newImages.forEach(image => {
         let newImage = document.createElement('div');
         newImage.setAttribute('class', 'image-wrapperDelete');
         newImage.style.position = 'relative';
@@ -96,12 +126,11 @@ function updateImagesView(newImages) {
         newImage.setAttribute('data-path', image.path);
         newImage.innerHTML = `
             <img style="width: 10rem; height: 7.5rem" src="{{ url('/') }}${image.url}" alt="Image">
-            <div class="loading-text" style="position:absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">Cargando...</div>
             <button type="button" class="delete-image" style="position: absolute;top: 0;right: 0;width: 30px;height: 30px;background-color: #f3395b;border-radius: 50%;color: white;font-size: 18px;text-align: center;line-height: 27px;vertical-align: middle;cursor: pointer;border: none;" data-path="${image.path}">&#x2715;</button>
             `;
 
         container.appendChild(newImage);
-    });
+    //});
     imagesArrayPart = imagesArrayPart.concat(newImages);
     updateImagesInputPart();
 }
@@ -127,7 +156,7 @@ function updateImagesInputPart() {
                     </div>
                     <div class="form-group">
                       <label class="control-label">Enlance Youtube</label>
-                      <input class="form-control" id="txtLink" name="txtLink" type="text"value="{{$product->link}}">
+                      <input class="form-control" id="txtLink" name="txtLink" type="text"value="{{$product->link}}" disabled>
                     </div>
                     <div class="form-group">
                       <label class="control-label" for="estados">Estado:</label>

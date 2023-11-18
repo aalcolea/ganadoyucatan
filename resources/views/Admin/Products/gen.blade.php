@@ -109,7 +109,7 @@
                     </div>
                     <div class="form-group">
                       <label class="control-label">Enlance Youtube</label>
-                      <input class="form-control" id="txtLink" name="txtLink" type="text" >
+                      <input class="form-control" id="txtLink" name="txtLink" type="text" disabled>
                     </div>
                     <div class="form-group">
                       <label class="control-label" for="estados">Estado:</label>
