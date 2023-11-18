@@ -74,7 +74,8 @@
 			<p>Las mejores razas las encuentras aquí</p>
 		</div>
 		<div class="container-tienda">
-			<div class="filtro-container">
+            <!-- TODO En esta tienda no se encuentra disponible el filtro según el diseño dado -->
+			<div class="filtro-container" style="display: none;">
                 <div class="filtro-container-info">
                     <h2>Filtro</h2>
                     <hr>
@@ -149,7 +150,7 @@
                 </div>
 			</div>
             <div class="container-cards">
-                <p class="title-container--cards">Publicaciones destacadas</p>
+                <p class="title-container--cards" style="text-align: center;">Publicaciones destacadas</p>
                 <div class="container-destacadas">
                 @for ($index = 0; $index <= 2; $index++)
                     @if (isset($random[$index]))
@@ -174,14 +175,92 @@
                     @endif
                 @endfor
                 </div>
-                <div class="publicidad-container">
+                <div class="publicidad-container-subasta">
                     <hr>
                     <h1 class="content-publicidad">Espacio <br>publicitario</h1>
                     <button class="secondaryButton" style="margin-left: 2rem;">Solicitar <br>publicidad</button>
                 </div>
-                <p class="title-container--cards">Ganado Comercial</p>
+                <p class="title-container--cards" style="text-align: center;">Ganado Comercial</p>
                 <div class="container-normal">
-                    @foreach($products as $p)
+                    <div class="container-subastas">
+                        <div class="carousel-container-subastas">
+                            <div class="image-container">
+                                <div class="image">
+                                    <img src="{{ asset('static/new/background/_header-1.jpg') }}" alt="" srcset="">
+                                </div>
+                                <div class="image">
+                                    <img src="{{ asset('static/new/background/_header-1.jpg') }}" alt="" srcset="">
+                                </div>
+                                <div class="image"></div>
+                            </div>
+                            <div class="navigation-points">
+                                <div class="point"></div>
+                                <div class="point"></div>
+                                <div class="point"></div>
+                            </div>
+                            <div class="nav-buttons">
+                                <div class="prev-button"><</div>
+                                <div class="next-button">></div>
+                                <div class="next-label ">Siguiente</div>
+                            </div>
+                        </div>
+                        <div class="information-product-subasta">
+                            <p class="raza">Toros para semental</p>
+                            <p class="description">Brahman Brangus Charbay</p>
+                            <hr>
+                            <div class="ofertas-time">
+                                <p class="raza">02 ofertas de subasta</p>
+                                <p class="info">- Quedan 0 d 2 h</p>
+                            </div>
+                            <div class="precios">
+                                <p class="description">2,000 MXN</p>
+                                <P class="description">| 6523.00 MXN</P>
+                            </div>
+                            <div class="contact-button">
+                                <button class="mainButtonB">Pujar</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container-subastas">
+                        <div class="carousel-container-subastas">
+                            <div class="image-container">
+                                <div class="image">
+                                    <img src="{{ asset('static/new/background/_header-1.jpg') }}" alt="" srcset="">
+                                </div>
+                                <div class="image">
+                                    <img src="{{ asset('static/new/background/_header-1.jpg') }}" alt="" srcset="">
+                                </div>
+                                <div class="image"></div>
+                            </div>
+                            <div class="navigation-points">
+                                <div class="point"></div>
+                                <div class="point"></div>
+                                <div class="point"></div>
+                            </div>
+                            <div class="nav-buttons">
+                                <div class="prev-button"><</div>
+                                <div class="next-button">></div>
+                                <div class="next-label ">Siguiente</div>
+                            </div>
+                        </div>
+                        <div class="information-product-subasta">
+                            <p class="raza">Toros para semental</p>
+                            <p class="description">Brahman Brangus Charbay</p>
+                            <hr>
+                            <div class="ofertas-time">
+                                <p class="raza">02 ofertas de subasta</p>
+                                <p class="info">- Quedan 0 d 2 h</p>
+                            </div>
+                            <div class="precios">
+                                <p class="description">2,000 MXN</p>
+                                <P class="description">| 6523.00 MXN</P>
+                            </div>
+                            <div class="contact-button">
+                                <button class="mainButtonB">Pujar</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- @foreach($products as $p)
                         <div class="card-tianguis--normal">
                             <img class="img-products" src="{{asset('uploads/subasta/'.$p->carpeta.'/'.$p->portada.'.webp')}}" alt="" srcset="">
                             <div class="card-description">
@@ -191,16 +270,18 @@
                                     <img src="{{ asset('static/new/Iconos/vaca-verde.png') }}" alt=""> --}}
                                 </div>
                                 <div class="card-description--info">
-                                    <p class="raza">{{$p->raza}}</p>
+                                    <p class="raza">{{$p->fechaCiere}}</p>
                                     <p class="description" >{{$p->nombre}}</p>
-                                    <button class="buttonTienda" onclick="location.href='/tianguis/producto/{{$p->idproducto}}'">Ver más</button>
+                                    <p><?php echo "$$p->min.00 - $$p->max.00"; ?></p>
+                                    <p><?php echo "OFERTAAKI.00"; ?></p>
+                                    <button class="buttonTienda" onclick="location.href='{{url('subastas/'.$p->id_producto)}}'">Ver más</button>
                                 </div>
                                 <div class="card-description--footer">
-                                    <p>{{$p->location->nombre}}</p>
+                                    <p></p>
                                 </div>
                             </div>
                         </div>
-                    @endforeach
+                    @endforeach -->
                 </div>
             </div>
 		</div>
@@ -249,5 +330,55 @@
 		}
 	});
 
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+    const images = document.querySelectorAll(".image");
+    const points = document.querySelectorAll(".point");
+    const prevButton = document.querySelector(".prev-button");
+    const nextButton = document.querySelector(".next-button");
+    let currentIndex = 0;
+
+        // Función para mostrar la imagen activa y el punto activo
+    function showSlide(index) {
+        images.forEach((image, i) => {
+            if (i == index) {
+                image.style.display = "block";
+            } else {
+                image.style.display = "none";
+            }
+        });
+        points.forEach((point, i) => {
+            if (i === index) {
+                point.classList.add("active");
+            } else {
+                point.classList.remove("active");
+            }
+        });
+    }
+
+    // Mostrar la primera imagen al cargar la página
+    showSlide(currentIndex);
+
+    // Botón "Prev" - retroceder a la imagen anterior
+    prevButton.addEventListener("click", function () {
+        currentIndex = (currentIndex - 1 + images.length) % images.length;
+        showSlide(currentIndex);
+    });
+
+    // Botón "Next" - avanzar a la siguiente imagen
+    nextButton.addEventListener("click", function () {
+        currentIndex = (currentIndex + 1) % images.length;
+        showSlide(currentIndex);
+    });
+
+    // Hacer clic en los puntos para cambiar la imagen
+    points.forEach((point, index) => {
+        point.addEventListener("click", function () {
+        currentIndex = index;
+        showSlide(currentIndex);
+        });
+    });
+});
 </script>
     @endsection
