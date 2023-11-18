@@ -278,19 +278,19 @@
                             <div class="price-content">
                                 <div>
                                 <label>Min</label>
-                                <p id="min-value">$50</p>
+                                <p id="min-value">$20000</p>
                                 </div>
 
                                 <div>
                                 <label>Max</label>
-                                <p id="max-value">$500</p>
+                                <p id="max-value">$50000</p>
                                 </div>
                             </div>
 
                             <div class="range-slider">
                                 <div class="range-fill"></div>
-                                <input type="range" class="min-price" value="100" min="0" max="500" step="10" />
-                                <input type="range" class="max-price" value="250" min="0" max="500" step="10" />
+                                <input type="range" class="min-price" value="20000" min="20000" max="500000" step="10000" />
+                                <input type="range" class="max-price" value="50000" min="20000" max="500000" step="10000" />
                             </div>
                         </div>
                         <div class="align-center">
@@ -418,7 +418,6 @@ document.addEventListener("DOMContentLoaded", function () {
   const maxValue = document.getElementById("max-value");
   const rangeFill = document.querySelector(".range-fill");
 
-  // Function to validate range and update the fill color on slider
   function validateRange() {
     const minPrice = parseInt(inputElements[0].value);
     const maxPrice = parseInt(inputElements[1].value);
@@ -429,8 +428,9 @@ document.addEventListener("DOMContentLoaded", function () {
       minPrice = tempValue;
     }
 
-    const minPercentage = ((minPrice) / 500) * 100;
-    const maxPercentage = ((maxPrice) / 500) * 100;
+
+    const minPercentage = ((minPrice - 20000) / 480000) * 100;
+    const maxPercentage = ((maxPrice - 20000) / 480000) * 100;
 
     rangeFill.style.left = minPercentage + "%";
     rangeFill.style.width = maxPercentage - minPercentage + "%";
@@ -439,12 +439,10 @@ document.addEventListener("DOMContentLoaded", function () {
     maxValue.innerHTML = "$" + maxPrice;
   }
 
-  // Add an event listener to each input element
   inputElements.forEach((element) => {
     element.addEventListener("input", validateRange);
   });
 
-  // Initial call to validateRange
   validateRange();
 });
 </script>
