@@ -67,7 +67,7 @@
     </div> -->
 
  <!-- //TODO Nueva sección de subastas -->
- <div class="tienda-section">
+    <div class="tienda-section">
 		<div class="banner-main-subasta">
 			<img class="icon-banner" src="{{ asset('static/new/Iconos/pinmoño.png') }}" alt="">
 			<h1>SUBASTA GANADERA</h1>
@@ -182,83 +182,93 @@
                 </div>
                 <p class="title-container--cards" style="text-align: center;">Ganado Comercial</p>
                 <div class="container-normal">
-                    <div class="container-subastas">
-                        <div class="carousel-container-subastas">
-                            <div class="image-container">
-                                <div class="image">
-                                    <img src="{{ asset('static/new/background/_header-1.jpg') }}" alt="" srcset="">
+                    <div class="carousel-subasta">
+                        <div class="slide">
+                            <div class="container-subastas">
+                                <div class="carousel-container-subastas">
+                                    <div class="image-container">
+                                        <div class="image-subasta">
+                                            <img src="{{ asset('static/new/background/_header-1.jpg') }}" alt="" srcset="">
+                                        </div>
+                                        <div class="image-subasta">
+                                            <img src="{{ asset('static/new/background/_header-1.jpg') }}" alt="" srcset="">
+                                        </div>
+                                        <div class="image-subasta"></div>
+                                    </div>
+                                    <div class="navigation-points">
+                                        <div class="point"></div>
+                                        <div class="point"></div>
+                                        <div class="point"></div>
+                                    </div>
+                                    <div class="nav-buttons">
+                                        <div class="prev-button"><</div>
+                                        <div class="next-button">></div>
+                                        <div class="next-label ">Siguiente</div>
+                                    </div>
                                 </div>
-                                <div class="image">
-                                    <img src="{{ asset('static/new/background/_header-1.jpg') }}" alt="" srcset="">
+                                <div class="information-product-subasta">
+                                    <p class="raza">Toros para semental</p>
+                                    <p class="description">Brahman Brangus Charbay</p>
+                                    <hr>
+                                    <div class="ofertas-time">
+                                        <p class="raza">02 ofertas de subasta</p>
+                                        <p class="info">- Quedan 0 d 2 h</p>
+                                    </div>
+                                    <div class="precios">
+                                        <p class="description">2,000 MXN</p>
+                                        <P class="description">| 6523.00 MXN</P>
+                                    </div>
+                                    <div class="contact-button">
+                                        <button class="mainButtonB">Pujar</button>
+                                    </div>
                                 </div>
-                                <div class="image"></div>
-                            </div>
-                            <div class="navigation-points">
-                                <div class="point"></div>
-                                <div class="point"></div>
-                                <div class="point"></div>
-                            </div>
-                            <div class="nav-buttons">
-                                <div class="prev-button"><</div>
-                                <div class="next-button">></div>
-                                <div class="next-label ">Siguiente</div>
                             </div>
                         </div>
-                        <div class="information-product-subasta">
-                            <p class="raza">Toros para semental</p>
-                            <p class="description">Brahman Brangus Charbay</p>
-                            <hr>
-                            <div class="ofertas-time">
-                                <p class="raza">02 ofertas de subasta</p>
-                                <p class="info">- Quedan 0 d 2 h</p>
-                            </div>
-                            <div class="precios">
-                                <p class="description">2,000 MXN</p>
-                                <P class="description">| 6523.00 MXN</P>
-                            </div>
-                            <div class="contact-button">
-                                <button class="mainButtonB">Pujar</button>
+                        <div class="slide">
+                            <div class="container-subastas">
+                                <div class="carousel-container-subastas">
+                                    <div class="image-container">
+                                        <div class="image-subasta">
+                                            <img src="https://images.pexels.com/photos/18799961/pexels-photo-18799961/free-photo-of-casas-casa-planta-ventanas.jpeg?auto=compress&cs=tinysrgb&w=400&lazy=load" alt="" srcset="">
+                                        </div>
+                                        <div class="image-subasta">
+                                            <img src="{{ asset('static/new/background/_header-1.jpg') }}" alt="" srcset="">
+                                        </div>
+                                        <div class="image-subasta"></div>
+                                    </div>
+                                    <div class="navigation-points">
+                                        <div class="point"></div>
+                                        <div class="point"></div>
+                                        <div class="point"></div>
+                                    </div>
+                                    <div class="nav-buttons">
+                                        <div class="prev-button"><</div>
+                                        <div class="next-button">></div>
+                                        <div class="next-label ">Siguiente</div>
+                                    </div>
+                                </div>
+                                <div class="information-product-subasta">
+                                    <p class="raza">Toros para semental</p>
+                                    <p class="description">Brahman Brangus Charbay</p>
+                                    <hr>
+                                    <div class="ofertas-time">
+                                        <p class="raza">02 ofertas de subasta</p>
+                                        <p class="info">- Quedan 0 d 2 h</p>
+                                    </div>
+                                    <div class="precios">
+                                        <p class="description">2,000 MXN</p>
+                                        <P class="description">| 6523.00 MXN</P>
+                                    </div>
+                                    <div class="contact-button">
+                                        <button class="mainButtonB">Pujar</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="container-subastas">
-                        <div class="carousel-container-subastas">
-                            <div class="image-container">
-                                <div class="image">
-                                    <img src="{{ asset('static/new/background/_header-1.jpg') }}" alt="" srcset="">
-                                </div>
-                                <div class="image">
-                                    <img src="{{ asset('static/new/background/_header-1.jpg') }}" alt="" srcset="">
-                                </div>
-                                <div class="image"></div>
-                            </div>
-                            <div class="navigation-points">
-                                <div class="point"></div>
-                                <div class="point"></div>
-                                <div class="point"></div>
-                            </div>
-                            <div class="nav-buttons">
-                                <div class="prev-button"><</div>
-                                <div class="next-button">></div>
-                                <div class="next-label ">Siguiente</div>
-                            </div>
-                        </div>
-                        <div class="information-product-subasta">
-                            <p class="raza">Toros para semental</p>
-                            <p class="description">Brahman Brangus Charbay</p>
-                            <hr>
-                            <div class="ofertas-time">
-                                <p class="raza">02 ofertas de subasta</p>
-                                <p class="info">- Quedan 0 d 2 h</p>
-                            </div>
-                            <div class="precios">
-                                <p class="description">2,000 MXN</p>
-                                <P class="description">| 6523.00 MXN</P>
-                            </div>
-                            <div class="contact-button">
-                                <button class="mainButtonB">Pujar</button>
-                            </div>
-                        </div>
+                    <div class="nav-buttons-subasta">
+                        <div class="prev-button-subasta"><</div>
+                        <div class="next-button-subasta">></div>
                     </div>
                     <!-- @foreach($products as $p)
                         <div class="card-tianguis--normal">
@@ -286,6 +296,7 @@
             </div>
 		</div>
 	</div>
+
 <script>
 	const minPriceHandle = document.querySelector('.min-price-handle');
 	const maxPriceHandle = document.querySelector('.max-price-handle');
@@ -332,53 +343,77 @@
 
 </script>
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
-    const images = document.querySelectorAll(".image");
-    const points = document.querySelectorAll(".point");
-    const prevButton = document.querySelector(".prev-button");
-    const nextButton = document.querySelector(".next-button");
+document.addEventListener("DOMContentLoaded", function () {
+
+    // TODO Script para hacer el slider horizontal
+    const carousel = document.querySelector('.carousel-subasta');
+    const slides = document.querySelectorAll('.slide');
+    const prevBtn = document.querySelector('.prev-button-subasta');
+    const nextBtn = document.querySelector('.next-button-subasta');
+    const left  = document.querySelector('.carousel-container-subastas');
+    const right = document.querySelector('.information-product-subasta');
+
+    const slideWidth = slides[0].offsetWidth;
+    let currentPosition = 0;
+    nextBtn.addEventListener('click', function () {
+        if (currentPosition > -((slides.length - 1) * slideWidth)) {
+            currentPosition -= slideWidth;
+            carousel.style.transform = `translateX(${currentPosition}px)`;
+        }
+    });
+    prevBtn.addEventListener('click', function () {
+        if (currentPosition < 0) {
+            currentPosition += slideWidth;
+            carousel.style.transform = `translateX(${currentPosition}px)`;
+        }
+    });
+
+    // TODO Script para hacer el cambio de imagen
+    const cardContainers = document.querySelectorAll(".carousel-container-subastas");
+        cardContainers.forEach(cardContainer => {
+    const images = cardContainer.querySelectorAll(".image-subasta");
+    const points = cardContainer.querySelectorAll(".point");
+    const prevButton = cardContainer.querySelector(".prev-button");
+    const nextButton = cardContainer.querySelector(".next-button");
     let currentIndex = 0;
+          function showSlide(index) {
+            images.forEach((image, i) => {
+                if (i == index) {
+                    image.style.display = "block";
+                } else {
+                    image.style.display = "none";
+                }
+            });
+            points.forEach((point, i) => {
+                if (i === index) {
+                    point.classList.add("active");
+                } else {
+                    point.classList.remove("active");
+                }
+            });
+        }
+        showSlide(currentIndex);
 
-        // Función para mostrar la imagen activa y el punto activo
-    function showSlide(index) {
-        images.forEach((image, i) => {
-            if (i == index) {
-                image.style.display = "block";
-            } else {
-                image.style.display = "none";
-            }
+        prevButton.addEventListener("click", function () {
+            currentIndex = (currentIndex - 1 + images.length) % images.length;
+            showSlide(currentIndex);
         });
-        points.forEach((point, i) => {
-            if (i === index) {
-                point.classList.add("active");
-            } else {
-                point.classList.remove("active");
-            }
+
+        nextButton.addEventListener("click", function () {
+            currentIndex = (currentIndex + 1) % images.length;
+            showSlide(currentIndex);
         });
-    }
 
-    // Mostrar la primera imagen al cargar la página
-    showSlide(currentIndex);
-
-    // Botón "Prev" - retroceder a la imagen anterior
-    prevButton.addEventListener("click", function () {
-        currentIndex = (currentIndex - 1 + images.length) % images.length;
-        showSlide(currentIndex);
-    });
-
-    // Botón "Next" - avanzar a la siguiente imagen
-    nextButton.addEventListener("click", function () {
-        currentIndex = (currentIndex + 1) % images.length;
-        showSlide(currentIndex);
-    });
-
-    // Hacer clic en los puntos para cambiar la imagen
-    points.forEach((point, index) => {
-        point.addEventListener("click", function () {
-        currentIndex = index;
-        showSlide(currentIndex);
+        points.forEach((point, index) => {
+            point.addEventListener("click", function () {
+            currentIndex = index;
+            showSlide(currentIndex);
+            });
         });
     });
+
 });
+
 </script>
-    @endsection
+
+@endsection

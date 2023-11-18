@@ -1,180 +1,14 @@
-@extends('Tienda.master')
-@section('view')
-  <title>Subasta de producto</title>
+@extends('layout')
+@section('content')
+<title>Subasta de producto</title>
 
-    <!-- Favicon -->
-<style >
-        a.gmail-share-button {
-  display: inline-block;
-  background-color: #ea4335;
-  color: white;
-  padding: 10px;
-  opacity: 87%;
-  border-radius: 5px;
-  text-decoration: none;
-}
- {
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-}
-
-body { font-family: sans-serif; }
-
-.gallery{
-    width: 540px; 
-    height:450px;
-}
-.flickity-viewport{
-    height: 450px;
-}
-.flickity-slider{
-    height: 450px;
-}
-.gallery-cell {
-  width: 100%;
-  height: 100%;
-  margin-right: 10px;
-}
-
-/* cell number */
-.gallery-cell:before {
-  display: block;
-  text-align: center;
-  line-height: 200px;
-  font-size: 80px;
-  color: white;
-}
-    .modal {
-        display: none;
-        position: fixed;
-        z-index: 1;
-        padding-top: 50px;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        overflow: auto;
-        background-color: rgba(0, 0, 0, 0.9);
-    }
-
-    .modal-content {
-        margin: auto;
-        display: block;
-        max-width: 80%;
-        max-height: 80%;
-    }
-
-    .close {
-        color: white;
-        position: absolute;
-        top: 15px;
-        right: 25px;
-        font-size: 35px;
-        font-weight: bold;
-        cursor: pointer;
-    }
-@media only screen and (max-width: 414px) {
-.gallery{
-    width: 345px;
-    padding-inline-start: 1rem;
-    margin-top: 1rem;
-}
-.embed-responsive-item{
-    width: 380px; 
-}   
-}
-  .main_box{
-    width: 4em;
-    height: 4em;
-    position: relative;
-    }
-    
-    #share_button{
-    display: none;
-    }
-    
-/*    span,a{
-    position: absolute;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 50%;
-    }
-    
-    span{
-    width: 4em;
-    height: 4em;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    background-color: #eee;
-    color: #333;
-    font-size: 2em;
-    z-index: 1;
-    cursor: pointer;
-    /* border-radius: 30%; */
-    }*/
-    
-    .sm_list{
-    width: 4em;
-    height: 4em;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    }
-    
-    .sm_list a{
-    width: 4em;
-    height: 4em;
-    border-radius: 50%;
-    text-decoration: none;
-    color: #fff;
-    transition: all .3s;
-    font-size: 1.5em;
-    }
-    
-    #share_button:checked ~ .sm_list a:nth-child(1){
-    background-color: #3B5998;
-    transition-delay: 0.2s;
-    transform: translateX(-6em);
-    }
-    
-    #share_button:checked ~ .sm_list a:nth-child(2){
-    background-color: #37e116;
-    transition-delay: 0.2s;
-    transform: translateX(6em);
-    }
-    
-
-    
-    
-    #share_button:checked ~ .sm_list a:nth-child(1):hover{
-    background-color: #ffffff;
-    color: #3B5998;
-    /* transition-delay: 0.2s;
-    transform: translateX(-6em); */
-    }
-    
-    #share_button:checked ~ .sm_list a:nth-child(2):hover{
-    color: #37e116;
-    background-color: #fff;
-    }
-    
-
-    
-    span:visited{
-    background-color: #000f94;
-    }
-</style>
-
-    <div id="wrapper">
+    <!-- <div id="wrapper">
         </nav>
         <div id="page-wrapper">
 
             <div class="container-fluid">
 
-                <!-- Page Heading -->
+                <!-- Page Heading
                 <div class="row">
                     <div class="col-lg-12">
                         <h1 class="page-header">
@@ -194,9 +28,9 @@ body { font-family: sans-serif; }
                     </div>
                 </div>
 
-                <!-- Listado de subastas -->
+                <!-- Listado de subastas
                 <div class="row">
-                                  <div class="col-sm-6 col-md-6"> 
+                                  <div class="col-sm-6 col-md-6">
                                     <div class="thumbnail">
                                       <?php //echo "<img src='images/productos/$imagen_p' style='height: 220px;'>";?>
                                       <div class="caption">
@@ -254,7 +88,7 @@ body { font-family: sans-serif; }
                                           </div>
                                         </div>
                                       </div>
-                </div> 
+                </div>
 
                 <div class="main_box">
         <input type="checkbox" id="share_button">
@@ -263,7 +97,7 @@ body { font-family: sans-serif; }
 <i class="fa fa-share-alt" aria-hidden="true"></i>
             </span>
         </label>
-  
+
         <div class="sm_list">
             <a href="#" class="facebook">
               <i class="fab fa-facebook-f"></i>
@@ -279,7 +113,7 @@ body { font-family: sans-serif; }
             <!-- /.container-fluid -->
 
         </div>
-        <!-- /#page-wrapper -->
+        <!-- /#page-wrapper
 
     </div>
             {{-- Modal para ofertar --}}
@@ -324,7 +158,7 @@ body { font-family: sans-serif; }
               @csrf
               <input class="" type="text" id="idProducto" name="idProducto" value="" style="display: none;">
               <div class="modal-body">
-                
+
 
 
               </div>
@@ -335,50 +169,122 @@ body { font-family: sans-serif; }
             </div>
             {!!Form::close()!!}
           </div>
-        </div> --}}
+        </div> --}} -->
     <!-- /#wrapper -->
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <script>
-     $("#offerModal").prependTo("body");
-    const sharebtn = 
-    document.querySelector('.sharebtn');
-    var bool = 0
-    
-    sharebtn.addEventListener('click', () => {
-        bool = !bool
-        if (bool == 0) {
-            sharebtn.innerHTML =
-                '<i class="fa fa-share-alt"></i>'
-        }else {
-            sharebtn.innerHTML =
-                '<i class="fas fa-times"></i>'
-        }
-    })
-    </script>
-        <script>
-    const expandableImages = document.querySelectorAll('.gallery-cell');
-    const modal = document.getElementById('modal');
-    const expandedImg = document.getElementById('expandedImg');
-    const closeBtn = document.querySelector('.close');
+<div class="productTienda-section">
+    <div class="banner-product--subasta">
+        <h1>SUBASTA GANADERA</h1>
+    </div>
+    <div class="container-product--Main">
+        <div class="route">
+            <p>Inicio<span>></span></p><p>Subasta ganadera</p><span>></span><p>Nombre del producto</p>
+        </div>
+        <div class="information-product--container">
+            <div class="container">
+            <div class="parent">
+                    <div class="div1">
+                        <img class="left" onclick="swapImages('div1')" src="{{ asset('uploads/'.$images[0]['ruta'])}}" alt="Imagen 1">
+                    </div>
+                    <div class="div2">
+                        <img class="left"  onclick="swapImages('div2')" src="{{ asset('uploads/'.$images[1]['ruta'])}}" alt="Imagen 1">
+                    </div>
+                    <div class="div3">
+                        <img class="left" onclick="swapImages('div3')" src="{{ asset('uploads/'.$images[2]['ruta'])}}" alt="Imagen 1">
+                    </div>
+                    <div class="div4">
+                        <div class="right-container">
+                            <img class="left" onclick="swapImages('div4')"  src="{{ asset('uploads/'.$images[0]['ruta'])}}" alt="Imagen 1">
+                            <button class="fullscreen-button" onclick="openFullscreen()">
+                                <img width="24" height="24" src="https://img.icons8.com/fluency-systems-regular/48/fullscreen.png" alt="fullscreen"/>
+                            </button>
+                            <span class="close-button" onclick="closeFullscreen()">CERRAR</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="information-product">
+                <p class="description"></p>
+                <p class="raza"></p>
+                <p class="description"></p>
+                <p class="info"></p>
+                <div class="contact-button">
+                     <button class="mainButtonB">Contacto</button>
+                    <a id="openModal" href="#">Hacer contacto <span>></span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="description-product">
+        <div class="desc-left">
+            <p><span> </span></p>
+        </div>
+        <div class="desc-right">
+            <h2>Descripción del Ganado</h2>
+            <div class="container-desc">
+                <div class="desc1"><span>Peso: </span><p></p></div>
+                <div class="desc2"><span>Edad: </span><p></p></div>
+                <div class="desc3"><span>Raza: </span><p></p></div>
+                <div class="desc4"><span>Tipo: </span><p></p></div>
+                <div class="desc5"><span>Rancho:</span><p></p></div>
+                <div class="desc6"><span>Arete: </span><p></p></div>
+                <div class="desc7"><span>Certificado:</span><p></p></div>
+                <div class="desc8"><span>A cargo</span><p></p></div>
+            </div>
+            <hr>
+             <h2>Reseñas del ganado</h2>
+            <div class="container-reseñas">
+                <div class="card-reseñas">
+                    <div class="reseña">
+                        <p class="reseña-description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem, numquam quibusdam! Ullam maxime repudiandae veritatis tenetur unde neque, consectetur totam alias sint necessitatibus cum, dolorem laboriosam aperiam modi quam debitis.</p>
+                        <p class="reseña-name">-Roberto Pérez</p>
+                    </div>
+                    <div class="dierecis">
+                        <!-- <img src="" alt="" srcset=""> -->
+                    </div>
+                </div>
 
-    expandableImages.forEach(img => {
-        img.addEventListener('click', (e) => {
-            e.preventDefault();
-            modal.style.display = 'block';
-            expandedImg.src = img.href;
-        });
-    });
+                <div class="card-reseñas">
+                    <div class="reseña">
+                        <p class="reseña-description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem, numquam quibusdam! Ullam maxime repudiandae veritatis tenetur unde neque, consectetur totam alias sint necessitatibus cum, dolorem laboriosam aperiam modi quam debitis.</p>
+                        <p class="reseña-name">-Roberto Pérez</p>
+                    </div>
+                    <div class="dierecis">
+                        <!-- <img src="" alt="" srcset=""> -->
+                    </div>
+                </div>
 
-    closeBtn.addEventListener('click', () => {
-        modal.style.display = 'none';
-    });
-
-    window.addEventListener('click', (event) => {
-        if (event.target === modal) {
-            modal.style.display = 'none';
-        }
-    });
-
-</script>
+                <div class="card-reseñas">
+                    <div class="reseña">
+                        <p class="reseña-description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem, numquam quibusdam! Ullam maxime repudiandae veritatis tenetur unde neque, consectetur totam alias sint necessitatibus cum, dolorem laboriosam aperiam modi quam debitis.</p>
+                        <p class="reseña-name">-Roberto Pérez</p>
+                    </div>
+                    <div class="dierecis">
+                        <!-- <img src="" alt="" srcset=""> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="relationated-product">
+        <p class="interest">Más ganado que te podría interesar</p>
+        <div class="relationated-product-cards">
+                <div class="card-relationated">
+                    <img class="img-products" src="" alt="" srcset="">
+                    <div class="card-description">
+                        <div class="icons">
+                            <img src="{{ asset('static/new/Iconos/pinestrella.png') }}" alt="">
+                            <img src="{{ asset('static/new/Iconos/pinmoño.png') }}" alt="">
+                            <img src="{{ asset('static/new/Iconos/pinvaca.png') }}" alt="">
+                        </div>
+                        <div class="card-description--info">
+                            <p class="raza"></p>
+                            <p class="description"></p>
+                            <button class="secondaryButton" onclick="location.href=''">Ver más</button>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>
 @endsection
