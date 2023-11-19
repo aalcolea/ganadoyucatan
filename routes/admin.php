@@ -24,7 +24,8 @@ Route::post('/products/image-actionC', [ProductsController::class, 'imageActionC
 
 Route::post('/products/image-actionPart', [ProductsController::class, 'imageActionPart'])->name('product.image_actionPart');
 Route::post('/products/add-images', [ProductsController::class, 'addImages'])->name('product.add_images');
-
+Route::post('/products/image-actionCom', [ProductsController::class, 'imageActionPartCom'])->name('product.image_actionCom');
+Route::post('/products/add-imagesCom', [ProductsController::class, 'addImagesCom'])->name('product.add_imagesCom');
 
 /*----*/
 Route::get('products/getProductImages/{id}', [ProductsController::class, 'getProductImages'])->name('getProductImages');
@@ -38,7 +39,9 @@ Route::get('/products/deleteGenImage/{id}/{portada}', [ProductsController::class
 Route::get('/products/addNewCom', [ProductsController::class, 'getNewCom'])->name('getNewCom');
 Route::post('/products/addNewCom', [ProductsController::class, 'postNewCom'])->name('postNewCom');
 Route::get('/products/getComInfo/{id}', [ProductsController::class, 'getComEdit'])->name('getComEdit');
+Route::post('/products/postComInfo/{id}', [ProductsController::class, 'postComInfo'])->name('postComInfo');
 Route::get('/products/deleteCom/{id}', [ProductsController::class, 'deleteCom'])->name('deleteCom');
+Route::get('/products/deleteComImage/{id}/{portada}', [ProductsController::class, 'deleteComImage'])->name('deleteComImage');
 
 Route::get('/products/addNewSub', [ProductsController::class, 'getNewSub'])->name('getNewSub');
 Route::post('/products/addNewSub', [ProductsController::class, 'postNewSub'])->name('postNewSub');
@@ -47,6 +50,7 @@ Route::get('/products/deleteSub/{id}', [ProductsController::class, 'deleteSub'])
 
 /*mensajes*/
 Route::get('/mensajes', [ProductsController::class, 'getMensajesHome'])->name('mensajesHome');
+Route::post('/mensajes/{id}', [ProductsController::class, 'readMensajesHome'])->name('readMensajesHome');
 /*Usuarios*/
 Route::get('/users', [UsersController::class, 'getUsers'])->name('usersHome')->middleware(['IsAdmin']);
 Route::get('/get-user-info/{id}', [UsersController::class, 'getUserInfo'])->middleware(['IsAdmin']);

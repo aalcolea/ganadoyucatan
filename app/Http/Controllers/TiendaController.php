@@ -88,8 +88,9 @@ public function tiendaHome(Request $request){
         return view('Tienda.product', $data);
     }
     public function tiendaProductoMsg(Request $request, $id, $ruta){
-            $nombre = ucwords(strtolower(trim($request->input('nombreContacto'))));
-            $email = strtolower(trim($request->input('emailContacto')));
+            $nombre = ucwords(strtolower(trim($request->input('name'))));
+            $email = strtolower(trim($request->input('phone')));
+            $mensaje = $request->input('message');
             $useragent = $request->server('HTTP_USER_AGENT');
             $ip = $request->server('REMOTE_ADDR');
             $dispositivo = "PC";
@@ -106,7 +107,7 @@ public function tiendaHome(Request $request){
             $product = Product::where('idproducto', $id)->pluck('nombre')->first();
             $msg = new MensajeProducto;
             $msg->nombre = $nombre;
-            $msg->mensaje = "Nuevo Mensaje para el producto $product";
+            $msg->mensaje = $mensaje . ' Para el producto:' . $product;
             $msg->email = $email;
             $msg->ip = $ip;
             $msg->dispositivo = $dispositivo;
@@ -117,12 +118,29 @@ public function tiendaHome(Request $request){
             if($msg->save()){
 
                     Alert::success('Éxito', 'El mensaje se envió correctamente.');
-                    return redirect('/tienda/producto/'.$id.'/'.$ruta);
+                    return back();
 
             }
     }
-    public function getTianguisTienda(){
-        $products = ProductT::where('status', '2')->orderBy('idproducto', 'desc')->paginate(9);
+    public function getTianguisTienda(Request $request){
+        $query = ProductT::where('status', '2');
+        if ($request->has('estado_id')) {
+            $query->where('estado', $request->estado_id);
+        }    if ($request->has('ciudad_id')) {
+            $query->where('ciudad', $request->ciudad_id);
+        }
+        if ($request->has('lisTipo')) {
+            $query->where('tipo', $request->lisTipo);
+        }
+        if ($request->has('min_price')) {
+            $query->where('precio', '>=', $request->min_price);
+        }
+        if ($request->has('max_price')) {
+           
+            $query->where('precio', '<=', $request->max_price);
+        } 
+        //$products = $query->orderBy('idproducto', 'desc')->paginate(10);
+        $products = $query->orderBy('idproducto', 'desc')->paginate(9);
         $random = ProductT::where('status', '2')->get();
         if ($products->count() >= 10) {
             $random = ProductT::where('status', '2')->get()->random(3);
@@ -130,7 +148,8 @@ public function tiendaHome(Request $request){
         }else{
            $random = null;
         }
-        $data = ['products' => $products,'random' => $random];
+        $estados = Estado::all();
+        $data = ['products' => $products,'random' => $random, 'estados' => $estados];
         return view('Tienda.Tianguis.tianguisHome', $data);
     }
     public function getTianguis(){
@@ -173,7 +192,8 @@ public function tiendaHome(Request $request){
         }else{
            $random = null;
         }
-        $data = ['products' => $products, 'random' => $random];
+        $estados = Estado::all();
+        $data = ['products' => $products, 'random' => $random, 'estados' => $estados];
 
         return view('Tienda.Subasta.subastaHome', $data);
     }

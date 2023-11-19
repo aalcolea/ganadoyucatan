@@ -25,6 +25,8 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\DB;
 use App\Utilities\ImageConverter;
 use App\Models\MensajeProducto;
+use Illuminate\Support\Facades\Date;
+
 class ProductsController extends Controller
 {
     public function __construct(){
@@ -471,14 +473,27 @@ class ProductsController extends Controller
                 $image->delete();
             }
         }
+    }    
+    public function deleteComImage($id, $portada){
+        $image = PTGallery::where('id_producto', $id)->where('ruta', $portada);
+
+        $image->delete();
     }
+    
     public function getSubEdit($id){
         $product = ProductS::find($id);
         return view('partials.subInfo', compact('product'));
     }
     public function getComEdit($id){
-        $product = ProductT::findOrfail($id);
-        return view('partials.comInfo', compact('product'));
+        $product = ProductT::findOrfail($id);    
+        //dd($product->portada)
+        $images = $product->portada->map(function($image) {
+            return [
+                'path' => '/'.$image->product->imagen.'/'.$image->ruta. '.webp',
+                'url' => asset('uploads/tianguis/' . $image->product->imagen . '/' . $image->ruta. '.webp')
+            ];
+        });
+        return view('partials.comInfo', compact('product', 'images'));
     }
     public function postProductEditGen(Request $request, $id){
         $rules = [
@@ -546,6 +561,72 @@ class ProductsController extends Controller
             
             if($product->save()){
                 return redirect('/admin/products/addNewGen')->with('message', 'Producto agregado con exito al sistema')->with('typealert', 'success'); 
+            }
+        }
+
+    }
+    public function postComInfo(Request $request, $id){
+        $rules = [
+            'txtNombre' => 'required',
+            'txtPrecio' => 'required',
+            'txtDescripcion' => 'required'
+        ];
+        $messages = [
+            'txtNombre.required' => 'Nombre de producto obligatorio',
+            'txtPrecio.required' => 'Precio obligatorio',
+            'txtDescripcion.required' => 'Por favor agregue una descripcion'
+        ];
+
+        $validator = Validator::make($request->all(), $rules, $messages);
+        if($validator->fails()){
+            return back()->withErrors($validator)->with('message', 'Se ha producido un error')->with('typealert', 'danger')->withInput();
+        }else{
+            $estado = $request->input('estados', 1);
+            $ciudad = $request->input('ciudades', 1);
+            $nombre = $request->input('txtNombre');
+            $descripcion = $request->input('txtDescripcion');
+            $precio = $request->input('txtPrecio');
+            $numero = Auth::user()->email_user;
+            $ruta = strtolower(str_replace(" ", "-", $nombre));
+            $peso = $request->input('txtCodigo');
+            $stock = $request->input('txtStock');
+            $raza = $request->input('txtRaza');
+            $vacunado = $request->input('listVacu');
+            $arete = $request->input('listArete');
+            $certificado = $request->input('listCert');
+            $lisTipo = $request->input('txtTipo');
+            $ytlin = $request->input('txtLink');
+            $estatus = $request->input('listStatus');
+            $rancho = $request->input('txtRancho');
+            $propietario = Auth::user()->nombres;
+            $tipo = $request->input('txtTipo');
+            $edad = $request->input('txtEdad');
+
+            $product = ProductT::find($id);
+
+            $product->nombre = $nombre;
+            $product->descripcion = $descripcion;
+            $product->precio = $precio;
+            $product->stock = $stock;
+            $product->tipo = $tipo;
+            $product->status = '2';
+            $product->rancho = $rancho;
+            $product->peso = $peso;
+            $product->vendedorid = Auth::id();            
+            $product->raza = $raza;
+            $product->vacunado = $vacunado;
+            $product->arete = $arete;
+            $product->certificado = $certificado;
+            $product->estatus = $estatus;
+            $product->link = $ytlin;/*
+            $product->estado = $estado;
+            $product->ciudad = $ciudad;
+            $product->comisaria = $comisaria;*/
+            //$product->premium = $premium;
+            $product->edad = $edad;
+            
+            if($product->save()){
+                return redirect('/admin/products/addNewCom')->with('message', 'Producto agregado con exito al sistema')->with('typealert', 'success'); 
             }
         }
 
@@ -713,7 +794,8 @@ class ProductsController extends Controller
             'link' => $txtLink,
             'propietario' => $propietario,
             'vendedorid' => Auth::id(),
-            'imagen' => '1',
+            'imagen' =>  date('Y-m-d'),
+            'status' => '2',
         ]);
         if(count($images) > 1) {
             for ($i = 0; $i < count($images); $i++) {
@@ -780,6 +862,22 @@ class ProductsController extends Controller
         $data = ['msg' => $msg]; 
         return view('Admin.mensajesHome', $data);
     }
+    public function readMensajesHome($id){
+        $msg = MensajeProducto::find($id);
+    
+        if ($msg) {
+            if ($msg->status == '0') {
+                $msg->status = '1';
+                $msg->save();
+    
+                return back()->with('message', 'Mensaje marcado como leído')->with('typealert', 'success');
+            } else {
+                return back()->with('message', 'El mensaje ya ha sido leído')->with('typealert', 'info');
+            }
+        } else {
+            return back()->with('message', 'Mensaje no encontrado')->with('typealert', 'error');
+        }
+    }
       /**/
     public function addImages(Request $request) {
         $productId = $request->input('product_id');
@@ -824,6 +922,45 @@ class ProductsController extends Controller
     
         /*$product->images()->createMany($images);*/
     
+        return response()->json(['image' => ['path' => '/' . $webpPath]]);
+    }    
+    public function addImagesCom(Request $request) {
+        $productId = $request->input('product_id');
+        $product = ProductT::find($productId);
+        $dateFolder = $product->imagen;
+        $random = strtolower(Str::random(4));
+        $name = '-GYC-'.date('md').'-'.$random;
+        if (!$product) {
+            return response()->json(['error' => 'Producto no encontrado'], 404);
+        }
+        $uploadedImages = $request->file('uploaded_images');
+        $countUploadedImages = count($uploadedImages);
+        $images = [];
+        foreach ($uploadedImages as $uploadedImage) {
+            $uploadPath = 'uploads/' . $dateFolder;
+            $filename = uniqid() . '.' . $uploadedImage->getClientOriginalExtension();
+    
+            if (!File::exists($uploadPath)) {
+                File::makeDirectory($uploadPath, 0755, true);
+            }
+            $newIndex =  rand(500, 1000);
+            for ($i = $newIndex; $i < $newIndex + $countUploadedImages; $i++) {
+                $path = $i . $name;
+
+            }
+            $webpPath = $dateFolder . '/' . pathinfo($path, PATHINFO_FILENAME) . '.webp';
+            $destinationPath = Storage::disk('webp_images_com')->path($webpPath);
+    
+            $img = Image::make($uploadedImage->getRealPath())->resize(800, 600);
+            $img->encode('webp', 10)->save($destinationPath);
+            $image = new PTGallery;
+            $image->id_producto = $productId;
+            $image->ruta = $path;
+            $image->save();
+            $images[] = [
+                'path' => '/' . $webpPath,
+            ];
+        }
         return response()->json(['image' => ['path' => '/' . $webpPath]]);
     }
 }

@@ -23,6 +23,7 @@
                     $.ajax({
                         type : 'GET',
                         url: 'deleteGenImage/' + id + '/' + portada,
+                        console.log(url),
                         success: function(response){
                             swal({
                             title: "Imagen Eliminada",
@@ -274,7 +275,6 @@ function updateImagesInputPart() {
                             </select>
                         </div> 
                     </div>
-
                     <div class="row">
                         <div class="form-group col-md-6">
                             <label class="control-label" for="listStatus">En venta <span class="required">*</span></label>

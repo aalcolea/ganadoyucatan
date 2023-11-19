@@ -1,4 +1,144 @@
-{!!Form::open(['url'=> 'admin/products/postcomtInfo/'.$product->idproducto, 'files' => true, 'style' => 'padding: 0;'])!!}
+{!!Form::open(['url'=> 'admin/products/postComInfo/'.$product->idproducto, 'files' => true, 'style' => 'padding: 0;'])!!}
+<script >
+  function handleDeleteImagePart(imagePath, id) {
+    let formData = new FormData();
+    formData.append('image_path', imagePath);
+    formData.append('action', 'delete');
+    formData.append('_token', '{{ csrf_token() }}');
+
+    fetch('{{ route('product.image_actionC') }}', {
+        method: 'POST',
+        body: formData
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                let portada = imagePath.substring(12, 27);
+                let container = document.getElementById('image-containerDelete');
+                let imageWrapper = container.querySelector(`.image-wrapperDelete[data-path="${imagePath}"]`);
+                deleteImage = container.removeChild(imageWrapper);
+                deleteImage;
+                if(deleteImage){
+                    $.ajax({
+                        type : 'GET',
+                        url: 'deleteComImage/' + id + '/' + portada,
+                        success: function(response){
+                            swal({
+                            title: "Imagen Eliminada",
+                            text: "Imagen eliminada con éxito",
+                            icon: "success",
+                            buttons: true
+                            });
+                        }, error: function(xhr, status, error) {
+              
+                          }
+                    });
+                }
+                //imagesArray = imagesArray.filter(images => image.path !== imagePath);
+                
+            } else {
+                alert('Error al eliminar la imagen');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+}
+document.getElementById('add-imagesPart').addEventListener('click', () => {
+  let fileInput = document.getElementById('file-inputPart');
+  fileInput.click();
+});
+  document.getElementById('file-inputPart').addEventListener('change', (event) => {
+        let files = event.target.files;
+        let images = {{count($images)}};
+        if (images + files.length <= 12) {
+            //for (let i = 0; i < files.length; i++) {
+                //console.log(files);
+                handleAddImagesPart(files);
+            //}
+        }else {
+            alert('Has alcanzado el límite máximo(12) de imágenes permitidas.');
+        }
+    });
+
+function handleAddImagesPart(files) {
+    let filesArray = [...files];
+    
+    filesArray.forEach(file => {
+    let formData = new FormData();
+    formData.append('_token', '{{ csrf_token() }}');
+    formData.append('product_id', {{ $product->idproducto }});
+    formData.append('dataPath', {{$product->imagen}});
+        
+        formData.append('uploaded_images[]', file);
+    
+    fetch('{{ route('product.add_imagesCom') }}', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => { 
+        let image = {
+                path: data.image.path,
+                url: '/uploads/tianguis/' + data.image.path
+        };
+        console.log(image);
+        updateImagesView(image);
+    })
+    .catch(error => {
+        console.log('hola');
+        console.error('Error:', error);
+    });
+    })
+    /*for (let i = 0; i < files.length; i++) {
+        formData.append('uploaded_images[]', files[i]);
+    }
+    fetch('{{ route('product.add_images') }}', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => { 
+        let image = {
+                path: data.image.path,
+                url: '/uploads' + data.image.path
+        };
+        console.log(image);
+        updateImagesView(image);
+    })
+    .catch(error => {
+        console.log('hola');
+        console.error('Error:', error);
+    });*/
+}
+
+function updateImagesView(image) {
+    let container = document.getElementById('image-containerDelete');
+    //newImages.forEach(image => {
+        let newImage = document.createElement('div');
+        newImage.setAttribute('class', 'image-wrapperDelete');
+        newImage.style.position = 'relative';
+        newImage.style.marginInlineEnd = '10px';
+        newImage.style.marginBlockEnd = '5px';
+        newImage.style.marginBlockStart = '5px';
+        newImage.style.maxHeight = '125';
+        newImage.setAttribute('data-path', image.path);
+        newImage.innerHTML = `
+            <img style="width: 10rem; height: 7.5rem" src="{{ url('/') }}${image.url}" alt="Image">
+            <button type="button" class="delete-image" style="position: absolute;top: 0;right: 0;width: 30px;height: 30px;background-color: #f3395b;border-radius: 50%;color: white;font-size: 18px;text-align: center;line-height: 27px;vertical-align: middle;cursor: pointer;border: none;" data-path="${image.path}">&#x2715;</button>
+            `;
+
+        container.appendChild(newImage);
+    //});
+    imagesArrayPart = imagesArrayPart.concat(newImages);
+    updateImagesInputPart();
+}
+
+function updateImagesInputPart() {
+    let imagesInput = document.getElementById('images');
+    imagesInput.value = JSON.stringify(imagesArrayPart);
+}
+</script>
           {{-- <form id="formProductos" name="formProductos" class="form-horizontal" action="{{url('admin/products/addNewGen')}}" method="POST" style="padding: 0;"> --}}
               @csrf
               <input type="hidden" id="idProducto" name="idProducto" value="{{$product->idproducto}}">
@@ -133,7 +273,7 @@
                             </select>
                         </div> 
                     </div>
-
+                    </div>
                     <div class="row">
                         <div class="form-group col-md-6">
                             <label class="control-label" for="listStatus">En venta <span class="required">*</span></label>
@@ -156,17 +296,23 @@
                     </div>
                 </div>
               </div>
-              <div id="image-container" class="d-flex flex-wrap mt-3">
               <div class="container">
-                    <input type="file" id="newFile-input" name="imagenes-cargadas[]" multiple style="display:none;">
-                    <button type="button" id="add-Newimages" class="btn btn-primary" style="background: #d79e46; border-color: #d79e46">Agregar imágenes</button>
-                  </div>
-{{--                   @foreach($product->images as $image)
-                      <div class="image-wrapper" data-path="{{ $image->path }}">
-                          <img style="width: 10rem;height: 7.5rem;" src="{{ asset('uploads/'.$product->carpeta).'/'.$image->img.'.webp'}}" alt="imagen">
-                          <button type="button" class="delete-image" data-path="{{ $image->path }}">Eliminar</button>
-                      </div>
-                  @endforeach --}}
+                    <input type="file" id="file-inputPart" name="imagenes-cargadas[]" multiple style="display:none;">
+                    <button type="button" id="add-imagesPart" class="btn btn-primary" style="background: #d79e46; border-color: #d79e46">Agregar imágenes</button>
+                    <br>
+                <div id="image-containerDelete" class="d-flex flex-wrap mt-3" >
+                    @foreach($images as $image)
+                        <div class="image-wrapperDelete" data-path="{{ $image['path'] }}" style="position: relative; margin-inline-end: 10px; margin-block: 5px; border: 3px inset rgb(162, 80, 255); border-radius: 5px;">
+                            <img style="width: 10rem;height: 7.5rem;" src="{{ $image['url'] }}" alt="imagen">
+                            <button type="button"  data-path="{{ $image['path'] }}" style=" position: absolute;top: 0;right: 0;width: 30px;height: 30px;background-color: #f3395b;border-radius: 50%;color: white;font-size: 18px;text-align: center;line-height: 27px;vertical-align: middle;cursor: pointer;border: none;" onclick="handleDeleteImagePart('{{ $image['path'] }}', {{$product->idproducto}})">X</button>
+                        </div>
+                    @endforeach
+
+                </div>
+
+                <div id="hidden-inputs"></div>
+                <input type="hidden" name="deleted_images" id="deleted_images">
+                <input type="hidden" name="images" id="images" value="">
               </div>
               <div class="tile-footer">
       <div class="modal-footer">
@@ -186,9 +332,3 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
-<script >
-document.getElementById('add-Newimages').addEventListener('click', () =>{
-  let newFileInput = document.getElementById('newFile-input');
-  newFileInput.click();
-});
-</script>

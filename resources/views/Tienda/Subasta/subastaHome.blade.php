@@ -108,12 +108,15 @@
                         <div class="label-dropdown">
                             <select id="estados">
                                 <option value="" selected disabled hidden>Estado</option>
+                                @foreach($estados as $e)
+                                    <option value="{{$e->id}}" data-estado-id="{{$e->id}}">{{$e->nombre}}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="label-dropdown">
                             <select id="ciudades">
-								<option value="" selected disabled hidden>Ciudad</option>
-							</select>
+                                <option value="" selected disabled hidden>Ciudad</option>
+                            </select>
                         </div>
                         <div class="label-dropdown">
                             <select class="form-control selectpicker" id="lisTipo" name="lisTipo" >
@@ -312,9 +315,67 @@
 			}
 		}
 	});
+// Por el momento no lleva filtro
+/*document.addEventListener('DOMContentLoaded', function(){
+    var estadoSelected = document.getElementById('estados');
+    var ciudadesSelect = document.getElementById('ciudades');
 
-</script>
-<script>
+    estadoSelected.addEventListener('change', function(){
+        var estadoId = this.options[this.selectedIndex].getAttribute('data-estado-id');
+
+        getCiudades(estadoId, function (ciudades) {
+            ciudadesSelect.innerHTML = '<option value="" selected disabled hidden>Ciudad</option>';
+            ciudades.forEach(function (ciudad) {
+                var option = document.createElement('option');
+                option.value = ciudad.id;
+                option.text = ciudad.nombre;
+                ciudadesSelect.add(option);
+            });
+            ciudadesSelect.removeAttribute('disabled');
+        });
+    });
+    function getCiudades(estadoId, callback){
+        fetch('/get-ciudades-by-estado/' + estadoId).then(response => response.json()).then(data => callback(data)).catch(error => console.error("Error al obtener ciudades", error));
+    }
+    var estadosSelect = document.getElementById('estados');
+    var ciudadesSelect = document.getElementById('ciudades');
+    var lisTipoSelect = document.getElementById('lisTipo');
+    var minPriceInput = document.querySelector('.min-price');
+    var maxPriceInput = document.querySelector('.max-price');
+    var buscarFitlro = document.getElementById('filterButton');
+
+    buscarFitlro.addEventListener('click', function() {
+        actualizarFiltros();
+    });
+
+    function actualizarFiltros() {
+        var estadoId = estadosSelect.options[estadosSelect.selectedIndex].getAttribute('data-estado-id');
+        var ciudadId = ciudadesSelect.value ? ciudadesSelect.value : null;
+        var lisTipo = lisTipoSelect.value ?  lisTipoSelect.value : null;
+        var minPrice = minPriceInput.value ? minPriceInput.value : null;
+        var maxPrice = maxPriceInput.value ? maxPriceInput : null;
+        queryEstado = '';
+        queryCiudad = '';
+        queryTipo = '';
+        queryMin = '';
+        queryMax = '';
+        if(estadoId != null){
+            queryEstado = 'estado_id=' + estadoId;
+        }
+        if(ciudadId != null){
+            queryCiudad = '&ciudad_id=' + ciudadId;
+        }
+        if(lisTipo != null){
+            queryTipo = '&lisTipo=' + lisTipo;
+        }if(minPrice != null){
+            queryMin = '&min_price=' + minPrice;
+        }if(maxPrice != null){
+            queryMax = '&max_price=' + maxPrice;
+        }
+
+        window.location.href = '/tienda?' + queryEstado + queryCiudad + queryTipo + queryMin + queryMax; //+  +  '&min_price=' + minPrice + '&max_price=' + maxPrice;
+    }
+});*/
 document.addEventListener("DOMContentLoaded", function () {
 
     // TODO Script para hacer el slider horizontal

@@ -31,7 +31,7 @@
                             <td>{{$m->email}}</td>
                             <td>{{$m->mensaje}}</td>
                             <td>{{$m->datecreated}}</td>
-                            <td><button class="btn btn-info btn-sm" style="background-color: #21d633; border-color: #21d633;" onClick="{{url('/admin/mensaje/'.$m->id)}}" title="Ver mensaje"><i class="far fa-eye"></i></button></td>
+                            <td>@if($m->status == 1)<button disabled type="submit" class="btn btn-info btn-sm" title="Ver mensaje"><i class="far fa-eye"></i></button>@else<form id="readMsgForm" action="{{route('readMensajesHome', ['id' => $m->id]) }}" method="POST">@csrf<button type="submit" class="btn btn-info btn-sm" style="background-color: #21d633; border-color: #21d633;" title="Ver mensaje"><i class="far fa-eye"></i></button></form>@endif</td>
                           </tr>
                         @endforeach
                       </tbody>
@@ -42,4 +42,37 @@
           </div>
       </div>
 </main>
+<script >
+document.addEventListener('DOMContentLoaded', function() {
+    var readMsgForm = document.getElementById('readMsgForm');
+
+    if (readMsgForm) {
+        readMsgForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            var id = readMsgForm.getAttribute('data-id');
+            var url = readMsgForm.getAttribute('action');
+            
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', url, true);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.setRequestHeader('X-CSRF-TOKEN', readMsgForm.querySelector('input[name="_token"]').value);
+
+            xhr.onload = function() {
+                if (xhr.status >= 200 && xhr.status < 400) {
+                    alert('Mensaje leído');
+                } else {
+                    console.error('Error en la solicitud: ' + xhr.status);
+                }
+            };
+
+            xhr.onerror = function() {
+                console.error('Error de red al intentar realizar la solicitud');
+            };
+
+            xhr.send();
+        });
+    }
+});
+</script>
 @endsection

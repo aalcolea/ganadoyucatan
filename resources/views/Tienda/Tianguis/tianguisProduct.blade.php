@@ -142,44 +142,44 @@
             <div class="parent">
                     <div class="div1">
 
-                        @if($p->link)
-                            @if(isset($images[1]))
-                                <img class="left" onclick="swapImages('div1')" src="{{ asset('uploads/'.$images[1]['ruta'])}}" alt="Imagen 1">
+                        {{-- @if($p->link) --}}
+                           {{--  @if(isset($images[1]))
+                                <img class="left" onclick="swapImages('div1')" src="{{ asset('uploads/tianguis/'.$p->imagen. '/'.$images[1]['ruta'].'.webp')}}" alt="Imagen 1">
                             @endif
-                        @else
+                        @else --}}
                             @if(isset($images[1]))
-                                <img class="left" onclick="swapImages('div1')" src="{{ asset('uploads/'.$images[1]['ruta'])}}" alt="Imagen 1">
+                                <img class="left" onclick="swapImages('div1')" src="{{asset('uploads/tianguis/'.$p->imagen. '/'.$images[1]['ruta'].'.webp'.'.webp')}}" alt="Imagen 1">
                             @endif
+                        {{-- @endif --}}
+                    </div>
+                    <div class="div2">
+                        @if(isset($images[2]))
+                        <img class="left"  onclick="swapImages('div2')" src="{{asset('uploads/tianguis/'.$p->imagen. '/'.images[2]['ruta'].'.webp')}}" alt="Imagen 1">
                         @endif
                     </div>
-                    @if(isset($images[2]))
-                    <div class="div2">
-                        <img class="left"  onclick="swapImages('div2')" src="{{ asset('uploads/'.$images[2]['ruta'])}}" alt="Imagen 1">
-                    </div>
-                    @endif
-                    @if(isset($images[3]))
                     <div class="div3">
-                        <img class="left" onclick="swapImages('div3')" src="{{ asset('uploads/'.$images[3]['ruta'])}}" alt="Imagen 1">
+                        @if(isset($images[3]))
+                        <img class="left" onclick="swapImages('div3')" src="{{asset('uploads/tianguis/'.$p->imagen. '/'.$images[3]['ruta'].'.webp')}}" alt="Imagen 1">
+                        @endif
                     </div>
-                    @endif
                     <div class="div4">
 
-                  <div class="right-container">
-                        @if($p->link)
-                        <iframe width="540" onclick="swapImages('div4')"  height="450" class="embed-responsive-item" src="<?php echo $convertedURL; ?>" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        <div class="right-container">
+                        @{{-- if($p->link)
+                        <iframe width="540" onclick="swapImages('div4')"  height="450" class="embed-responsive-item" src="<?php echo $convertedURL; ?>" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> --}}
                         <button class="fullscreen-button" onclick="openFullscreen()">
                           <img width="24" height="24" src="https://img.icons8.com/fluency-systems-regular/48/fullscreen.png" alt="fullscreen"/>
                           </button>
                           <span class="close-button" onclick="closeFullscreen()">CERRAR</span>
-                        @else
+                       {{--  @else --}}
                             @if(isset($images[0]))
-                                <img class="left" onclick="swapImages('div4')"  src="{{ asset('uploads/'.$images[0]['ruta'])}}" alt="Imagen 1">
+                                <img class="left" onclick="swapImages('div4')"  src="{{asset('uploads/tianguis/'.$p->imagen. '/'.$images[0]['ruta'].'.webp')}}" alt="Imagen 1">
                             <button class="fullscreen-button" onclick="openFullscreen()">
                                 <img width="24" height="24" src="https://img.icons8.com/fluency-systems-regular/48/fullscreen.png" alt="fullscreen"/>
                             </button>
                             <span class="close-button" onclick="closeFullscreen()">CERRAR</span>
                             @endif
-                        @endif
+                        {{-- @endif --}}
                    </div>
 
                     </div>
@@ -288,15 +288,13 @@
         </div>
         <p class="main-text">Contáctanos</p>
         <P class="secondary-text">Ponte en contacto con nosotros</P>
-        <form action="contact-form" id="form-contact-group">
+        {!!Form::open(['url'=> 'tienda/producto/'.$p->idproducto.'/'.$p->ruta, 'id' => 'frmContactoT'])!!}
+        @csrf
+            <input class="" type="text" id="vendedorid" name="vendedorid" value="<?= $p['vendedorid']; ?>" style="display: none;">
             <hr>
             <div class="form-group">
                 <label for="name">Nombre:</label>
                 <input type="text" id="name" name="name" required>
-            </div>
-            <div class="form-group">
-                <label for="email">Correo:</label>
-                <input type="email" id="email" name="email" required>
             </div>
             <div class="form-group">
                 <label for="phone">Teléfono:</label>
@@ -307,14 +305,14 @@
                 <textarea id="message" name="message" rows="4" required></textarea>
             </div>
             <button class="mainButtonC" type="submit">Enviar</button>
-        </form>
+        {!!Form::close()!!}
     </div>
 </div>
 <script>
     const openModalButton = document.getElementById('openModal');
     const modal = document.getElementById('modal');
     const closeModalSpan = document.querySelector('.close-menu-contact img');
-    const form = document.getElementById('form-contact-group');
+    const form = document.getElementById('frmContactoT');
 
     openModalButton.addEventListener('click', () => {
         modal.style.display = 'flex';
@@ -330,10 +328,10 @@
         }
     });
 
-    form.addEventListener('submit', (event) => {
+/*    form.addEventListener('submit', (event) => {
         event.preventDefault();
         modal.style.display = 'none';
-    });
+    });*/
 </script>
 <script>
     function swapImages(divId) {

@@ -329,15 +329,13 @@
         </div>
         <p class="main-text">Contáctanos</p>
         <P class="secondary-text">Ponte en contacto con nosotros</P>
-        <form action="contact-form" id="form-contact-group">
+		{!!Form::open(['url'=> 'tienda/producto/'.$p->idproducto.'/'.$p->ruta, 'id' => 'frmContactoT'])!!}
+		@csrf
+			<input class="" type="text" id="vendedorid" name="vendedorid" value="<?= $p['vendedorid']; ?>" style="display: none;">
             <hr>
             <div class="form-group">
                 <label for="name">Nombre:</label>
                 <input type="text" id="name" name="name" required>
-            </div>
-            <div class="form-group">
-                <label for="email">Correo:</label>
-                <input type="email" id="email" name="email" required>
             </div>
             <div class="form-group">
                 <label for="phone">Teléfono:</label>
@@ -348,14 +346,14 @@
                 <textarea id="message" name="message" rows="4" required></textarea>
             </div>
             <button class="mainButtonC" type="submit">Enviar</button>
-        </form>
+        {!!Form::close()!!}
     </div>
 </div>
 <script>
     const openModalButton = document.getElementById('openModal');
     const modal = document.getElementById('modal');
     const closeModalSpan = document.querySelector('.close-menu-contact img');
-    const form = document.getElementById('form-contact-group');
+    const form = document.getElementById('frmContactoT');
 
     openModalButton.addEventListener('click', () => {
         modal.style.display = 'flex';
@@ -371,10 +369,10 @@
         }
     });
 
-    form.addEventListener('submit', (event) => {
+    /*form.addEventListener('submit', (event) => {
         event.preventDefault();
         modal.style.display = 'none';
-    });
+    });*/
 </script>
 <script>
     function swapImages(divId) {

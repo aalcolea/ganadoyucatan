@@ -311,7 +311,7 @@ document.addEventListener('DOMContentLoaded', function(){
 	var ciudadesSelect = document.getElementById('ciudades');
 	var lisTipoSelect = document.getElementById('lisTipo');
 	var minPriceInput = document.querySelector('.min-price');
-	var maxPriceInput = document.querySelector('.max-price');
+	//var maxPriceInput = document.getElementById("max-value");
 	var buscarFitlro = document.getElementById('filterButton');
 
 	buscarFitlro.addEventListener('click', function() {
@@ -323,10 +323,12 @@ document.addEventListener('DOMContentLoaded', function(){
     	var ciudadId = ciudadesSelect.value ? ciudadesSelect.value : null;
     	var lisTipo = lisTipoSelect.value ?  lisTipoSelect.value : null;
     	var minPrice = minPriceInput.value ? minPriceInput.value : null;
-    	var maxPrice = maxPriceInput.value ? maxPriceInput : null;
+    	//var maxPrice = maxPriceInput.value ? maxPriceInput : null;
     	queryEstado = '';
     	queryCiudad = '';
     	queryTipo = '';
+    	queryMin = '';
+    	queryMax = '';
     	if(estadoId != null){
     		queryEstado = 'estado_id=' + estadoId;
     	}
@@ -335,9 +337,13 @@ document.addEventListener('DOMContentLoaded', function(){
     	}
     	if(lisTipo != null){
     		queryTipo = '&lisTipo=' + lisTipo;
-    	}
+    	}if(minPrice != null){
+    		queryMin = '&min_price=' + minPrice;
+    	}/*if(maxPrice != null){
+    		queryMax = '&max_price=' + maxPrice;
+    	}*/
 
-		window.location.href = '/tienda?' + queryEstado + queryCiudad + queryTipo; //+  +  '&min_price=' + minPrice + '&max_price=' + maxPrice;
+		window.location.href = '/tienda?' + queryEstado + queryCiudad + queryTipo + queryMin + queryMax; //+  +  '&min_price=' + minPrice + '&max_price=' + maxPrice;
 	}
 });
 </script>
