@@ -187,42 +187,42 @@
         <div class="information-product--container">
             <div class="container">
                 <div class="parent">
-                @if($p->link)
-                    <div class="div1">
+               {{--  @if($p->link)                    
+                <div class="div1">
                        <img onclick="swapImages('div1')" src="{{asset('uploads/'.$p->carpeta.'/'.$p->portada.'.webp')}}" alt="Imagen 1">
                    </div>
-                @else
+                @else --}}
                     <div class="div1">
                     	@if(isset($images[0]))
     						<img class="left"  onclick="swapImages('div1')" src="{{ asset('uploads/' . $p->carpeta . '/' . $images[0]['img'] . '.webp') }}" alt="Imagen 1">
 						@endif
                     </div>
-                @endif
-                @if(isset($images[1]))
+               {{--  @endif --}}
                     <div class="div2">
+                			@if(isset($images[1]))
     						<img class="left" onclick="swapImages('div2')" src="{{ asset('uploads/' . $p->carpeta . '/' . $images[1]['img'] . '.webp') }}" alt="Imagen 1">
+							@endif
                     </div>
-				@endif
-                @if(isset($images[2]))
                     <div class="div3">
+                			@if(isset($images[2]))
     						<img class="left" onclick="swapImages('div3')" src="{{ asset('uploads/' . $p->carpeta . '/' . $images[2]['img'] . '.webp') }}" alt="Imagen 1">
+							@endif
                     </div>
-				@endif
                     <div class="div4">
                     <div class="right-container">
-                    	@if($p->link)
+                    	{{-- @if($p->link)
                     	<iframe width="540" onclick="swapImages('div4')" height="450" class="embed-responsive-item" src="<?php echo $convertedURL; ?>" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                       <button class="fullscreen-button" onclick="openFullscreen()">
                                 <img width="24" height="24" src="https://img.icons8.com/fluency-systems-regular/48/fullscreen.png" alt="fullscreen"/>
                             </button>
                             <span class="close-button" onclick="closeFullscreen()">CERRAR</span>
-                    	@else
+                    	@else --}}
                         <img onclick="swapImages('div4')" src="{{asset('uploads/'.$p->carpeta.'/'.$p->portada.'.webp')}}" alt="Imagen 1">
                         <button class="fullscreen-button" onclick="openFullscreen()">
                                 <img width="24" height="24" src="https://img.icons8.com/fluency-systems-regular/48/fullscreen.png" alt="fullscreen"/>
                             </button>
                             <span class="close-button" onclick="closeFullscreen()">CERRAR</span>
-                        @endif
+                        {{-- @endif --}}
                         </div>
                     </div>
                 </div>

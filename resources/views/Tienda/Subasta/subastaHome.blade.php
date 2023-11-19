@@ -183,16 +183,28 @@
                 <p class="title-container--cards" style="text-align: center;">Ganado Comercial</p>
                 <div class="container-normal">
                     <div class="carousel-subasta">
+                    @foreach($products as $p)
+                   @php
+                   $fechaCierre = new DateTime($p->fechaCierre);
+                    $today = new DateTime();
+                    
+                    $difference = $fechaCierre->getTimestamp() - $today->getTimestamp();
+                    $seg = floor($difference / 1);
+                    $min = floor($seg / 60);
+                    $hours = floor($min / 60);
+                    $days = floor($hours / 24);
+                    $hoursWithoutDays = $hours % 24;
+                   @endphp
                         <div class="slide">
                             <div class="container-subastas">
                                 <div class="carousel-container-subastas">
                                     <div class="image-container">
                                         <div class="image-subasta">
-                                            <img src="{{ asset('static/new/background/_header-1.jpg') }}" alt="" srcset="">
-                                        </div>
+                                            <img src="{{asset('uploads/subasta/'.$p->carpeta.'/'.$p->portada.'.webp')}}" alt="imgProd" srcset="">
+                                        </div>{{-- 
                                         <div class="image-subasta">
                                             <img src="{{ asset('static/new/background/_header-1.jpg') }}" alt="" srcset="">
-                                        </div>
+                                        </div> --}}
                                         <div class="image-subasta"></div>
                                     </div>
                                     <div class="navigation-points">
@@ -207,64 +219,24 @@
                                     </div>
                                 </div>
                                 <div class="information-product-subasta">
-                                    <p class="raza">Toros para semental</p>
-                                    <p class="description">Brahman Brangus Charbay</p>
+                                    <p class="raza">{{$p->tipo}}</p>
+                                    <p class="description">{{$p->nombre}}</p>
                                     <hr>
                                     <div class="ofertas-time">
                                         <p class="raza">02 ofertas de subasta</p>
-                                        <p class="info">- Quedan 0 d 2 h</p>
+                                        <p class="info">- Quedan {{ $days }} d {{ $hoursWithoutDays }} h</p>
                                     </div>
                                     <div class="precios">
-                                        <p class="description">2,000 MXN</p>
-                                        <P class="description">| 6523.00 MXN</P>
+                                        <p class="description">{{$p->precioMin}} MXN</p>
+                                        <P class="description">|{{$p->precioMax}} MXN</P>
                                     </div>
                                     <div class="contact-button">
-                                        <button class="mainButtonB">Pujar</button>
+                                        <button class="mainButtonB" onclick="location.href='<?= '/subastas/'.$p->id_producto; ?>'">Pujar</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="slide">
-                            <div class="container-subastas">
-                                <div class="carousel-container-subastas">
-                                    <div class="image-container">
-                                        <div class="image-subasta">
-                                            <img src="https://images.pexels.com/photos/18799961/pexels-photo-18799961/free-photo-of-casas-casa-planta-ventanas.jpeg?auto=compress&cs=tinysrgb&w=400&lazy=load" alt="" srcset="">
-                                        </div>
-                                        <div class="image-subasta">
-                                            <img src="{{ asset('static/new/background/_header-1.jpg') }}" alt="" srcset="">
-                                        </div>
-                                        <div class="image-subasta"></div>
-                                    </div>
-                                    <div class="navigation-points">
-                                        <div class="point"></div>
-                                        <div class="point"></div>
-                                        <div class="point"></div>
-                                    </div>
-                                    <div class="nav-buttons">
-                                        <div class="prev-button"><</div>
-                                        <div class="next-button">></div>
-                                        <div class="next-label ">Siguiente</div>
-                                    </div>
-                                </div>
-                                <div class="information-product-subasta">
-                                    <p class="raza">Toros para semental</p>
-                                    <p class="description">Brahman Brangus Charbay</p>
-                                    <hr>
-                                    <div class="ofertas-time">
-                                        <p class="raza">02 ofertas de subasta</p>
-                                        <p class="info">- Quedan 0 d 2 h</p>
-                                    </div>
-                                    <div class="precios">
-                                        <p class="description">2,000 MXN</p>
-                                        <P class="description">| 6523.00 MXN</P>
-                                    </div>
-                                    <div class="contact-button">
-                                        <button class="mainButtonB">Pujar</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    @endforeach
                     </div>
                     <div class="nav-buttons-subasta">
                         <div class="prev-button-subasta"><</div>

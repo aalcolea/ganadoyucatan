@@ -163,11 +163,13 @@ public function tiendaHome(Request $request){
     }
     public function getSubastas(){
         $today = now()->format('Y-m-d H:i:s');
-        $products = ProductS::where('status', '1')->where('fechaCierre', '>', $today)->get();
+        $query = ProductS::where('status', '1');
+        //$products = ProductS::where('status', '1')->where('fechaCierre', '>', $today)->get();
+        $products = $query->orderBy('id_producto', 'desc')->where('fechaCierre', '>', $today)->get();
         $random = ProductS::where('status', '1')->get();
         if ($products->count() >= 10) {
             $random = ProductS::where('status', '1')->get()->random(3);
-            $products = ProductS::where('status', '1')->orderBy('idproducto', 'desc')->whereNotIn('idproducto', [$random[0]->idproducto, $random[1]->idproducto, $random[2]->idproducto])->paginate(9);
+            $products = ProductS::where('status', '1')->orderBy('id_producto', 'desc')->whereNotIn('id_producto', [$random[0]->idproducto, $random[1]->idproducto, $random[2]->idproducto])->paginate(9);
         }else{
            $random = null;
         }

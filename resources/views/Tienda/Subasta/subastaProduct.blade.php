@@ -183,18 +183,25 @@
         <div class="information-product--container">
             <div class="container">
             <div class="parent">
-                    <div class="div1">
+                    <div class="div1">@if(isset($images[0]))
                         <img class="left" onclick="swapImages('div1')" src="{{ asset('uploads/'.$images[0]['ruta'])}}" alt="Imagen 1">
+                        @endif
                     </div>
                     <div class="div2">
+                        @if(isset($images[1]))
                         <img class="left"  onclick="swapImages('div2')" src="{{ asset('uploads/'.$images[1]['ruta'])}}" alt="Imagen 1">
+                        @endif
                     </div>
                     <div class="div3">
+                        @if(isset($images[2]))
                         <img class="left" onclick="swapImages('div3')" src="{{ asset('uploads/'.$images[2]['ruta'])}}" alt="Imagen 1">
+                        @endif
                     </div>
                     <div class="div4">
                         <div class="right-container">
+                            @if(isset($images[0]))
                             <img class="left" onclick="swapImages('div4')"  src="{{ asset('uploads/'.$images[0]['ruta'])}}" alt="Imagen 1">
+                            @endif
                             <button class="fullscreen-button" onclick="openFullscreen()">
                                 <img width="24" height="24" src="https://img.icons8.com/fluency-systems-regular/48/fullscreen.png" alt="fullscreen"/>
                             </button>
