@@ -154,7 +154,7 @@
                     </div>
                     <div class="div2">
                         @if(isset($images[2]))
-                        <img class="left"  onclick="swapImages('div2')" src="{{asset('uploads/tianguis/'.$p->imagen. '/'.images[2]['ruta'].'.webp')}}" alt="Imagen 1">
+                        <img class="left"  onclick="swapImages('div2')" src="{{asset('uploads/tianguis/'.$p->imagen. '/'.$images[2]['ruta'].'.webp')}}" alt="Imagen 1">
                         @endif
                     </div>
                     <div class="div3">
