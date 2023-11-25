@@ -66,13 +66,13 @@ public function tiendaHome(Request $request){
     public function tiendaProducto($id, $ruta){
         $product = Product::where('idproducto', $id)->where('ruta', $ruta)->get();
         $random = Product::where('status', '1')->whereNot('idproducto', $id)->get();
-        if ($random->count() >= 4) {
+        if ($random->count() >= 6) {
             $random = Product::where('status', '1')->whereNot('idproducto', $id)->get()->random(6);
+        }else if($random->count() == 5){
+            $random = Product::where('status', '1')->whereNot('idproducto', $id)->get()->random(5);
+        }else if($random->count() == 4){
+            $random = Product::where('status', '1')->whereNot('idproducto', $id)->get()->random(4);
         }else if($random->count() == 3){
-            $random = Product::where('status', '1')->whereNot('idproducto', $id)->get()->random(3);
-        }else if($random->count() == 2){
-            $random = Product::where('status', '1')->whereNot('idproducto', $id)->get()->random(2);
-        }else if($random->count() == 1){
             $random = Product::where('status', '1')->whereNot('idproducto', $id)->get();
         }else{
            $random = null;

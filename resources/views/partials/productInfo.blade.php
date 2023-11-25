@@ -1,3 +1,5 @@
+
+<script src="{{url('/static/js/admin/partialstest.js') }}" ></script>
 {!!Form::open(['url'=> 'admin/products/postProductInfo/'.$product->idproducto, 'files' => true, 'style' => 'padding: 0;'])!!}
 
 <script >

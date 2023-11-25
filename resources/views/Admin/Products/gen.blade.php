@@ -1,4 +1,4 @@
-@extends('admin.sidebar')
+@extends('Admin.sidebar')
 @section('main')
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <style type="text/css">
@@ -64,7 +64,7 @@
                             <td>@if($p->estatus == 1) <span class="badge badge-success">Disponible</span>@elseif($p->estatus == 2)<span class="badge badge-warning">Reservado</span> @elseif($p->estatus == 3)<span class="badge badge-danger">Vendido</span> @else <span class="badge badge-info">Enviado</span>@endif</td>
                             <td>{{$p->rancho}}</td>
                             <td>{{$p->location->nombre}}</td>
-                            <td><button style="background-color:#d79e46;border-color: #d79e46;" class="btn btn-info btn-sm" onclick="openProductInNewTab('{{$p->idproducto}}', '{{$p->ruta}}')" target="_blank" title="Ver producto"><i class="far fa-eye"></i></button><button class="btn btn-primary  btn-sm editProductBtn" data-id="{{$p->idproducto}}" id="editProduct" title="Editar producto"><i class="fas fa-pencil-alt"></i></button><button class="btn btn-danger btn-sm" onClick="" title="Eliminar producto"><i class="far fa-trash-alt"></i></button></td>
+                            <td><button style="background-color:#d79e46;border-color: #d79e46;" class="btn btn-info btn-sm" onclick="openProductInNewTab('{{$p->idproducto}}', '{{$p->ruta}}')" target="_blank" title="Ver producto"><i class="far fa-eye"></i></button><button class="btn btn-primary  btn-sm editProductBtn" data-id="{{$p->idproducto}}" id="editProduct" title="Editar producto"><i class="fas fa-pencil-alt"></i></button><a href="{{ route('deleteGen', $p->idproducto) }}" class="btn btn-danger" title="Eliminar producto" onclick="confirmation(event)"><i class="far fa-trash-alt"></i></a></td>
                           </tr>
                         @endforeach
                       </tbody>
@@ -555,7 +555,21 @@ document.addEventListener('DOMContentLoaded', function () {
       alert('El navegador bloqueó la apertura de una nueva pestaña');
     }
   }
-  
+  function confirmation(ev){
+  ev.preventDefault();
+  var url = ev.currentTarget.getAttribute('href');
+  swal({
+    title: "¿Desea eliminar este producto?",
+    text: "Esta publicación se eliminará para siempre",
+    icon: "warning",
+    buttons: true,
+    dangerMode: true,
+  }).then((confirmCancel)=>{
+    if(confirmCancel){
+      window.location.href = url;
+    }
+  });
+}
 
 </script>
 @endsection

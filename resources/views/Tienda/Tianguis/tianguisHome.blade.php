@@ -343,7 +343,7 @@
                                 }
                             @endphp
                         <div class="card-tianguis--normal">
-                            <img class="img-products" src="{{asset('uploads/'.$portada)}}" alt="" srcset="">
+                            <img class="img-products" src="{{asset('uploads/tianguis/'.$p->imagen.'/'.$portada.'.webp')}}" alt="" srcset="">
                             <div class="card-description">
                                 <div class="icons">
                                     <img src="{{ asset('static/new/Iconos/reloj-verde.png') }}" alt="">

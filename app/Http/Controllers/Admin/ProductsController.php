@@ -76,7 +76,7 @@ class ProductsController extends Controller
                 $path = $filename;
                 $webpPath = $dateFolder . '/' . pathinfo($path, PATHINFO_FILENAME) . '.webp';
                 $destinationPath = Storage::disk('webp_images')->path($webpPath);
-                $img = Image::make($uploadedImage->getRealPath())->resize(800, 600);
+                $img = Image::make($uploadedImage->getRealPath()); //->resize(800, 600);
                 $img->encode('webp', 10)->save($destinationPath);
                 //ImageConverter::convertToWebp($uploadedImage->getRealPath(), $destinationPath);
     
@@ -139,7 +139,7 @@ class ProductsController extends Controller
                 $path = $filename;
                 $webpPath = $dateFolder . '/' . pathinfo($path, PATHINFO_FILENAME) . '.webp';
                 $destinationPath = Storage::disk('webp_images_sub')->path($webpPath);
-                $img = Image::make($uploadedImage->getRealPath())->resize(800, 600);
+                $img = Image::make($uploadedImage->getRealPath()); //->resize(800, 600);
                 $img->encode('webp', 10)->save($destinationPath);
                 //ImageConverter::convertToWebp($uploadedImage->getRealPath(), $destinationPath);
     
@@ -202,7 +202,7 @@ class ProductsController extends Controller
                 $path = $filename;
                 $webpPath = $dateFolder . '/' . pathinfo($path, PATHINFO_FILENAME) . '.webp';
                 $destinationPath = Storage::disk('webp_images_com')->path($webpPath);
-                $img = Image::make($uploadedImage->getRealPath())->resize(800, 600);
+                $img = Image::make($uploadedImage->getRealPath()); //->resize(800, 600);
                 $img->encode('webp', 10)->save($destinationPath);
                 //ImageConverter::convertToWebp($uploadedImage->getRealPath(), $destinationPath);
     
@@ -263,7 +263,7 @@ class ProductsController extends Controller
                 $path = $filename;
                 $webpPath = $dateFolder . '/' . pathinfo($path, PATHINFO_FILENAME) . '.webp';
                 $destinationPath = Storage::disk('webp_images')->path($webpPath);
-                $img = Image::make($uploadedImage->getRealPath())->resize(800, 600);
+                $img = Image::make($uploadedImage->getRealPath()); //->resize(800, 600);
                 $img->encode('webp', 10)->save($destinationPath);
                 //ImageConverter::convertToWebp($uploadedImage->getRealPath(), $destinationPath);
     
@@ -416,6 +416,8 @@ class ProductsController extends Controller
                 }
             }
             $request->session()->forget('product_images');
+            $request->session()->forget('product.imageCount');
+            $request->session()->forget('product.randomString');
             if($product->save()):
                 return redirect('/admin/products/addNewGen')->with('message', 'Producto agregado con exito al sistema')->with('typealert', 'success'); 
             endif;
@@ -797,7 +799,7 @@ class ProductsController extends Controller
             'imagen' =>  date('Y-m-d'),
             'status' => '2',
         ]);
-        if(count($images) > 1) {
+        if(count($images) >= 1) {
             for ($i = 0; $i < count($images); $i++) {
                 $imageData = $images[$i];
                 $image = new PTGallery;
@@ -909,7 +911,7 @@ class ProductsController extends Controller
             $webpPath = $dateFolder . '/' . pathinfo($path, PATHINFO_FILENAME) . '.webp';
             $destinationPath = Storage::disk('webp_images')->path($webpPath);
     
-            $img = Image::make($uploadedImage->getRealPath())->resize(800, 600);
+            $img = Image::make($uploadedImage->getRealPath()); //->resize(800, 600);
             $img->encode('webp', 10)->save($destinationPath);
             $image = new PGallery;
             $image->productoid = $productId;
@@ -951,7 +953,7 @@ class ProductsController extends Controller
             $webpPath = $dateFolder . '/' . pathinfo($path, PATHINFO_FILENAME) . '.webp';
             $destinationPath = Storage::disk('webp_images_com')->path($webpPath);
     
-            $img = Image::make($uploadedImage->getRealPath())->resize(800, 600);
+            $img = Image::make($uploadedImage->getRealPath()); //->resize(800, 600);
             $img->encode('webp', 10)->save($destinationPath);
             $image = new PTGallery;
             $image->id_producto = $productId;

@@ -183,29 +183,34 @@
         <div class="information-product--container">
             <div class="container">
             <div class="parent">
-                    <div class="div1">@if(isset($images[0]))
-                        <img class="left" onclick="swapImages('div1')" src="{{ asset('uploads/'.$images[0]['ruta'])}}" alt="Imagen 1">
+                    <div class="div1">@if(isset($images[1]))
+                        <img class="left" onclick="swapImages('div1')" src="{{ asset('uploads/subasta/'.$p->carpeta.'/'.$images[1]['img'].'.webp')}}" alt="Imagen 1">
                         @endif
                     </div>
                     <div class="div2">
-                        @if(isset($images[1]))
-                        <img class="left"  onclick="swapImages('div2')" src="{{ asset('uploads/'.$images[1]['ruta'])}}" alt="Imagen 1">
+                        @if(isset($images[2]))
+                        <img class="left"  onclick="swapImages('div2')" src="{{ asset('uploads/subasta/'.$p->carpeta.'/'.$images[2]['img'].'.webp')}}" alt="Imagen 1">
                         @endif
                     </div>
                     <div class="div3">
-                        @if(isset($images[2]))
-                        <img class="left" onclick="swapImages('div3')" src="{{ asset('uploads/'.$images[2]['ruta'])}}" alt="Imagen 1">
+                        @if(isset($images[3]))
+                        <img class="left" onclick="swapImages('div3')" src="{{ asset('uploads/subasta/'.$p->carpeta.'/'.$images[3]['img'].'.webp')}}" alt="Imagen 1">
                         @endif
                     </div>
                     <div class="div4">
                         <div class="right-container">
+                        <button class="fullscreen-button" onclick="openFullscreen()">
+                          <img width="24" height="24" src="https://img.icons8.com/fluency-systems-regular/48/fullscreen.png" alt="fullscreen"/>
+                          </button>
+                          <span class="close-button" onclick="closeFullscreen()">CERRAR</span>
+                       {{--  @else --}}
                             @if(isset($images[0]))
-                            <img class="left" onclick="swapImages('div4')"  src="{{ asset('uploads/'.$images[0]['ruta'])}}" alt="Imagen 1">
-                            @endif
+                                <img class="left" onclick="swapImages('div4')"  src="{{asset('uploads/subasta/'.$p->carpeta.'/'.$images[0]['img'].'.webp')}}" alt="Imagen 1">
                             <button class="fullscreen-button" onclick="openFullscreen()">
                                 <img width="24" height="24" src="https://img.icons8.com/fluency-systems-regular/48/fullscreen.png" alt="fullscreen"/>
                             </button>
                             <span class="close-button" onclick="closeFullscreen()">CERRAR</span>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -238,7 +243,7 @@
                 <div class="desc7"><span>Certificado:</span><p></p></div>
                 <div class="desc8"><span>A cargo</span><p></p></div>
             </div>
-            <hr>
+{{--             <hr>
              <h2>Reseñas del ganado</h2>
             <div class="container-reseñas">
                 <div class="card-reseñas">
@@ -247,7 +252,7 @@
                         <p class="reseña-name">-Roberto Pérez</p>
                     </div>
                     <div class="dierecis">
-                        <!-- <img src="" alt="" srcset=""> -->
+                        <img src="" alt="" srcset=""> 
                     </div>
                 </div>
 
@@ -257,7 +262,7 @@
                         <p class="reseña-name">-Roberto Pérez</p>
                     </div>
                     <div class="dierecis">
-                        <!-- <img src="" alt="" srcset=""> -->
+                        <img src="" alt="" srcset=""> 
                     </div>
                 </div>
 
@@ -267,11 +272,11 @@
                         <p class="reseña-name">-Roberto Pérez</p>
                     </div>
                     <div class="dierecis">
-                        <!-- <img src="" alt="" srcset=""> -->
+                        <img src="" alt="" srcset="">
                     </div>
                 </div>
             </div>
-        </div>
+ --}}        </div>
     </div>
     <div class="relationated-product">
         <p class="interest">Más ganado que te podría interesar</p>
@@ -330,11 +335,11 @@
         modal.style.display = 'none';
     });
 
-    window.addEventListener('click', (event) => {
+/*    window.addEventListener('click', (event) => {
         if (event.target === modal) {
             modal.style.display = 'none';
         }
-    });
+    });*/
 
     form.addEventListener('submit', (event) => {
         event.preventDefault();
