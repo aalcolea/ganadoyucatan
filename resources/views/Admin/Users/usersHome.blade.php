@@ -1,4 +1,4 @@
-@extends('admin.sidebar')
+@extends('Admin.sidebar')
 @section('main')
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.22.1/bootstrap-table.min.js"></script>
 <link type="text/javascript" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.1/css/bootstrap.min.css">

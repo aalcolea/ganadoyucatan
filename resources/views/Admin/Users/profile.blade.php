@@ -1,4 +1,4 @@
-@extends('admin.sidebar')
+@extends('Admin.sidebar')
 @section('main')
 <main class="app-content">
   <div class="row user">
