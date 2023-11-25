@@ -25,7 +25,6 @@
                     $.ajax({
                         type : 'GET',
                         url: 'deleteGenImage/' + id + '/' + portada,
-                        console.log(url),
                         success: function(response){
                             swal({
                             title: "Imagen Eliminada",
