@@ -1,7 +1,7 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/username/public_html
+    - export DEPLOYPATH=/home/lz9kr6l1o9ym/public_html
     - /bin/cp -R * $DEPLOYPATH
     - /bin/find $DEPLOYPATH -type d -exec /bin/chmod 755 {} \;
     - /bin/find $DEPLOYPATH -type f -exec /bin/chmod 644 {} \;
