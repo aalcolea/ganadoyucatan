@@ -1,6 +1,6 @@
 <footer class="footer">
     <div class="footer-left">
-        <img class="footer-img" src="https://ganadoyucatan.com/assets/img/stylized-cow-line-art.svg" alt="">
+        <img class="footer-img" src="{{ asset('static/new/Iconos/vacaroja.png') }}" alt="">
         <p class="footer-p">Somos una plataforma dedicada a bindarle servicios al sector ganadero de Yucatán, poniendo a su alcance herramientas digitales que te ayuden a promover sus ganados</p>
         <div class="social-media--contact-container">
                 <img class="social-icon" width="25" height="25" src="https://img.icons8.com/material-sharp/50/ffffff/youtube-play.png" alt="youtube-play"/>
