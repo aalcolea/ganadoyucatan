@@ -10,7 +10,7 @@ use App\Models\Ciudad;
 class ProductT extends Model
 {
     use HasFactory;
-    protected $table = 'productoT';
+    protected $table = 'productot';
     protected $primaryKey = 'idproducto';
     public $timestamps = false;
     public function portada(){

@@ -1,6 +1,6 @@
 <nav class="navbar">
     <div class="navbar__content--left">
-        <div onclick="location.href='/tianguisTienda'" class="navbar--logo"><img src="{{ asset('static/new/Iconos/Forma2710.png') }}" alt="Cow" srcset=""></div>
+        <div onclick="location.href='/'" class="navbar--logo"><img src="{{ asset('static/new/Iconos/Forma2710.png') }}" alt="Cow" srcset=""></div>
         <p onclick="location.href='/tianguisTienda'">Tianguis Ganadero</p>
         <p onclick="location.href='/tienda'">Ganado genético</p>
         <p onclick="location.href='/subastas'">Subasta</p>
