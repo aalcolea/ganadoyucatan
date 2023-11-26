@@ -360,31 +360,6 @@
     });*/
 </script>
 <script>
-    // @php
-    //     $youtubeLink = $convertedURL;
-    // @endphp
-
-    // var miniatura = obtenerMiniaturaYoutube(enlaceYoutube);
-    // console.log(miniatura);
-    
-    // function obtenerMiniaturaYoutube(link){
-
-    //     var videoID = obtenerIDYoutube(link);
-    //     var miniaturaURL = 'https://img.youtube.com/vi/' + videoID + '/hqdefault.jpg';
-    //     return miniaturaURL;
-    // }
-
-    // function obtenerIDYoutube(link){
-    //     var regex = /[?&]v=([^&#]+)/;
-    //     var match = link.match(regex);
-
-    //     if (match && match[1]) {
-    //         return match[1];
-    //     } else {
-    //         return 'No se pudo obtener el ID del video';
-    //     }
-    // }
-
     function swapImages(divId) {
         var clickedImageSrc = document.querySelector('.' + divId + ' img').src;
         var largeImageSrc = document.querySelector('.div12 img').src;

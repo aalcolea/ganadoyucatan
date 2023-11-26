@@ -187,45 +187,76 @@
         <div class="information-product--container">
             <div class="container">
                 <div class="parent">
-               {{--  @if($p->link)                    
-                <div class="div1">
-                       <img onclick="swapImages('div1')" src="{{asset('uploads/'.$p->carpeta.'/'.$p->portada.'.webp')}}" alt="Imagen 1">
-                   </div>
-                @else --}}
                     <div class="div1">
-                    	@if(isset($images[0]))
-    						<img class="left"  onclick="swapImages('div1')" src="{{ asset('uploads/' . $p->carpeta . '/' . $images[0]['img'] . '.webp') }}" alt="Imagen 1">
+                    	@if(isset($images[1]))
+    						<img class="left"  onclick="swapImages('div1')" src="{{asset('uploads/'.$p->carpeta.'/'.$p->portada.'.webp')}}" alt="Imagen 1">
 						@endif
                     </div>
-               {{--  @endif --}}
                     <div class="div2">
-                			@if(isset($images[1]))
-    						<img class="left" onclick="swapImages('div2')" src="{{ asset('uploads/' . $p->carpeta . '/' . $images[1]['img'] . '.webp') }}" alt="Imagen 1">
-							@endif
+						@if(isset($images[2]))
+						<img class="left" onclick="swapImages('div2')" src="{{ asset('uploads/' . $p->carpeta . '/' . $images[1]['img'] . '.webp') }}" alt="Imagen 1">
+						@endif
                     </div>
                     <div class="div3">
-                			@if(isset($images[2]))
-    						<img class="left" onclick="swapImages('div3')" src="{{ asset('uploads/' . $p->carpeta . '/' . $images[2]['img'] . '.webp') }}" alt="Imagen 1">
-							@endif
+						@if(isset($images[3]))
+						<img class="left" onclick="swapImages('div3')" src="{{ asset('uploads/' . $p->carpeta . '/' . $images[2]['img'] . '.webp') }}" alt="Imagen 1">
+						@endif
                     </div>
-                    <div class="div4">
-                    <div class="right-container">
-                    	{{-- @if($p->link)
-                    	<iframe width="540" onclick="swapImages('div4')" height="450" class="embed-responsive-item" src="<?php echo $convertedURL; ?>" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                      <button class="fullscreen-button" onclick="openFullscreen()">
-                                <img width="24" height="24" src="https://img.icons8.com/fluency-systems-regular/48/fullscreen.png" alt="fullscreen"/>
-                            </button>
-                            <span class="close-button" onclick="closeFullscreen()">CERRAR</span>
-                    	@else --}}
-                        <img onclick="swapImages('div4')" src="{{asset('uploads/'.$p->carpeta.'/'.$p->portada.'.webp')}}" alt="Imagen 1">
-                        <button class="fullscreen-button" onclick="openFullscreen()">
-                                <img width="24" height="24" src="https://img.icons8.com/fluency-systems-regular/48/fullscreen.png" alt="fullscreen"/>
-                            </button>
-                            <span class="close-button" onclick="closeFullscreen()">CERRAR</span>
-                        {{-- @endif --}}
-                        </div>
+					<div class="div4">
+						@if(isset($images[4]))
+						<img class="left" onclick="swapImages('div4')" src="{{ asset('uploads/' . $p->carpeta . '/' . $images[3]['img'] . '.webp') }}" alt="Imagen 1">
+						@endif
                     </div>
+					<div class="div5">
+						@if(isset($images[5]))
+						<img class="left" onclick="swapImages('div5')" src="{{ asset('uploads/' . $p->carpeta . '/' . $images[4]['img'] . '.webp') }}" alt="Imagen 1">
+						@endif
+                    </div>
+					<div class="div6">
+						@if(isset($images[6]))
+						<img class="left" onclick="swapImages('div6')" src="{{ asset('uploads/' . $p->carpeta . '/' . $images[5]['img'] . '.webp') }}" alt="Imagen 1">
+						@endif
+                    </div>
+					<div class="div7">
+						@if(isset($images[7]))
+						<img class="left" onclick="swapImages('div7')" src="{{ asset('uploads/' . $p->carpeta . '/' . $images[6]['img'] . '.webp') }}" alt="Imagen 1">
+						@endif
+                    </div>
+					<div class="div8">
+						@if(isset($images[8]))
+						<img class="left" onclick="swapImages('div8')" src="{{ asset('uploads/' . $p->carpeta . '/' . $images[7]['img'] . '.webp') }}" alt="Imagen 1">
+						@endif
+                    </div>
+					<div class="div9">
+						@if(isset($images[9]))
+						<img class="left" onclick="swapImages('div9')" src="{{ asset('uploads/' . $p->carpeta . '/' . $images[8]['img'] . '.webp') }}" alt="Imagen 1">
+						@endif
+                    </div>
+					<div class="div10">
+						@if(isset($images[10]))
+						<img class="left" onclick="swapImages('div10')" src="{{ asset('uploads/' . $p->carpeta . '/' . $images[9]['img'] . '.webp') }}" alt="Imagen 1">
+						@endif
+                    </div>
+					<div class="div11">
+						@if(isset($images[11]))
+						<img class="left" onclick="swapImages('div11')" src="{{ asset('uploads/' . $p->carpeta . '/' . $images[10]['img'] . '.webp') }}" alt="Imagen 1">
+						@endif
+                    </div>
+                    <div class="div12">
+						<div class="right-container">
+							<img class="right" onclick="swapImages('div12')" src="{{asset('uploads/'.$p->carpeta.'/'.$p->portada.'.webp')}}" alt="Imagen 1">
+								<button class="fullscreen-button" onclick="openFullscreen()">
+									<img width="24" height="24" src="https://img.icons8.com/fluency-systems-regular/48/fullscreen.png" alt="fullscreen"/>
+								</button>
+								<span class="close-button" onclick="closeFullscreen()">CERRAR</span>
+							</div>
+						</div>
                 </div>
+				<div class="youtube-link">
+					@if($p->link)
+						<iframe width="100%" height="250" class="embed-responsive-item" src="<?php echo $convertedURL; ?>" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+					@endif
+				</div>
             </div>
             <div class="information-product">
                 <p class="description">{{$p->nombre}}</p>
@@ -233,7 +264,7 @@
                 <p class="description">${{$p->precio}} MXN</p>
                 <p class="info">{{substr($p->descripcion, 0, 50)}}</p>
                 <div class="contact-button">
-                    <button class="secondaryButton">Contacto</button>
+                    <button class="mainButtonB">Contacto</button>
                     <a id="openModal" href="#">Hacer contacto <span>></span></a>
                 </div>
             </div>
@@ -377,17 +408,17 @@
 <script>
     function swapImages(divId) {
         var clickedImageSrc = document.querySelector('.' + divId + ' img').src;
-        var largeImageSrc = document.querySelector('.div4 img').src;
+        var largeImageSrc = document.querySelector('.div12 img').src;
 
-        document.querySelector('.' + divId + ' img').src = largeImageSrc;
-        document.querySelector('.div4 img').src = clickedImageSrc;
+        // document.querySelector('.' + divId + ' img').src = largeImageSrc; // TODO: Reemplazaba la imagen clickeada con la del focus 
+        document.querySelector('.div12 img').src = clickedImageSrc;
     }
 
     function openFullscreen() {
         var fullscreenImage = document.createElement('img');
         fullscreenImage.classList.add('fullscreen-image');
         fullscreenImage.classList.add('active');
-        fullscreenImage.src = document.querySelector('.div4 img').src;
+        fullscreenImage.src = document.querySelector('.right-container img').src;
         fullscreenImage.onclick = closeFullscreen;
 
         document.body.appendChild(fullscreenImage);
