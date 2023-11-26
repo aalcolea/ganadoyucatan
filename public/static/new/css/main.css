@@ -964,10 +964,10 @@ Tienda products
 }
 .parent {
     display: grid;
-    grid-template-columns: 30% 70%;
-    grid-template-rows: repeat(3, 120px);
-    grid-column-gap: 10px;
-    grid-row-gap:    10px;
+    grid-template-columns: 50px 1fr;
+    grid-template-rows: repeat(11, 50px);
+    grid-column-gap: 15px;
+    grid-row-gap: 5px;
     overflow: hidden;
 }
 .left, .right{
@@ -978,10 +978,21 @@ Tienda products
 .div1 { grid-area: 1 / 1 / 2 / 2; }
 .div2 { grid-area: 2 / 1 / 3 / 2; }
 .div3 { grid-area: 3 / 1 / 4 / 2; }
-.div4 { grid-area: 1 / 2 / 4 / 3; }
+.div4 { grid-area: 4 / 1 / 5 / 2; }
+.div5 { grid-area: 5 / 1 / 6 / 2; }
+.div6 { grid-area: 6 / 1 / 7 / 2; }
+.div7 { grid-area: 7 / 1 / 8 / 2; }
+.div8 { grid-area: 8 / 1 / 9 / 2; }
+.div9 { grid-area: 9 / 1 / 10 / 2; }
+.div10 { grid-area: 10 / 1 / 11 / 2; }
+.div11 { grid-area: 11 / 1 / 12 / 2; }
+.div12 { grid-area: 1 / 2 / 12 / 3; }
 .description-product{
     display: flex;
     height: auto;
+}
+.youtube-link{
+    padding-top: 1rem;
 }
 .container-desc{
     display: grid;

@@ -139,18 +139,11 @@
         </div>
         <div class="information-product--container">
             <div class="container">
-            <div class="parent">
+                <div class="parent">
                     <div class="div1">
-
-                        {{-- @if($p->link) --}}
-                           {{--  @if(isset($images[1]))
-                                <img class="left" onclick="swapImages('div1')" src="{{ asset('uploads/tianguis/'.$p->imagen. '/'.$images[1]['ruta'].'.webp')}}" alt="Imagen 1">
-                            @endif
-                        @else --}}
-                            @if(isset($images[1]))
-                                <img class="left" onclick="swapImages('div1')" src="{{asset('uploads/tianguis/'.$p->imagen. '/'.$images[1]['ruta'].'.webp'.'.webp')}}" alt="Imagen 1">
-                            @endif
-                        {{-- @endif --}}
+                        @if(isset($images[1]))
+                            <img class="left" onclick="swapImages('div1')" src="{{asset('uploads/tianguis/'.$p->imagen. '/'.$images[1]['ruta'].'.webp')}}" alt="Imagen 1">
+                        @endif
                     </div>
                     <div class="div2">
                         @if(isset($images[2]))
@@ -163,26 +156,60 @@
                         @endif
                     </div>
                     <div class="div4">
-
-                        <div class="right-container">
-                        @{{-- if($p->link)
-                        <iframe width="540" onclick="swapImages('div4')"  height="450" class="embed-responsive-item" src="<?php echo $convertedURL; ?>" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> --}}
-                        <button class="fullscreen-button" onclick="openFullscreen()">
-                          <img width="24" height="24" src="https://img.icons8.com/fluency-systems-regular/48/fullscreen.png" alt="fullscreen"/>
-                          </button>
-                          <span class="close-button" onclick="closeFullscreen()">CERRAR</span>
-                       {{--  @else --}}
-                            @if(isset($images[0]))
-                                <img class="left" onclick="swapImages('div4')"  src="{{asset('uploads/tianguis/'.$p->imagen. '/'.$images[0]['ruta'].'.webp')}}" alt="Imagen 1">
-                            <button class="fullscreen-button" onclick="openFullscreen()">
-                                <img width="24" height="24" src="https://img.icons8.com/fluency-systems-regular/48/fullscreen.png" alt="fullscreen"/>
-                            </button>
-                            <span class="close-button" onclick="closeFullscreen()">CERRAR</span>
-                            @endif
-                        {{-- @endif --}}
-                   </div>
-
+                        @if(isset($images[4]))
+                        <img class="left" onclick="swapImages('div4')" src="{{asset('uploads/tianguis/'.$p->imagen. '/'.$images[4]['ruta'].'.webp')}}" alt="Imagen 1">
+                        @endif
                     </div>
+                    <div class="div5">
+                        @if(isset($images[5]))
+                        <img class="left" onclick="swapImages('div5')" src="{{asset('uploads/tianguis/'.$p->imagen. '/'.$images[5]['ruta'].'.webp')}}" alt="Imagen 1">
+                        @endif
+                    </div>
+                    <div class="div6">
+                        @if(isset($images[6]))
+                        <img class="left" onclick="swapImages('div6')" src="{{asset('uploads/tianguis/'.$p->imagen. '/'.$images[6]['ruta'].'.webp')}}" alt="Imagen 1">
+                        @endif
+                    </div>
+                    <div class="div7">
+                        @if(isset($images[7]))
+                        <img class="left" onclick="swapImages('div7')" src="{{asset('uploads/tianguis/'.$p->imagen. '/'.$images[7]['ruta'].'.webp')}}" alt="Imagen 1">
+                        @endif
+                    </div>
+                    <div class="div8">
+                        @if(isset($images[8]))
+                        <img class="left" onclick="swapImages('div8')" src="{{asset('uploads/tianguis/'.$p->imagen. '/'.$images[8]['ruta'].'.webp')}}" alt="Imagen 1">
+                        @endif
+                    </div>
+                    <div class="div9">
+                        @if(isset($images[9]))
+                        <img class="left" onclick="swapImages('div9')" src="{{asset('uploads/tianguis/'.$p->imagen. '/'.$images[9]['ruta'].'.webp')}}" alt="Imagen 1">
+                        @endif
+                    </div>
+                    <div class="div10">
+                        @if(isset($images[10]))
+                        <img class="left" onclick="swapImages('div10')" src="{{asset('uploads/tianguis/'.$p->imagen. '/'.$images[10]['ruta'].'.webp')}}" alt="Imagen 1">
+                        @endif
+                    </div>
+                    <div class="div11">
+                        @if(isset($images[11]))
+                        <img class="left" onclick="swapImages('div11')" src="{{asset('uploads/tianguis/'.$p->imagen. '/'.$images[11]['ruta'].'.webp')}}" alt="Imagen 1">
+                        @endif
+                    </div>
+                    <div class="div12">
+                        <div class="right-container">
+                            @if(isset($images[1]))
+                                <img class="right" onclick="swapImages('div12')"  src="{{asset('uploads/tianguis/'.$p->imagen. '/'.$images[1]['ruta'].'.webp')}}" alt="Imagen 1">
+                                <button class="fullscreen-button" onclick="openFullscreen()">
+                                    <img width="24" height="24" src="https://img.icons8.com/fluency-systems-regular/48/fullscreen.png" alt="fullscreen"/>
+                                </button>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+                <div class="youtube-link">
+                    @if($p->link)
+                        <iframe width="100%"  height="250" class="embed-responsive-item" src="<?php echo $convertedURL; ?>" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                    @endif
                 </div>
             </div>
             <div class="information-product">
@@ -191,8 +218,7 @@
                 <p class="description">${{$p->precio}} MXN</p>
                 <p class="info">{{substr($p->descripcion, 0, 50)}}</p>
                 <div class="contact-button">
-
-                     <button class="mainButtonB">Contacto</button>
+                    <button class="mainButtonB">Contacto</button>
                     <a id="openModal" href="#">Hacer contacto <span>></span></a>
                 </div>
             </div>
@@ -334,19 +360,45 @@
     });*/
 </script>
 <script>
+    // @php
+    //     $youtubeLink = $convertedURL;
+    // @endphp
+
+    // var miniatura = obtenerMiniaturaYoutube(enlaceYoutube);
+    // console.log(miniatura);
+    
+    // function obtenerMiniaturaYoutube(link){
+
+    //     var videoID = obtenerIDYoutube(link);
+    //     var miniaturaURL = 'https://img.youtube.com/vi/' + videoID + '/hqdefault.jpg';
+    //     return miniaturaURL;
+    // }
+
+    // function obtenerIDYoutube(link){
+    //     var regex = /[?&]v=([^&#]+)/;
+    //     var match = link.match(regex);
+
+    //     if (match && match[1]) {
+    //         return match[1];
+    //     } else {
+    //         return 'No se pudo obtener el ID del video';
+    //     }
+    // }
+
     function swapImages(divId) {
         var clickedImageSrc = document.querySelector('.' + divId + ' img').src;
-        var largeImageSrc = document.querySelector('.div4 img').src;
+        var largeImageSrc = document.querySelector('.div12 img').src;
 
-        document.querySelector('.' + divId + ' img').src = largeImageSrc;
-        document.querySelector('.div4 img').src = clickedImageSrc;
+        // document.querySelector('.' + divId + ' img').src = largeImageSrc; // TODO: Reemplazaba la imagen clickeada con la del focus 
+        document.querySelector('.div12 img').src = clickedImageSrc;
     }
+
 
     function openFullscreen() {
         var fullscreenImage = document.createElement('img');
         fullscreenImage.classList.add('fullscreen-image');
         fullscreenImage.classList.add('active');
-        fullscreenImage.src = document.querySelector('.div4 img').src;
+        fullscreenImage.src = document.querySelector('.right-container img').src;
         fullscreenImage.onclick = closeFullscreen;
 
         document.body.appendChild(fullscreenImage);
@@ -358,5 +410,7 @@
             fullscreenImage.remove();
         }
     }
+
+
 </script>
 @endsection
