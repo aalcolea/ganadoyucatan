@@ -56,6 +56,9 @@ body {
 .navbar__content--left p{
     cursor: pointer;
 }
+.navbar__content--left p:last-child{
+    border-bottom: 2px solid red;
+}
 
 .navbar--logo{
     margin-left: 4rem;
@@ -166,6 +169,9 @@ body {
     color: white;
     letter-spacing: 2px;
 }
+.highlight p:last-child{
+    border-bottom: 2px solid red;
+}
 .menu-content p:nth-child(1){
     font-weight: var(--semibold);
     font-size: var(--large);
@@ -198,6 +204,11 @@ Carousel Section
     width: 100%;
     object-fit: cover;
     background-color: var(--cinereous);
+}
+.image img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
 }
 .navigation-points{
     position: absolute;
@@ -336,19 +347,23 @@ Sections
 }
 .ganadoGenetico-container{
     background-image: url('../background/_ganado\ genetico.jpg');
+    background-size: cover;
     color: white;
 }
 .tianguisGanadero-container{
     background-image: url('../background/_tianguis.jpg');
+    background-size: cover;
     color: white;
 
 }
 .subastaGanadera-container{
     background-image: url('../background/_subasta.jpg');
+    background-size: cover;
     color: white;
 }
 .noticias-container{
     background-image: url('../background/_noticias.jpg');
+    background-size: cover;
     color: white;
 }
 .subastaLeft,
@@ -412,6 +427,7 @@ Contact
     padding: 5rem 0rem;
     color: white;
     background-image: url('../background/_contacto.jpg');
+    background-size: cover;
 }
 .left-contact,
 .right-contact{

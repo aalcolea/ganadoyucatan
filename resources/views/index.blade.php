@@ -17,9 +17,9 @@
             <div class="point"></div>
         </div>
         <div class="social-media">
-            <img class="social-icon" width="25" height="25" src="https://img.icons8.com/material-sharp/50/ffffff/youtube-play.png" alt="youtube-play"/>
-            <img class="social-icon" width="25" height="25" src="https://img.icons8.com/windows/50/ffffff/facebook-f--v2.png" alt="facebook-f--v2"/>
-            <img class="social-icon" width="25" height="25" src="https://img.icons8.com/ios/50/ffffff/instagram-new--v1.png" alt="instagram-new--v1"/>
+            <img class="social-icon" onclick="location.href='https://www.youtube.com/@ganadoyucatanpeninsular6593'" width="25" height="25" src="https://img.icons8.com/material-sharp/50/ffffff/youtube-play.png" alt="youtube-play"/>
+            <img class="social-icon" onclick="location.href='https://www.facebook.com/ganadoyucatan'" width="25" height="25" src="https://img.icons8.com/windows/50/ffffff/facebook-f--v2.png" alt="facebook-f--v2"/>
+            <img class="social-icon" onclick="location.href='https://www.instagram.com/ganado_yuc/'"  width="25" height="25" src="https://img.icons8.com/ios/50/ffffff/instagram-new--v1.png" alt="instagram-new--v1"/>
         </div>
         <div class="nav-buttons">
             <div class="prev-button"><</div>
@@ -30,8 +30,8 @@
     <div class="tianguisGanadero-container">
         <div class="tianguisLeft">
             <hr>
-            <p class="title">Tianguis ganadero</p>
-            <p class="content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus nam nobis fuga tempore temporibus expedita similique</p>
+            <p class="title">Ganado comercial</p>
+            <p class="content">Si buscas ganado, para el consumo o el sector cárnico, bienvenido a tu tienda digital</p>
             <button onclick="location.href='/tianguisTienda'" class="mainButton">Ver más</button>
         </div>
         <div class="tianguisRight"></div>
@@ -41,7 +41,7 @@
         <div class="geneticoRight">
             <hr>
             <p class="title">Ganado Genético</p>
-            <p class="content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus nam nobis fuga tempore temporibus expedita similique</p>
+            <p class="content">Si buscas ganado para mejorar el hato ganadero, bienvenido a tu tienda digital</p>
             <button onclick="location.href='/tienda'" class="mainButton">Ver más</button>
         </div>
     </div>
@@ -49,7 +49,7 @@
         <div class="subastaLeft">
             <hr>
             <p class="title">Subasta ganadera</p>
-            <p class="content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus nam nobis fuga tempore temporibus expedita similique</p>
+            <p class="content">Te gustaría ofertar, este es un espacio diseñado para todos nuestros suscriptores, busca tu oportunidad, bienvenidos a subasta ganadera</p>
             <button onclick="location.href='/subastas'" class="mainButton">Ver más</button>
         </div>
         <div class="subastaRight"></div>
@@ -59,7 +59,7 @@
         <div class="noticiasRight">
             <hr>
             <p class="title">Noticias</p>
-            <p class="content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus nam nobis fuga tempore temporibus expedita similique</p>
+            <p class="content"></p>
             <button class="mainButton">Ver más</button>
         </div>
     </div>
@@ -68,9 +68,9 @@
             <h1>Hacer Contacto</h1>
             <p>Somos una plataforma dedicada a brindarle servicios al sector ganadero de Yucatán, poniendo a su alcance herramientas digitales que le ayuden a promover sus ganados</p>
             <div class="social-media--contact-container">
-                <img class="social-icon" width="25" height="25" src="https://img.icons8.com/material-sharp/50/ffffff/youtube-play.png" alt="youtube-play"/>
-                <img class="social-icon" width="25" height="25" src="https://img.icons8.com/windows/50/ffffff/facebook-f--v2.png" alt="facebook-f--v2"/>
-                <img class="social-icon" width="25" height="25" src="https://img.icons8.com/ios/50/ffffff/instagram-new--v1.png" alt="instagram-new--v1"/>
+                <img class="social-icon" onclick="location.href='https://www.youtube.com/@ganadoyucatanpeninsular6593'"  width="25" height="25" src="https://img.icons8.com/material-sharp/50/ffffff/youtube-play.png" alt="youtube-play"/>
+                <img class="social-icon" onclick="location.href='https://www.facebook.com/ganadoyucatan'" width="25" height="25" src="https://img.icons8.com/windows/50/ffffff/facebook-f--v2.png" alt="facebook-f--v2"/>
+                <img class="social-icon" onclick="location.href='https://www.instagram.com/ganado_yuc/'"  width="25" height="25" src="https://img.icons8.com/ios/50/ffffff/instagram-new--v1.png" alt="instagram-new--v1"/>
             </div>
             <div class="info-contact">
                 <div class="info-containers">

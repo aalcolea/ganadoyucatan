@@ -1,9 +1,10 @@
 <nav class="navbar">
     <div class="navbar__content--left">
-        <div onclick="location.href='/'" class="navbar--logo"><img src="{{ asset('static/new/Iconos/Forma2710.png') }}" alt="Cow" srcset=""></div>
+        <div onclick="location.href='https://ganadoyucatan.com/'" class="navbar--logo"><img src="{{ asset('static/new/Iconos/Forma2710.png') }}" alt="Cow" srcset=""></div>
         <p onclick="location.href='/tianguisTienda'">Tianguis Ganadero</p>
         <p onclick="location.href='/tienda'">Ganado genético</p>
         <p onclick="location.href='/subastas'">Subasta</p>
+        <p onclick="location.href='{{ url('/register') }}'">Publicar gratis</p>
     </div>
     <div class="navbar__content--right">
         <p>MENU</p>
@@ -27,18 +28,19 @@
                         <p class="click-menu" onclick="location.href='{{ url('/register') }}'">Crear tu cuenta</p>
                         <p class="click-menu" onclick="location.href='{{url('/login')}}'">Ingresa</p>
                     </div>
-                    <div class="menu-content">
+                    <div class="menu-content highlight">
                         <p>Servicios</p>
                         <p class="click-menu" onclick="location.href='/tienda'">Ganado genético</p>
-                        <p class="click-menu" onclick="location.href='/tianguisTienda'">Tianguis Ganadero</p>
-                        <p class="click-menu" onclick="location.href='/subastas'">Subasta</p>
+                        <p class="click-menu" onclick="location.href='/tianguisTienda'">Ganado comercial</p>
+                        <p class="click-menu" onclick="location.href='/subastas'">Subastas</p>
+                        <p class="click-menu" onclick="location.href='{{ url('/register') }}'">Publicar gratis</p>
                     </div>
                 </div>
                 <div class="menu-social">
                     <div class="social-media--contact-container" style="justify-content: center;">
-                        <img class="social-icon" width="25" height="25" src="https://img.icons8.com/material-sharp/50/ffffff/youtube-play.png" alt="youtube-play"/>
-                        <img class="social-icon" width="25" height="25" src="https://img.icons8.com/windows/50/ffffff/facebook-f--v2.png" alt="facebook-f--v2"/>
-                        <img class="social-icon" width="25" height="25" src="https://img.icons8.com/ios/50/ffffff/instagram-new--v1.png" alt="instagram-new--v1"/>
+                        <img class="social-icon" onclick="location.href='https://www.youtube.com/@ganadoyucatanpeninsular6593'" width="25" height="25" src="https://img.icons8.com/material-sharp/50/ffffff/youtube-play.png" alt="youtube-play"/>
+                        <img class="social-icon" onclick="location.href='https://www.facebook.com/ganadoyucatan'" width="25" height="25" src="https://img.icons8.com/windows/50/ffffff/facebook-f--v2.png" alt="facebook-f--v2"/>
+                        <img class="social-icon" onclick="location.href='https://www.instagram.com/ganado_yuc/'" width="25" height="25" src="https://img.icons8.com/ios/50/ffffff/instagram-new--v1.png" alt="instagram-new--v1"/>
                     </div>
                 </div>
             </div>
