@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Auth;
 use App\Models\Product;
 use App\Models\ProductT;
 use App\Models\ProductS;
@@ -13,6 +14,7 @@ use App\Models\PGallery;
 use App\Models\PTGallery;
 use App\Models\PSubGallery;
 use App\Models\MensajeProducto;
+use App\Models\OfertaSubasta;
 use App\Models\Visits;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -121,6 +123,37 @@ public function tiendaHome(Request $request){
                     return back();
 
             }
+    }
+    public function contactInfo(Request $request){
+    $nombre = ucwords(strtolower(trim($request->input('name'))));
+    $email = strtolower(trim($request->input('phone')));
+    $mensaje = $request->input('message');
+    $useragent = $request->server('HTTP_USER_AGENT');
+    $ip = $request->server('REMOTE_ADDR');
+    $dispositivo = "PC";
+    if(preg_match("/mobile/i", $useragent)){
+        $dispositivo = "Móvil"; 
+    } else if (preg_match("/tablet/i", $useragent)) {
+        $dispositivo = "Tablet";
+    } else if (preg_match("/iPhone/i", $useragent)) {
+        $dispositivo = "iPhone";
+    } else if (preg_match("/iPad/i", $useragent)) {
+        $dispositivo = "iPad";
+    }
+    $msg = new MensajeProducto;
+    $msg->nombre = $nombre;
+    $msg->mensaje = $mensaje;
+    $msg->email = $email;
+    $msg->ip = $ip;
+    $msg->dispositivo = $dispositivo;
+    $msg->useragent = $useragent;
+    $msg->datecreated = date('Y-m-d');
+    $msg->vendedorid =  '1';
+    $msg->status = 0;
+    if($msg->save()){
+            Alert::success('Éxito', 'El mensaje se envió correctamente.');
+            return back();
+    }
     }
     public function getTianguisTienda(Request $request){
         $query = ProductT::where('status', '2');
@@ -278,7 +311,22 @@ public function tiendaHome(Request $request){
         return view('Tienda.Subasta.subastaProduct', $data);
     }
     public function sendOffer(Request $request, $id){
-        return null;
+        $nombre = ucwords(strtolower(trim($request->input('name'))));
+        $oferta = $request->input('oferta');
+        $dispositivo = "PC";
+        $id = Auth::id();
+        if(!$id){
+            return back()->with('message', 'Te recordamos que es necesario estar registrado para poder hacer una oferta')->with('typealert', 'danger');
+        }
+        $off = new OfertaSubasta;
+        $off->idProducto = $id;
+        $off->oferta = $oferta;
+        $off->comprador = $nombre;
+        $off->fecha = date('Y-m-d');
+        if($off->save()){
+            Alert::success('Éxito', 'La oferta se envió correctamente.');
+            return back();
+        }
     }
     
 }

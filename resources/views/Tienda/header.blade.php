@@ -75,7 +75,7 @@
 					<a class="nav-link" href="/tienda">Genético</a>
 					<a class="nav-link" href="/subastas">Subasta</a>
 					{{-- <a class="nav-link" href="/exposicion_home.html">Exposición Ganadera</a> --}}
-					<a class="nav-link" href="/tianguisTienda">Tianguis Ganadero</a>
+					<a class="nav-link" href="/tianguisTienda">Comercial</a>
 					{{-- <a class="nav-link" href="<?= base_url(); ?>/nosotros">Nosotros</a>  --}}
 				</div>
 				</div>

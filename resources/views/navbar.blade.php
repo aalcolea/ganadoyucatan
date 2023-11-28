@@ -1,10 +1,11 @@
 <nav class="navbar">
     <div class="navbar__content--left">
         <div onclick="location.href='https://ganadoyucatan.com/'" class="navbar--logo"><img src="{{ asset('static/new/Iconos/Forma2710.png') }}" alt="Cow" srcset=""></div>
-        <p onclick="location.href='/tianguisTienda'">Tianguis Ganadero</p>
+        p onclick="location.href='/tianguisTienda'">Ganado Comercial</p>
         <p onclick="location.href='/tienda'">Ganado genético</p>
         <p onclick="location.href='/subastas'">Subasta</p>
         <p onclick="location.href='{{ url('/register') }}'">Publicar gratis</p>
+
     </div>
     <div class="navbar__content--right">
         <p>MENU</p>
@@ -34,6 +35,7 @@
                         <p class="click-menu" onclick="location.href='/tianguisTienda'">Ganado comercial</p>
                         <p class="click-menu" onclick="location.href='/subastas'">Subastas</p>
                         <p class="click-menu" onclick="location.href='{{ url('/register') }}'">Publicar gratis</p>
+
                     </div>
                 </div>
                 <div class="menu-social">
