@@ -372,6 +372,9 @@ class ProductsController extends Controller
             $premium = ['destacado' => $destacado,
             'premium' => $premium1];
             $premium = json_encode($premium);
+            if($ciudad == ''){
+                $ciudad = 1;
+            }
 
             $product = new Product;
 

@@ -48,7 +48,7 @@
                           <th>Raza</th>
                           <th>Precio</th>
                           <th>En venta</th>
-                          <th>Estatus</th>
+                          <th>Visualizaciones</th>
                           <th>Rancho</th>
                           <th>Ubicación</th>
                           <th>Acciones</th>
@@ -61,7 +61,7 @@
                             <td>{{$p->raza}}</td>
                             <td>{{$p->precio}}</td>
                             <td>@if($p->status == 1)<span class="badge badge-success">Activo</span>@else <span class="badge badge-danger">Inactivo</span>@endif</td>
-                            <td>@if($p->estatus == 1) <span class="badge badge-success">Disponible</span>@elseif($p->estatus == 2)<span class="badge badge-warning">Reservado</span> @elseif($p->estatus == 3)<span class="badge badge-danger">Vendido</span> @else <span class="badge badge-info">Enviado</span>@endif</td>
+                            <td>{{$p->visits->count()}}{{-- @if($p->estatus == 1) <span class="badge badge-success">Disponible</span>@elseif($p->estatus == 2)<span class="badge badge-warning">Reservado</span> @elseif($p->estatus == 3)<span class="badge badge-danger">Vendido</span> @else <span class="badge badge-info">Enviado</span>@endif --}}</td>
                             <td>{{$p->rancho}}</td>
                             <td>{{$p->location->nombre}}</td>
                             <td><button style="background-color:#d79e46;border-color: #d79e46;" class="btn btn-info btn-sm" onclick="openProductInNewTab('{{$p->idproducto}}', '{{$p->ruta}}')" target="_blank" title="Ver producto"><i class="far fa-eye"></i></button><button class="btn btn-primary  btn-sm editProductBtn" data-id="{{$p->idproducto}}" id="editProduct" title="Editar producto"><i class="fas fa-pencil-alt"></i></button><a href="{{ route('deleteGen', $p->idproducto) }}" class="btn btn-danger" title="Eliminar producto" onclick="confirmation(event)"><i class="far fa-trash-alt"></i></a></td>

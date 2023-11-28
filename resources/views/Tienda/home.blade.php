@@ -258,8 +258,8 @@
         </div>
         <p class="main-text">Contáctanos</p>
         <P class="secondary-text">Ponte en contacto con nosotros</P>
-		<form action="" id="frmContactoT">
-			<input class="" type="text" id="vendedorid" name="vendedorid" value="" style="display: none;">
+        {!! Form::open(['url' => '/contactInfo', 'id' => 'frmContactoT', 'enctype' => 'multipart/form-data']) !!}
+             @csrf
 			<hr>
 			<div class="form-group">
 				<label for="name">Nombre:</label>
@@ -273,7 +273,8 @@
 				<label for="message">Mensaje:</label>
 				<textarea id="message" name="message" rows="4" required></textarea>
 			</div>
-			<button class="mainButtonC" type="submit">Enviar</button>
+            <button class="mainButtonC" type="submit">Enviar mensaje</button>
+        {!! Form::close() !!}
 		</form>
     </div>
 </div>

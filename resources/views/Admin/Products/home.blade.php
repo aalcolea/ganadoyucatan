@@ -45,7 +45,7 @@
 		  	    <div class="col">
   <button style="border-radius: 20%;"><a href="{{url('admin/products/addNewGen')}}"><img style="width: 100%;height: 100%;object-fit: cover;border-radius: 20%;" src="{{url('/static/images/genetico.png')}}"></button>
   	<article style="  background: linear-gradient(to right, hsl(53.6, 67.5%, 49.4%), hsl(25.3, 100%, 59%));-webkit-background-clip: text;-webkit-text-fill-color: transparent;text-align: center;"></a>
-  		<h1>Ganado <br>	 Genetico</h1>
+  		<h1>Ganado <br>	 Genético</h1>
 	</article>
 		  	    </div>		  	    <div class="col">
   <button style="border-radius: 20%;"><a href="{{url('admin/products/addNewCom')}}"><img style="width: 100%;height: 100%;object-fit: cover;border-radius: 20%;" src="{{url('/static/images/tianguis.png')}}"></button>

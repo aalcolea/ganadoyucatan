@@ -127,6 +127,8 @@
                         <option selected value="1">Yucatan</option>
                         <option value="2">Campeche</option>
                         <option value="3">Quintana Roo</option>
+                        <option value="4">Chiapas</option>
+                        <option value="5">Tabasco</option>
                     </select>
                 </div>
                 <button class="mainButton" type="submit">Entrar</button>

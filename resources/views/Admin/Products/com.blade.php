@@ -50,7 +50,7 @@
                           <th>Raza</th>
                           <th>Tipo</th>
                           <th>Rancho</th>
-                          <th>Peso</th>
+                          <th>Visualizaciones</th>
                           <th>Acciones</th>
                         </tr>
                       </thead>
@@ -63,7 +63,7 @@
                             <td>{{$p->raza}}</td>
                             <td>{{$p->tipo}}</td>
                             <td>{{$p->rancho}}</td>
-                            <td>{{$p->peso}}</td>
+                            <td>{{$p->visits->count()}}</td>
                             <td><button style="background-color:#425b28;border-color: #425b28;" class="btn btn-info btn-sm" onclick="openProductInNewTab('{{$p->idproducto}}')" target="_blank" title="Ver producto"><i style="color:white;" class="far fa-eye"></i></button><button class="btn btn-primary  btn-sm editProductBtn" data-id="{{$p->idproducto}}" id="editProduct" title="Editar producto"><i class="fas fa-pencil-alt"></i></button><a href="{{ route('deleteCom', $p->idproducto) }}" class="btn btn-danger" title="Eliminar producto" onclick="confirmation(event)"><i class="far fa-trash-alt"></i></a></td>
                           </tr>
                         @endforeach
