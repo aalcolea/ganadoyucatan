@@ -965,7 +965,7 @@ Tienda products
 .parent {
     display: grid;
     grid-template-columns: 50px 1fr;
-    grid-template-rows: repeat(11, 50px);
+    grid-template-rows: repeat(12, 50px);
     grid-column-gap: 15px;
     grid-row-gap: 5px;
     overflow: hidden;
@@ -984,9 +984,10 @@ Tienda products
 .div7 { grid-area: 7 / 1 / 8 / 2; }
 .div8 { grid-area: 8 / 1 / 9 / 2; }
 .div9 { grid-area: 9 / 1 / 10 / 2; }
-.div10 { grid-area: 10 / 1 / 11 / 2; }
-.div11 { grid-area: 11 / 1 / 12 / 2; }
-.div12 { grid-area: 1 / 2 / 12 / 3; }
+.div10 { grid-area: 10 / 1 / 11 / 2;}
+.div11 { grid-area: 11 / 1 / 12 / 2;}
+.div12 { grid-area: 12 / 1 / 13 / 2;}
+.div13 { grid-area: 1 / 2 / 13 / 3; }
 .description-product{
     display: flex;
     height: auto;
