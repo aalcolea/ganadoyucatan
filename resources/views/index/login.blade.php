@@ -123,7 +123,7 @@
     </div>-->
     <div class="container-login">
         <div class="login-form">
-            <img src="{{url('/static/new/iconos/logo-red.png')}}" alt="">
+            <img onclick="location.href='https://ganadoyucatan.com/'" src="{{url('/static/new/iconos/logo-red.png')}}" alt="">
             <p class="main-text">BIENVENIDO DE NUEVO</p>
             <P class="secondary-text">Disfruta de los beneficios de tu suscripción anual</P>
             {!! Form::open(['url' => '/login', 'class' => 'sign-in-form', 'id' => 'formLogin', 'name' => 'formLogin']) !!}

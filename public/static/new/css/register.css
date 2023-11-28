@@ -60,6 +60,7 @@ body {
     display: block;
     margin: 0 auto;
     margin-top: -50;
+    cursor: pointer;
 }
 .main-text{
     font-size: var(--large);
