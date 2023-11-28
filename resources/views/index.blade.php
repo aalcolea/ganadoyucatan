@@ -30,8 +30,8 @@
     <div class="tianguisGanadero-container">
         <div class="tianguisLeft">
             <hr>
-            <p class="title">Tianguis ganadero</p>
-            <p class="content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus nam nobis fuga tempore temporibus expedita similique</p>
+            <p class="title">Ganado Comercial</p>
+            <p class="content">Si buscas ganado, para el consumo o el sector cárnico, bienvenido a tu tienda digital.</p>
             <button onclick="location.href='/tianguisTienda'" class="mainButton">Ver más</button>
         </div>
         <div class="tianguisRight"></div>
@@ -41,7 +41,7 @@
         <div class="geneticoRight">
             <hr>
             <p class="title">Ganado Genético</p>
-            <p class="content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus nam nobis fuga tempore temporibus expedita similique</p>
+            <p class="content">Si buscas ganado para mejorar el hato ganadero, bienvenido a tu tienda digital.</p>
             <button onclick="location.href='/tienda'" class="mainButton">Ver más</button>
         </div>
     </div>
@@ -49,7 +49,7 @@
         <div class="subastaLeft">
             <hr>
             <p class="title">Subasta ganadera</p>
-            <p class="content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus nam nobis fuga tempore temporibus expedita similique</p>
+            <p class="content">¿Te gustaría ofertar? Este es un espacio diseñado para todos nuestros suscriptores, busca tu oportunidad, bienvenidos a Subasta Ganadera</p>
             <button onclick="location.href='/subastas'" class="mainButton">Ver más</button>
         </div>
         <div class="subastaRight"></div>
@@ -59,7 +59,7 @@
         <div class="noticiasRight">
             <hr>
             <p class="title">Noticias</p>
-            <p class="content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus nam nobis fuga tempore temporibus expedita similique</p>
+            <p class="content">Próximamente ...</p>
             <button class="mainButton">Ver más</button>
         </div>
     </div>
@@ -97,23 +97,22 @@
             </div>
         </div>
         <div class="right-contact">
+        {!! Form::open(['url' => '/contactInfo', 'class' => 'sign-up-form form', 'enctype' => 'multipart/form-data']) !!}
+             @csrf
             <div>
                 <label for="name">Nombre</label>
-                <input type="text" class="input-with-border-bottom" placeholder="Nombre">
-            </div>
-            <div>
-                <label for="mail">Correo electrónico</label>
-                <input type="text" class="input-with-border-bottom" placeholder="Correo electrónico">
+                <input type="text" id="name" name="name" required class="input-with-border-bottom" placeholder="Nombre">
             </div>
             <div>
                 <label for="phone">Teléfono</label>
-                <input type="text" class="input-with-border-bottom" placeholder="Teléfono">
+                <input type="text" d="phone" name="phone" class="input-with-border-bottom" placeholder="Teléfono" required>
             </div>
             <div>
                 <label for="message">Mensaje</label>
-                <input type="text" class="input-with-border-bottom" placeholder="Mensaje">
+                <textarea type="text" id="message" name="message" rows="6" class="input-with-border-bottom" placeholder="Mensaje" required> </textarea>
             </div>
-            <button>Enviar mensaje</button>
+            <button type="submit">Enviar mensaje</button>
+        {!! Form::close() !!}
         </div>
     </div>
 <script>

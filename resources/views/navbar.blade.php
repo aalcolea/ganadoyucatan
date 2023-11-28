@@ -1,9 +1,9 @@
 <nav class="navbar">
     <div class="navbar__content--left">
         <div onclick="location.href='/'" class="navbar--logo"><img src="{{ asset('static/new/Iconos/Forma2710.png') }}" alt="Cow" srcset=""></div>
-        <p onclick="location.href='/tianguisTienda'">Tianguis Ganadero</p>
-        <p onclick="location.href='/tienda'">Ganado genético</p>
-        <p onclick="location.href='/subastas'">Subasta</p>
+        <p onclick="location.href='/tianguisTienda'">Ganado Comercial</p>
+        <p onclick="location.href='/tienda'">Ganado Genético</p>
+        <p onclick="location.href='/subastas'">Subasta Ganadera</p>
     </div>
     <div class="navbar__content--right">
         <p>MENU</p>
@@ -30,7 +30,7 @@
                     <div class="menu-content">
                         <p>Servicios</p>
                         <p class="click-menu" onclick="location.href='/tienda'">Ganado genético</p>
-                        <p class="click-menu" onclick="location.href='/tianguisTienda'">Tianguis Ganadero</p>
+                        <p class="click-menu" onclick="location.href='/tianguisTienda'">Ganado comercial</p>
                         <p class="click-menu" onclick="location.href='/subastas'">Subasta</p>
                     </div>
                 </div>

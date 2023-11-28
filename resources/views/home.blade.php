@@ -96,7 +96,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
                 <div class="buttons-main" onclick="location.href='/tienda_virtual/tianguis/tianguisG'" style="background: var(--lightgreen);">
                     <img style="border-radius: 50%" src="{{url('/static/images/tianguis.png')}}" alt="Tianguis">
-                    <p>Tianguis ganadero</p>
+                    <p>Ganado Comercial</p>
                 </div>
 
                <div class="buttons-main" onclick="location.href='/subastas/subastas.php'"    style="background: #D19C97;">

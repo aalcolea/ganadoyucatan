@@ -28,6 +28,7 @@ Route::get('/logout', [ConnectController::class, 'getLogout']);
 Route::get('/migrate-passwords', [ConnectController::class, 'migratePasswords']);
 /*tienda*/
 Route::get('/tienda', [TiendaController::class, 'tiendaHome']);
+Route::post('/contactInfo', [TiendaController::class, 'contactInfo'])->name('contactInfo');
 Route::get('/tienda/producto/{id}/{ruta}', [TiendaController::class, 'tiendaProducto']);
 Route::post('/tienda/producto/{id}/{ruta}', [TiendaController::class, 'tiendaProductoMsg'])->name('tiendaProductoMsg');
 Route::get('/tianguisTienda', [TiendaController::class, 'getTianguisTienda'])->name('tiendaHome');
@@ -35,7 +36,7 @@ Route::get('/tianguis', [TiendaController::class, 'getTianguis'])->name('subirTi
 Route::post('/tianguis', [TiendaController::class, 'postTianguis'])->name('postTianguis');
 Route::get('/tianguis/producto/{id}', [TiendaController::class, 'tianguisProducto'])->name('tianguisProducto');
 Route::get('/subastas', [TiendaController::class, 'getSubastas'])->name('getSubastas');
-Route::post('/subastas',  [TiendaController::class, 'sendOffer'])->name('sendOffer');
+Route::post('/sendOffer/{id}',  [TiendaController::class, 'sendOffer'])->name('sendOffer');
 Route::get('/subastas/{id}', [TiendaController::class, 'getSubasta'])->name('getSubasta');
 
 /*ciudades*/

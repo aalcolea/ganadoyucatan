@@ -304,20 +304,21 @@
             <div class="close-menu-contact">
                 <img src="https://img.icons8.com/ios-glyphs/30/000000/delete-sign.png" alt="delete-sign"/>
             </div>
-            <p class="main-text">Contáctanos</p>
-            <P class="secondary-text">Ponte en contacto con nosotros</P>
-            <form action="contact-form" id="form-contact-group">
+            <p class="main-text">¡Haz tu mejor oferta!</p>
+            <P class="secondary-text">Te recordamos que solo usuarios registrados pueden ofertar</P>
+            {!! Form::open(['url' => '/sendOffer/'.$p->id_producto, 'class' => 'form-contact-group', 'enctype' => 'multipart/form-data']) !!}
+             @csrf
                 <hr>
                 <div class="form-group">
                     <label for="name">Nombre:</label>
-                    <input type="text" id="name" name="name" required>
+                    <input class="input-with-border-bottom" type="text" id="name" name="name" required>
                 </div>
                 <div class="form-group">
                     <label for="oferta">Oferta</label>
-                    <input type="number" id="oferta" name="oferta" required>
+                    <input class="input-with-border-bottom" type="number" id="oferta" name="oferta" min="{{$p->precioMin}}" required>
                 </div>
                 <button class="mainButtonC" type="submit">Enviar</button>
-            </form>
+            {!! Form::close() !!}
         </div>
     </div>
 </div>
