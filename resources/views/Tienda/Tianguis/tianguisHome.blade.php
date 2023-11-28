@@ -331,7 +331,7 @@
                 <div class="publicidad-container">
                     <hr>
                     <h1 class="content-publicidad">Espacio <br>publicitario</h1>
-                    <button class="secondaryButton" style="margin-left: 2rem;">Solicitar <br>publicidad</button>
+                    <button class="secondaryButton" id="openModal" style="margin-left: 2rem;">Solicitar <br>publicidad</button>
                 </div>
                 <p class="title-container--cards">Ganado Comercial</p>
                 <div class="container-normal">
@@ -365,6 +365,34 @@
             </div>
 		</div>
 	</div>
+<!--Modal Contact-->
+<div id="modal">
+    <div class="contact-form">
+        <img class="contact-form-img" src="{{url('/static/new/iconos/logo-red.png')}}" alt="">
+        <div class="close-menu-contact">
+            <img src="https://img.icons8.com/ios-glyphs/30/000000/delete-sign.png" alt="delete-sign"/>
+        </div>
+        <p class="main-text">Contáctanos</p>
+        <P class="secondary-text">Ponte en contacto con nosotros</P>
+		<form action="" id="frmContactoT">
+			<input class="" type="text" id="vendedorid" name="vendedorid" value="" style="display: none;">
+			<hr>
+			<div class="form-group">
+				<label for="name">Nombre:</label>
+				<input type="text" id="name" name="name" required>
+			</div>
+			<div class="form-group">
+				<label for="phone">Teléfono:</label>
+				<input type="tel" id="phone" name="phone">
+			</div>
+			<div class="form-group">
+				<label for="message">Mensaje:</label>
+				<textarea id="message" name="message" rows="4" required></textarea>
+			</div>
+			<button class="mainButtonC" type="submit">Enviar</button>
+		</form>
+    </div>
+</div>
 <!-- <script>
 	const minPriceHandle = document.querySelector('.min-price-handle');
 	const maxPriceHandle = document.querySelector('.max-price-handle');
@@ -414,6 +442,26 @@
 	});
 
 </script> -->
+<script>
+    const openModalButton = document.getElementById('openModal');
+    const modal = document.getElementById('modal');
+    const closeModalSpan = document.querySelector('.close-menu-contact img');
+    const form = document.getElementById('frmContactoT');
+
+    openModalButton.addEventListener('click', () => {
+        modal.style.display = 'flex';
+    });
+
+    closeModalSpan.addEventListener('click', () => {
+        modal.style.display = 'none';
+    });
+
+    window.addEventListener('click', (event) => {
+        if (event.target === modal) {
+            modal.style.display = 'none';
+        }
+    });
+</script>
 <script>
 document.addEventListener("DOMContentLoaded", function () {
   const inputElements = document.querySelectorAll(".range-slider input");
