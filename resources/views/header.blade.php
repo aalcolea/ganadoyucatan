@@ -17,6 +17,18 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 	<title>@yield('title') Ganado Yucatan</title>
+    <meta name="description" content="¡Todo lo relacionado con la ganadería, bovinos y ranchos, todos en ganadoyucatan.com">
+    <meta name="keywords" content="ganaderia, bovinos, yucatan">
+    <meta property="og:description" content="Todo lo relacionado con la ganadería, bovinos y ranchos, todos en ganadoyucatan.com.">
+    <meta property="og:title" content="ganado yucatan">
+    <meta property="og:site_name" content="ganado yucatan">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.ganadoyucatan.com">
+    <meta name="robots" content="index, follow">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="language" content="Spanish">
+    <meta name="author" content="Ganado Yucatan">
+    <link rel="icon" type="image/png" href="{{url('/static/images/logo.png')}}"/>
 </head>
 <body>
 	@section('content')
