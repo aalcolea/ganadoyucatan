@@ -276,7 +276,7 @@
                         </div>
                         <hr>
                         <div class="card">
-                            <h4>Price Range Slider</h4>
+                            <h4>Rango de precio: $</h4>
 
                             <div class="price-content">
                                 <div>
@@ -292,8 +292,8 @@
 
                             <div class="range-slider">
                                 <div class="range-fill"></div>
-                                <input type="range" class="min-price" value="20000" min="20000" max="500000" step="10000" />
-                                <input type="range" class="max-price" value="50000" min="20000" max="500000" step="10000" />
+                                <input type="range" class="min-price" value="200000" min="20000" max="500000" step="10000" />
+                                <input type="range" class="max-price" value="300000" min="20000" max="500000" step="10000" />
                             </div>
                         </div>
                         <div class="align-center">

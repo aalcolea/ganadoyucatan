@@ -183,33 +183,72 @@
         <div class="information-product--container">
             <div class="container">
             <div class="parent">
-                    <div class="div1">@if(isset($images[1]))
-                        <img class="left" onclick="swapImages('div1')" src="{{ asset('uploads/subasta/'.$p->carpeta.'/'.$images[1]['img'].'.webp')}}" alt="Imagen 1">
+                    <div class="div1">@if(isset($images[0]))
+                        <img class="left" onclick="swapImages('div1')" src="{{ asset('uploads/subasta/'.$p->carpeta.'/'.$images[0]['img'].'.webp')}}" alt="Imagen 1">
                         @endif
                     </div>
                     <div class="div2">
-                        @if(isset($images[2]))
-                        <img class="left"  onclick="swapImages('div2')" src="{{ asset('uploads/subasta/'.$p->carpeta.'/'.$images[2]['img'].'.webp')}}" alt="Imagen 1">
+                        @if(isset($images[1]))
+                        <img class="left"  onclick="swapImages('div2')" src="{{ asset('uploads/subasta/'.$p->carpeta.'/'.$images[1]['img'].'.webp')}}" alt="Imagen 1">
                         @endif
                     </div>
                     <div class="div3">
-                        @if(isset($images[3]))
-                        <img class="left" onclick="swapImages('div3')" src="{{ asset('uploads/subasta/'.$p->carpeta.'/'.$images[3]['img'].'.webp')}}" alt="Imagen 1">
+                        @if(isset($images[2]))
+                        <img class="left" onclick="swapImages('div3')" src="{{ asset('uploads/subasta/'.$p->carpeta.'/'.$images[2]['img'].'.webp')}}" alt="Imagen 1">
                         @endif
                     </div>
                     <div class="div4">
+                        @if(isset($images[3]))
+                        <img class="left" onclick="swapImages('div4')" src="{{ asset('uploads/subasta/'.$p->carpeta.'/'.$images[3]['img'].'.webp')}}" alt="Imagen 1">
+                        @endif
+                    </div>
+                    <div class="div5">
+                        @if(isset($images[4]))
+                        <img class="left" onclick="swapImages('div5')" src="{{ asset('uploads/subasta/'.$p->carpeta.'/'.$images[4]['img'].'.webp')}}" alt="Imagen 1">
+                        @endif
+                    </div>
+                    <div class="div6">
+                        @if(isset($images[5]))
+                        <img class="left" onclick="swapImages('div6')" src="{{ asset('uploads/subasta/'.$p->carpeta.'/'.$images[5]['img'].'.webp')}}" alt="Imagen 1">
+                        @endif
+                    </div>
+                    <div class="div7">
+                        @if(isset($images[6]))
+                        <img class="left" onclick="swapImages('div7')" src="{{ asset('uploads/subasta/'.$p->carpeta.'/'.$images[6]['img'].'.webp')}}" alt="Imagen 1">
+                        @endif
+                    </div>
+                    <div class="div8">
+                        @if(isset($images[7]))
+                        <img class="left" onclick="swapImages('div8')" src="{{ asset('uploads/subasta/'.$p->carpeta.'/'.$images[7]['img'].'.webp')}}" alt="Imagen 1">
+                        @endif
+                    </div>
+                    <div class="div9">
+                        @if(isset($images[8]))
+                        <img class="left" onclick="swapImages('div9')" src="{{ asset('uploads/subasta/'.$p->carpeta.'/'.$images[8]['img'].'.webp')}}" alt="Imagen 1">
+                        @endif
+                    </div>
+                    <div class="div10">
+                        @if(isset($images[9]))
+                        <img class="left" onclick="swapImages('div10')" src="{{ asset('uploads/subasta/'.$p->carpeta.'/'.$images[9]['img'].'.webp')}}" alt="Imagen 1">
+                        @endif
+                    </div>
+                    <div class="div11">
+                        @if(isset($images[10]))
+                        <img class="left" onclick="swapImages('div11')" src="{{ asset('uploads/subasta/'.$p->carpeta.'/'.$images[10]['img'].'.webp')}}" alt="Imagen 1">
+                        @endif
+                    </div>
+                    <div class="div12">
+                        @if(isset($images[11]))
+                        <img class="left" onclick="swapImages('div12')" src="{{ asset('uploads/subasta/'.$p->carpeta.'/'.$images[11]['img'].'.webp')}}" alt="Imagen 1">
+                        @endif
+                    </div>
+                    <div class="div13">
                         <div class="right-container">
-                        <button class="fullscreen-button" onclick="openFullscreen()">
-                          <img width="24" height="24" src="https://img.icons8.com/fluency-systems-regular/48/fullscreen.png" alt="fullscreen"/>
-                          </button>
-                          <span class="close-button" onclick="closeFullscreen()">CERRAR</span>
-                       {{--  @else --}}
                             @if(isset($images[0]))
-                                <img class="left" onclick="swapImages('div4')"  src="{{asset('uploads/subasta/'.$p->carpeta.'/'.$images[0]['img'].'.webp')}}" alt="Imagen 1">
-                            <button class="fullscreen-button" onclick="openFullscreen()">
-                                <img width="24" height="24" src="https://img.icons8.com/fluency-systems-regular/48/fullscreen.png" alt="fullscreen"/>
-                            </button>
-                            <span class="close-button" onclick="closeFullscreen()">CERRAR</span>
+                                <img class="left" onclick="swapImages('div13')"  src="{{asset('uploads/subasta/'.$p->carpeta.'/'.$images[0]['img'].'.webp')}}" alt="Imagen 1">
+                                <button class="fullscreen-button" onclick="openFullscreen()">
+                                    <img width="24" height="24" src="https://img.icons8.com/fluency-systems-regular/48/fullscreen.png" alt="fullscreen"/>
+                                </button>
                             @endif
                         </div>
                     </div>
@@ -306,7 +345,7 @@
             </div>
             <p class="main-text">¡Haz tu mejor oferta!</p>
             <P class="secondary-text">Te recordamos que solo usuarios registrados pueden ofertar</P>
-            {!! Form::open(['url' => '/sendOffer/'.$p->id_producto, 'class' => 'form-contact-group', 'enctype' => 'multipart/form-data']) !!}
+            {!! Form::open(['url' => '/sendOffer/'.$p->id_producto, 'class' => 'form-contact-group', 'enctype' => 'multipart/form-data', 'id' => 'frmContactoT']) !!}
              @csrf
                 <hr>
                 <div class="form-group">
@@ -336,15 +375,43 @@
         modal.style.display = 'none';
     });
 
-/*    window.addEventListener('click', (event) => {
+    window.addEventListener('click', (event) => {
         if (event.target === modal) {
             modal.style.display = 'none';
         }
-    });*/
-
-    form.addEventListener('submit', (event) => {
-        event.preventDefault();
-        modal.style.display = 'none';
     });
+
+    // form.addEventListener('submit', (event) => {
+    //     event.preventDefault();
+    //     modal.style.display = 'none';
+    // });
+</script>
+<script>
+    function swapImages(divId) {
+        var clickedImageSrc = document.querySelector('.' + divId + ' img').src;
+        var largeImageSrc = document.querySelector('.div13 img').src;
+
+        // document.querySelector('.' + divId + ' img').src = largeImageSrc; // TODO: Reemplazaba la imagen clickeada con la del focus 
+        document.querySelector('.div13 img').src = clickedImageSrc;
+    }
+
+
+    function openFullscreen() {
+        var fullscreenImage = document.createElement('img');
+        fullscreenImage.classList.add('fullscreen-image');
+        fullscreenImage.classList.add('active');
+        fullscreenImage.src = document.querySelector('.right-container img').src;
+        fullscreenImage.onclick = closeFullscreen;
+
+        document.body.appendChild(fullscreenImage);
+    }
+
+    function closeFullscreen() {
+        var fullscreenImage = document.querySelector('.fullscreen-image');
+        if (fullscreenImage) {
+            fullscreenImage.remove();
+        }
+    }
+
 </script>
 @endsection
