@@ -26,8 +26,8 @@
                 <div class="menu-central">
                     <div class="menu-content">
                         <p>Publicación</p>
-                        <p class="click-menu" onclick="location.href='{{ url('/register') }}'">Crear tu cuenta</p>
-                        <p class="click-menu" onclick="location.href='{{url('/login')}}'">Ingresa</p>
+                        <p class="click-menu" onclick="location.href='{{ url('/register') }}'">Crea tu cuenta ganadero</p>
+                        <p class="click-menu" onclick="location.href='{{url('/login')}}'">Ingresa ganadero</p>
                     </div>
                     <div class="menu-content highlight">
                         <p>Servicios</p>
