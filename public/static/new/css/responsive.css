@@ -67,7 +67,7 @@
         display: none;
     }
     .nav-buttons{
-        bottom: 50%;
+        bottom: 0%;
         width: 100%;
         justify-content: space-between;
         right: 0;
@@ -189,6 +189,13 @@
     }
     .relationated-product-cards{
         grid-template-columns: repeat(1, 1fr);
+    }
+    .container-subastas{
+        padding-left: 1rem;
+    }
+    .nav-buttons-subasta{
+        margin-left: 0rem;
+        width: 100vw;
     }
 }
 
