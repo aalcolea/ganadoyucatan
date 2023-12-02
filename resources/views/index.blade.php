@@ -21,7 +21,7 @@
             <img class="social-icon" onclick="location.href='https://www.facebook.com/ganadoyucatan'" width="25" height="25" src="https://img.icons8.com/windows/50/ffffff/facebook-f--v2.png" alt="facebook-f--v2"/>
             <img class="social-icon" onclick="location.href='https://www.instagram.com/ganado_yuc/'"  width="25" height="25" src="https://img.icons8.com/ios/50/ffffff/instagram-new--v1.png" alt="instagram-new--v1"/>
         </div>
-        <div class="nav-buttons">
+        <div class="nav-buttons-main">
             <div class="prev-button"><</div>
             <div class="next-button">></div>
             <div class="next-label ">Siguiente</div>

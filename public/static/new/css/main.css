@@ -241,6 +241,14 @@ Carousel Section
     color: #5a382b;
     cursor: pointer;
 }
+.nav-buttons-main{
+    position: absolute;
+    bottom: 20px;
+    right:  50px;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+}
 .nav-buttons {
     position: absolute;
     bottom: 20px;
@@ -503,6 +511,7 @@ Footer
     background-size: contain;
 }
 .footer-right{
+    width: 50%;
     display: flex;
 }
 .publish{
@@ -513,6 +522,7 @@ Footer
     padding: 0;
 }
 .publish ul{
+    cursor: pointer;
     list-style: none;
 }
 .publish   li:nth-child(1),
@@ -521,6 +531,7 @@ Footer
     padding-bottom: .8rem;
 }
 .servicios ul{
+    cursor: pointer;
     list-style: none;
 }
 .footer-left{
@@ -906,6 +917,17 @@ Tienda products
 .banner-product--tienda{
     height: 40vh;
     background-image: url('../background/../background/_header-tianguis-ganadero.jpg');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+.banner-product--privacidad{
+    height: 40vh;
+    background-image: url('../background/../background/_header-noticias-2.jpg');
     background-size: cover;
     background-position: center;
     display: flex;
@@ -1356,4 +1378,36 @@ Styles of Modal of contact in stores
 .prev-button-subasta,
 .next-button-subasta{
     cursor: pointer;
+}
+/* Estilos de apartado de políticas de privacidad, cookies, etc. */
+.privacidad-container{
+    display: flex;
+    flex-direction: column;
+    padding: .5rem 4rem;
+}
+.privacidad-container h1{
+    width: 50%;
+    margin: 0 auto;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+.number{
+    list-style: auto;
+    padding-bottom: 1rem;
+}
+.black-dot{
+    list-style: disc;
+    padding-bottom: .5rem;
+}
+table{
+    border-collapse: collapse;
+    width: 100%;
+}
+th, td{
+    border: 1px solid #000;
+    padding: 8px;
+    text-align: left;
+}
+th{
+    background-color: #f2f2f2;
 }

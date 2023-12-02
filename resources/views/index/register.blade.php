@@ -131,6 +131,10 @@
                         <option value="5">Tabasco</option>
                     </select>
                 </div>
+                <div class="checkbox-privacidad">
+                <input type="checkbox" id="politicasPrivacidad" required>
+                    <label for="politicasPrivacidad">Acepto las <a href="/politicaPrivacidad" class="privacy-policy-link">políticas de privacidad</a></label>
+                </div>
                 <button class="mainButton" type="submit">Entrar</button>
             {!! Form::close() !!}
         </div>
