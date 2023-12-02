@@ -86,7 +86,6 @@ function handleAddImagesPart(files) {
         updateImagesView(image);
     })
     .catch(error => {
-        console.log('hola');
         console.error('Error:', error);
     });
     })

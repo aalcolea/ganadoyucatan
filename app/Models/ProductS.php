@@ -23,5 +23,11 @@ class ProductS extends Model
     public function owner(){
         return $this->hasOne(Persona::class, 'idpersona', 'vendedorid');
     }
+    public function images(){
+        return $this->hasMany(PSubGallery::class, 'productoid', 'id_producto');
+    }
+    public function ofertas(){
+        return $this->hasMany(Subasta::class, 'id_producto', 'id_producto');
+    }
     
 }

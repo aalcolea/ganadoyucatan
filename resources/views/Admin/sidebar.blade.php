@@ -106,7 +106,7 @@
                 <li><a class="treeview-item" href="{{url('/admin')}}/products/addNewCom"><i class="icon fa fa-circle-o"></i> Ganado Comercial
                 </a></li>
                 <?php } ?><?php if(Auth::user()->rolid == '1' || Auth::user()->rolid == '6'){ ?>
-                <li><a class="treeview-item" href="{{url('/admin')}}/products/addNewSub"><i class="icon fa fa-circle-o"></i> Subasta Ganaera
+                <li><a class="treeview-item" href="{{url('/admin')}}/products/addNewSub"><i class="icon fa fa-circle-o"></i> Subasta Ganadera
                 </a></li>
                 <?php } ?>
                 <?php if(Auth::user()->rolid == '1'){ ?>

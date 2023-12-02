@@ -240,7 +240,7 @@
                                     <button class="buttonTienda" onclick="location.href='<?= '/tienda/producto/'.$p->idproducto.'/'.$p->ruta; ?>'">Ver más</button>
                                 </div>
                                 <div class="card-description--footer">
-                                    <p>{{$p->categoria}}</p>
+                                    <p>{{$p->location->nombre}}</p>
                                 </div>
                             </div>
                         </div>

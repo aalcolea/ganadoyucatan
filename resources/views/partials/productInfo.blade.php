@@ -89,7 +89,6 @@ function handleAddImagesPart(files) {
         updateImagesView(image);
     })
     .catch(error => {
-        console.log('hola');
         console.error('Error:', error);
     });
     })
@@ -158,7 +157,7 @@ function updateImagesInputPart() {
                     </div>
                     <div class="form-group">
                       <label class="control-label">Enlance Youtube</label>
-                      <input class="form-control" id="txtLink" name="txtLink" type="text"value="{{$product->link}}" disabled>
+                      <input class="form-control" id="txtLink" name="txtLink" type="text"value="{{$product->link}}">
                     </div>
                     <div class="form-group">
                       <label class="control-label" for="estados">Estado:</label>

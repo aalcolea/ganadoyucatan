@@ -46,7 +46,7 @@
                       <thead>
                         <tr>
                           <th>Nombre</th>
-                          <th>Cantidad</th>
+                          <th>Visualizaciones</th>
                           <th>Oferta Actual:</th>
                           <th>En venta</th>
                           <th>Estatus</th>
@@ -59,8 +59,8 @@
                         @foreach($products as $p)
                           <tr>
                             <td>{{$p->nombre}}</td>
-                            <td>{{$p->stock}}</td>
-                            <td>{{$p->precio}}</td>
+                            <td>{{$p->visits->count()}}</td>
+                            <td>{{$p->ofertas->count()}}</td>
                             <td>@if($p->status == 1)<span class="badge badge-success">Abierta</span>@else <span class="badge badge-danger">Finalizada</span>@endif</td>
                             <td>{{$p->estatus}}</td>
                             <td>{{$p->rancho}}</td>
@@ -195,7 +195,6 @@
                         <div class="form-group col-md-6">
                         </div> 
                     </div>
-
                     <div class="row">
                         <div class="form-group col-md-6">
                             <label class="control-label">Precio minimo</label>
@@ -245,7 +244,7 @@
 <div class="modal fade" id="modalForSub" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog modal-lg" >
     <div class="modal-content">
-      <div class="modal-header headerRegister">
+      <div class="modal-header headerRegister" style="background:#c31b36;border-color:#c31b36;">
         <h5 class="modal-title" id="titleModal">Editar Producto</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>

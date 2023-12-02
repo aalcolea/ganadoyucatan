@@ -46,6 +46,7 @@ Route::get('/products/deleteComImage/{id}/{portada}', [ProductsController::class
 Route::get('/products/addNewSub', [ProductsController::class, 'getNewSub'])->name('getNewSub');
 Route::post('/products/addNewSub', [ProductsController::class, 'postNewSub'])->name('postNewSub');
 Route::get('/products/getSubInfo/{id}', [ProductsController::class, 'getSubEdit'])->name('getSubEdit');
+Route::post('/products/postsubtInfo/{id}', [ProductsController::class, 'postsubtInfo'])->name('postsubtInfo');
 Route::get('/products/deleteSub/{id}', [ProductsController::class, 'deleteSub'])->name('deleteSub');
 
 /*mensajes*/

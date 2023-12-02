@@ -353,7 +353,6 @@ function addImage(image) {
     newImage.style.marginBlockEnd = '5px';
     newImage.style.marginBlockStart = '5px';
     newImage.style.maxHeight =  '125';
-    //console.log('hola' + image);
     newImage.setAttribute('data-path', image.path);
     newImage.innerHTML = `
         <img style="width: 10rem; height: 7.5rem" src="{{ url('/') }}${image.url}" alt="Image">
