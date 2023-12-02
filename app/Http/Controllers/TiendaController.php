@@ -328,5 +328,7 @@ public function tiendaHome(Request $request){
             return back();
         }
     }
-    
+    public function getPoliticaPrivacidad(){
+        return view('politicaPrivacidad');
+    }
 }

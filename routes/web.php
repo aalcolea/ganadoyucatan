@@ -38,6 +38,7 @@ Route::get('/tianguis/producto/{id}', [TiendaController::class, 'tianguisProduct
 Route::get('/subastas', [TiendaController::class, 'getSubastas'])->name('getSubastas');
 Route::post('/sendOffer/{id}',  [TiendaController::class, 'sendOffer'])->name('sendOffer');
 Route::get('/subastas/{id}', [TiendaController::class, 'getSubasta'])->name('getSubasta');
+Route::get('/politicaPrivacidad', [TiendaController::class, 'getPoliticaPrivacidad']);
 
 /*ciudades*/
 Route::get('/get-estados', [TiendaController::class, 'getEstados']);
