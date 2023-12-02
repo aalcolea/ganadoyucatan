@@ -32,11 +32,22 @@ body {
     font-family: 'Poppins', sans-serif;
     overflow-x: hidden;
 }
+select{
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    width: 100%;
+}
+select option:hover{
+    background-color: #f0f0f0;
+    color: #333;
+}
 .container-register{
     width: 100vw;
     height: 100vh;
     display: flex;
     background-image: url('../background/_header-tianguis-genetica.jpg');
+    background-size: cover;
     align-items: center;
     justify-content: center;
 }
@@ -48,7 +59,7 @@ body {
     background-image: url('../Iconos/vacaroja.png');
     background-size: 200px 200px;
     background-repeat: no-repeat;
-    background-position-y: 240px;
+    background-position-y: 180px;
     background-position-x: 200px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
@@ -112,6 +123,22 @@ input::placeholder{
     color: white;
     border: 0;
     margin-top: 1rem;
+}
+.checkbox-privacidad{
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.checkbox-privacidad input{
+    width: 20%;
+}
+.checkbox-privacidad label{
+    font-size: var(--small);
+}
+.privacy-policy-link {
+    color: blue;
+    text-decoration: underline;
+    margin-left: 5px;
 }
 @media screen and (max-width: 767px) {
     .register-form{
