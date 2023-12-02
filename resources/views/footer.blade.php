@@ -17,6 +17,7 @@
                 <li onclick="location.href='{{ url('/register') }}'">Crea tu cuenta</li>
                 <li onclick="location.href='{{url('/login')}}'">Ingresa</li>
                 <li onclick="location.href='{{ url('/register') }}'">Publica aquí</li>
+                <li onclick="location.href='/politicaPrivacidad'">Políticas de privacidad</li>
             </ul>
         </div>
         <div class="servicios">
@@ -25,7 +26,7 @@
                 <li onclick="location.href='/tianguisTienda'">Tianguis ganadero</li>
                 <li onclick="location.href='/tienda'">Ganado Genetico</li>
                 <li onclick="location.href='/subastas'">Subasta</li>
-                <li>Noticias</li>
+                <li >Noticias</li>
             </ul>
         </div>
     </div>
