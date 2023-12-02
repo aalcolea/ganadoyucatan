@@ -183,7 +183,7 @@
                     <h1 class="content-publicidad">Espacio <br>publicitario</h1>
                     <button class="secondaryButton" id="openModal"  style="margin-left: 2rem;">Solicitar <br>publicidad</button>
                 </div>
-                <p class="title-container--cards" style="text-align: center;">Ganado Comercial</p>
+                <p class="title-container--cards" style="text-align: center;">Subasta ganadera</p>
                 <div class="container-normal">
                     <div class="carousel-subasta">
                     @foreach($products as $p)
