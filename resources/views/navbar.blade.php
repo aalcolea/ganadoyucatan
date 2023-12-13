@@ -4,6 +4,7 @@
         <p onclick="location.href='/tianguisTienda'">Ganado Comercial</p>
         <p onclick="location.href='/tienda'">Ganado genético</p>
         <p onclick="location.href='/subastas'">Subasta</p>
+        <p onclick="location.href='/recomendaciones'">Recomendaciones</p>
         <p onclick="location.href='{{ url('/register') }}'">Publicar gratis</p>
 
     </div>

@@ -331,4 +331,7 @@ public function tiendaHome(Request $request){
     public function getPoliticaPrivacidad(){
         return view('politicaPrivacidad');
     }
+    public function getRecomendaciones(){
+        return view('recomendaciones');
+    }
 }
