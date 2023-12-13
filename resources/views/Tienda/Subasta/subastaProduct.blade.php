@@ -260,8 +260,8 @@
                 <p class="description"></p>
                 <p class="info"></p>
                 <div class="contact-button">
-                     <button class="mainButtonB">Contacto</button>
-                     <a id="openModal" href="#">Hacer contacto <span>></span></a>
+                    <button class="mainButtonB" onclick="location.href='https://wa.me/+52<?= $p->owner->telefono; ?>'"><a href="https://wa.me/+52<?= $p->owner->telefono; ?>" style="color: white;">Contacto</a></button>
+                    <a id="openModal" href="#">Hacer contacto <span>></span></a>
                 </div>
             </div>
         </div>

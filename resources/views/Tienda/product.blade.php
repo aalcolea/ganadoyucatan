@@ -269,7 +269,7 @@
                 <p class="description">${{$p->precio}} MXN</p>
                 <p class="info">{{substr($p->descripcion, 0, 50)}}</p>
                 <div class="contact-button">
-                    <button class="mainButtonB">Contacto</button>
+					<button class="mainButtonB" onclick="location.href='https://wa.me/+52<?= $p->owner->telefono; ?>'"><a href="https://wa.me/+52<?= $p->owner->telefono; ?>" style="color: white;">Contacto</a></button>
                     <a id="openModal" href="#">Hacer contacto <span>></span></a>
                 </div>
             </div>
