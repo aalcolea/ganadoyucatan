@@ -18,6 +18,7 @@
                 <li onclick="location.href='{{url('/login')}}'">Ingresa</li>
                 <li onclick="location.href='{{ url('/register') }}'">Publica aquí</li>
                 <li onclick="location.href='/politicaPrivacidad'">Políticas de privacidad</li>
+                <li onclick="location.href='/recomendaciones'">Recomendaciones</li>
             </ul>
         </div>
         <div class="servicios">
