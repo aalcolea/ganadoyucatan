@@ -300,7 +300,7 @@
 <script>
 let imagesArray = [];
 let deletedImages = [];
-let maxFiles = 12;
+let maxFiles = 30;
 
   document.getElementById('agregar1').addEventListener('click', () => {
   let container = document.getElementById('image-container');

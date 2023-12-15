@@ -26,6 +26,7 @@ Route::post('/products/image-actionPart', [ProductsController::class, 'imageActi
 Route::post('/products/add-images', [ProductsController::class, 'addImages'])->name('product.add_images');
 Route::post('/products/image-actionCom', [ProductsController::class, 'imageActionPartCom'])->name('product.image_actionCom');
 Route::post('/products/add-imagesCom', [ProductsController::class, 'addImagesCom'])->name('product.add_imagesCom');
+Route::post('/products/add-imagesSub', [ProductsController::class, 'addImagesSub'])->name('product.add_imagesSub');
 
 /*----*/
 Route::get('products/getProductImages/{id}', [ProductsController::class, 'getProductImages'])->name('getProductImages');
@@ -48,6 +49,7 @@ Route::post('/products/addNewSub', [ProductsController::class, 'postNewSub'])->n
 Route::get('/products/getSubInfo/{id}', [ProductsController::class, 'getSubEdit'])->name('getSubEdit');
 Route::post('/products/postsubtInfo/{id}', [ProductsController::class, 'postsubtInfo'])->name('postsubtInfo');
 Route::get('/products/deleteSub/{id}', [ProductsController::class, 'deleteSub'])->name('deleteSub');
+Route::get('/products/deleteSubImage/{id}/{portada}', [ProductsController::class, 'deleteSubImage'])->name('deleteSubImage');
 
 /*mensajes*/
 Route::get('/mensajes', [ProductsController::class, 'getMensajesHome'])->name('mensajesHome');

@@ -420,6 +420,7 @@ class ProductsController extends Controller
             }
             $request->session()->forget('product_images');
             $request->session()->forget('product.imageCount');
+            $request->session()->increment('product.imageCount');
             $request->session()->forget('product.randomString');
             if($product->save()):
                 return redirect('/admin/products/addNewGen')->with('message', 'Producto agregado con exito al sistema')->with('typealert', 'success'); 
@@ -478,7 +479,46 @@ class ProductsController extends Controller
                 $image->delete();
             }
         }
-    }    
+    } 
+    public function deleteSubImage($id, $portada){
+        $product = ProductS::findOrfail($id);
+        $image = $product->portada;
+        
+        if($image == $portada){
+            $images = $product->images('productoid', $id)->get();
+            $image = $images->first(function ($image) use ($portada) {
+                return $image->img == $portada;
+            });
+            if($image){
+                if($image->delete()){
+                    $image = $product->images('productoid', $id)->first();
+                    if($image != null){
+                        $product->portada = $image->img;
+                        if($product->save()){
+
+                        }else{
+                            return back()->with('message', 'Error al actualizar la portada')->with('typealert', 'warning');
+                        }
+
+                    }else{
+                        $product->carpeta = 'default';
+                        $product->portada = 'default';
+                        $product->save(); 
+                    }
+                }else{
+                    echo "Error al eliminar imagen";
+                }
+            }
+        }else{
+            $images = $product->images('productoid', $id)->get();
+            $image = $images->first(function ($image) use ($portada){
+                return $image->img == $portada;
+            });
+            if($image){
+                $image->delete();
+            }
+        }
+    }   
     public function deleteComImage($id, $portada){
         $image = PTGallery::where('id_producto', $id)->where('ruta', $portada);
 
@@ -896,6 +936,7 @@ class ProductsController extends Controller
         }
         $request->session()->forget('product.imagesCom');
         $request->session()->forget('product.imageCountCom');
+        $request->session()->increment('product.imageCountCom');
         $request->session()->forget('product.randomStringCom');
         if ($id_producto) {
             return redirect('/admin/products/addNewCom')->with('message', 'Producto agregado con exito al sistema')->with('typealert', 'success'); 
@@ -997,6 +1038,51 @@ class ProductsController extends Controller
             $img = Image::make($uploadedImage->getRealPath()); //->resize(800, 600);
             $img->encode('webp', 10)->save($destinationPath);
             $image = new PGallery;
+            $image->productoid = $productId;
+            $image->img = $path;
+            $image->save();
+            $images[] = [
+                'path' => '/' . $webpPath,
+            ];
+        }
+    
+        /*$product->images()->createMany($images);*/
+    
+        return response()->json(['image' => ['path' => '/' . $webpPath]]);
+    }
+    public function addImagesSub(Request $request) {
+        $productId = $request->input('product_id');
+        //$dateFolder = $request->input('dataPath');
+        $product = ProductS::find($productId);
+        $dateFolder = $product->carpeta;
+        $name = substr($product->portada, 1, 14);
+        if (!$product) {
+            return response()->json(['error' => 'Producto no encontrado'], 404);
+        }
+        $uploadedImages = $request->file('uploaded_images');
+        $countUploadedImages = count($uploadedImages);
+        $images = [];
+        foreach ($uploadedImages as $uploadedImage) {
+            //$dateFolder = date('Y-m-d');
+            //$dateFolder = $request->input('dataPath');
+            $uploadPath = 'uploads/' . $dateFolder;
+            $filename = uniqid() . '.' . $uploadedImage->getClientOriginalExtension();
+    
+            if (!File::exists($uploadPath)) {
+                File::makeDirectory($uploadPath, 0755, true);
+            }
+            $newIndex =  rand(500, 1000);
+            for ($i = $newIndex; $i < $newIndex + $countUploadedImages; $i++) {
+                $path = $i . $name;
+
+            }
+            //$path = $filename;
+            $webpPath = $dateFolder . '/' . pathinfo($path, PATHINFO_FILENAME) . '.webp';
+            $destinationPath = Storage::disk('webp_images_sub')->path($webpPath);
+    
+            $img = Image::make($uploadedImage->getRealPath()); //->resize(800, 600);
+            $img->encode('webp', 10)->save($destinationPath);
+            $image = new PSubGallery;
             $image->productoid = $productId;
             $image->img = $path;
             $image->save();

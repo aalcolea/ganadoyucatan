@@ -269,7 +269,7 @@
 <script>
 let imagesArray = [];
 let deletedImages = [];
-let maxFiles = 12;
+let maxFiles = 30;
 
 function updateImagesInput() {
     let imagesInput = document.getElementById('images');

@@ -1,4 +1,126 @@
 {!!Form::open(['url'=> 'admin/products/postsubtInfo/'.$product->id_producto, 'files' => true, 'style' => 'padding: 0;'])!!}
+<script >
+  function handleDeleteImagePart(imagePath, id) {
+    let formData = new FormData();
+    formData.append('image_path', imagePath);
+    formData.append('action', 'delete');
+    formData.append('_token', '{{ csrf_token() }}');
+
+    fetch('{{ route('product.image_actionS') }}', {
+        method: 'POST',
+        body: formData
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+              let match = imagePath.match(/\d+-GYS-\d+-\w+/);
+              let portada = match ? match[0] : null;
+              let container = document.getElementById('image-containerDelete');
+              let imageWrapper = container.querySelector(`.image-wrapperDelete[data-path="${imagePath}"]`);
+                deleteImage = container.removeChild(imageWrapper);
+                
+                alert('deleteSubImage/' + id + '/' + portada)
+                if(deleteImage){
+                    $.ajax({
+                        type : 'GET',
+                        url: 'deleteSubImage/' + id + '/' + portada,
+                        success: function(response){
+                            swal({
+                            title: "Imagen Eliminada",
+                            text: "Imagen eliminada con éxito",
+                            icon: "success",
+                            buttons: true
+                            });
+                        }, error: function(xhr, status, error) {
+              
+                          }
+                    });
+                }
+                //imagesArray = imagesArray.filter(images => image.path !== imagePath);
+                
+            } else {
+                alert('Error al eliminar la imagen');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+}
+document.getElementById('add-imagesPart').addEventListener('click', () => {
+  let fileInput = document.getElementById('file-inputPart');
+  fileInput.click();
+});
+  document.getElementById('file-inputPart').addEventListener('change', (event) => {
+        let files = event.target.files;
+        let images = {{count($images)}};
+        if (images + files.length <= 30) {
+            //for (let i = 0; i < files.length; i++) {
+                //console.log(files);
+                handleAddImagesPart(files);
+            //}
+        }else {
+            alert('Has alcanzado el límite máximo(30) de imágenes permitidas.');
+        }
+    });
+
+function handleAddImagesPart(files) {
+    let filesArray = [...files];
+
+    filesArray.forEach(file => {
+    let formData = new FormData();
+    formData.append('_token', '{{ csrf_token() }}');
+    formData.append('product_id', {{ $product->id_producto }});
+    formData.append('dataPath', {{$product->carpeta}});
+        
+        formData.append('uploaded_images[]', file);
+    
+    fetch('{{ route('product.add_imagesSub') }}', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => { 
+        let image = {
+                path: data.image.path,
+                url: '/uploads' + data.image.path
+        };
+        console.log(image);
+        updateImagesView(image);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+    })
+
+}
+
+function updateImagesView(image) {
+    let container = document.getElementById('image-containerDelete');
+    //newImages.forEach(image => {
+        let newImage = document.createElement('div');
+        newImage.setAttribute('class', 'image-wrapperDelete');
+        newImage.style.position = 'relative';
+        newImage.style.marginInlineEnd = '10px';
+        newImage.style.marginBlockEnd = '5px';
+        newImage.style.marginBlockStart = '5px';
+        newImage.style.maxHeight = '125';
+        newImage.setAttribute('data-path', image.path);
+        newImage.innerHTML = `
+            <img style="width: 10rem; height: 7.5rem" src="{{ url('/') }}${image.url}" alt="Image">
+            <button type="button" class="delete-image" style="position: absolute;top: 0;right: 0;width: 30px;height: 30px;background-color: #f3395b;border-radius: 50%;color: white;font-size: 18px;text-align: center;line-height: 27px;vertical-align: middle;cursor: pointer;border: none;" data-path="${image.path}">&#x2715;</button>
+            `;
+
+        container.appendChild(newImage);
+    //});
+    imagesArrayPart = imagesArrayPart.concat(newImages);
+    updateImagesInputPart();
+}
+
+function updateImagesInputPart() {
+    let imagesInput = document.getElementById('images');
+    imagesInput.value = JSON.stringify(imagesArrayPart);
+}
+</script>
           {{-- <form id="formProductos" name="formProductos" class="form-horizontal" action="{{url('admin/products/addNewGen')}}" method="POST" style="padding: 0;"> --}}
               @csrf
               <input type="hidden" id="idProducto" name="idProducto" value="{{$product->idproducto}}">
@@ -141,7 +263,7 @@
                     @foreach($images as $image)
                         <div class="image-wrapperDelete" data-path="{{ $image['path'] }}" style="position: relative; margin-inline-end: 10px; margin-block: 5px; border: 3px inset rgb(162, 80, 255); border-radius: 5px;">
                             <img style="width: 10rem;height: 7.5rem;" src="{{ $image['url'] }}" alt="imagen">
-                            <button type="button"  data-path="{{ $image['path'] }}" style=" position: absolute;top: 0;right: 0;width: 30px;height: 30px;background-color: #f3395b;border-radius: 50%;color: white;font-size: 18px;text-align: center;line-height: 27px;vertical-align: middle;cursor: pointer;border: none;" {{-- onclick="handleDeleteImagePart('{{ $image['path'] }}', {{$product->id_producto}})" --}}>X</button>
+                            <button type="button"  data-path="{{ $image['path'] }}" style=" position: absolute;top: 0;right: 0;width: 30px;height: 30px;background-color: #f3395b;border-radius: 50%;color: white;font-size: 18px;text-align: center;line-height: 27px;vertical-align: middle;cursor: pointer;border: none;" onclick="handleDeleteImagePart('{{ $image['path'] }}', {{$product->id_producto}})">X</button>
                         </div>
                     @endforeach
 
