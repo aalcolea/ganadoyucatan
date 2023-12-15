@@ -162,9 +162,18 @@
         <p class="interest">Más ganado que te podría interesar</p>
         <div class="relationated-product-cards">
             @for ($index = 0; $index <= 5; $index++)
-                @if (isset($random[$index]))
+            @if (isset($random[$index]))
+                @php
+                    $found = false;
+                @endphp
+                @for($index2 = 0; $index2 < $imagesRandom->count(); $index2++)
+                @if($imagesRandom[$index2]['id_producto'] == $random[$index]['idproducto'] && !$found)
+                    @php
+                        //echo $imagesRandom[$index2]['ruta'];
+                        $found = true;
+                    @endphp
                 <div class="card-relationated">
-                    <img class="img-products" src="{{ asset('uploads/tianguis/'.$random[$index]->imagen.'/'.$imagesRandom[$index]['ruta'].'.webp') }}" alt="" srcset="">
+                    <img class="img-products" src="{{ asset('uploads/tianguis/'.$random[$index]->imagen.'/'.$imagesRandom[$index2]['ruta'].'.webp') }}" alt="" srcset="">
                     <div class="card-description">
                         <div class="icons">
                             {{-- <img src="{{ asset('static/new/Iconos/pinestrella.png') }}" alt="">
@@ -179,6 +188,8 @@
                     </div>
                 </div>
                 @endif
+                @endfor
+            @endif
             @endfor
             @if (is_null($random))
                 <p>Por el momento no existen elementos para mostrar</p>
