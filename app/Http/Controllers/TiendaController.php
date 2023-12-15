@@ -204,13 +204,14 @@ public function tiendaHome(Request $request){
         }
         $product = $product[0];
         $images = PTGallery::where('id_producto', $id)->get();
+        $imagesRandom = PTGallery::whereNot('id_producto', $id)->get();
         Visits::create([
             'ip' => request()->ip(),
             'idproducto' => $id,
             'fecha' => date('Y-m-d h:i:s'),
             'vendedorid' => $product['vendedorid'],
             'type' => 'com']);
-        $data = ['product' => $product, 'images' => $images, 'random' => $random];
+        $data = ['product' => $product, 'images' => $images, 'random' => $random, 'imagesRandom' => $imagesRandom];
         return view('Tienda.Tianguis.tianguisProduct', $data);
     }
     public function getSubastas(){

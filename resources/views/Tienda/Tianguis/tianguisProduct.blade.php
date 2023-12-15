@@ -164,7 +164,7 @@
             @for ($index = 0; $index <= 5; $index++)
                 @if (isset($random[$index]))
                 <div class="card-relationated">
-                    <img class="img-products" src="{{ asset('uploads/'.$random[$index]->carpeta.'/'.$random[$index]->portada.'.webp') }}" alt="" srcset="">
+                    <img class="img-products" src="{{ asset('uploads/tianguis/'.$random[$index]->imagen.'/'.$imagesRandom[$index]['ruta'].'.webp') }}" alt="" srcset="">
                     <div class="card-description">
                         <div class="icons">
                             {{-- <img src="{{ asset('static/new/Iconos/pinestrella.png') }}" alt="">
@@ -173,7 +173,7 @@
                         </div>
                         <div class="card-description--info">
                             <p class="raza">{{$random[$index]->nombre}}</p>
-                            <p class="description" >{{$random[$index]->nombre}}</p>
+                            <p class="description" >{{$random[$index]->precio}}</p>
                             <button class="secondaryButton" onclick="location.href='/tianguis/producto/{{$random[$index]->idproducto}}'">Ver más</button>
                         </div>
                     </div>
