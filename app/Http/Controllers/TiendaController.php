@@ -335,4 +335,7 @@ public function tiendaHome(Request $request){
     public function getRecomendaciones(){
         return view('recomendaciones');
     }
+    public function getSuscripcion(){
+        return view('suscripcion');
+    }
 }

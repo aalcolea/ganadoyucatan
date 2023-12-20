@@ -76,7 +76,7 @@
                     <p>Su suscripción ha vencido. Por favor, renuévela para seguir disfrutando de los beneficios que Ganado Yucatán Peninsular tiene para usted.</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
+                    <button onclick="location.href='/suscripcion'" type="button" class="btn btn-primary" data-bs-dismiss="modal">Suscribirme</button>
                 </div>
             </div>
         </div>

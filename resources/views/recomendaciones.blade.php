@@ -6,7 +6,7 @@
     </div>
     <div class="container-product--Main">
         <div class="route">
-            <p>Inicio<span>></span></p><p>Ganado genético</p><span>></span><p>Recomendaciones</p>
+            <p>Inicio<span>></span><p>Recomendaciones</p>
         </div>
         <div class="privacidad-container">
             <h1 class='Title'>Recomendaciones de uso, plataforma Ganado Yucatán</h1>
@@ -33,7 +33,5 @@
             <p>¡Muchas gracias por tu atención!</p>
         </div>
     </div>
-
-
-
+</div>
 @endsection

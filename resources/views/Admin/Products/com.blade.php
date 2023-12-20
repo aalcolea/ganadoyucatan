@@ -47,7 +47,7 @@
                           <th>Nombre</th>
                           <th>Cantidad</th>
                           <th>Precio</th>
-                          <th>Raza</th>
+                          <!-- <th>Raza</th> -->
                           <th>Tipo</th>
                           <th>Rancho</th>
                           <th>Visualizaciones</th>
@@ -60,7 +60,7 @@
                             <td>{{$p->nombre}}</td>
                             <td>{{$p->stock}}</td>
                             <td>{{$p->precio}}</td>
-                            <td>{{$p->raza}}</td>
+                            <!-- <td>{{$p->raza}}</td> -->
                             <td>{{$p->tipo}}</td>
                             <td>{{$p->rancho}}</td>
                             <td>{{$p->visits->count()}}</td>
@@ -148,7 +148,7 @@
                             <label class="control-label">Nombre del rancho</label>
                             <input class="form-control" maxlength="50" id="txtRancho" name="txtRancho" type="text" >
                         </div>
-                         <div class="form-group col-md-6">
+                         <!-- <div class="form-group col-md-6">
                             <label class="control-label">Raza</label>
                             <select class="form-control selectpicker" id="txtRaza" name="txtRaza" >
                               <option value="Brahman rojo">Brahman rojo</option>
@@ -179,7 +179,7 @@
                               <option value="Belgian Blue">Belgian Blue</option>
                               <option value="Braford">Braford</option>
                             </select>
-                        </div>
+                        </div> -->
                        <div class="form-group col-md-6">
                             <label class="control-label" for="listVacu">Vacunado</label>
                             <select class="form-control selectpicker" id="listVacu" name="listVacu">
@@ -221,6 +221,8 @@
                                 <option value="Vaca Semiterminada">Vaca Semiterminada</option>
                                 <option value="Toro Semiterminado">Toro Semiterminado</option>
                                 <option value="Toro Castrado">Toro Castrado</option>
+                               <option value="pie de cria">pie de cria</option>
+                               <option value="novillonas para empadre">novillonas para empadre</option>
                             </select>
                         </div> 
                     </div>
