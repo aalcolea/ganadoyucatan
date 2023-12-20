@@ -42,6 +42,7 @@ Route::get('/politicaPrivacidad', [TiendaController::class, 'getPoliticaPrivacid
 Route::get('/recomendaciones', [TiendaController::class, 'getRecomendaciones']);
 Route::get('/suscripcion', [TiendaController::class, 'getSuscripcion']);
 
+
 /*ciudades*/
 Route::get('/get-estados', [TiendaController::class, 'getEstados']);
 Route::get('/get-ciudades-by-estado/{estadoId}', [TiendaController::class, 'getCiudadesByEstado']);

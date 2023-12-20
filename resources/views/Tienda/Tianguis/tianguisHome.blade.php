@@ -256,22 +256,22 @@
                         <div class="label-dropdown">
                             <select class="form-control selectpicker" id="lisTipo" name="lisTipo" >
 								<option value="" selected disabled hidden>Seleccione un tipo</option>
-								<option value="Destetes">Destetes</option>
-								<option value="Novillas">Novillas</option>
-								<option value="Ternero">Ternero</option>
-								<option value="Toro de engorda">Toro de engorda</option>
-								<option value="Vaca de engorda">Vaca de engorda</option>
-								<option value="Vaquillona">Vaquillona</option>
-								<option value="Vaquillonas preñadas">Vaquillonas preñadas</option>
-								<option value="Ganado para matadero">Ganado para matadero</option>
-								<option value="Vaca terminada<">Vaca terminada</option>
-								<option value="Toro terminado">Toro terminado</option>
-								<option value="Novillonas de registro">Novillonas de registro</option>
-								<option value="Novillonas preñada">Novillonas preñadas</option>
-								<option value="Toro para cebar">Toro para cebar</option>
-								<option value="Vaca para cebar">Vaca para cebar</option>
-								<option value="Vaca Semiterminada">Vaca Semiterminada</option>
-								<option value="Toro Semiterminado">Toro Semiterminado</option>
+                                <option value="Novillas">Novillas</option>
+                                <option value="Ternero">Ternero</option>
+                                <option value="Toro de engorda">Toro de engorda</option>
+                                <option value="Vaca de engorda">Vaca de engorda</option>
+                                <option value="Vaquillona">Vaquillona</option>
+                                <option value="Vaquillonas preñadas">Vaquillonas preñadas</option>
+                                <option value="Ganado para matadero">Ganado para matadero</option>
+                                <option value="Vaca terminada<">Vaca terminada</option>
+                                <option value="Toro terminado">Toro terminado</option>
+                                <option value="Novillonas de registro">Novillonas de registro</option>
+                                <option value="Novillonas preñada">Novillonas preñadas</option>
+                                <option value="Toro para cebar">Toro para cebar</option>
+                                <option value="Vaca para cebar">Vaca para cebar</option>
+                                <option value="Vaca Semiterminada">Vaca Semiterminada</option>
+                                <option value="Toro Semiterminado">Toro Semiterminado</option>
+                                <option value="Toro Castrado">Toro Castrado</option>
 							</select>
                         </div>
                         <hr>
@@ -374,8 +374,8 @@
         </div>
         <p class="main-text">Contáctanos</p>
         <P class="secondary-text">Ponte en contacto con nosotros</P>
-		<form action="" id="frmContactoT">
-			<input class="" type="text" id="vendedorid" name="vendedorid" value="" style="display: none;">
+        {!! Form::open(['url' => '/contactInfo', 'id' => 'frmContactoT', 'enctype' => 'multipart/form-data']) !!}
+             @csrf
 			<hr>
 			<div class="form-group">
 				<label for="name">Nombre:</label>
@@ -389,8 +389,8 @@
 				<label for="message">Mensaje:</label>
 				<textarea id="message" name="message" rows="4" required></textarea>
 			</div>
-			<button class="mainButtonC" type="submit">Enviar</button>
-		</form>
+            <button class="mainButtonC" type="submit">Enviar mensaje</button>
+        {!! Form::close() !!}
     </div>
 </div>
 <!-- <script>

@@ -103,7 +103,7 @@
 
     <div class="container-register">
         <div class="register-form">
-            <img onclick="location.href='https://ganadoyucatan.com/'" src="{{url('/static/new/iconos/logo-red.png')}}" alt="">
+            <img onclick="location.href='https://ganadoyucatan.com/'" src="{{url('/static/new/Iconos/logo-red.png')}}" alt="">
             <p class="main-text">TE DAMOS LA BIENVENIDA <br>GANADERO</p>
             <P class="secondary-text">Disfuta de los beneficios de tu suscripción anual</P>
              {!! Form::open(['url' => '/register', 'class' => 'sign-up-form form', 'enctype' => 'multipart/form-data', 'id' => 'formRegister']) !!}
@@ -127,6 +127,8 @@
                         <option selected value="1">Yucatan</option>
                         <option value="2">Campeche</option>
                         <option value="3">Quintana Roo</option>
+                        <option value="4">Chiapas</option>
+                        <option value="5">Tabasco</option>
                     </select>
                 </div>
                 <div class="checkbox-privacidad">

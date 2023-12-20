@@ -83,7 +83,7 @@ class ConnectController extends Controller
                 $user->foto = null;
             }
             if($user->save()){
-                if(Auth::attempt(['email_user' => $request->input('email'), 'password' => $request->input('password')], true)){
+                if(Auth::attempt(['email_user' => $request->input('telefono'), 'password' => $request->input('password')], true)){
                    return redirect('/admin/products/home');
                 }
             }else{

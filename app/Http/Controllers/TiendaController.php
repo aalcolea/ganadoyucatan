@@ -191,26 +191,27 @@ public function tiendaHome(Request $request){
     public function tianguisProducto($id){
         $product = ProductT::where('idproducto', $id)->get();
         $random = ProductT::where('status', '2')->whereNot('idproducto', $id)->get();
-        if ($random->count() >= 4) {
+        if ($random->count() >= 6) {
+            $random = ProductT::where('status', '2')->whereNot('idproducto', $id)->get()->random(6);
+        }else if($random->count() == 5){
+            $random = ProductT::where('status', '2')->whereNot('idproducto', $id)->get()->random(5);
+        }else if($random->count() == 4){
             $random = ProductT::where('status', '2')->whereNot('idproducto', $id)->get()->random(4);
         }else if($random->count() == 3){
-            $random = ProductT::where('status', '2')->whereNot('idproducto', $id)->get()->random(3);
-        }else if($random->count() == 2){
-            $random = ProductT::where('status', '2')->whereNot('idproducto', $id)->get()->random(2);
-        }else if($random->count() == 1){
             $random = ProductT::where('status', '2')->whereNot('idproducto', $id)->get();
         }else{
            $random = null;
         }
         $product = $product[0];
         $images = PTGallery::where('id_producto', $id)->get();
+        $imagesRandom = PTGallery::whereNot('id_producto', $id)->get();
         Visits::create([
             'ip' => request()->ip(),
             'idproducto' => $id,
             'fecha' => date('Y-m-d h:i:s'),
             'vendedorid' => $product['vendedorid'],
             'type' => 'com']);
-        $data = ['product' => $product, 'images' => $images, 'random' => $random];
+        $data = ['product' => $product, 'images' => $images, 'random' => $random, 'imagesRandom' => $imagesRandom];
         return view('Tienda.Tianguis.tianguisProduct', $data);
     }
     public function getSubastas(){

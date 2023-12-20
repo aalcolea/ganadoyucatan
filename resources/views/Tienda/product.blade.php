@@ -342,7 +342,7 @@
             	        </div>
             	        <div class="card-description--info">
             	            <p class="raza">{{$random[$index]->nombre}}</p>
-            	            <p class="description" >{{$random[$index]->nombre}}</p>
+            	            <p class="description" >{{$random[$index]->precio}}</p>
             	            <button class="secondaryButton" onclick="location.href='/tienda/producto/{{$random[$index]->idproducto}}/{{$random[$index]->ruta}}'">Ver más</button>
             	        </div>
             	    </div>

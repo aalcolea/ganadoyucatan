@@ -50,7 +50,7 @@
                           <!-- <th>Raza</th> -->
                           <th>Tipo</th>
                           <th>Rancho</th>
-                          <th>Peso</th>
+                          <th>Visualizaciones</th>
                           <th>Acciones</th>
                         </tr>
                       </thead>
@@ -63,7 +63,7 @@
                             <!-- <td>{{$p->raza}}</td> -->
                             <td>{{$p->tipo}}</td>
                             <td>{{$p->rancho}}</td>
-                            <td>{{$p->peso}}</td>
+                            <td>{{$p->visits->count()}}</td>
                             <td><button style="background-color:#425b28;border-color: #425b28;" class="btn btn-info btn-sm" onclick="openProductInNewTab('{{$p->idproducto}}')" target="_blank" title="Ver producto"><i style="color:white;" class="far fa-eye"></i></button><button class="btn btn-primary  btn-sm editProductBtn" data-id="{{$p->idproducto}}" id="editProduct" title="Editar producto"><i class="fas fa-pencil-alt"></i></button><a href="{{ route('deleteCom', $p->idproducto) }}" class="btn btn-danger" title="Eliminar producto" onclick="confirmation(event)"><i class="far fa-trash-alt"></i></a></td>
                           </tr>
                         @endforeach
@@ -98,7 +98,7 @@
                     </div>
                     <div class="form-group">
                       <label class="control-label">Enlance Youtube</label>
-                      <input class="form-control" id="txtLink" name="txtLink" type="text" disabled>
+                      <input class="form-control" id="txtLink" name="txtLink" type="text">
                     </div>
                     <div class="form-group">
                       <label class="control-label" for="estados">Estado:</label>
@@ -203,15 +203,26 @@
                         </div> 
                         <div class="form-group col-md-6">
                             <label class="control-label" class="control-label">Tipo</label>
-                            <select class="form-control selectpicker" id="txtTipo" name="txtTipo" >
-                              <option value="Toro">Toro</option>
-                              <option value="Torete">Torete</option>
-                              <option value="Novillonas de registro puro">Novillonas de registro puro</option>
-                              <option value="Destetes de resgistro puro">Destetes de resgistro puro </option>
-                              <option value="Semental joven">Semental joven</option>
-                              <option value="Semental">Semental</option>
-                              <option value="pie de cria">pie de cria</option>
-                              <option value="novillonas para empadre">novillonas para empadre</option>
+                                <select class="form-control selectpicker" id="lisTipo" name="lisTipo" >
+                                <option value="Destetes">Destetes</option>
+                                <option value="Novillas">Novillas</option>
+                                <option value="Ternero">Ternero</option>
+                                <option value="Toro de engorda">Toro de engorda</option>
+                                <option value="Vaca de engorda">Vaca de engorda</option>
+                                <option value="Vaquillona">Vaquillona</option>
+                                <option value="Vaquillonas preñadas">Vaquillonas preñadas</option>
+                                <option value="Ganado para matadero">Ganado para matadero</option>
+                                <option value="Vaca terminada<">Vaca terminada</option>
+                                <option value="Toro terminado">Toro terminado</option>
+                                <option value="Novillonas de registro">Novillonas de registro</option>
+                                <option value="Novillonas preñada">Novillonas preñadas</option>
+                                <option value="Toro para cebar">Toro para cebar</option>
+                                <option value="Vaca para cebar">Vaca para cebar</option>
+                                <option value="Vaca Semiterminada">Vaca Semiterminada</option>
+                                <option value="Toro Semiterminado">Toro Semiterminado</option>
+                                <option value="Toro Castrado">Toro Castrado</option>
+                               <option value="pie de cria">pie de cria</option>
+                               <option value="novillonas para empadre">novillonas para empadre</option>
                             </select>
                         </div> 
                     </div>
@@ -291,7 +302,7 @@
 <script >
 let imagesArray = [];
 let deletedImages = [];
-let maxFiles = 12;
+let maxFiles = 30;
 
 function updateImagesInput() {
     let imagesInput = document.getElementById('images');

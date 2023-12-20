@@ -10,4 +10,7 @@ class PSubGallery extends Model
     use HasFactory;
          protected $table = 'imagens';
          public $timestamps = false;
+    public function product() {
+        return $this->belongsTo(ProductS::class, 'productoid', 'id_producto');
+    }
 }

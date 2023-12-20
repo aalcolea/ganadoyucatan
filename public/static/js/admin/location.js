@@ -5,7 +5,7 @@ $(document).ready(function () {
     dataType: "json",
     success: function (data) {
       $("#estados").empty();
-      $("#estados").append('<option value="">Seleccione un Estado</option>');
+      $("#estados").append('<option value="1">Seleccione un Estado</option>');
       $.each(data, function (key, value) {
         $("#estados").append(
           '<option value="' + value.id + '">' + value.nombre + "</option>"

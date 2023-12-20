@@ -372,6 +372,9 @@ class ProductsController extends Controller
             $premium = ['destacado' => $destacado,
             'premium' => $premium1];
             $premium = json_encode($premium);
+            if($ciudad == ''){
+                $ciudad = 1;
+            }
 
             $product = new Product;
 
@@ -417,6 +420,7 @@ class ProductsController extends Controller
             }
             $request->session()->forget('product_images');
             $request->session()->forget('product.imageCount');
+            $request->session()->increment('product.imageCount');
             $request->session()->forget('product.randomString');
             if($product->save()):
                 return redirect('/admin/products/addNewGen')->with('message', 'Producto agregado con exito al sistema')->with('typealert', 'success'); 
@@ -475,7 +479,46 @@ class ProductsController extends Controller
                 $image->delete();
             }
         }
-    }    
+    } 
+    public function deleteSubImage($id, $portada){
+        $product = ProductS::findOrfail($id);
+        $image = $product->portada;
+        
+        if($image == $portada){
+            $images = $product->images('productoid', $id)->get();
+            $image = $images->first(function ($image) use ($portada) {
+                return $image->img == $portada;
+            });
+            if($image){
+                if($image->delete()){
+                    $image = $product->images('productoid', $id)->first();
+                    if($image != null){
+                        $product->portada = $image->img;
+                        if($product->save()){
+
+                        }else{
+                            return back()->with('message', 'Error al actualizar la portada')->with('typealert', 'warning');
+                        }
+
+                    }else{
+                        $product->carpeta = 'default';
+                        $product->portada = 'default';
+                        $product->save(); 
+                    }
+                }else{
+                    echo "Error al eliminar imagen";
+                }
+            }
+        }else{
+            $images = $product->images('productoid', $id)->get();
+            $image = $images->first(function ($image) use ($portada){
+                return $image->img == $portada;
+            });
+            if($image){
+                $image->delete();
+            }
+        }
+    }   
     public function deleteComImage($id, $portada){
         $image = PTGallery::where('id_producto', $id)->where('ruta', $portada);
 
@@ -484,11 +527,17 @@ class ProductsController extends Controller
     
     public function getSubEdit($id){
         $product = ProductS::find($id);
-        return view('partials.subInfo', compact('product'));
+        $fechaCierre = \Carbon\Carbon::parse($product->fechaCierre)->toDateString();
+        $images = $product->images->map(function($image) {
+            return [
+                'path' => '/'.$image->product->carpeta.'/'.$image->img.'.webp',
+                'url' => asset('uploads/subasta/' . $image->product->carpeta . '/' . $image->img . '.webp')
+            ];
+        });
+        return view('partials.subInfo', compact('product', 'fechaCierre', 'images'));
     }
     public function getComEdit($id){
-        $product = ProductT::findOrfail($id);    
-        //dd($product->portada)
+        $product = ProductT::findOrfail($id); 
         $images = $product->portada->map(function($image) {
             return [
                 'path' => '/'.$image->product->imagen.'/'.$image->ruta. '.webp',
@@ -686,10 +735,10 @@ class ProductsController extends Controller
             $finFecha = $request->input('fecha_fin');
             $finHora = $request->input('hora_fin');
             $fecha = $finFecha.' '.$finHora;
+            $estatus = $request->input('listEstatus');
             
 
             $product = new ProductS;
-
             $product->nombre = $nombre;
             $product->portada = $portada;
             $product->descripcion = $descripcion;
@@ -714,6 +763,7 @@ class ProductsController extends Controller
             $product->fechaCierre = $fecha;
             $product->fechaCreado = date('Y-m-d H:i:s');
             $product->status = '1';
+            $product->estatus = $estatus;
             $product->save();
             if(count($images) > 1) {
                 for ($i = 0; $i < count($images); $i++) {
@@ -742,10 +792,83 @@ class ProductsController extends Controller
             if($product->save()){
                 return redirect('/admin/products/addNewSub');
             }else{
-                echo "hola";
+                return redirect('/admin/products/addNewSub')->with('message', 'Error en el proceso')->with('typealert', 'danger');
             }
             
         }
+    }
+    public function postsubtInfo(Request $request, $id){
+        $rules = [
+            'txtNombre' => 'required',
+            'txtDescripcion' => 'required'
+        ];
+        $messages = [
+            'txtNombre.required' => 'Nombre de producto obligatorio',
+            'txtDescripcion.required' => 'Por favor agregue una descripcion'
+        ];
+
+        $validator = Validator::make($request->all(), $rules, $messages);
+        if($validator->fails()){
+            return back()->withErrors($validator)->with('message', 'Se ha producido un error')->with('typealert', 'danger')->withInput();
+        }else{
+            
+            $nombre = e($request->input('txtNombre'));
+            $descripcion = e($request->input('txtDescripcion'));
+            $stock = $request->input('txtStock');
+            $tipo = $request->input('txtTipo');
+            $date = date('Y-m-d H:i:s');
+            $rancho = e($request->input('txtRancho'));
+            $peso = e($request->input('txtCodigo'));
+            $vacunado = $request->input('listVacu');
+            $arete = $request->input('listArete');
+            $certificado = $request->input('listCert');
+            $ytlin = e($request->input('txtLink'));
+            $estado = $request->input('estados'); 
+            $ciudad = $request->input('ciudades'); 
+            $comisaria = $request->input('comisarias');
+            $destacado = $request->input('destacado');
+            $premium1 = $request->input('premium');
+            $edad = e($request->input('txtEdad')); 
+            $premium = ['destacado' => $destacado,
+            'premium' => $premium1];
+            $premium = json_encode($premium);
+            $min = e($request->input('min'));
+            $max = e($request->input('max'));
+            $finFecha = $request->input('fecha_fin');
+            $finHora = $request->input('hora_fin');
+            $fecha = $finFecha.' '.$finHora;
+            $estatus = $request->input('listEstatus');
+            $status = $request->input('listStatus');
+
+            $product = ProductS::find($id);
+            $product->nombre = $nombre;
+            $product->descripcion = $descripcion;
+            $product->cantidad = $stock;
+            $product->tipo = $tipo;
+            $product->rancho = $rancho;
+            $product->peso = $peso;
+            $product->vacunado = $vacunado;
+            $product->arete = $arete;
+            $product->certificado = $certificado;
+            $product->yt = $ytlin;
+            $product->estado = $estado;
+/*            $product->ciudad = $ciudad;
+            $product->municipio = $comisaria;*/
+            /*$product->premium = $premium;*/
+            $product->edad = $edad;
+            $product->precioMin = $min;
+            $product->precioMax = $max;
+            $product->fechaCierre = $fecha;
+            $product->fechaCreado = date('Y-m-d H:i:s');
+            $product->estatus = $estatus;
+            $product->status = $status;
+            $product->save();
+            
+            if($product->save()){
+                return redirect('/admin/products/addNewSub')->with('message', 'Producto editado con exito en el sistema')->with('typealert', 'success'); 
+            }
+        }
+
     }
     public function postNewCom(Request $request){
         $imagesJson = $request->input('images');
@@ -813,6 +936,7 @@ class ProductsController extends Controller
         }
         $request->session()->forget('product.imagesCom');
         $request->session()->forget('product.imageCountCom');
+        $request->session()->increment('product.imageCountCom');
         $request->session()->forget('product.randomStringCom');
         if ($id_producto) {
             return redirect('/admin/products/addNewCom')->with('message', 'Producto agregado con exito al sistema')->with('typealert', 'success'); 
@@ -914,6 +1038,51 @@ class ProductsController extends Controller
             $img = Image::make($uploadedImage->getRealPath()); //->resize(800, 600);
             $img->encode('webp', 10)->save($destinationPath);
             $image = new PGallery;
+            $image->productoid = $productId;
+            $image->img = $path;
+            $image->save();
+            $images[] = [
+                'path' => '/' . $webpPath,
+            ];
+        }
+    
+        /*$product->images()->createMany($images);*/
+    
+        return response()->json(['image' => ['path' => '/' . $webpPath]]);
+    }
+    public function addImagesSub(Request $request) {
+        $productId = $request->input('product_id');
+        //$dateFolder = $request->input('dataPath');
+        $product = ProductS::find($productId);
+        $dateFolder = $product->carpeta;
+        $name = substr($product->portada, 1, 14);
+        if (!$product) {
+            return response()->json(['error' => 'Producto no encontrado'], 404);
+        }
+        $uploadedImages = $request->file('uploaded_images');
+        $countUploadedImages = count($uploadedImages);
+        $images = [];
+        foreach ($uploadedImages as $uploadedImage) {
+            //$dateFolder = date('Y-m-d');
+            //$dateFolder = $request->input('dataPath');
+            $uploadPath = 'uploads/' . $dateFolder;
+            $filename = uniqid() . '.' . $uploadedImage->getClientOriginalExtension();
+    
+            if (!File::exists($uploadPath)) {
+                File::makeDirectory($uploadPath, 0755, true);
+            }
+            $newIndex =  rand(500, 1000);
+            for ($i = $newIndex; $i < $newIndex + $countUploadedImages; $i++) {
+                $path = $i . $name;
+
+            }
+            //$path = $filename;
+            $webpPath = $dateFolder . '/' . pathinfo($path, PATHINFO_FILENAME) . '.webp';
+            $destinationPath = Storage::disk('webp_images_sub')->path($webpPath);
+    
+            $img = Image::make($uploadedImage->getRealPath()); //->resize(800, 600);
+            $img->encode('webp', 10)->save($destinationPath);
+            $image = new PSubGallery;
             $image->productoid = $productId;
             $image->img = $path;
             $image->save();

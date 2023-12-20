@@ -16,7 +16,8 @@
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                let portada = imagePath.substring(12, 26);
+                let match = imagePath.match(/\d+-GY-\d+-\w+/);
+                let portada = match ? match[0] : null;
                 let container = document.getElementById('image-containerDelete');
                 let imageWrapper = container.querySelector(`.image-wrapperDelete[data-path="${imagePath}"]`);
                 deleteImage = container.removeChild(imageWrapper);
@@ -54,13 +55,13 @@ document.getElementById('add-imagesPart').addEventListener('click', () => {
   document.getElementById('file-inputPart').addEventListener('change', (event) => {
         let files = event.target.files;
         let images = {{count($images)}};
-        if (images + files.length <= 12) {
+        if (images + files.length <= 30) {
             //for (let i = 0; i < files.length; i++) {
                 //console.log(files);
                 handleAddImagesPart(files);
             //}
         }else {
-            alert('Has alcanzado el límite máximo(12) de imágenes permitidas.');
+            alert('Has alcanzado el límite máximo(30) de imágenes permitidas.');
         }
     });
 
@@ -89,7 +90,6 @@ function handleAddImagesPart(files) {
         updateImagesView(image);
     })
     .catch(error => {
-        console.log('hola');
         console.error('Error:', error);
     });
     })
@@ -158,7 +158,7 @@ function updateImagesInputPart() {
                     </div>
                     <div class="form-group">
                       <label class="control-label">Enlance Youtube</label>
-                      <input class="form-control" id="txtLink" name="txtLink" type="text"value="{{$product->link}}" disabled>
+                      <input class="form-control" id="txtLink" name="txtLink" type="text"value="{{$product->link}}">
                     </div>
                     <div class="form-group">
                       <label class="control-label" for="estados">Estado:</label>

@@ -27,6 +27,33 @@
     </style>
   </head>
   <body class="app sidebar-mini">
+      {{-- modal para recomendaciones --}}
+<div class="modal fade" id="recomendacionesModal" tabindex="-1" aria-labelledby="recomendacionesModalLAbel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 style="color:red; font-weight: bolder;" class="modal-title" id="recomendacionesModalLAbel">
+                TU SEGURIDAD ES LO MÁS IMPORTANTE PARA GANADO YUCATÁN
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">Recomendaciones para vendedores: 
+<li> Antes de trasladar tu ganado, asegúrate que el comprador formalice la compra.</li>
+<li> No te preocupes por el traslado, eso es responsabilidad del comprador. </li>
+<li> Es tu responsabilidad verificar la forma de pago y realizar el cobro de la venta. </li>
+<li> Es importante tener una báscula al momento de la entrega del producto. </li>
+<li> Presenta la documentación de los animales a tu comprador.</li>
+<li> El trato de la venta es de manera directa con el comprador, nosotros no somos los intermediarios y no nos hacemos responsables de los factores externos.</li>
+<li>Importante la actualización de los siguientes datos: asociación ganadera, identificación de la Sagarpa, número de asociado, nombre de rancho, registro fierro y Registro Federal de Contribuyente (RFC). En caso de no cumplir con lo establecido, habrá una suspensión de cuenta. </li>
+<li>Les recomendamos, tener un punto medio como son los centros de acopio.</li>
+</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
       <div id="divLoading" >
       <div>
         
@@ -38,6 +65,9 @@
       <ul class="app-nav"> {{-- <a href="{{ route('startChat') }}"><button id="startSupportChatButton">Iniciar Conversación de Soporte</button></a> --}}
         <!-- User Menu-->
         <a id="subscriptionWarning" class="alert alert-warning" role="alert" style="display: none;"></a>
+        <button type="button" class="btn" style="background-color: #d79e46;border-color: #d79e46;" data-bs-toggle="modal" data-bs-target="#recomendacionesModal">
+            Recomendaciones ganaderas
+        </button>
         <a onmouseover="this.style.background='rgba(188, 184, 144, .10)';" onmouseout="this.style.background='#f6f6f6';" href="{{url('/admin/products/home')}}" style="color: #000000;margin-block-start: 1%;margin-inline-end: 1%;text-decoration: none;">Inicio&nbsp;&nbsp;<i class="fa-solid fa-house" ></i></a>
         <li class="dropdown"><a class="app-nav__item" href="#" data-toggle="dropdown" aria-label="Open Profile Menu"><i style="color: #000000" class="fa fa-user fa-lg"></i></a>
           <ul class="dropdown-menu settings-menu dropdown-menu-right">          
@@ -106,7 +136,7 @@
                 <li><a class="treeview-item" href="{{url('/admin')}}/products/addNewCom"><i class="icon fa fa-circle-o"></i> Ganado Comercial
                 </a></li>
                 <?php } ?><?php if(Auth::user()->rolid == '1' || Auth::user()->rolid == '6'){ ?>
-                <li><a class="treeview-item" href="{{url('/admin')}}/products/addNewSub"><i class="icon fa fa-circle-o"></i> Subasta Ganaera
+                <li><a class="treeview-item" href="{{url('/admin')}}/products/addNewSub"><i class="icon fa fa-circle-o"></i> Subasta Ganadera
                 </a></li>
                 <?php } ?>
                 <?php if(Auth::user()->rolid == '1'){ ?>
