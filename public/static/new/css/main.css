@@ -658,6 +658,7 @@ Tienda
     align-items: center;
     color: white;
     background: url('../background/_header-tianguis-ganadero.jpg');
+    background-size: cover;
 }
 .banner-main-subasta{
     height: 80vh;
@@ -667,6 +668,7 @@ Tienda
     align-items: center;
     color: white;
     background: url('../background/_header-subasta-ganadera.jpg');
+    background-size: cover;
 }
 .banner-main-genetico{
     height: 80vh;
@@ -676,6 +678,7 @@ Tienda
     align-items: center;
     color: white;
     background: url('../background/_header-tianguis-genetica.jpg');
+    background-size: cover;
 }
 .banner-main-subasta img{
     width: 60px;

@@ -120,7 +120,8 @@
     TODO: En esta parte va a ir el responsive de las tiendas
     */
     .banner-main,
-    .banner-main-genetico
+    .banner-main-genetico, 
+    .banner-main-subasta
     {
         text-align: center;
     }
@@ -210,12 +211,22 @@
     .nav-buttons-subasta{
         margin-left: 0rem;
         width: 100vw;
+        top: 40%;
     }
     .privacidad-container{
         padding: .5rem;
     }
     .privacidad-container h1{
         width: 100%;
+    }
+    .ofertas-time, .precios{
+        flex-direction: column;
+    }
+    .guion{
+        display: none;
+    }
+    .prev-button, .next-button, .prev-button-subasta, .next-button-subasta{
+        margin-right: 0px;
     }
 }
 
