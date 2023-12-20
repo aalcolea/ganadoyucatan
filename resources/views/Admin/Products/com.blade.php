@@ -203,7 +203,7 @@
                         </div> 
                         <div class="form-group col-md-6">
                             <label class="control-label" class="control-label">Tipo</label>
-                                <select class="form-control selectpicker" id="lisTipo" name="lisTipo" >
+                                <select class="form-control selectpicker" id="txtTipo" name="txtTipo" >
                                 <option value="Destetes">Destetes</option>
                                 <option value="Novillas">Novillas</option>
                                 <option value="Ternero">Ternero</option>
