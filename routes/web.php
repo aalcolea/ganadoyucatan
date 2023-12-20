@@ -39,6 +39,8 @@ Route::get('/subastas', [TiendaController::class, 'getSubastas'])->name('getSuba
 Route::post('/sendOffer/{id}',  [TiendaController::class, 'sendOffer'])->name('sendOffer');
 Route::get('/subastas/{id}', [TiendaController::class, 'getSubasta'])->name('getSubasta');
 Route::get('/politicaPrivacidad', [TiendaController::class, 'getPoliticaPrivacidad']);
+Route::get('/recomendaciones', [TiendaController::class, 'getRecomendaciones']);
+Route::get('/suscripcion', [TiendaController::class, 'getSuscripcion']);
 
 /*ciudades*/
 Route::get('/get-estados', [TiendaController::class, 'getEstados']);

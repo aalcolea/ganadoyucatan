@@ -127,6 +127,7 @@ body {
     left: 0;
 
     background: url('../background/_pic\ copia.jpg');
+    background-size: cover;
     /* background-color: #000; */
     border-radius: 4px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
@@ -1413,4 +1414,51 @@ th, td{
 }
 th{
     background-color: #f2f2f2;
+}
+/*Estilos para las suscripciones*/
+.container-payment{
+    height: 90%;
+    width: 65%;
+    margin: 0 auto;
+    background-color: #f7f1f1;
+    font-size: var(--large);
+}
+.container-vaquita{
+    width: 100%;
+    height: 30%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--gold-genetica);
+}
+.container-vaquita p{
+    text-align: center;
+    color: white;
+    font-size: var(--extraLarge);
+}
+.container-vaquita img{
+    width: 40%;
+    height: 90%;
+    object-fit: cover;
+}
+.suscription{
+    height: 75px;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background: white;
+}
+.payment-detail{
+    width: 90%;
+    margin: 0 auto;
+}
+.card-details{
+    display: flex;
+    align-items: center;
+}
+.card-details p{
+    width: 100%;
+    text-align: center;
 }

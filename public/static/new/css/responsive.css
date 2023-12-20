@@ -228,6 +228,10 @@
     .prev-button, .next-button, .prev-button-subasta, .next-button-subasta{
         margin-right: 0px;
     }
+    /*Estilos para las suscripciones*/
+    .container-payment{
+        width: 90%;
+    }
 }
 
 
