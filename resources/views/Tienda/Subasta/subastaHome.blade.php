@@ -227,11 +227,13 @@
                                     <hr>
                                     <div class="ofertas-time">
                                         <p class="raza">02 ofertas de subasta</p>
-                                        <p class="info">- Quedan {{ $days }} d {{ $hoursWithoutDays }} h</p>
+                                        <p class="guion">-</p>
+                                        <p class="info">Quedan {{ $days }} d {{ $hoursWithoutDays }} h</p>
                                     </div>
                                     <div class="precios">
-                                        <p class="description">{{$p->precioMin}} MXN</p>
-                                        <P class="description">|{{$p->precioMax}} MXN</P>
+                                        <p class="description" style="color: var(--battleship-gray);">{{$p->precioMin}} MXN</p>
+                                        <p class="guion description">|</p>
+                                        <P class="description">{{$p->precioMax}} MXN</P>
                                     </div>
                                     <div class="contact-button">
                                         <button class="mainButtonB" onclick="location.href='<?= '/subastas/'.$p->id_producto; ?>'">Pujar</button>
