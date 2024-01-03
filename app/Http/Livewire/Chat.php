@@ -6,6 +6,7 @@ use App\Models\Conversation;
 use App\Models\Message;
 use Livewire\Component;
 use App\Events\MessageAdded;
+use App\Events\ConversationStarted;
 use Auth;
 class Chat extends Component
 {
@@ -26,7 +27,8 @@ class Chat extends Component
         ]);
         $this->messageText = '';
         event(new MessageAdded($this->conversation->id));
-        
+        event(new ConversationStarted($this->conversation->id));
+
         } 
 
     public function mount(Conversation $conversation) {

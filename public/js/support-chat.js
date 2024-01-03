@@ -6347,10 +6347,8 @@ var __webpack_exports__ = {};
   \**************************************/
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var laravel_echo__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! laravel-echo */ "./node_modules/laravel-echo/dist/echo.js");
-console.log("375df52c5423a3e56bf0");
 
 window.Pusher = __webpack_require__(/*! pusher-js */ "./node_modules/pusher-js/dist/web/pusher.js");
-console.log('hola1');
 window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
   broadcaster: 'pusher',
   key: "375df52c5423a3e56bf0",
@@ -6361,7 +6359,6 @@ var userId = document.querySelector('meta[name="user-id"]').getAttribute('conten
 window.Echo["private"]('support.' + userId).listen('supportConversationStarted', function (event) {
   console.log('Nueva conexión de soporte iniciada:', event);
 });
-console.log('hola2');
 })();
 
 /******/ })()

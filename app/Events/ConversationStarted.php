@@ -24,7 +24,7 @@ class ConversationStarted
     public function __construct($conversationId)
     {
         $this->conversationId = $conversationId;
-        event(new ConversationStarted($conversationId));
+       
 
     }
 
