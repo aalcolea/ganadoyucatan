@@ -26,6 +26,7 @@ class Chat extends Component
         ]);
         $this->messageText = '';
         event(new MessageAdded($this->conversation->id));
+        
         } 
 
     public function mount(Conversation $conversation) {

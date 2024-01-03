@@ -205,7 +205,7 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-        axios.post('/support-conversations', { // Cambia la URL según corresponda
+        axios.post('/support-conversations', { 
             _token: csrfTokenMeta.getAttribute('content')
         })
         .then(response => {
@@ -219,7 +219,11 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
-
+Echo.private('admin-channel')
+    .listen('ConversationStarted', (e) => {
+        alert(`Nueva conversación iniciada: ${e.conversationId}`);
+        // agregar la ventana para chat, diseño y todo 
+    });
 
 </script>
     @section('main')

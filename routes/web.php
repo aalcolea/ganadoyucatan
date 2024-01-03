@@ -56,6 +56,9 @@ Route::middleware('auth')->group(function () {
 	Route::get('/support/conversations/{conversation}', [ConversationController::class, 'show'])
     ->name('conversation.show');
     Route::get('/startChat', [Chat::class, 'sendMessage'])->name('startChat');
+    Broadcast::channel('admin-channel', function ($user) {
+    return $user->isAdmin(); 
+	});
 });
 /* test de chat*/
 /*
