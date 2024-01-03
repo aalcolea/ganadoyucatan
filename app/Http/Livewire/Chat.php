@@ -6,9 +6,10 @@ use App\Models\Conversation;
 use App\Models\Message;
 use Livewire\Component;
 use App\Events\MessageAdded;
-
+use Auth;
 class Chat extends Component
 {
+    public $messageText;
     public function render()
     {
         return view('livewire.chat', [
@@ -16,24 +17,17 @@ class Chat extends Component
         ]);
     }
     public function sendMessage(){
-    $formData = request()->all();
-
-    
-    if (isset($formData['message']) && !empty($formData['message'])) {
-        $this->validate(['message' => 'required']);
+        $this->validate(['messageText' => 'required']);
+        $user = auth()->user();
         Message::create([
             'conversation_id' => $this->conversation->id, 
-            'user_id' => auth()->id(),
-            'content' => $formData['message'], 
+            'user_id' => $user->idpersona,
+            'content' => $this->messageText, 
         ]);
-
-        $this->message = '';
+        $this->messageText = '';
         event(new MessageAdded($this->conversation->id));
-    } else {
-        return 'fialed';
-    }
+        } 
 
-    }
     public function mount(Conversation $conversation) {
         $this->conversation = $conversation;
         $this->emit('MessageAdded');

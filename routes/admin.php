@@ -65,5 +65,5 @@ Route::post('users/profile/{id}', [UsersController::class, 'postUProfInfo']);
  Route::get('/conversation', [ConversationController::class, 'index'])->name('conversationIndex');
   Route::get('/conversation/{conversation}', [ConversationController::class, 'show'])->name('conversationShow');
  	//Route::get('/conversation/{conversation}', Chat::class)->name('conversationShow');
-    Route::get('/startChat', [Chat::class, 'sendMessage'])->name('startChat');
+    /*Route::get('/startChat', [Chat::class, 'sendMessage'])->name('startChat');*/
 });

@@ -4,21 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\SupportConversation;
+use App\Models\Conversation;
+use Illuminate\Support\Facades\Broadcast;
+
 class SupportConversationController extends Controller
 {
     
 
-public function store(Request $request, SupportConversation $conversation){
+public function store(Request $request, Conversation $conversation){
     $user = auth()->user();
-    $conversation = SupportConversation::create([
-        'user_id' => $user->id,
-        'admin_id' => null,
+    $conversation = Conversation::create([
+        'user_id' => $user->idpersona,
+        'admin_id' => '1',
     ]);
 
-    return response()->json([
-        'conversation_id' => $conversation->id,
-    ]);
     Broadcast::channel('support.' . $conversation->id, function ($user) use ($conversation) {
         return $user->isAdmin() || $user->id === $conversation->user_id;
     });
@@ -26,4 +25,5 @@ public function store(Request $request, SupportConversation $conversation){
     return response()->json([
         'conversation_id' => $conversation->id,
     ]);
+}
 }

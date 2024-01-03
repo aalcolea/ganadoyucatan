@@ -1,5 +1,7 @@
-import Echo from 'laravel-echo';
 
+import Echo from 'laravel-echo';
+window.Pusher = require('pusher-js');
+console.log('hola1');
 window.Echo = new Echo({
     broadcaster: 'pusher',
     key: process.env.MIX_PUSHER_APP_KEY,
@@ -11,4 +13,4 @@ const userId = document.querySelector('meta[name="user-id"]').getAttribute('cont
 window.Echo.private('support.' + userId).listen('supportConversationStarted', (event) => {
     console.log('Nueva conexión de soporte iniciada:', event);
 });
-alert('hola');
+console.log('hola2');

@@ -14,9 +14,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+/*Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
-});
-Route::middleware(['auth'])->prefix('api')->group(function () {
-    Route::post('support-conversations', 'SupportConversationController@store');
-});
+});*/
+/*
+Route::middleware('auth')->group(function () {
+    Route::post('support-conversations', [SupportConversationController::class, 'store']);
+});*/

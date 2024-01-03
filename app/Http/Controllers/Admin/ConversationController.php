@@ -25,12 +25,13 @@ class ConversationController extends Controller
             ->with('livewire', app(Chat::class, ['conversation' => $conversation]));
     }
     public function startChat(){
-        $admin = Persona::where('rolid', '1')->first(); // Suponiendo que solo necesitas un admin
+        $admin = Persona::where('rolid', '1')->first();
+        $user = auth()->user();
         $conversation = Conversation::create([
-            'user_id' => auth()->id(),
+            'user_id' => $user->idpersona,
             'admin_id' => $admin->idpersona
         ]);
-        $messages = $conversation->messages; // Cargar los mensajes relacionados
+        $messages = $conversation->messages; 
         return view('Admin.Conversations.show', compact('conversation', 'messages'));
     }
 }

@@ -4,6 +4,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ApiController;
 use App\Http\Controllers\ConnectController;
 use App\Http\Controllers\TiendaController;
+use App\Http\Controllers\SupportConversationController;
+use App\Http\Controllers\Admin\ConversationController;
+use App\Http\Livewire\Chat;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -46,7 +50,13 @@ Route::get('/suscripcion', [TiendaController::class, 'getSuscripcion']);
 /*ciudades*/
 Route::get('/get-estados', [TiendaController::class, 'getEstados']);
 Route::get('/get-ciudades-by-estado/{estadoId}', [TiendaController::class, 'getCiudadesByEstado']);
+Route::middleware('auth')->group(function () {
+    Route::post('support-conversations', [SupportConversationController::class, 'store']);
 
+	Route::get('/support/conversations/{conversation}', [ConversationController::class, 'show'])
+    ->name('conversation.show');
+    Route::get('/startChat', [Chat::class, 'sendMessage'])->name('startChat');
+});
 /* test de chat*/
 /*
 Route::get('/test-event', function(){

@@ -20,13 +20,18 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <meta name="user-id" content="{{ auth()->id() }}">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    @livewireStyles
+  </head>
     <style >
         .app-menu__item{
             text-decoration: none;
         }
     </style>
-  </head>
   <body class="app sidebar-mini">
+    @livewireScripts
+    <script src="{{ mix('js/support-chat.js') }}"></script>
       {{-- modal para recomendaciones --}}
 <div class="modal fade" id="recomendacionesModal" tabindex="-1" aria-labelledby="recomendacionesModalLAbel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
@@ -38,15 +43,15 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">Recomendaciones para vendedores: 
-<li> Antes de trasladar tu ganado, asegúrate que el comprador formalice la compra.</li>
-<li> No te preocupes por el traslado, eso es responsabilidad del comprador. </li>
-<li> Es tu responsabilidad verificar la forma de pago y realizar el cobro de la venta. </li>
-<li> Es importante tener una báscula al momento de la entrega del producto. </li>
-<li> Presenta la documentación de los animales a tu comprador.</li>
-<li> El trato de la venta es de manera directa con el comprador, nosotros no somos los intermediarios y no nos hacemos responsables de los factores externos.</li>
-<li>Importante la actualización de los siguientes datos: asociación ganadera, identificación de la Sagarpa, número de asociado, nombre de rancho, registro fierro y Registro Federal de Contribuyente (RFC). En caso de no cumplir con lo establecido, habrá una suspensión de cuenta. </li>
-<li>Les recomendamos, tener un punto medio como son los centros de acopio.</li>
-</p>
+                <li> Antes de trasladar tu ganado, asegúrate que el comprador formalice la compra.</li>
+                <li> No te preocupes por el traslado, eso es responsabilidad del comprador. </li>
+                <li> Es tu responsabilidad verificar la forma de pago y realizar el cobro de la venta. </li>
+                <li> Es importante tener una báscula al momento de la entrega del producto. </li>
+                <li> Presenta la documentación de los animales a tu comprador.</li>
+                <li> El trato de la venta es de manera directa con el comprador, nosotros no somos los intermediarios y no nos hacemos responsables de los factores externos.</li>
+                <li>Importante la actualización de los siguientes datos: asociación ganadera, identificación de la Sagarpa, número de asociado, nombre de rancho, registro fierro y Registro Federal de Contribuyente (RFC). En caso de no cumplir con lo establecido, habrá una suspensión de cuenta. </li>
+                <li>Les recomendamos, tener un punto medio como son los centros de acopio.</li>
+                </p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
@@ -62,7 +67,7 @@
       <header class="app-header">
       <!-- Sidebar toggle button--><a class="app-sidebar__toggle" href="#" data-toggle="sidebar" aria-label="Hide Sidebar"><i class="fas fa-bars"></i></a>
       <!-- Navbar Right Menu-->
-      <ul class="app-nav"> {{-- <a href="{{ route('startChat') }}"><button id="startSupportChatButton">Iniciar Conversación de Soporte</button></a> --}}
+      <ul class="app-nav"> <button id="startSupportChatButton">Iniciar Conversación de Soporte</button>
         <!-- User Menu-->
         <a id="subscriptionWarning" class="alert alert-warning" role="alert" style="display: none;"></a>
         <button type="button" class="btn" style="background-color: #d79e46;border-color: #d79e46;" data-bs-toggle="modal" data-bs-target="#recomendacionesModal">
@@ -188,16 +193,34 @@ document.addEventListener('DOMContentLoaded', function(){
 /*en mantenimiento */
 document.addEventListener('DOMContentLoaded', function () {
     const startChatButton = document.getElementById('startSupportChatButton');
+    if (!startChatButton) {
+        console.error('El botón de inicio de chat no se encontró en el DOM.');
+        return;
+    }
+
     startChatButton.addEventListener('click', () => {
-        axios.post('/api/support-conversations')
-            .then(response => {
-                window.location.href = '/support/conversations/' + response.data.conversation_id;
-            })
-            .catch(error => {
-                console.error(error);
-            });
+        const csrfTokenMeta = document.querySelector('meta[name="csrf-token"]');
+        if (!csrfTokenMeta) {
+            console.error('El meta tag CSRF token no se encontró en el DOM.');
+            return;
+        }
+
+        axios.post('/support-conversations', { // Cambia la URL según corresponda
+            _token: csrfTokenMeta.getAttribute('content')
+        })
+        .then(response => {
+            window.location.href = '/support/conversations/' + response.data.conversation_id;
+        })
+        .catch(error => {
+            console.error(error);
+            alert('Hubo un error al iniciar la conversación.');
+        });
     });
 });
+
+
+
+
 </script>
     @section('main')
     @show   
