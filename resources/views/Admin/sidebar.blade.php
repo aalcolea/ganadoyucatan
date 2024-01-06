@@ -31,7 +31,7 @@
     </style>
   <body class="app sidebar-mini">
     @livewireScripts
-    <script src="{{ mix('js/support-chat.js') }}"></script>
+    {{-- <script src="{{ mix('js/support-chat.js') }}"></script> --}} 
       {{-- modal para recomendaciones --}}
 <div class="modal fade" id="recomendacionesModal" tabindex="-1" aria-labelledby="recomendacionesModalLAbel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
