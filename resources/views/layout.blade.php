@@ -7,7 +7,19 @@
     <link rel="stylesheet" href="{{url('/static/new/css/responsive.css')}}">
     <link rel="stylesheet" href="{{url('/static/js/admin/location.js')}}">
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <title>Ganado Yucatán Peninsular</title>
+    <meta name="description" content="¡Todo lo relacionado con la ganadería, bovinos y ranchos, todos en ganadoyucatan.com">
+    <meta name="keywords" content="ganaderia, bovinos, yucatan">
+    <meta property="og:description" content="Todo lo relacionado con la ganadería, bovinos y ranchos, todos en ganadoyucatan.com.">
+    <meta property="og:title" content="ganado yucatan">
+    <meta property="og:site_name" content="ganado yucatan">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.ganadoyucatan.com">
+    <meta name="robots" content="index, follow">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="language" content="Spanish">
+    <meta name="author" content="Ganado Yucatan">
+    <link rel="icon" type="image/png" href="{{url('/static/images/logo.png')}}"/>
+    <title>@yield('title') Ganado Yucatan</title>
 </head>
 <body>
     @include('navbar')
