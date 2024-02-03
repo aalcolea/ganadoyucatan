@@ -27,12 +27,11 @@
 <body>
     @include('navbar')
 
-
     @yield('content')
-
 
     @include('footer')
 <script>
+    //comentario para git 
     document.addEventListener("DOMContentLoaded", function () {
         const menuContainer = document.querySelector(".menu-container");
         const closeMenu = document.querySelector(".close-menu");
