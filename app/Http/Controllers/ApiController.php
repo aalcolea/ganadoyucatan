@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use App\Models\Product;
-
+/*app API*/
 class ApiController extends Controller
 {
     public function getProducts(){
