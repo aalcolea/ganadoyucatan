@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="{{url('/static/new/css/main.css')}}">
     <link rel="stylesheet" href="{{url('/static/new/css/responsive.css')}}">
     <link rel="stylesheet" href="{{url('/static/js/admin/location.js')}}">
+    <meta name="google-adsense-account" content="ca-pub-5420632641336498">
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <meta name="description" content="¡Todo lo relacionado con la ganadería, bovinos y ranchos, todos en ganadoyucatan.com">
     <meta name="keywords" content="ganaderia, bovinos, yucatan">

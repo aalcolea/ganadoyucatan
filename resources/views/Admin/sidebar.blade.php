@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="author" content="Ganado Yucatan">
     <meta name="theme-color" content="#009688">
+    <meta name="google-adsense-account" content="ca-pub-5420632641336498">
     <title>Ganado Yucatan </title>
     <!-- Main CSS-->
     <link rel="stylesheet" type="text/css" href="{{url('/static/css/admin/main.css') }}">
