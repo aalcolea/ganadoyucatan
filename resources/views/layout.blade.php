@@ -19,6 +19,8 @@
     <meta name="language" content="Spanish">
     <meta name="author" content="Ganado Yucatan">
     <link rel="icon" type="image/png" href="{{url('/static/images/logo.png')}}"/>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5420632641336498"
+     crossorigin="anonymous"></script>
     <title>@yield('title') Ganado Yucatan</title>
 </head>
 <body>
@@ -46,7 +48,5 @@
         });
     });
 </script>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5420632641336498"
-     crossorigin="anonymous"></script>
 </body>
 </html>
