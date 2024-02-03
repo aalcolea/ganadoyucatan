@@ -67,7 +67,7 @@
       <header class="app-header">
       <!-- Sidebar toggle button--><a class="app-sidebar__toggle" href="#" data-toggle="sidebar" aria-label="Hide Sidebar"><i class="fas fa-bars"></i></a>
       <!-- Navbar Right Menu-->
-      <ul class="app-nav"> <button id="startSupportChatButton">Iniciar Conversación de Soporte</button>
+      {{-- <ul class="app-nav"> <button id="startSupportChatButton">Iniciar Conversación de Soporte</button> --}}
         <!-- User Menu-->
         <a id="subscriptionWarning" class="alert alert-warning" role="alert" style="display: none;"></a>
         <button type="button" class="btn" style="background-color: #d79e46;border-color: #d79e46;" data-bs-toggle="modal" data-bs-target="#recomendacionesModal">

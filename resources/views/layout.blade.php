@@ -46,5 +46,7 @@
         });
     });
 </script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5420632641336498"
+     crossorigin="anonymous"></script>
 </body>
 </html>
