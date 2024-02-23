@@ -128,33 +128,14 @@
             <div class="container-reseñas">
                 <div class="card-reseñas">
                     <div class="reseña">
-                        <p class="reseña-description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem, numquam quibusdam! Ullam maxime repudiandae veritatis tenetur unde neque, consectetur totam alias sint necessitatibus cum, dolorem laboriosam aperiam modi quam debitis.</p>
-                        <p class="reseña-name">-Roberto Pérez</p>
+                        <p class="reseña-description"></p>
+                        <p class="reseña-name"></p>
                     </div>
                     <div class="dierecis">
-                        <!-- <img src="" alt="" srcset=""> -->
+                        <img src="" alt="" srcset=""> 
                     </div>
                 </div>
 
-                <div class="card-reseñas">
-                    <div class="reseña">
-                        <p class="reseña-description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem, numquam quibusdam! Ullam maxime repudiandae veritatis tenetur unde neque, consectetur totam alias sint necessitatibus cum, dolorem laboriosam aperiam modi quam debitis.</p>
-                        <p class="reseña-name">-Roberto Pérez</p>
-                    </div>
-                    <div class="dierecis">
-                        <!-- <img src="" alt="" srcset=""> -->
-                    </div>
-                </div>
-
-                <div class="card-reseñas">
-                    <div class="reseña">
-                        <p class="reseña-description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem, numquam quibusdam! Ullam maxime repudiandae veritatis tenetur unde neque, consectetur totam alias sint necessitatibus cum, dolorem laboriosam aperiam modi quam debitis.</p>
-                        <p class="reseña-name">-Roberto Pérez</p>
-                    </div>
-                    <div class="dierecis">
-                        <!-- <img src="" alt="" srcset=""> -->
-                    </div>
-                </div>
             </div> --}}
         </div>
     </div>

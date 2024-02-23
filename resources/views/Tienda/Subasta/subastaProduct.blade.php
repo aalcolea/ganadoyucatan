@@ -281,41 +281,7 @@
                 <div class="desc6"><span>Arete: </span><p></p></div>
                 <div class="desc7"><span>Certificado:</span><p></p></div>
                 <div class="desc8"><span>A cargo</span><p></p></div>
-            </div>
-{{--             <hr>
-             <h2>Reseñas del ganado</h2>
-            <div class="container-reseñas">
-                <div class="card-reseñas">
-                    <div class="reseña">
-                        <p class="reseña-description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem, numquam quibusdam! Ullam maxime repudiandae veritatis tenetur unde neque, consectetur totam alias sint necessitatibus cum, dolorem laboriosam aperiam modi quam debitis.</p>
-                        <p class="reseña-name">-Roberto Pérez</p>
-                    </div>
-                    <div class="dierecis">
-                        <img src="" alt="" srcset=""> 
-                    </div>
-                </div>
-
-                <div class="card-reseñas">
-                    <div class="reseña">
-                        <p class="reseña-description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem, numquam quibusdam! Ullam maxime repudiandae veritatis tenetur unde neque, consectetur totam alias sint necessitatibus cum, dolorem laboriosam aperiam modi quam debitis.</p>
-                        <p class="reseña-name">-Roberto Pérez</p>
-                    </div>
-                    <div class="dierecis">
-                        <img src="" alt="" srcset=""> 
-                    </div>
-                </div>
-
-                <div class="card-reseñas">
-                    <div class="reseña">
-                        <p class="reseña-description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem, numquam quibusdam! Ullam maxime repudiandae veritatis tenetur unde neque, consectetur totam alias sint necessitatibus cum, dolorem laboriosam aperiam modi quam debitis.</p>
-                        <p class="reseña-name">-Roberto Pérez</p>
-                    </div>
-                    <div class="dierecis">
-                        <img src="" alt="" srcset="">
-                    </div>
-                </div>
-            </div>
- --}}        </div>
+            </div></div>
     </div>
     <div class="relationated-product">
         <p class="interest">Más ganado que te podría interesar</p>
