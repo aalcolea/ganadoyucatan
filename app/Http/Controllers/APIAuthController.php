@@ -21,33 +21,40 @@ class APIAuthController extends Controller
         imero probar login*/
         return response()->json('message' => 'Hola');
     }
-    public function login(Request $request){
-        $rules = [
-            'email' => 'required|email',
-            'password' => 'required|min:6',
-        ];
-        $messages = [
-            'email.required' => 'Cuenta erronea y requerida',
-            'password.required' => 'Por favor escribe una contraseña',
-            'password.min' => 'La contraseña debe contener al menos 6 caracteres',
-        ];
-        $validator = Validator::make($request->all(), $rules, $messages);
+public function login(Request $request){
+    $rules = [
+        'email' => 'required|email',
+        'password' => 'required|min:6',
+    ];
+    $messages = [
+        'email.required' => 'Cuenta erronea y requerida',
+        'password.required' => 'Por favor escribe una contraseña',
+        'password.min' => 'La contraseña debe contener al menos 6 caracteres',
+    ];
+    $validator = Validator::make($request->all(), $rules, $messages);
 
-        if ($validator->fails()) {
-            return response()->json(['error' => $validator->errors()], 400);
-        }
-        $credentials = $request->only('email', 'password');
-        try {
-            if (! $token = JWTAuth::attempt($credentials)) {
-                return response()->json(['error' => 'Credenciales inválidas'], 401);
-            }
-        } catch (JWTException $e) {
-            Log::error($e->getMessage());
-            return response()->json(['error' => 'No se pudo crear el token'], 500);;
-        }
-        $userId = Auth::id();
-        $currentDateTime = Carbon::now();
-        Persona::where('id', $userId)->update(['ult_vez' => $currentDateTime]);
-        return response()->json(compact('token'));
+    if ($validator->fails()) {
+        return response()->json(['error' => $validator->errors()], 400);
     }
+    $credentials = $request->only('email', 'password');
+    try {
+        if (! $token = JWTAuth::attempt($credentials)) {
+            return response()->json(['error' => 'Credenciales inválidas'], 401);
+        }
+    } catch (JWTException $e) {
+        // Aquí puedes capturar y devolver el mensaje de error del JWTException.
+        Log::error("JWT Error: " . $e->getMessage());
+        return response()->json(['error' => 'Error interno del servidor', 'exception' => $e->getMessage()], 500);
+    }
+    // Asegúrate de que el ID de usuario esté siendo obtenido correctamente.
+    $userId = Auth::id();
+    if (!$userId) {
+        Log::error("Error de autenticación: Usuario no encontrado o credenciales incorrectas.");
+        return response()->json(['error' => 'Error de autenticación'], 500);
+    }
+    $currentDateTime = Carbon::now();
+    // Asegúrate de que el modelo Persona tenga la columna 'ult_vez' y que sea actualizable.
+    Persona::where('id', $userId)->update(['ult_vez' => $currentDateTime]);
+    return response()->json(compact('token'));
+}
 }
