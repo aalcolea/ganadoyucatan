@@ -14,6 +14,9 @@ use App\Http\Controllers\APIAuthController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+Route::get('/test', function () {
+    return response()->json(['message' => 'This is a test.']);
+});
 Route::post('/registerAPI', [APIAuthController::class, 'register']);
 Route::post('/loginAPI', [APIAuthController::class, 'login']);
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
