@@ -22,27 +22,29 @@ class APIAuthController extends Controller
     public function login(Request $request){
         $rules = [
             'email' => 'required|email',
-            'password' => 'required|min:6'
+            'password' => 'required|min:6',
         ];
         $messages = [
             'email.required' => 'El correo electrónico es requerido',
-            'password.required' => 'Por favor, escribe una contraseña',
-            'password.min' => 'La contraseña debe contener al menos 6 caracteres'
+            'password.required' => 'Por favor escribe una contraseña',
+            'password.min' => 'La contraseña debe contener al menos 6 caracteres',
         ];
+        $validator = Validator::make($request->all(), $rules, $messages);
 
-        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
-            $user = Auth::user();
-            $token = $user->createToken('authToken')->plainTextToken;
-            $userId = Auth::id();
-            $currentDateTime = Carbon::now();
-            Persona::where('idpersona', $userId)->update(['ult_vez' => $currentDateTime]);
-            return response()->json([
-                'message' => 'Inicio de sesion exitoso',
-                'user' = $user,
-                'token' => $token,
-                'typealert' => 'success']);
-        }else{
-            return response()->json('message' => 'Usuario o contraseña incorrecta')
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors()], 400);
         }
+        $credentials = $request->only('email', 'password');
+        try {
+            if (! $token = JWTAuth::attempt($credentials)) {
+                return response()->json(['error' => 'Credenciales inválidas'], 401);
+            }
+        } catch (JWTException $e) {
+            return response()->json(['error' => 'No se pudo crear el token'], 500);
+        }
+        $userId = Auth::id();
+        $currentDateTime = Carbon::now();
+        Persona::where('id', $userId)->update(['ult_vez' => $currentDateTime]);
+        return response()->json(compact('token'));
     }
 }

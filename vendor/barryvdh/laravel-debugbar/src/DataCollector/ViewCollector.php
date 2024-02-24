@@ -62,7 +62,7 @@ class ViewCollector extends TwigCollector
         return [
             'views' => [
                 'icon' => 'leaf',
-                'widget' => 'PhpDebugBar.Widgets.TemplatesWidget',
+                'widget' => 'PhpDebugBar.Widgets.LaravelViewTemplatesWidget',
                 'map' => 'views',
                 'default' => '[]'
             ],
@@ -112,17 +112,18 @@ class ViewCollector extends TwigCollector
     {
         $name = $view->getName();
         $path = $view->getPath();
-        $type = '';
 
-        if ($path && is_string($path)) {
-            $path = ltrim(str_replace(base_path(), '', realpath($path)), '/');
+        if (!is_object($path)) {
+            if ($path) {
+                $path = ltrim(str_replace(base_path(), '', realpath($path)), '/');
+            }
 
             if (substr($path, -10) == '.blade.php') {
                 $type = 'blade';
             } else {
                 $type = pathinfo($path, PATHINFO_EXTENSION);
             }
-        } elseif (is_object($path)) {
+        } else {
             $type = get_class($view);
             $path = '';
         }
