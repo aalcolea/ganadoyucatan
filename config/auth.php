@@ -40,6 +40,10 @@ return [
             'driver' => 'session',
             'provider' => 'persona',
         ],
+        'api' => [
+        'driver' => 'jwt',
+        'provider' => 'persona',
+        ],
     ],
     /*original
         'guards' => [

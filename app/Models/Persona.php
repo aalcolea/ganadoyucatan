@@ -8,6 +8,7 @@ use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class Persona extends Model implements Authenticatable
 {
@@ -21,5 +22,13 @@ class Persona extends Model implements Authenticatable
     }
     public function ubi(){
         return $this->hasOne(Estado::class, 'id', 'estado');
+    }    
+    public function getJWTIdentifier() {
+        return $this->getKey();
     }
+
+    public function getJWTCustomClaims() {
+        return [];
+    }
+
 }

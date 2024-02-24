@@ -8,6 +8,8 @@ use Validator, Hash, Auth;
 use App\Models\Persona;
 use Carbon\Carbon;
 use Illuminate\Validation\ValidationException;
+use Tymon\JWTAuth\Facades\JWTAuth;
+use Tymon\JWTAuth\Exceptions\JWTException;
 
 class APIAuthController extends Controller
 {
