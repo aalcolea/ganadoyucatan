@@ -42,7 +42,8 @@ class APIAuthController extends Controller
                 return response()->json(['error' => 'Credenciales inválidas'], 401);
             }
         } catch (JWTException $e) {
-            return response()->json(['error' => 'No se pudo crear el token'], 500);
+            Log::error($e->getMessage());
+            return response()->json(['error' => 'No se pudo crear el token'], 500);;
         }
         $userId = Auth::id();
         $currentDateTime = Carbon::now();
