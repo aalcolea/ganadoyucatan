@@ -25,7 +25,7 @@ class APIAuthController extends Controller
             'password' => 'required|min:6',
         ];
         $messages = [
-            'email.required' => 'El correo electrónico es requerido',
+            'email.required' => 'Cuenta erronea y requerida',
             'password.required' => 'Por favor escribe una contraseña',
             'password.min' => 'La contraseña debe contener al menos 6 caracteres',
         ];
