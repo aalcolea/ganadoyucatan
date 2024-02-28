@@ -10,7 +10,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class Persona extends Model implements Authenticatable
+class Persona extends Model implements Authenticatable,  JWTSubject
 {
     use HasApiTokens, AuthenticatableTrait, HasFactory, Notifiable;
 

@@ -1,3 +1,4 @@
+
 <?php
 
 use Illuminate\Http\Request;
@@ -17,8 +18,8 @@ use App\Http\Controllers\APIAuthController;
 Route::get('/test', function () {
     return response()->json(['message' => 'This is a test.']);
 });
-Route::post('/registerAPI', [APIAuthController::class, 'register']);
-Route::post('/loginAPI', [APIAuthController::class, 'login']);
+Route::post('/register', [APIAuthController::class, 'register']);
+Route::post('/login', [APIAuthController::class, 'login']);
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     //return $request->user();
 });
