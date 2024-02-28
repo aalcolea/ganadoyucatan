@@ -56,6 +56,7 @@ class APIAuthController extends Controller
                 return response()->json(['error' => 'Credenciales inválidas'], 401);
             }
         } catch (JWTException $e) {
+            echo "hola";
             dd("JWT Error: " . $e->getMessage());
             return response()->json(['error' => 'Error interno del servidor', 'exception' => $e->getMessage()], 500);
         }
