@@ -49,7 +49,7 @@ class APIAuthController extends Controller
         $credentials = [
             'email_user' => $request->get('email'),
             'password' => $request->get('password'),
-        ];;
+        ];
         try {
             if (!$token = JWTAuth::attempt($credentials)) {
                 dd($token);
