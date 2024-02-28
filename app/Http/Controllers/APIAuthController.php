@@ -51,7 +51,7 @@ class APIAuthController extends Controller
             'password' => $request->get('password'),
         ];;
         try {
-            if (! $token = JWTAuth::attempt($credentials)) {
+            if (!$token = JWTAuth::attempt($credentials)) {
                 dd($token);
                 return response()->json(['error' => 'Credenciales inválidas'], 401);
             }
