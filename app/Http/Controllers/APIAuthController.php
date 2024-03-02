@@ -69,42 +69,5 @@ class APIAuthController extends Controller
         Persona::where('idpersona', $userId)->update(['ult_vez' => $currentDateTime]);
         return response()->json(compact('token'));
     }
-    public function newLogin(Request $request){    
-    // Reglas de validación y mensajes
-        $rules = [
-            'email' => 'required',
-            'password' => 'required|min:6',
-        ];
-        $messages = [
-            'email.required' => 'El campo email es obligatorio.',
-            'password.required' => 'El campo contraseña es obligatorio.',
-            'password.min' => 'La contraseña debe tener al menos 6 caracteres.',
-        ];
 
-        // Validación del request
-        $validator = Validator::make($request->all(), $rules, $messages);
-
-        if ($validator->fails()) {
-            return response()->json(['error' => $validator->errors()], 400);
-        }
-
-        // Preparación de credenciales para el intento de autenticación
-        $credentials = [
-            'email_user' => $request->input('email'),
-            'password' => $request->input('password'),
-        ];
-
-        try {
-            // Intento de autenticación usando JWT
-            if (!$token = JWTAuth::attempt($credentials)) {
-                return response()->json(['error' => 'Credenciales inválidas'], 401);
-            }
-
-            // Si la autenticación es exitosa, retornar el token
-            return response()->json(['message' => 'Autenticación exitosa', 'token' => $token]);
-        } catch (Exception $e) {
-            // Manejo de excepciones relacionadas con JWT u otros errores
-            return response()->json(['error' => 'Error interno del servidor', 'exception' => $e->getMessage()], 500);
-        }
-    }
 }
