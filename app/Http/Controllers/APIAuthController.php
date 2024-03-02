@@ -69,7 +69,22 @@ class APIAuthController extends Controller
         Persona::where('idpersona', $userId)->update(['ult_vez' => $currentDateTime]);
         return response()->json(compact('token'));
     }
-    public function newLogin(Request $request){
-        return response()->json(['message' => 'Register funcionando']);
+    public function newLogin(Request $request){    
+        $email = $request->input('email');
+        $password = $request->input('password');
+
+        if ($email && $password) {
+            // Aquí puedes simular una respuesta exitosa sin realizar la autenticación real
+            return response()->json([
+                'message' => 'Datos recibidos correctamente',
+                'email' => $email,
+                // No retornar la contraseña, incluso en mensajes de prueba, es una buena práctica
+            ]);
+        } else {
+            // Si no se reciben ambos, email y contraseña, se retorna un error
+            return response()->json([
+                'error' => 'Email y contraseña son requeridos'
+            ], 400); // Código de estado HTTP para "Bad Request"
+        }
     }
 }
