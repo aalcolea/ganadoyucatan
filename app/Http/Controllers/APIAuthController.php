@@ -70,21 +70,41 @@ class APIAuthController extends Controller
         return response()->json(compact('token'));
     }
     public function newLogin(Request $request){    
-        $email = $request->input('email');
-        $password = $request->input('password');
+    // Reglas de validación y mensajes
+        $rules = [
+            'email' => 'required',
+            'password' => 'required|min:6',
+        ];
+        $messages = [
+            'email.required' => 'El campo email es obligatorio.',
+            'password.required' => 'El campo contraseña es obligatorio.',
+            'password.min' => 'La contraseña debe tener al menos 6 caracteres.',
+        ];
 
-        if ($email && $password) {
-            // Aquí puedes simular una respuesta exitosa sin realizar la autenticación real
-            return response()->json([
-                'message' => 'Datos recibidos correctamente',
-                'email' => $email,
-                // No retornar la contraseña, incluso en mensajes de prueba, es una buena práctica
-            ]);
-        } else {
-            // Si no se reciben ambos, email y contraseña, se retorna un error
-            return response()->json([
-                'error' => 'Email y contraseña son requeridos'
-            ], 400); // Código de estado HTTP para "Bad Request"
+        // Validación del request
+        $validator = Validator::make($request->all(), $rules, $messages);
+
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors()], 400);
+        }
+
+        // Preparación de credenciales para el intento de autenticación
+        $credentials = [
+            'email_user' => $request->input('email'),
+            'password' => $request->input('password'),
+        ];
+
+        try {
+            // Intento de autenticación usando JWT
+            if (!$token = JWTAuth::attempt($credentials)) {
+                return response()->json(['error' => 'Credenciales inválidas'], 401);
+            }
+
+            // Si la autenticación es exitosa, retornar el token
+            return response()->json(['message' => 'Autenticación exitosa', 'token' => $token]);
+        } catch (Exception $e) {
+            // Manejo de excepciones relacionadas con JWT u otros errores
+            return response()->json(['error' => 'Error interno del servidor', 'exception' => $e->getMessage()], 500);
         }
     }
 }
