@@ -20,6 +20,7 @@ Route::get('/test', function () {
 });
 Route::post('/register', [APIAuthController::class, 'register']);
 Route::post('/login', [APIAuthController::class, 'login']);
+Route::post('/newLogin', [APIAuthController::class, 'newLogin']);
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     //return $request->user();
 });

@@ -61,7 +61,6 @@ class APIAuthController extends Controller
             return response()->json(['error' => 'Error interno del servidor', 'exception' => $e->getMessage()], 500);
         }
         $userId = Auth::id();
-        dd($userId);
         if (!$userId) {
             dd("Error de autenticación: Usuario no encontrado o credenciales incorrectas.");
             return response()->json(['error' => 'Error de autenticación'], 500);
