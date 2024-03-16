@@ -67,18 +67,6 @@ return [
         'driver' => 'local',
         'root' => '/home/lz9kr6l1o9ym/public_html/uploads/tianguis'
         ],        
-        'videos' => [
-        'driver' => 'local',
-        'root' => '/home/lz9kr6l1o9ym/public_html/uploads/videos'
-        ],        
-        'videost' => [
-        'driver' => 'local',
-        'root' => '/home/lz9kr6l1o9ym/public_html/uploads/videost'
-        ],        
-        'videoss' => [
-        'driver' => 'local',
-        'root' => '/home/lz9kr6l1o9ym/public_html/uploads/videoss'
-        ],
 
     ],
 
