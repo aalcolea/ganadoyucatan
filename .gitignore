@@ -1,5 +1,5 @@
 /node_modules
-config/filesystems.php
+/config/filesystems.php
 /storage/*.key
 .env
 .env.backup
