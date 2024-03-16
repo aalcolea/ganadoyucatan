@@ -258,10 +258,19 @@
 						</div>
                 </div>
 				<div class="youtube-link">
+					@if($video)
+					<video width="500" height="500" controls>
+					  	<source src="{{asset('uploads/videos/'.$video[0]->ruta)}}" type="video/mp4">
+					  		<source src="movie.ogg" type="video/ogg">
+						Your browser does not support the video tag.
+					</video> 
+					@endif
+				</div>
+				{{-- <div class="youtube-link">
 					@if($p->link)
 						<iframe width="100%" height="250" class="embed-responsive-item" src="<?php echo $convertedURL; ?>" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 					@endif
-				</div>
+				</div> --}}
             </div>
             <div class="information-product">
                 <p class="description">{{$p->nombre}}</p>

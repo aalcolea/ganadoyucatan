@@ -257,6 +257,10 @@
                 <div id="hidden-inputs"></div>
                 <input type="hidden" name="deleted_images" id="deleted_images">
                 <input type="hidden" name="images" id="images" value="">
+              </div>              
+              <div class="container">
+                    <label for="video">Cargar video:</label>
+                    <input type="file" name="video" id="video" accept="video/mp4, video/avi, video/mov, video/mpeg, video/quicktime">
               </div>
               
               <div class="tile-footer">

@@ -73,7 +73,7 @@
       {{-- <ul class="app-nav"> <button id="startSupportChatButton">Iniciar Conversación de Soporte</button> --}}
         <!-- User Menu-->
         <a id="subscriptionWarning" class="alert alert-warning" role="alert" style="display: none;"></a>
-        <button type="button" class="btn" style="background-color: #d79e46;border-color: #d79e46;" data-bs-toggle="modal" data-bs-target="#recomendacionesModal">
+        <button type="button" class="btn" style="background-color: #d79e46;border-color: #d79e46;margin-left: 78%;" data-bs-toggle="modal" data-bs-target="#recomendacionesModal">
             Recomendaciones ganaderas
         </button>
         <a onmouseover="this.style.background='rgba(188, 184, 144, .10)';" onmouseout="this.style.background='#f6f6f6';" href="{{url('/admin/products/home')}}" style="color: #000000;margin-block-start: 1%;margin-inline-end: 1%;text-decoration: none;">Inicio&nbsp;&nbsp;<i class="fa-solid fa-house" ></i></a>

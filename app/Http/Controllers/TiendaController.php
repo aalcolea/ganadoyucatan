@@ -16,6 +16,9 @@ use App\Models\PSubGallery;
 use App\Models\MensajeProducto;
 use App\Models\OfertaSubasta;
 use App\Models\Visits;
+use App\Models\Video;
+use App\Models\VideoT;
+use App\Models\VideoS;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
@@ -80,13 +83,15 @@ public function tiendaHome(Request $request){
            $random = null;
         }
         $images = PGallery::where('productoid', $id)->get();
+        $video = Video::where('producto_id', $id)->get();
+
         Visits::create([
             'ip' => request()->ip(),
             'idproducto' => $id,
             'fecha' => date('Y-m-d h:i:s'),
             'vendedorid' => $product[0]['vendedorid'],
             'type' => 'gen']);
-        $data = ['product' => $product, 'images' => $images, 'random' => $random];
+        $data = ['product' => $product, 'images' => $images, 'random' => $random, 'video' => $video];
         return view('Tienda.product', $data);
     }
     public function tiendaProductoMsg(Request $request, $id, $ruta){
@@ -204,6 +209,7 @@ public function tiendaHome(Request $request){
         }
         $product = $product[0];
         $images = PTGallery::where('id_producto', $id)->get();
+        $video = VideoT::where('producto_id', $id)->get();
         $imagesRandom = PTGallery::whereNot('id_producto', $id)->get();
         Visits::create([
             'ip' => request()->ip(),
@@ -211,7 +217,7 @@ public function tiendaHome(Request $request){
             'fecha' => date('Y-m-d h:i:s'),
             'vendedorid' => $product['vendedorid'],
             'type' => 'com']);
-        $data = ['product' => $product, 'images' => $images, 'random' => $random, 'imagesRandom' => $imagesRandom];
+        $data = ['product' => $product, 'images' => $images, 'random' => $random, 'imagesRandom' => $imagesRandom,  'video' => $video];
         return view('Tienda.Tianguis.tianguisProduct', $data);
     }
     public function getSubastas(){
@@ -302,13 +308,14 @@ public function tiendaHome(Request $request){
     public function getSubasta($id){
         $p = ProductS::where('status', 1)->findOrFail($id);
         $images = PSubGallery::where('productoid', $id)->get();
+        $video = VideoS::where('producto_id', $id)->get();
         Visits::create([
             'ip' => request()->ip(),
             'idproducto' => $id,
             'fecha' => date('Y-m-d h:i:s'),
             'vendedorid' => $p['vendedorid'],
             'type' => 'sub']);
-        $data = ['p' => $p, 'images' => $images];
+        $data = ['p' => $p, 'images' => $images, 'video' => $video];
         return view('Tienda.Subasta.subastaProduct', $data);
     }
     public function sendOffer(Request $request, $id){

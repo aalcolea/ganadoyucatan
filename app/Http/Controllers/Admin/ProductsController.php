@@ -20,6 +20,9 @@ use App\Models\PGallery;
 use App\Models\PSubGallery;
 use App\Models\PTGallery;
 use App\Models\Subasta;
+use App\Models\Video;
+use App\Models\VideoS;
+use App\Models\VideoT;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\DB;
@@ -376,6 +379,7 @@ class ProductsController extends Controller
                 $ciudad = 1;
             }
 
+
             $product = new Product;
 
             
@@ -404,7 +408,18 @@ class ProductsController extends Controller
             $product->premium = $premium;
             $product->edad = $edad;
             $product->save();
-
+            if ($request->hasFile('video')) {
+                $videoFile = $request->file('video');
+                $destinationPath = Storage::disk('videos')->path($videoFile);
+                $videoPath = $videoFile->store('', 'videos'); 
+                $productoid = Product::where('vendedorid', Auth::id())->orderby('datecreated', 'desc')->value('idproducto');
+                $video = new Video();
+                $video->nombre = $videoFile->getClientOriginalName();
+                $video->ruta = $videoPath; 
+                $video->tamaño = $videoFile->getSize();
+                $video->producto_id = $productoid;
+                $video->save();
+            }
             
             if(count($images) > 1) {
                 for ($i = 0; $i < count($images); $i++) {
@@ -735,7 +750,7 @@ class ProductsController extends Controller
             $finFecha = $request->input('fecha_fin');
             $finHora = $request->input('hora_fin');
             $fecha = $finFecha.' '.$finHora;
-            $estatus = $request->input('listEstatus');
+            //$estatus = $request->input('listEstatus');
             
 
             $product = new ProductS;
@@ -763,7 +778,7 @@ class ProductsController extends Controller
             $product->fechaCierre = $fecha;
             $product->fechaCreado = date('Y-m-d H:i:s');
             $product->status = '1';
-            $product->estatus = $estatus;
+            //$product->estatus = $estatus;
             $product->save();
             if(count($images) > 1) {
                 for ($i = 0; $i < count($images); $i++) {
@@ -776,6 +791,18 @@ class ProductsController extends Controller
                     $image->img = pathinfo($filename, PATHINFO_FILENAME);
                     $image->save();
                 }
+            }
+            if ($request->hasFile('video')) {
+                $videoFile = $request->file('video');
+                $destinationPath = Storage::disk('videoss')->path($videoFile);
+                $videoPath = $videoFile->store('', 'videoss'); 
+                $productoid = ProductS::where('vendedorid', Auth::id())->orderby('fechaCreado', 'desc')->value('id_producto');
+                $video = new VideoS();
+                $video->nombre = $videoFile->getClientOriginalName();
+                $video->ruta = $videoPath; 
+                $video->tamaño = $videoFile->getSize();
+                $video->producto_id = $productoid;
+                $video->save();
             }
             $request->session()->forget('product_images');
             
@@ -922,6 +949,18 @@ class ProductsController extends Controller
             'imagen' =>  date('Y-m-d'),
             'status' => '2',
         ]);
+        if ($request->hasFile('video')) {
+            $videoFile = $request->file('video');
+            $destinationPath = Storage::disk('videost')->path($videoFile);
+            $videoPath = $videoFile->store('', 'videost'); 
+            $productoid = ProductT::where('vendedorid', Auth::id())->orderby('datecreated', 'desc')->value('idproducto');
+            $video = new VideoT();
+            $video->nombre = $videoFile->getClientOriginalName();
+            $video->ruta = $videoPath; 
+            $video->tamaño = $videoFile->getSize();
+            $video->producto_id = $productoid;
+            $video->save();
+        }
         if(count($images) >= 1) {
             for ($i = 0; $i < count($images); $i++) {
                 $imageData = $images[$i];
