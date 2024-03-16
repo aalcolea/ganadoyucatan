@@ -57,16 +57,28 @@ return [
         ],        
         'webp_images' => [
         'driver' => 'local',
-        'root' => env('LOCAL_UPLOAD_PATH')
+        'root' => '/home/lz9kr6l1o9ym/public_html/uploads'
         ],
         'webp_images_sub' => [
         'driver' => 'local',
-        'root' => env('LOCAL_UPLOAD_PATH') . '/subasta'
+        'root' => '/home/lz9kr6l1o9ym/public_html/uploads/subasta'
         ],
         'webp_images_com' => [
         'driver' => 'local',
-        'root' => env('LOCAL_UPLOAD_PATH') . '/tianguis'
-        ], 
+        'root' => '/home/lz9kr6l1o9ym/public_html/uploads/tianguis'
+        ],        
+        'videos' => [
+        'driver' => 'local',
+        'root' => '/home/lz9kr6l1o9ym/public_html/uploads/videos'
+        ],        
+        'videost' => [
+        'driver' => 'local',
+        'root' => '/home/lz9kr6l1o9ym/public_html/uploads/videost'
+        ],        
+        'videoss' => [
+        'driver' => 'local',
+        'root' => '/home/lz9kr6l1o9ym/public_html/uploads/videoss'
+        ],
 
     ],
 
