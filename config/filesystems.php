@@ -66,6 +66,18 @@ return [
         'webp_images_com' => [
         'driver' => 'local',
         'root' => env('LOCAL_UPLOAD_PATH') . '/tianguis'
+        ],        
+        'videos' => [
+        'driver' => 'local',
+        'root' => env('LOCAL_UPLOAD_PATH') . '/videos'
+        ],        
+        'videost' => [
+        'driver' => 'local',
+        'root' => env('LOCAL_UPLOAD_PATH') . '/videost'
+        ],        
+        'videoss' => [
+        'driver' => 'local',
+        'root' => env('LOCAL_UPLOAD_PATH') . '/videoss'
         ],
 
     ],
