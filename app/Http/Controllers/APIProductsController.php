@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use Auth;
+use App\Models\Estado;
+use App\Models\Ciudad;
+use App\Models\Comisaria;
 
 class APIProductsController extends Controller
 {
