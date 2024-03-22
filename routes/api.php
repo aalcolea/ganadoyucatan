@@ -25,7 +25,8 @@ Route::post('/login', [APIAuthController::class, 'login']);
 /*get Products methods*/
 Route::middleware('jwt.auth')->get('/productsAll', [APIProductsController::class, 'show']);
 Route::get('/estados', [APIProductsController::class, 'getEstados']);
-Route::get('/ciudades/{estadoId}', [APIProductsController::class, 'getCiudadesByEstado']);
+// Deshabilita el límite de peticiones para esta ruta específica
+Route::get('/ciudades/{estadoId}', [APIProductsController::class, 'getCiudadesByEstado'])->middleware('throttle:60,1');
 Route::get('/comisarias/{ciudadId}', [APIProductsController::class, 'getComisariasByCiudad']);
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     //return $request->user();
