@@ -258,7 +258,7 @@
 						</div>
                 </div>
 				<div class="youtube-link">
-					@if($video)
+					@if($video <= 1)
 					<video width="500" height="500" controls>
 					  	<source src="{{asset('uploads/videos/'.$video[0]->ruta)}}" type="video/mp4">
 					  		<source src="movie.ogg" type="video/ogg">

@@ -84,6 +84,8 @@ public function tiendaHome(Request $request){
         }
         $images = PGallery::where('productoid', $id)->get();
         $video = Video::where('producto_id', $id)->get();
+        $video = $video->toArray();
+        
 
         Visits::create([
             'ip' => request()->ip(),
