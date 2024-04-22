@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\APIAuthController;
 use App\Http\Controllers\APIProductsController;
+use App\Http\Controllers\APIUserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,6 +25,11 @@ Route::post('/login', [APIAuthController::class, 'login']);
 
 /*get Products methods*/
 Route::middleware('jwt.auth')->get('/productsAll', [APIProductsController::class, 'show']);
+/*data User methods*/
+Route::middleware('jwt.auth')->get('/userProfile', [APIUserController::class, 'getUProfInfo']);
+Route::middleware('jwt.auth')->post('/updateProfile', [APIUserController::class, 'updateProfile']);
+Route::middleware('jwt.auth')->post('/updateFiscoData', [APIUserController::class, 'updateFiscoData']);
+/*fetching data*/
 Route::get('/estados', [APIProductsController::class, 'getEstados']);
 Route::get('/ciudades/{estadoId}', [APIProductsController::class, 'getCiudadesByEstado'])->withoutMiddleware('throttle');
 Route::get('/comisarias/{ciudadId}', [APIProductsController::class, 'getComisariasByCiudad']);
