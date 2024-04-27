@@ -120,6 +120,9 @@ class APIProductsController extends Controller
 
         return response()->json(['message' => 'Producto agregado con éxito'], 200);
     }
+    public function getProductGen(Request $request){
+        return "in process";
+    }
     public function postNewCom(Request $request){
         $data = $request->all();
         $rules = [
