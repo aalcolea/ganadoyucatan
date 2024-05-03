@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\ProductT;
+use App\Models\ProductS;
 use Auth;
 use App\Models\Estado;
 use App\Models\Ciudad;
@@ -22,6 +24,16 @@ class APIProductsController extends Controller
     public function show(){
         $vendedorId = Auth::id();
         $products = Product::where('status', '1')->where('vendedorid', $vendedorId)->orderBy('idproducto', 'desc')->paginate(10);
+        return response()->json(['products' => $products]);
+    }    
+    public function showCom(){
+        $vendedorId = Auth::id();
+        $products = ProductT::where('status', '1')->where('vendedorid', $vendedorId)->orderBy('idproducto', 'desc')->paginate(10);
+        return response()->json(['products' => $products]);
+    }    
+    public function showSub(){
+        $vendedorId = Auth::id();
+        $products = ProductS::where('status', '1')->where('vendedorid', $vendedorId)->orderBy('id_producto', 'desc')->paginate(10);
         return response()->json(['products' => $products]);
     }
     public function getEstados() {
@@ -121,6 +133,8 @@ class APIProductsController extends Controller
         return response()->json(['message' => 'Producto agregado con éxito'], 200);
     }
     public function getProductGen(Request $request){
+        $producto = Auth::id();
+        $product;
         return "in process";
     }
     public function postNewCom(Request $request){

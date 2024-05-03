@@ -25,6 +25,8 @@ Route::post('/login', [APIAuthController::class, 'login']);
 
 /*get Products methods*/
 Route::middleware('jwt.auth')->get('/productsAll', [APIProductsController::class, 'show']);
+Route::middleware('jwt.auth')->get('/productsAllCom', [APIProductsController::class, 'showCom']);
+Route::middleware('jwt.auth')->get('/productsAllSub', [APIProductsController::class, 'showSub']);
 /*data User methods*/
 Route::middleware('jwt.auth')->get('/userProfile', [APIUserController::class, 'getUProfInfo']);
 Route::middleware('jwt.auth')->post('/updateProfile', [APIUserController::class, 'updateProfile']);
