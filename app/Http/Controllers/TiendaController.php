@@ -84,8 +84,6 @@ public function tiendaHome(Request $request){
         }
         $images = PGallery::where('productoid', $id)->get();
         $video = Video::where('producto_id', $id)->get();
-        
-
 
         Visits::create([
             'ip' => request()->ip(),
@@ -212,6 +210,11 @@ public function tiendaHome(Request $request){
         $product = $product[0];
         $images = PTGallery::where('id_producto', $id)->get();
         $video = VideoT::where('producto_id', $id)->get();
+        if ($video->isEmpty()) {
+            $video = null;
+        };
+
+        
         $imagesRandom = PTGallery::whereNot('id_producto', $id)->get();
         Visits::create([
             'ip' => request()->ip(),

@@ -28,7 +28,7 @@ class APIProductsController extends Controller
     }    
     public function showCom(){
         $vendedorId = Auth::id();
-        $products = ProductT::where('status', '1')->where('vendedorid', $vendedorId)->orderBy('idproducto', 'desc')->paginate(10);
+        $products = ProductT::where('status', '2')->where('vendedorid', $vendedorId)->orderBy('idproducto', 'desc')->paginate(10);
         return response()->json(['products' => $products]);
     }    
     public function showSub(){
