@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Auth, Hash, Validator;
 use Carbon\Carbon;
 use App\Models\Persona;
+use App\Models\MensajeProducto;
 
 class APIUserController extends Controller
 {
