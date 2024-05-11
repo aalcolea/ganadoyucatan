@@ -34,4 +34,9 @@ class APIUserController extends Controller
         $u->save();
         return response()->json(['message' => 'Editado con éxito'], 200);
     }
+    public function getUserMsgs(){
+        $id = Auth::id();
+        $msg = MensajeProducto::where('vendedorid', $id)->where('status', '0')->get(); 
+        return response()->json('Mensaje' => $msg)
+    }
 }

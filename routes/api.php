@@ -31,6 +31,8 @@ Route::middleware('jwt.auth')->get('/productsAllSub', [APIProductsController::cl
 Route::middleware('jwt.auth')->get('/userProfile', [APIUserController::class, 'getUProfInfo']);
 Route::middleware('jwt.auth')->post('/updateProfile', [APIUserController::class, 'updateProfile']);
 Route::middleware('jwt.auth')->post('/updateFiscoData', [APIUserController::class, 'updateFiscoData']);
+
+Route::middleware('jwt.auth')->get('/getUserMsgs', [APIUserController::class, 'getUserMsgs']);
 /*fetching data*/
 Route::get('/estados', [APIProductsController::class, 'getEstados']);
 Route::get('/ciudades/{estadoId}', [APIProductsController::class, 'getCiudadesByEstado'])->withoutMiddleware('throttle');
