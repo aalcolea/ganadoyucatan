@@ -37,6 +37,6 @@ class APIUserController extends Controller
     public function getUserMsgs(){
         $id = Auth::id();
         $msg = MensajeProducto::where('vendedorid', $id)->where('status', '0')->get(); 
-        return response()->json('Mensaje' => $msg);
+        return response()->json(['msg' => $msg]);
     }
 }
