@@ -37,6 +37,7 @@ Route::get('/ciudades/{estadoId}', [APIProductsController::class, 'getCiudadesBy
 Route::get('/comisarias/{ciudadId}', [APIProductsController::class, 'getComisariasByCiudad']);
 /*product post methods*/
 Route::post('/products/addNewGen', [APIProductsController::class, 'postNewGen'])->name('api.addNewGen');
+Route::post('/products/addNewCom', [APIProductsController::class, 'postNewCom'])->name('api.addNewCom');
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     //return $request->user();

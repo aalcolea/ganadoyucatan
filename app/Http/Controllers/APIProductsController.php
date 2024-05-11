@@ -12,6 +12,8 @@ use App\Models\Ciudad;
 use App\Models\Comisaria;
 use Validator;
 use App\Models\PGallery;
+use App\Models\PTGallery;
+use App\Models\PSubGallery;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\DB;
@@ -49,6 +51,11 @@ class APIProductsController extends Controller
     public function getComisariasByCiudad($ciudadId) {
         $comisarias = Comisaria::where('ciudad_id', $ciudadId)->get();
         return response()->json($comisarias);
+    }
+    public function getProductGen(Request $request){
+        $producto = Auth::id();
+        $product;
+        return "in process";
     }
     public function postNewGen(Request $request){
         $data = $request->all();
@@ -132,11 +139,6 @@ class APIProductsController extends Controller
 
         return response()->json(['message' => 'Producto agregado con éxito'], 200);
     }
-    public function getProductGen(Request $request){
-        $producto = Auth::id();
-        $product;
-        return "in process";
-    }
     public function postNewCom(Request $request){
         $data = $request->all();
         $rules = [
@@ -155,12 +157,14 @@ class APIProductsController extends Controller
             return response()->json(['errors' => $validator->errors()], 422);
         }
 
-        $product = new Product;
-        $product->nombre = $data['nombre'];
+        $nombre = $data['nombre'];
+        $ruta = strtolower(str_replace(" ", "-", $nombre));
+        $product = new ProductT;
+        $product->nombre = $nombre
         $product->descripcion = $data['descripcion'];
         $product->rancho = $data['rancho'];
         $product->raza = $data['raza'];
-        $product->ruta = "test";
+        $product->ruta = $ruta;
         $product->precio = $data['precio'];
         $product->stock = "1";
         $product->portada = "";
@@ -170,7 +174,7 @@ class APIProductsController extends Controller
         if ($request->hasFile('images')) {
                 $images = $request->file('images');
                 $dateFolder = date('Y-m-d');
-                $uploadPath = 'uploads/' . $dateFolder;
+                $uploadPath = 'uploads/tianguis/' . $dateFolder;
                 if (!File::exists($uploadPath)) {
                     File::makeDirectory($uploadPath, 0755, true);
                 }
@@ -192,8 +196,8 @@ class APIProductsController extends Controller
                         $product->save();
                     }
 
-                    $imageEntry = new PGallery;
-                    $productoid = Product::orderBy('datecreated', 'desc')->value('idproducto');
+                    $imageEntry = new PTGallery;
+                    $productoid = ProductT::orderBy('datecreated', 'desc')->value('idproducto');
                     $imageEntry->productoid = $productoid;
                     $imageEntry->img = $filename;
                     $imageEntry->save();
@@ -204,8 +208,8 @@ class APIProductsController extends Controller
             $videos = $request->file('videos');
 
             foreach ($videos as $videoFile) {
-                $destinationPath = Storage::disk('videos')->path($videoFile);
-                $videoPath = $videoFile->store('', 'videos');
+                $destinationPath = Storage::disk('videost')->path($videoFile);
+                $videoPath = $videoFile->store('', 'videost');
                 $productoid = Product::orderBy('datecreated', 'desc')->value('idproducto');
 
                 $video = new Video();
