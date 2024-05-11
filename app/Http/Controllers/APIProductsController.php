@@ -160,7 +160,7 @@ class APIProductsController extends Controller
         $nombre = $data['nombre'];
         $ruta = strtolower(str_replace(" ", "-", $nombre));
         $product = new ProductT;
-        $product->nombre = $nombre
+        $product->nombre = $nombre;
         $product->descripcion = $data['descripcion'];
         $product->rancho = $data['rancho'];
         $product->raza = $data['raza'];
