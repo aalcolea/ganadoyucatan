@@ -1,6 +1,17 @@
 @extends('header')
 <link rel="stylesheet" type="text/css" href="{{url('/static/css/styleHome.css') }}">
  <title>La plataforma ganadera de la península de Yucatán||Ganado Yucatán</title>
+ 
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XWQ4KPDN65"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-XWQ4KPDN65');
+</script>
+
       <script>
 document.addEventListener("DOMContentLoaded", function() {
   const hamburgerMenu = document.querySelector('.hamburger_menu');
@@ -31,6 +42,7 @@ document.addEventListener("DOMContentLoaded", function() {
         js.src = 'https://connect.facebook.net/es_LA/sdk/xfbml.customerchat.js';
         fjs.parentNode.insertBefore(js, fjs);
       }(document, 'script', 'facebook-jssdk'));
+
   </script>
   <style>
       .mobile-menu__content {
