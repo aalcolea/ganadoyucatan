@@ -82,7 +82,7 @@ class APIProductsController extends Controller
         $product->raza = $data['raza'];
         $product->ruta = "test";
         $product->precio = $data['precio'];
-        $product->stock = "1";
+        $product->stock = $data['stock'];
         $product->portada = "";
         $product->carpeta = "";
         $product->save(); 
@@ -156,7 +156,8 @@ class APIProductsController extends Controller
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 422);
         }
-
+        $numero = Auth::user()->email_user;
+        $nombres = Auth::user()->nombres;
         $nombre = $data['nombre'];
         $ruta = strtolower(str_replace(" ", "-", $nombre));
         $product = new ProductT;
@@ -166,9 +167,14 @@ class APIProductsController extends Controller
         $product->raza = $data['raza'];
         $product->ruta = $ruta;
         $product->precio = $data['precio'];
-        $product->stock = "1";
-        $product->portada = "";
-        $product->carpeta = "";
+        $product->stock = $data['stock'];
+        $product->vacunado = $data['vacu'];
+        $product->tipo = $data['tipo'];
+        $product->peso = $data['peso'];
+        $product->vendedorid = Auth::id();
+        $product->propietario = $nombres;
+        $product->imagen = "";
+        $product->numero = $numero;
         $product->save(); 
 
         if ($request->hasFile('images')) {
@@ -181,7 +187,7 @@ class APIProductsController extends Controller
                 foreach ($images as $index => $image) {
                     $filename = $image->getClientOriginalName();
                     $webpPath = $dateFolder . '/' . pathinfo($filename, PATHINFO_FILENAME) . '.webp';
-                    $destinationPath = Storage::disk('webp_images')->path($webpPath);
+                    $destinationPath = Storage::disk('webp_images_com')->path($webpPath);
 
                     try {
                         $img = Image::make($image->getRealPath());
@@ -191,15 +197,15 @@ class APIProductsController extends Controller
                     }
 
                     if ($index === 0) {
-                        $product->portada = pathinfo($filename, PATHINFO_FILENAME) . '.webp';
-                        $product->carpeta = $dateFolder;
+                        //$product->portada = pathinfo($filename, PATHINFO_FILENAME) . '.webp';
+                        $product->imagen = $dateFolder;
                         $product->save();
                     }
 
                     $imageEntry = new PTGallery;
                     $productoid = ProductT::orderBy('datecreated', 'desc')->value('idproducto');
-                    $imageEntry->productoid = $productoid;
-                    $imageEntry->img = $filename;
+                    $imageEntry->id_producto = $productoid;
+                    $imageEntry->ruta = $filename;
                     $imageEntry->save();
                 }
             }
@@ -210,7 +216,7 @@ class APIProductsController extends Controller
             foreach ($videos as $videoFile) {
                 $destinationPath = Storage::disk('videost')->path($videoFile);
                 $videoPath = $videoFile->store('', 'videost');
-                $productoid = Product::orderBy('datecreated', 'desc')->value('idproducto');
+                $productoid = ProductT::orderBy('datecreated', 'desc')->value('idproducto');
 
                 $video = new Video();
                 $video->nombre = $videoFile->getClientOriginalName();
