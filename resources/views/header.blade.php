@@ -1,4 +1,13 @@
-<!DOCTYPE html>
+ 
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XWQ4KPDN65"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-XWQ4KPDN65');
+</script><!DOCTYPE html>
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,7 +37,16 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="language" content="Spanish">
     <meta name="author" content="Ganado Yucatan">
-    <link rel="icon" type="image/png" href="{{url('/static/images/logo.png')}}"/>
+    <link rel="icon" type="image/png" href="{{url('/static/images/logo.png')}}"/> 
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XWQ4KPDN65"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-XWQ4KPDN65');
+</script>
 </head>
 <body>
 	@section('content')

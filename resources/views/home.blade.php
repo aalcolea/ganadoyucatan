@@ -1,16 +1,6 @@
 @extends('header')
 <link rel="stylesheet" type="text/css" href="{{url('/static/css/styleHome.css') }}">
  <title>La plataforma ganadera de la península de Yucatán||Ganado Yucatán</title>
- 
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-XWQ4KPDN65"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-XWQ4KPDN65');
-</script>
 
       <script>
 document.addEventListener("DOMContentLoaded", function() {
