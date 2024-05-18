@@ -21,7 +21,16 @@
     <meta name="author" content="Ganado Yucatan">
     <link rel="icon" type="image/png" href="{{url('/static/images/logo.png')}}"/>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5420632641336498"
-     crossorigin="anonymous"></script>
+     crossorigin="anonymous"></script> 
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XWQ4KPDN65"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-XWQ4KPDN65');
+</script>
     <title>@yield('title') Ganado Yucatan</title>
 </head>
 <body>

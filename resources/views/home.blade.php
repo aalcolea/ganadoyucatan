@@ -1,7 +1,6 @@
 @extends('header')
 <link rel="stylesheet" type="text/css" href="{{url('/static/css/styleHome.css') }}">
  <title>La plataforma ganadera de la península de Yucatán||Ganado Yucatán</title>
-
       <script>
 document.addEventListener("DOMContentLoaded", function() {
   const hamburgerMenu = document.querySelector('.hamburger_menu');
@@ -32,7 +31,6 @@ document.addEventListener("DOMContentLoaded", function() {
         js.src = 'https://connect.facebook.net/es_LA/sdk/xfbml.customerchat.js';
         fjs.parentNode.insertBefore(js, fjs);
       }(document, 'script', 'facebook-jssdk'));
-
   </script>
   <style>
       .mobile-menu__content {
