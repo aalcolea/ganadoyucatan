@@ -49,7 +49,7 @@ class APIUserController extends Controller
                 foreach ($item->getAttributes() as $key => $value) {
                     if (is_string($value)) {
                         if (!mb_check_encoding($value, 'UTF-8')) {
-                            dd('Invalid UTF-8 encoding detected in field: ' . $key . ' with value: ' . $value);
+                            dd('UTF-8 error en: ' . $key . '  value: ' . $value);
                             $value = mb_convert_encoding($value, 'UTF-8', 'auto');
                         }
                         $item->$key = $value;
