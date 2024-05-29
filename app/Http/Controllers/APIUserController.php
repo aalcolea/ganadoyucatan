@@ -41,7 +41,6 @@ class APIUserController extends Controller
         if (!$id) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
-
         $msg = MensajeProducto::where('vendedorid', $id)
                               ->where('status', '!=', '2')
                               ->get(); 
@@ -51,18 +50,16 @@ class APIUserController extends Controller
                 if (is_string($value)) {
                     if (!mb_check_encoding($value, 'UTF-8')) {
                         dd('Invalid UTF-8 encoding detected in field: ' . $key . ' with value: ' . $value);
-                        $value = utf8_encode($value);
+                        $value = mb_convert_encoding($value, 'UTF-8', 'auto');
                     }
                     $item->$key = $value;
                 }
             }
             return $item;
         });
-
         return response()->json(['msg' => $msg]);
     } catch (\Exception $e) {
         dd('Error fetching mensajes: ' . $e->getMessage());
         return response()->json(['error' => 'Internal Server Error'], 500);
     }
-}
 }
