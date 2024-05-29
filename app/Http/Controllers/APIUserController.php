@@ -48,7 +48,7 @@ class APIUserController extends Controller
             });
             return response()->json(['msg' => $msg]);
         } catch (\Exception $e) {
-            \Log::error('Error fetching mensajes: ' . $e->getMessage());
+            dd('Error fetching mensajes: ' . $e->getMessage());
             return response()->json(['error' => 'Internal Server Error'], 500);
         }
     }
