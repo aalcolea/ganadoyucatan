@@ -38,7 +38,7 @@ Route::get('/estados', [APIProductsController::class, 'getEstados']);
 Route::get('/ciudades/{estadoId}', [APIProductsController::class, 'getCiudadesByEstado'])->withoutMiddleware('throttle');
 Route::get('/comisarias/{ciudadId}', [APIProductsController::class, 'getComisariasByCiudad']);
 /*product post methods*/
-Route::post('/products/addNewGen', [APIProductsController::class, 'postNewGen'])->name('api.addNewGen');
+Route::middleware('jwt.auth')->post('/products/addNewGen', [APIProductsController::class, 'postNewGen'])->name('api.addNewGen');
 Route::middleware('jwt.auth')->post('/products/addNewCom', [APIProductsController::class, 'postNewCom'])->name('api.addNewCom');
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

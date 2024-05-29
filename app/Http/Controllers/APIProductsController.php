@@ -75,16 +75,25 @@ class APIProductsController extends Controller
             return response()->json(['errors' => $validator->errors()], 422);
         }
 
+        $nombre = $data['nombre'];
+        $ruta = strtolower(str_replace(" ", "-", $nombre));
         $product = new Product;
-        $product->nombre = $data['nombre'];
+        $product->nombre = $nombre;
         $product->descripcion = $data['descripcion'];
         $product->rancho = $data['rancho'];
         $product->raza = $data['raza'];
-        $product->ruta = "test";
+        $product->ruta = $ruta;
         $product->precio = $data['precio'];
+        $product->edad = $data['edad'];
         $product->stock = $data['stock'];
+        $product->vacunado = $data['vacu'];
+        $product->peso = $data['peso'];
+        $product->estado = $data['estado'];
+        $product->ciudad = $data['ciudad'];
+        $product->comisaria = $data['comisaria'];
         $product->portada = "";
         $product->carpeta = "";
+        $product->vendedorid = Auth::id();
         $product->save(); 
 
         if ($request->hasFile('images')) {
@@ -171,6 +180,9 @@ class APIProductsController extends Controller
         $product->vacunado = $data['vacu'];
         $product->tipo = $data['tipo'];
         $product->peso = $data['peso'];
+        $product->estado = $data['estado'];
+        $product->ciudad = $data['ciudad'];
+        //$product->comisaria = $data['comisaria'];
         $product->vendedorid = Auth::id();
         $product->propietario = $nombres;
         $product->imagen = "";
