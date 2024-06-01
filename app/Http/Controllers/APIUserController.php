@@ -63,4 +63,16 @@ class APIUserController extends Controller
             return response()->json(['error' => 'Internal Server Error'], 500);
         }
     }
+    public function updateMessageStatus(Request $request){
+        $messageId = $request->input('messageId');
+        if(!$messageId){
+            return response()->json(['error'=>'Message id requerido'], 400);
+        }
+        $message = MensajeProducto::find($messageId);
+        if (!$message) {
+            return response()->json(['error' => 'MessageId no existe'], 404);
+        }
+        $message->delete();
+         return response()->json(['success' => 'Message eliminado exitosamente'], 200);
+    }
 }
