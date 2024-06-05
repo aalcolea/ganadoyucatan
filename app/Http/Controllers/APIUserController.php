@@ -49,8 +49,7 @@ class APIUserController extends Controller
                 foreach ($item->getAttributes() as $key => $value) {
                     if (is_string($value)) {
                         if (!mb_check_encoding($value, 'UTF-8')) {
-                            dd('UTF-8 error en: ' . $key . '  value: ' . $value);
-                            $value = mb_convert_encoding($value, 'UTF-8', 'auto');
+                            $value = preg_replace('/[^\x{0009}\x{000A}\x{000D}\x{0020}-\x{D7FF}\x{E000}-\x{FFFD}\x{10000}-\x{10FFFF}]/u', '', $value);
                         }
                         $item->$key = $value;
                     }
@@ -63,6 +62,7 @@ class APIUserController extends Controller
             return response()->json(['error' => 'Internal Server Error'], 500);
         }
     }
+
     public function updateMessageStatus(Request $request){
         $messageId = $request->input('messageId');
         if(!$messageId){
