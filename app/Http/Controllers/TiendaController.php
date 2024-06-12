@@ -355,4 +355,5 @@ public function tiendaHome(Request $request){
     public function getSuscripcion(){
         return view('suscripcion');
     }
+    //test
 }
