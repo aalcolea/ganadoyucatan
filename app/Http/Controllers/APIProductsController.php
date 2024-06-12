@@ -90,7 +90,7 @@ class APIProductsController extends Controller
         $product->peso = $data['peso'];
         $product->estado = $data['estado'];
         $product->ciudad = $data['ciudad'];
-        $product->comisaria = $data['comisaria'];
+        $product->comisaria = "1";//$data['comisaria'];
         $product->portada = "";
         $product->carpeta = "";
         $product->vendedorid = Auth::id();

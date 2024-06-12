@@ -7,7 +7,7 @@ use Auth, Hash, Validator;
 use Carbon\Carbon;
 use App\Models\Persona;
 use App\Models\MensajeProducto;
-
+use App\Events\NewMessageNotification;
 class APIUserController extends Controller
 {
     public function getUProfInfo(){
@@ -74,5 +74,16 @@ class APIUserController extends Controller
         }
         $message->delete();
          return response()->json(['success' => 'Message eliminado exitosamente'], 200);
+    }
+    public function store(Request $request){
+        $message = new MensajeProducto();
+        $message->name = $request->name;
+        $message->email = $request->email;
+        $message->messagebody = $request->messagebody;
+        $message->save();
+
+        event(new NewMessageNotification($message));
+
+        return response()->json(['message' => 'Mensaje creado y notificación enviada']);
     }
 }

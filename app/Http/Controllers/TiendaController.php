@@ -130,35 +130,40 @@ public function tiendaHome(Request $request){
             }
     }
     public function contactInfo(Request $request){
-    $nombre = ucwords(strtolower(trim($request->input('name'))));
-    $email = strtolower(trim($request->input('phone')));
-    $mensaje = $request->input('message');
-    $useragent = $request->server('HTTP_USER_AGENT');
-    $ip = $request->server('REMOTE_ADDR');
-    $dispositivo = "PC";
-    if(preg_match("/mobile/i", $useragent)){
-        $dispositivo = "Móvil"; 
-    } else if (preg_match("/tablet/i", $useragent)) {
-        $dispositivo = "Tablet";
-    } else if (preg_match("/iPhone/i", $useragent)) {
-        $dispositivo = "iPhone";
-    } else if (preg_match("/iPad/i", $useragent)) {
-        $dispositivo = "iPad";
-    }
-    $msg = new MensajeProducto;
-    $msg->nombre = $nombre;
-    $msg->mensaje = $mensaje;
-    $msg->email = $email;
-    $msg->ip = $ip;
-    $msg->dispositivo = $dispositivo;
-    $msg->useragent = $useragent;
-    $msg->datecreated = date('Y-m-d');
-    $msg->vendedorid =  '1';
-    $msg->status = 0;
-    if($msg->save()){
+        $nombre = ucwords(strtolower(trim($request->input('name'))));
+        $email = strtolower(trim($request->input('phone')));
+        $mensaje = $request->input('message');
+        $useragent = $request->server('HTTP_USER_AGENT');
+        $ip = $request->server('REMOTE_ADDR');
+        $dispositivo = "PC";
+        if(preg_match("/mobile/i", $useragent)){
+            $dispositivo = "Móvil"; 
+        } else if (preg_match("/tablet/i", $useragent)) {
+            $dispositivo = "Tablet";
+        } else if (preg_match("/iPhone/i", $useragent)) {
+            $dispositivo = "iPhone";
+        } else if (preg_match("/iPad/i", $useragent)) {
+            $dispositivo = "iPad";
+        }
+        $msg = new MensajeProducto;
+        $msg->nombre = $nombre;
+        $msg->mensaje = $mensaje;
+        $msg->email = $email;
+        $msg->ip = $ip;
+        $msg->dispositivo = $dispositivo;
+        $msg->useragent = $useragent;
+        $msg->datecreated = date('Y-m-d');
+        $msg->vendedorid =  '1';
+        $msg->status = 0;
+        if($msg->save()){
+            event(new NewMessageNotification($msg));
+            
             Alert::success('Éxito', 'El mensaje se envió correctamente.');
             return back();
-    }
+        } else {
+            Alert::error('Error', 'Hubo un problema al enviar el mensaje.');
+            return back();
+        }
     }
     public function getTianguisTienda(Request $request){
         $query = ProductT::where('status', '2');
