@@ -30,8 +30,8 @@
     <div class="tianguisGanadero-container">
         <div class="tianguisLeft">
             <hr>
-            <p class="title">Ganado comercial</p>
-            <p class="content">Si buscas ganado, para el consumo o el sector cárnico, bienvenido a tu tienda digital.</p>
+            <h1 class="title">Ganado comercial</h1>
+            <h2 class="content">Si buscas ganado, para el consumo o el sector cárnico, bienvenido a tu tienda digital.</h2>
             <button onclick="location.href='/tianguisTienda'" class="mainButton">Ver más</button>
         </div>
         <div class="tianguisRight"></div>
@@ -40,9 +40,9 @@
         <div class="geneticoLeft"></div>
         <div class="geneticoRight">
             <hr>
-            <p class="title">Ganado Genético</p>
+            <h1 class="title">Ganado Genético</h1>
 
-            <p class="content">Si buscas ganado para mejorar el hato ganadero, bienvenido a tu tienda digital.</p>
+            <h2 class="content">Si buscas ganado para mejorar el hato ganadero, bienvenido a tu tienda digital.</h2>
 
             <button onclick="location.href='/tienda'" class="mainButton">Ver más</button>
         </div>
@@ -50,8 +50,8 @@
     <div class="subastaGanadera-container">
         <div class="subastaLeft">
             <hr>
-            <p class="title">Subasta ganadera</p>
-            <p class="content">¿Te gustaría ofertar? Este es un espacio diseñado para todos nuestros suscriptores, busca tu oportunidad, bienvenidos a Subasta Ganadera.</p>
+            <h1 class="title">Subasta ganadera</h1>
+            <h2 class="content">¿Te gustaría ofertar? Este es un espacio diseñado para todos nuestros suscriptores, busca tu oportunidad, bienvenidos a Subasta Ganadera.</h2>
 
             <button onclick="location.href='/subastas'" class="mainButton">Ver más</button>
         </div>
@@ -61,8 +61,8 @@
         <div class="noticiasLeft"></div>
         <div class="noticiasRight">
             <hr>
-            <p class="title">Noticias</p>
-            <p class="content">Próximamente ...</p>
+            <h1 class="title">Noticias</h1>
+            <h2 class="content">Próximamente ...</h2>
             <button class="mainButton">Ver más</button>
         </div>
     </div>
