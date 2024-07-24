@@ -23,11 +23,19 @@ use App\Models\Video;
 
 class APIProductsController extends Controller
 {
-    public function show(){
+    public function show($id) {
         $vendedorId = Auth::id();
-        $products = Product::where('status', '1')->where('vendedorid', $vendedorId)->orderBy('idproducto', 'desc')->paginate(10);
-        return response()->json(['products' => $products]);
-    }    
+        $product = Product::where('id', $id)->where('vendedorid', $vendedorId)->with('gallery')->first();
+
+        if ($product) {
+            $product->gallery = $product->gallery->map(function($image) {
+                return asset('uploads/' . $image->img);
+            });
+        }
+
+        return response()->json(['product' => $product]);
+    }
+
     public function showCom(){
         $vendedorId = Auth::id();
         $products = ProductT::where('status', '2')->where('vendedorid', $vendedorId)->orderBy('idproducto', 'desc')->paginate(10);
