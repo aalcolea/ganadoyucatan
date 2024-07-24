@@ -265,9 +265,9 @@ class APIProductsController extends Controller
     public function updateGen(Request $request, $id){
         $data = $request->all();
         $rules = [
-            'nombre' => 'nullable',
-            'rancho' => 'nullable',
-            'descripcion' => 'nullable',
+            'nombre' => 'required',
+            'rancho' => 'required',
+            'descripcion' => 'required',
         ];
         $messages = [
             'nombre.required' => 'El nombre del producto es obligatorio',
