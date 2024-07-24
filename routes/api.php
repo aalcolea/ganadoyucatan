@@ -41,6 +41,7 @@ Route::get('/comisarias/{ciudadId}', [APIProductsController::class, 'getComisari
 /*product post methods*/
 Route::middleware('jwt.auth')->post('/products/addNewGen', [APIProductsController::class, 'postNewGen'])->name('api.addNewGen');
 Route::middleware('jwt.auth')->post('/products/addNewCom', [APIProductsController::class, 'postNewCom'])->name('api.addNewCom');
+Route::middleware('jwt.auth')->put('/products/{id}/editGen', [APIProductsController::class, 'editGen'])->name('api.editGen');
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     //return $request->user();
