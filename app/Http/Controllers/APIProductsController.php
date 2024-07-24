@@ -23,32 +23,35 @@ use App\Models\Video;
 
 class APIProductsController extends Controller
 {
-    public function show($id){
+    public function show(){
         $vendedorId = Auth::id();
-        $product = Product::where('id', $id)->where('vendedorid', $vendedorId)->with('gallery')->first();
-
-        if ($product) {
-            $product->gallery = $product->gallery->map(function($image) {
+        $products = Product::where('status', '1')
+                            ->where('vendedorid', $vendedorId)
+                            ->with('images')
+                            ->orderBy('idproducto', 'desc')
+                            ->paginate(10);
+        $products->each(function ($product) {
+            $product->gallery = $product->images->map(function($image) {
                 return asset('uploads/' . $image->img);
             });
-        }
+        });
 
-        return response()->json(['product' => $product]);
+        return response()->json(['products' => $products]);
     }
-    public function showCom($id){
+    public function showCom(){
         $vendedorId = Auth::id();
-        $product = ProductT::where('id', $id)
-                    ->where('vendedorid', $vendedorId)
-                    ->with('images')
-                    ->first();
-
-        if ($product) {
-            $product->gallery = $product->images->map(function ($image) {
+        $products = ProductT::where('status', '2')
+                            ->where('vendedorid', $vendedorId)
+                            ->with('images')
+                            ->orderBy('idproducto', 'desc')
+                            ->paginate(10);
+        $products->each(function ($product) {
+            $product->gallery = $product->images->map(function($image) {
                 return asset('uploads/tianguis/' . $image->ruta);
             });
-        }
+        });
 
-        return response()->json(['product' => $product]);
+        return response()->json(['products' => $products]);
     }
     public function showSub(){
         $vendedorId = Auth::id();
