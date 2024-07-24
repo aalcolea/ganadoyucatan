@@ -31,13 +31,13 @@ class APIProductsController extends Controller
                             ->orderBy('idproducto', 'desc')
                             ->paginate(10);
         $products->each(function ($product) {
-            $product->gallery = $product->images->map(function($image) {
-                return asset('uploads/' . $image->img);
+            $product->gallery = $product->images->map(function($image) use ($product) {
+                return asset('uploads/' . $product->carpeta . '/' . $image->img);
             });
         });
-
         return response()->json(['products' => $products]);
     }
+
     public function showCom(){
         $vendedorId = Auth::id();
         $products = ProductT::where('status', '2')
@@ -46,11 +46,10 @@ class APIProductsController extends Controller
                             ->orderBy('idproducto', 'desc')
                             ->paginate(10);
         $products->each(function ($product) {
-            $product->gallery = $product->images->map(function($image) {
-                return asset('uploads/tianguis/' . $image->ruta);
+            $product->gallery = $product->images->map(function($image) use ($product) {
+                return asset('uploads/tianguis/' . $product->imagen . '/' . $image->ruta);
             });
         });
-
         return response()->json(['products' => $products]);
     }
     public function showSub(){
