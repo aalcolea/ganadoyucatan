@@ -275,54 +275,34 @@ class APIProductsController extends Controller
             'descripcion.required' => 'La descripción es obligatoria',
         ];
         $validator = Validator::make($data, $rules, $messages);
+
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 422);
         }
+
         try {
             $product = Product::find($id);
             if (!$product) {
                 return response()->json(['error' => 'Producto no encontrado'], 404);
             }
-            if (isset($data['nombre'])) {
-                $nombre = $data['nombre'];
-                $ruta = strtolower(str_replace(" ", "-", $nombre));
-                $product->nombre = $nombre;
-                $product->ruta = $ruta;
-            }
-            if (isset($data['descripcion'])) {
-                $product->descripcion = $data['descripcion'];
-            }
-            if (isset($data['rancho'])) {
-                $product->rancho = $data['rancho'];
-            }
-            if (isset($data['raza'])) {
-                $product->raza = $data['raza'];
-            }
-            if (isset($data['precio'])) {
-                $product->precio = $data['precio'];
-            }
-            if (isset($data['edad'])) {
-                $product->edad = $data['edad'];
-            }
-            if (isset($data['stock'])) {
-                $product->stock = $data['stock'];
-            }
-            if (isset($data['vacu'])) {
-                $product->vacunado = $data['vacu'];
-            }
-            if (isset($data['peso'])) {
-                $product->peso = $data['peso'];
-            }
-            if (isset($data['estado'])) {
-                $product->estado = $data['estado'];
-            }
-            if (isset($data['ciudad'])) {
-                $product->ciudad = $data['ciudad'];
-            }
-            if (isset($data['comisaria'])) {
-                $product->comisaria = $data['comisaria'];
-            }
+
+            $nombre = $data['nombre'];
+            $ruta = strtolower(str_replace(" ", "-", $nombre));
+            $product->nombre = $nombre;
+            $product->descripcion = $data['descripcion'];
+            $product->rancho = $data['rancho'];
+            $product->raza = $data['raza'];
+            $product->ruta = $ruta;
+            $product->precio = $data['precio'];
+            $product->edad = $data['edad'];
+            $product->stock = $data['stock'];
+            $product->vacunado = $data['vacu'];
+            $product->peso = $data['peso'];
+            $product->estado = $data['estado'];
+            $product->ciudad = $data['ciudad'];
+            $product->comisaria = $data['comisaria'] ?? $product->comisaria;
             $product->save();
+
             if ($request->hasFile('images')) {
                 $images = $request->file('images');
                 $dateFolder = $product->carpeta ?: date('Y-m-d');
@@ -369,10 +349,13 @@ class APIProductsController extends Controller
                     $video->save();
                 }
             }
+
             return response()->json(['message' => 'Producto actualizado con éxito'], 200);
         } catch (Exception $e) {
             return response()->json(['error' => 'Error al actualizar producto: ' . $e->getMessage(), 'trace' => $e->getTraceAsString()], 500);
         }
     }
+
+
 }
 //imagen, titulo, raza, peso, precio, vistas, estatus
