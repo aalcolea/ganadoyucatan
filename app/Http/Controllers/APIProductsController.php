@@ -23,7 +23,7 @@ use App\Models\Video;
 
 class APIProductsController extends Controller
 {
-    public function show($id) {
+    public function show($id){
         $vendedorId = Auth::id();
         $product = Product::where('id', $id)->where('vendedorid', $vendedorId)->with('gallery')->first();
 
@@ -35,12 +35,21 @@ class APIProductsController extends Controller
 
         return response()->json(['product' => $product]);
     }
-
-    public function showCom(){
+    public function showCom($id){
         $vendedorId = Auth::id();
-        $products = ProductT::where('status', '2')->where('vendedorid', $vendedorId)->orderBy('idproducto', 'desc')->paginate(10);
-        return response()->json(['products' => $products]);
-    }    
+        $product = ProductT::where('id', $id)
+                    ->where('vendedorid', $vendedorId)
+                    ->with('images')
+                    ->first();
+
+        if ($product) {
+            $product->gallery = $product->images->map(function ($image) {
+                return asset('uploads/tianguis/' . $image->ruta);
+            });
+        }
+
+        return response()->json(['product' => $product]);
+    }
     public function showSub(){
         $vendedorId = Auth::id();
         $products = ProductS::where('status', '1')->where('vendedorid', $vendedorId)->orderBy('id_producto', 'desc')->paginate(10);
