@@ -262,7 +262,8 @@ class APIProductsController extends Controller
 
         return response()->json(['message' => 'Producto agregado con éxito'], 200);
     }
-    public function updateGen(Request $request, $id){
+    public function updateGen(Request $request, $id)
+    {
         $data = $request->all();
         $rules = [
             'nombre' => 'required',
@@ -353,8 +354,9 @@ class APIProductsController extends Controller
 
             return response()->json(['message' => 'Producto actualizado con éxito'], 200);
         } catch (Exception $e) {
-            return response()->json(['error' => 'Error al actualizar producto: ' . $e->getMessage()], 500);
+            return response()->json(['error' => 'Error al actualizar producto: ' . $e->getMessage(), 'trace' => $e->getTraceAsString()], 500);
         }
     }
+
 }
 //imagen, titulo, raza, peso, precio, vistas, estatus
