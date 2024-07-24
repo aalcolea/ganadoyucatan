@@ -265,14 +265,14 @@ class APIProductsController extends Controller
     public function updateGen(Request $request, $id){
         $data = $request->all();
         $rules = [
-            'Nombre' => 'required',
-            'Rancho' => 'required',
-            'Descripcion' => 'required',
+            'nombre' => 'required',
+            'rancho' => 'required',
+            'descripcion' => 'required',
         ];
         $messages = [
-            'Nombre.required' => 'El nombre del producto es obligatorio',
-            'Rancho.required' => 'El rancho es obligatorio',
-            'Descripcion.required' => 'La descripción es obligatoria',
+            'nombre.required' => 'El nombre del producto es obligatorio',
+            'rancho.required' => 'El rancho es obligatorio',
+            'descripcion.required' => 'La descripción es obligatoria',
         ];
         $validator = Validator::make($data, $rules, $messages);
 
@@ -286,21 +286,21 @@ class APIProductsController extends Controller
                 return response()->json(['error' => 'Producto no encontrado'], 404);
             }
 
-            $nombre = $data['Nombre'];
+            $nombre = $data['nombre'];
             $ruta = strtolower(str_replace(" ", "-", $nombre));
             $product->nombre = $nombre;
-            $product->descripcion = $data['Descripcion'];
-            $product->rancho = $data['Rancho'];
-            $product->raza = $data['Raza'];
+            $product->descripcion = $data['descripcion'];
+            $product->rancho = $data['rancho'];
+            $product->raza = $data['raza'];
             $product->ruta = $ruta;
-            $product->precio = $data['Precio'];
-            $product->edad = $data['Edad'];
-            $product->stock = $data['Stock'];
-            $product->vacunado = $data['Vacunado'];
-            $product->peso = $data['Peso'];
-            $product->estado = $data['Estado'];
-            $product->ciudad = $data['Ciudad'];
-            $product->comisaria = $data['Comisaria'] ?? $product->comisaria;
+            $product->precio = $data['precio'];
+            $product->edad = $data['edad'];
+            $product->stock = $data['stock'];
+            $product->vacunado = $data['vacu'];
+            $product->peso = $data['peso'];
+            $product->estado = $data['estado'];
+            $product->ciudad = $data['ciudad'];
+            $product->comisaria = $data['comisaria'] ?? $product->comisaria;
             $product->save();
 
             if ($request->hasFile('images')) {
