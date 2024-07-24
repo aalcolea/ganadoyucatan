@@ -32,9 +32,10 @@ class APIProductsController extends Controller
                             ->paginate(10);
         $products->each(function ($product) {
             $product->gallery = $product->images->map(function($image) use ($product) {
-                return asset('uploads/' . $product->carpeta . '/' . $image->img);
+                return asset('uploads/' . $product->carpeta . '/' . $image->img . '.webp');
             });
         });
+
         return response()->json(['products' => $products]);
     }
 
@@ -47,9 +48,10 @@ class APIProductsController extends Controller
                             ->paginate(10);
         $products->each(function ($product) {
             $product->gallery = $product->images->map(function($image) use ($product) {
-                return asset('uploads/tianguis/' . $product->imagen . '/' . $image->ruta);
+                return asset('uploads/tianguis/' . $product->imagen . '/' . $image->ruta . '.webp');
             });
         });
+
         return response()->json(['products' => $products]);
     }
     public function showSub(){
