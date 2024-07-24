@@ -265,14 +265,14 @@ class APIProductsController extends Controller
     public function updateGen(Request $request, $id){
         $data = $request->all();
         $rules = [
-            'nombre' => 'required',
-            'rancho' => 'required',
-            'descripcion' => 'required',
+            '_title' => 'required',
+            '_rancho' => 'required',
+            '_description' => 'required',
         ];
         $messages = [
-            'nombre.required' => 'El nombre del producto es obligatorio',
-            'rancho.required' => 'El rancho es obligatorio',
-            'descripcion.required' => 'La descripción es obligatoria',
+            '_title.required' => 'El nombre del producto es obligatorio',
+            '_rancho.required' => 'El rancho es obligatorio',
+            '_description.required' => 'La descripción es obligatoria',
         ];
         $validator = Validator::make($data, $rules, $messages);
 
