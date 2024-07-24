@@ -40,6 +40,8 @@ Route::get('/ciudades/{estadoId}', [APIProductsController::class, 'getCiudadesBy
 Route::get('/comisarias/{ciudadId}', [APIProductsController::class, 'getComisariasByCiudad']);
 /*product post methods*/
 Route::middleware('jwt.auth')->post('/products/addNewGen', [APIProductsController::class, 'postNewGen'])->name('api.addNewGen');
+Route::middleware('jwt.auth')->put('/updateProduct/{id}', [APIProductsController::class, 'updateGen']);
+
 Route::middleware('jwt.auth')->post('/products/addNewCom', [APIProductsController::class, 'postNewCom'])->name('api.addNewCom');
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
