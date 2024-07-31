@@ -262,9 +262,9 @@ class APIProductsController extends Controller
 
         return response()->json(['message' => 'Producto agregado con éxito'], 200);
     }
-
 public function updateGen(Request $request, $id) {
     print('Entrando en updateGen');
+    print_r($_POST);
 
     $data = $request->all();
     print('Datos recibidos: ' . json_encode($data));
@@ -368,6 +368,7 @@ public function updateGen(Request $request, $id) {
         return response()->json(['error' => 'Error al actualizar producto: ' . $e->getMessage(), 'trace' => $e->getTraceAsString()], 500);
     }
 }
+
 
 
 
