@@ -264,7 +264,13 @@ class APIProductsController extends Controller
     }
 public function updateGen(Request $request, $id) {
     print('Entrando en updateGen');
-    print_r($_POST);
+    $nombre = $request->input('nombre');
+    $descripcion = $request->input('descripcion');
+    $rancho = $request->input('rancho');
+
+    print('Nombre: ' . $nombre);
+    print('Descripción: ' . $descripcion);
+    print('Rancho: ' . $rancho);
 
     $data = $request->all();
     print('Datos recibidos: ' . json_encode($data));
