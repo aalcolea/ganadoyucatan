@@ -306,7 +306,7 @@ public function updateGen(Request $request, $id) {
         $product->precio = $data['precio'];
         $product->edad = $data['edad'];
         $product->stock = $data['stock'];
-        $product->vacunado = $data['vacu'];
+        $product->vacunado = $data['vacunado'];
         $product->peso = $data['peso'];
         $product->estado = $data['estado'];
         $product->ciudad = $data['ciudad'];
