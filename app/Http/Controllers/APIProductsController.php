@@ -264,9 +264,10 @@ class APIProductsController extends Controller
     }
 
 public function updateGen(Request $request, $id) {
-    Log::info('Entrando en updateGen');
+    print('Entrando en updateGen');
+
     $data = $request->all();
-    Log::info('Datos recibidos:', $data);
+    print('Datos recibidos: ' . json_encode($data));
 
     $rules = [
         'nombre' => 'required',
@@ -281,14 +282,14 @@ public function updateGen(Request $request, $id) {
     $validator = Validator::make($data, $rules, $messages);
 
     if ($validator->fails()) {
-        Log::info('Validación fallida:', $validator->errors());
+        print('Validación fallida: ' . json_encode($validator->errors()->toArray()));
         return response()->json(['errors' => $validator->errors()], 422);
     }
 
     try {
         $product = Product::find($id);
         if (!$product) {
-            Log::info('Producto no encontrado');
+            print('Producto no encontrado');
             return response()->json(['error' => 'Producto no encontrado'], 404);
         }
 
@@ -310,7 +311,7 @@ public function updateGen(Request $request, $id) {
         $product->save();
 
         if ($request->hasFile('images')) {
-            Log::info('Procesando imágenes');
+            print('Procesando imágenes');
             $images = $request->file('images');
             $dateFolder = $product->carpeta ?: date('Y-m-d');
             $uploadPath = 'uploads/' . $dateFolder;
@@ -326,7 +327,7 @@ public function updateGen(Request $request, $id) {
                     $img = Image::make($image->getRealPath());
                     $img->encode('webp', 10)->save($destinationPath);
                 } catch (Exception $e) {
-                    Log::error('Error al guardar la imagen: ' . $e->getMessage());
+                    print('Error al guardar la imagen: ' . $e->getMessage());
                     return response()->json(['error' => 'No se pudo guardar la imagen: ' . $e->getMessage()], 500);
                 }
 
@@ -344,7 +345,7 @@ public function updateGen(Request $request, $id) {
         }
 
         if ($request->hasFile('videos')) {
-            Log::info('Procesando videos');
+            print('Procesando videos');
             $videos = $request->file('videos');
 
             foreach ($videos as $videoFile) {
@@ -360,10 +361,10 @@ public function updateGen(Request $request, $id) {
             }
         }
 
-        Log::info('Producto actualizado con éxito');
+        print('Producto actualizado con éxito');
         return response()->json(['message' => 'Producto actualizado con éxito'], 200);
     } catch (Exception $e) {
-        Log::error('Error al actualizar producto: ' . $e->getMessage());
+        print('Error al actualizar producto: ' . $e->getMessage());
         return response()->json(['error' => 'Error al actualizar producto: ' . $e->getMessage(), 'trace' => $e->getTraceAsString()], 500);
     }
 }
