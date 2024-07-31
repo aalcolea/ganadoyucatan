@@ -371,5 +371,6 @@ public function updateGen(Request $request, $id) {
 
 
 
+
 }
 //imagen, titulo, raza, peso, precio, vistas, estatus
