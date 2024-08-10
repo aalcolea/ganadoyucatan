@@ -38,18 +38,23 @@ class APIProductsController extends Controller
 
         return response()->json(['products' => $products]);
     }
-
-    public function showCom(){
+    public function showCom() {
         $vendedorId = Auth::id();
         $products = ProductT::where('status', '2')
                             ->where('vendedorid', $vendedorId)
-                            ->with('images')
+                            ->with(['portada' => function ($query) {
+                                $query->orderBy('id')->take(1); 
+                            }])
                             ->orderBy('idproducto', 'desc')
                             ->paginate(10);
+
         $products->each(function ($product) {
-            $product->gallery = $product->images->map(function($image) use ($product) {
-                return asset('uploads/tianguis/' . $product->imagen . '/' . $image->ruta . '.webp');
-            });
+            if ($product->portada->isNotEmpty()) {
+                $firstImage = $product->portada->first();
+                $product->portada_url = asset('uploads/tianguis/' . $product->imagen . '/' . $firstImage->ruta . '.webp');
+            } else {
+                $product->portada_url = null;
+            }
         });
 
         return response()->json(['products' => $products]);
@@ -361,7 +366,6 @@ class APIProductsController extends Controller
                 foreach ($videos as $videoFile) {
                     $destinationPath = Storage::disk('videos')->path($videoFile);
                     $videoPath = $videoFile->store('', 'videos');
-
                     $video = new Video();
                     $video->nombre = $videoFile->getClientOriginalName();
                     $video->ruta = $videoPath;
