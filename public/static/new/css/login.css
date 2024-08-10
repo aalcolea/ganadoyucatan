@@ -4,7 +4,7 @@
     --extraLarge: 30px;
     --large:  20px;
     --medium: 16px;
-    --small:  12px;
+    --small:  12px;  
 
     --extraLight:  200;
     --light:       300;
@@ -98,6 +98,8 @@ input{
     border-bottom: 1px solid #CCC;
     outline: none;
 }
+
+
 input::placeholder{
     color: #ccc;
 }

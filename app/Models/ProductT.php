@@ -12,7 +12,26 @@ class ProductT extends Model
     use HasFactory;
     protected $table = 'productot';
     protected $primaryKey = 'idproducto';
-    public $timestamps = false;
+    public $timestamps = false;    
+    protected $fillable = [
+        'nombre',
+        'descripcion',
+        'rancho',
+        'raza',
+        'ruta',
+        'precio',
+        'stock',
+        'vacunado',
+        'tipo',
+        'peso',
+        'estado',
+        'ciudad',
+        'comisaria',
+        'vendedorid',
+        'propietario',
+        'imagen',
+        'numero',
+    ];
     public function portada(){
         return $this->hasMany(PTGallery::class, 'id_producto', 'idproducto');
     }
