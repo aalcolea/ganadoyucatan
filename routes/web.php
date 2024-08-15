@@ -7,6 +7,7 @@ use App\Http\Controllers\TiendaController;
 use App\Http\Controllers\SupportConversationController;
 use App\Http\Controllers\Admin\ConversationController;
 use App\Http\Livewire\Chat;
+use App\Http\Controllers\APIAuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -60,6 +61,9 @@ Route::middleware('auth')->group(function () {
     return $user->isAdmin(); 
 	});
 });
+
+
+Route::post('/login', [APIAuthController::class, 'login']);
 /* test de chat*/
 /*
 Route::get('/test-event', function(){
