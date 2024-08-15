@@ -63,7 +63,7 @@ Route::middleware('auth')->group(function () {
 });
 
 
-Route::post('/login', [APIAuthController::class, 'login']);
+Route::post('/loginAPI', [APIAuthController::class, 'login']);
 /* test de chat*/
 /*
 Route::get('/test-event', function(){
