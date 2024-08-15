@@ -45,6 +45,8 @@ Route::middleware('jwt.auth')->post('/products/addNewGen', [APIProductsControlle
 Route::match(['put', 'post'], '/updateProduct/{id}', [APIProductsController::class, 'updateGen'])->middleware('jwt.auth');
 
 Route::middleware('jwt.auth')->post('/products/addNewCom', [APIProductsController::class, 'postNewCom'])->name('api.addNewCom');
+Route::post('/products/postGratis', [APIProductsController::class, 'postGratis'])->name('api.postGratis');
+
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     //return $request->user();
