@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\DB;
 use App\Utilities\ImageConverter;
 use Intervention\Image\ImageManagerStatic as Image;
 use App\Models\Video;
+use App\Models\VideoT;
 use Illuminate\Support\Facades\Log;
 class APIProductsController extends Controller
 {
@@ -226,26 +227,24 @@ class APIProductsController extends Controller
                     }
                     foreach ($images as $index => $image) {
                         $filename = $image->getClientOriginalName();
-                        $webpPath = $dateFolder . '/' . pathinfo($filename, PATHINFO_FILENAME) . '.webp';
+                        $filenameWithoutExtension = pathinfo($filename, PATHINFO_FILENAME);
+                        $webpPath = $dateFolder . '/' . $filenameWithoutExtension . '.webp';
                         $destinationPath = Storage::disk('webp_images_com')->path($webpPath);
-
                         try {
                             $img = Image::make($image->getRealPath());
                             $img->encode('webp', 10)->save($destinationPath);
                         } catch (Exception $e) {
                             return response()->json(['error' => 'No se pudo guardar la imagen: ' . $e->getMessage()], 500);
                         }
-
                         if ($index === 0) {
-                            //$product->portada = pathinfo($filename, PATHINFO_FILENAME) . '.webp';
+                            //$product->portada = $filenameWithoutExtension . '.webp';
                             $product->imagen = $dateFolder;
                             $product->save();
                         }
-
                         $imageEntry = new PTGallery;
                         $productoid = ProductT::orderBy('datecreated', 'desc')->value('idproducto');
                         $imageEntry->id_producto = $productoid;
-                        $imageEntry->ruta = $filename;
+                        $imageEntry->ruta = $filenameWithoutExtension;
                         $imageEntry->save();
                     }
                 }
@@ -258,7 +257,7 @@ class APIProductsController extends Controller
                     $videoPath = $videoFile->store('', 'videost');
                     $productoid = ProductT::orderBy('datecreated', 'desc')->value('idproducto');
 
-                    $video = new Video();
+                    $video = new VideoT();
                     $video->nombre = $videoFile->getClientOriginalName();
                     $video->ruta = $videoPath;
                     $video->tamaño = $videoFile->getSize();
@@ -434,26 +433,24 @@ class APIProductsController extends Controller
                     }
                     foreach ($images as $index => $image) {
                         $filename = $image->getClientOriginalName();
-                        $webpPath = $dateFolder . '/' . pathinfo($filename, PATHINFO_FILENAME) . '.webp';
+                        $filenameWithoutExtension = pathinfo($filename, PATHINFO_FILENAME);
+                        $webpPath = $dateFolder . '/' . $filenameWithoutExtension . '.webp';
                         $destinationPath = Storage::disk('webp_images_com')->path($webpPath);
-
                         try {
                             $img = Image::make($image->getRealPath());
                             $img->encode('webp', 10)->save($destinationPath);
                         } catch (Exception $e) {
                             return response()->json(['error' => 'No se pudo guardar la imagen: ' . $e->getMessage()], 500);
                         }
-
                         if ($index === 0) {
-                            //$product->portada = pathinfo($filename, PATHINFO_FILENAME) . '.webp';
+                            //$product->portada = $filenameWithoutExtension . '.webp';
                             $product->imagen = $dateFolder;
                             $product->save();
                         }
-
                         $imageEntry = new PTGallery;
                         $productoid = ProductT::orderBy('datecreated', 'desc')->value('idproducto');
                         $imageEntry->id_producto = $productoid;
-                        $imageEntry->ruta = $filename;
+                        $imageEntry->ruta = $filenameWithoutExtension;
                         $imageEntry->save();
                     }
                 }
