@@ -48,6 +48,7 @@ class ProductT extends Model
         return $this->hasMany(Visits::class, 'idproducto', 'idproducto')->where('type', 'com')->whereMonth('fecha', now()->month);
     }
     public function images(){
-        return $this->hasMany(PSubGallery::class, 'productoid', 'idproducto');
+        return $this->hasMany(PTGallery::class, 'id_producto', 'idproducto');
     }
+
 }

@@ -422,16 +422,25 @@ class ProductsController extends Controller
             }
             
             if(count($images) > 1) {
-                for ($i = 0; $i < count($images); $i++) {
-                $imageData = $images[$i];
-                $image = new PGallery;
-                $productoid = Product::where('vendedorid', Auth::id())->orderby('datecreated', 'desc')->value('idproducto');
-                $image->productoid = $productoid;
-                $pathParts = explode('/', $images[$i]['path']);
-                $filename = end($pathParts);
-                $image->img = pathinfo($filename, PATHINFO_FILENAME);
-                $image->save();
-                }
+                 for ($i = 0; $i < count($images); $i++) {
+                        $imageData = $images[$i];
+                        $productoid = $product->idproducto;
+
+                        $pathParts = explode('/', $images[$i]['path']);
+                        $filename = end($pathParts);
+                        $filenameWithoutExtension = pathinfo($filename, PATHINFO_FILENAME);
+
+                        $existingImage = PGallery::where('productoid', $productoid)->where('img', $filenameWithoutExtension)->first();
+                        if (!$existingImage) {
+                            $image = new PGallery;
+                            $image->productoid = $productoid;
+                            $image->img = $filenameWithoutExtension;
+                            $image->save();
+                            print("Imagen guardada: $filenameWithoutExtension");
+                        } else {
+                            print("Imagen duplicada ignorada: $filenameWithoutExtension");
+                        }
+                    }
             }
             $request->session()->forget('product_images');
             $request->session()->forget('product.imageCount');
