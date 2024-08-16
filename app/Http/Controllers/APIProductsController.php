@@ -57,6 +57,11 @@ class APIProductsController extends Controller
                 $product->portada_url = null;
             }
         });
+        $products->each(function ($product) {
+            $product->galleryT = $product->images->map(function($image) use ($product) {
+                return asset('uploads/tianguis/' . $product->imagen . '/' . $image->ruta . '.webp');
+            });
+        });
 
         return response()->json(['products' => $products]);
     }
@@ -117,44 +122,46 @@ class APIProductsController extends Controller
         $product->peso = $data['peso'];
         $product->estado = $data['estado'];
         $product->ciudad = $data['ciudad'];
-        $product->comisaria = "1";//$data['comisaria'];
+        $product->comisaria = $data['comisaria'];
         $product->portada = "";
         $product->carpeta = "";
         $product->vendedorid = Auth::id();
         $product->save(); 
 
         if ($request->hasFile('images')) {
-                $images = $request->file('images');
-                $dateFolder = date('Y-m-d');
-                $uploadPath = 'uploads/' . $dateFolder;
-                if (!File::exists($uploadPath)) {
-                    File::makeDirectory($uploadPath, 0755, true);
-                }
-                foreach ($images as $index => $image) {
-                    $filename = $image->getClientOriginalName();
-                    $webpPath = $dateFolder . '/' . pathinfo($filename, PATHINFO_FILENAME) . '.webp';
-                    $destinationPath = Storage::disk('webp_images')->path($webpPath);
-
-                    try {
-                        $img = Image::make($image->getRealPath());
-                        $img->encode('webp', 10)->save($destinationPath);
-                    } catch (Exception $e) {
-                        return response()->json(['error' => 'No se pudo guardar la imagen: ' . $e->getMessage()], 500);
-                    }
-
-                    if ($index === 0) {
-                        $product->portada = pathinfo($filename, PATHINFO_FILENAME) . '.webp';
-                        $product->carpeta = $dateFolder;
-                        $product->save();
-                    }
-
-                    $imageEntry = new PGallery;
-                    $productoid = Product::orderBy('datecreated', 'desc')->value('idproducto');
-                    $imageEntry->productoid = $productoid;
-                    $imageEntry->img = $filename;
-                    $imageEntry->save();
-                }
+            $images = $request->file('images');
+            $dateFolder = date('Y-m-d');
+            $uploadPath = 'uploads/' . $dateFolder;
+            if (!File::exists($uploadPath)) {
+                File::makeDirectory($uploadPath, 0755, true);
             }
+            foreach ($images as $index => $image) {
+                $filename = $image->getClientOriginalName();
+                $filenameWithoutExtension = pathinfo($filename, PATHINFO_FILENAME);
+                $webpPath = $dateFolder . '/' . $filenameWithoutExtension . '.webp';
+                $destinationPath = Storage::disk('webp_images')->path($webpPath);
+
+                try {
+                    $img = Image::make($image->getRealPath());
+                    $img->encode('webp', 10)->save($destinationPath);
+                } catch (Exception $e) {
+                    return response()->json(['error' => 'No se pudo guardar la imagen: ' . $e->getMessage()], 500);
+                }
+
+                if ($index === 0) {
+                    $product->portada = $filenameWithoutExtension;
+                    $product->carpeta = $dateFolder;
+                    $product->save();
+                }
+
+                $imageEntry = new PGallery;
+                $productoid = Product::orderBy('datecreated', 'desc')->value('idproducto');
+                $imageEntry->productoid = $productoid;
+                $imageEntry->img = $filenameWithoutExtension;
+                $imageEntry->save();
+            }
+        }
+
 
         if ($request->hasFile('videos')) {
             $videos = $request->file('videos');
