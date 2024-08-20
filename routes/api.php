@@ -17,9 +17,10 @@ use App\Http\Controllers\APIUserController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+    Route::post('/register', [APIAuthController::class, 'register']);
+    Route::post('/login', [APIAuthController::class, 'login']);
+    Route::post('/logout', [APIAuthController::class, 'logout']);
 
-Route::post('/register', [APIAuthController::class, 'register']);
-Route::post('/login', [APIAuthController::class, 'login']);
 
 
 
@@ -43,8 +44,12 @@ Route::middleware('jwt.auth')->post('/products/addNewGen', [APIProductsControlle
 
 //Route::middleware('jwt.auth')->put('/updateProduct/{id}', [APIProductsController::class, 'updateGen']);
 Route::match(['put', 'post'], '/updateProduct/{id}', [APIProductsController::class, 'updateGen'])->middleware('jwt.auth');
+Route::match(['put', 'post'], '/editProductCom/{id}', [APIProductsController::class, 'editProductCom'])->middleware('jwt.auth');
 
 Route::middleware('jwt.auth')->post('/products/addNewCom', [APIProductsController::class, 'postNewCom'])->name('api.addNewCom');
+Route::delete('/deleteProductCom/{id}', [APIProductsController::class, 'deleteProductT']);
+Route::delete('/deleteProductGen/{id}', [APIProductsController::class, 'deleteProduct']);
+
 Route::post('/products/postGratis', [APIProductsController::class, 'postGratis'])->name('api.postGratis');
 
 

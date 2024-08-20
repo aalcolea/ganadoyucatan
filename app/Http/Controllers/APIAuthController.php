@@ -56,7 +56,6 @@ class APIAuthController extends Controller
                 return response()->json(['error' => 'Credenciales inválidas'], 401);
             }
         } catch (JWTException $e) {
-            echo "hola";
             dd("JWT Error: " . $e->getMessage());
             return response()->json(['error' => 'Error interno del servidor', 'exception' => $e->getMessage()], 500);
         }
@@ -68,6 +67,14 @@ class APIAuthController extends Controller
         $currentDateTime = Carbon::now();
         Persona::where('idpersona', $userId)->update(['ult_vez' => $currentDateTime]);
         return response()->json(compact('token'));
+    }
+    public function logout(Request $request){
+        try {
+            JWTAuth::invalidate(JWTAuth::parseToken());
+            return response()->json(['message' => 'Sesión cerrada correctamente']);
+        } catch (JWTException $e) {
+            return response()->json(['error' => 'No se pudo cerrar la sesión, el token puede haber expirado o es inválido'], 401);
+        }
     }
 
 }
