@@ -45,7 +45,7 @@ class APIProductsController extends Controller
                             ->where('vendedorid', $vendedorId)
                             ->with(['portada' => function ($query) {
                                 $query->orderBy('id')->take(1); 
-                            }])
+                            }, 'videos'])
                             ->orderBy('idproducto', 'desc')
                             ->paginate(10);
 
@@ -62,7 +62,16 @@ class APIProductsController extends Controller
                 return asset('uploads/tianguis/' . $product->imagen . '/' . $image->ruta . '.webp');
             });
         });
-
+        $products->each(function($product){
+            if ($product->videos->isNotEmpty()) {
+                $product->videosT = $product->videos->map(function($product){
+                    dd($product->videos);
+                    return asset('uploads/videost/'.$product->videos->ruta);
+                    });
+            } else {
+            $product->videosT = null;
+            }
+        });
         return response()->json(['products' => $products]);
     }
     public function showSub(){

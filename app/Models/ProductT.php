@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\PTGallery;
+use App\Models\VideoT;  
 use App\Models\Visits;
 use App\Models\Ciudad;
 class ProductT extends Model
@@ -49,6 +50,9 @@ class ProductT extends Model
     }
     public function images(){
         return $this->hasMany(PTGallery::class, 'id_producto', 'idproducto');
+    }
+    public function videos(){
+        return $this->hasMany(VideoT::class, 'producto_id', 'idproducto');
     }
 
 }
