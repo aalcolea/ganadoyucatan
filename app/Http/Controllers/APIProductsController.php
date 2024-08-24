@@ -62,16 +62,20 @@ class APIProductsController extends Controller
                 return asset('uploads/tianguis/' . $product->imagen . '/' . $image->ruta . '.webp');
             });
         });
-        $products->each(function($product){
-            if ($product->videos->isNotEmpty()) {
-                $product->videosT = $product->videos->map(function($product){
-                    dd($product->videos);
-                    return asset('uploads/videost/'.$product->videos->ruta);
-                    });
-            } else {
-            $product->videosT = null;
+        $products->each(function($product) {
+            $product->videosT = $product->videos->map(function($video) {
+                if ($video->ruta) {
+                    return asset('uploads/videost/' . $video->ruta);
+                } else {
+                    return '';
+                }
+            });
+    
+            if ($product->videosT->isEmpty()) {
+                $product->videosT = [''];
             }
         });
+        
         return response()->json(['products' => $products]);
     }
     public function showSub(){
