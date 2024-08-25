@@ -9,8 +9,9 @@ class VideoT extends Model
 {
     use HasFactory;
     protected $table = 'videost';
+    protected $primaryKey = 'producto_id';
     protected $fillable = ['nombre', 'ruta', 'tamaño', 'producto_id'];
     public function product() {
-        return $this->belongsTo(Product::class, 'producto_id', 'idproducto');
+        return $this->belongsTo(ProductT::class, 'producto_id', 'idproducto');
     }
 }
