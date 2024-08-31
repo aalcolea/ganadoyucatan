@@ -377,6 +377,27 @@ class APIProductsController extends Controller
                     $imageEntry->save();
                 }
             }
+            if ($request->filled('deleted_images')) {
+                $deletedImages = json_decode($request->input('deleted_images'), true);
+                foreach ($deletedImages as $imageUrl) {
+                    $imagePath = parse_url($imageUrl, PHP_URL_PATH);
+                    $imageNameWithExtension = basename($imagePath);
+                    $filenameWithoutExtension = pathinfo($imageNameWithExtension, PATHINFO_FILENAME);
+                    $dateFolder = explode('/', ltrim($imagePath, '/'))[2];
+                    $fullImagePath = "$dateFolder/$filenameWithoutExtension.webp";
+                    Storage::disk('webp_images')->delete($fullImagePath);
+                    PGallery::where('img', $filenameWithoutExtension)->delete();
+                }
+            }
+            if ($request->filled('deleted_videos')) {
+                $deletedVideos = json_decode($request->input('deleted_videos'), true);
+                foreach ($deletedVideos as $videoUrl) {
+                    $videoPath = parse_url($videoUrl, PHP_URL_PATH);
+                    $videoName = basename($videoPath);
+                    Storage::disk('videos')->delete($videoName);
+                    Video::where('ruta', $videoName)->delete();
+                }
+            }
 
             if ($request->hasFile('videos')) {
                 print('Procesando videos');
