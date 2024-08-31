@@ -43,6 +43,7 @@ class APIUserController extends Controller
             }
             $msg = MensajeProducto::where('vendedorid', $id)
                                   ->where('status', '!=', '2')
+                                  ->orderBy('id', 'desc')
                                   ->get(); 
 
             $msg = $msg->map(function ($item) {
