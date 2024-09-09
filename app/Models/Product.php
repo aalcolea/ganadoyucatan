@@ -30,4 +30,7 @@ class Product extends Model
     public function visits(){
         return $this->hasMany(Visits::class, 'idproducto', 'idproducto')->where('type', 'gen')->whereMonth('fecha', now()->month);
     }
+    public function videos(){
+        return $this->hasMany(Video::class, 'producto_id', 'idproducto');
+    }
 }

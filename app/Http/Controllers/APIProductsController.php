@@ -28,13 +28,25 @@ class APIProductsController extends Controller
         $vendedorId = Auth::id();
         $products = Product::where('status', '1')
                             ->where('vendedorid', $vendedorId)
-                            ->with('images')
+                            ->with(['images', 'videos'])
                             ->orderBy('idproducto', 'desc')
                             ->paginate(10);
         $products->each(function ($product) {
             $product->gallery = $product->images->map(function($image) use ($product) {
                 return asset('uploads/' . $product->carpeta . '/' . $image->img . '.webp');
             });
+        });     
+        $products->each(function($product){
+            $product->videosG = $product->videos->map(function($video){
+                if($video->ruta){
+                    return asset('uploads/videos/' . $video->ruta);
+                }else{
+                    return '';
+                }
+            });
+            if($product->videos->isEmpty()){
+                $product->videosG= [''];
+            }
         });
 
         return response()->json(['products' => $products]);
@@ -354,7 +366,8 @@ class APIProductsController extends Controller
                 }
                 foreach ($images as $index => $image) {
                     $filename = $image->getClientOriginalName();
-                    $webpPath = $dateFolder . '/' . pathinfo($filename, PATHINFO_FILENAME) . '.webp';
+                    $filenameWithoutExtension = pathinfo($filename, PATHINFO_FILENAME);
+                    $webpPath = $dateFolder . '/' . $filenameWithoutExtension . '.webp';
                     $destinationPath = Storage::disk('webp_images')->path($webpPath);
 
                     try {
@@ -366,14 +379,14 @@ class APIProductsController extends Controller
                     }
 
                     if ($index === 0) {
-                        $product->portada = pathinfo($filename, PATHINFO_FILENAME) . '.webp';
+                        $product->portada = $filenameWithoutExtension;
                         $product->carpeta = $dateFolder;
                         $product->save();
                     }
 
                     $imageEntry = new PGallery;
                     $imageEntry->productoid = $product->idproducto;
-                    $imageEntry->img = $filename;
+                    $imageEntry->img = $filenameWithoutExtension;
                     $imageEntry->save();
                 }
             }
@@ -391,6 +404,27 @@ class APIProductsController extends Controller
                     $video->tamaño = $videoFile->getSize();
                     $video->producto_id = $product->idproducto;
                     $video->save();
+                }
+            }
+            if ($request->filled('deleted_images')) {
+                $deletedImages = json_decode($request->input('deleted_images'), true);
+                foreach ($deletedImages as $imageUrl) {
+                    $imagePath = parse_url($imageUrl, PHP_URL_PATH);
+                    $imageNameWithExtension = basename($imagePath);
+                    $filenameWithoutExtension = pathinfo($imageNameWithExtension, PATHINFO_FILENAME);
+                    $dateFolder = explode('/', ltrim($imagePath, '/'))[2];
+                    $fullImagePath = "$dateFolder/$filenameWithoutExtension.webp";
+                    Storage::disk('webp_images')->delete($fullImagePath);
+                    PGallery::where('img', $filenameWithoutExtension)->delete();
+                }
+            }
+            if ($request->filled('deleted_videos')) {
+                $deletedVideos = json_decode($request->input('deleted_videos'), true);
+                foreach ($deletedVideos as $videoUrl) {
+                    $videoPath = parse_url($videoUrl, PHP_URL_PATH);
+                    $videoName = basename($videoPath);
+                    Storage::disk('videos')->delete($videoName);
+                    Video::where('ruta', $videoName)->delete();
                 }
             }
 
