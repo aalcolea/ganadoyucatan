@@ -74,10 +74,17 @@ class APIAuthController extends Controller
     }
     public function logout(Request $request){
         try {
-            JWTAuth::invalidate(JWTAuth::parseToken());
-            return response()->json(['message' => 'Sesión cerrada correctamente']);
-        } catch (JWTException $e) {
-            return response()->json(['error' => 'No se pudo cerrar la sesión, el token puede haber expirado o es inválido'], 401);
+            $token = JWTAuth::getToken();
+            if (!$token) {
+                return response()->json(['error' => 'Token no proporcionado'], 400);
+            }
+
+            JWTAuth::invalidate($token);
+            return response()->json(['message' => 'Cierre de sesión exitoso']);
+        } catch (\Tymon\JWTAuth\Exceptions\TokenInvalidException $e) {
+            return response()->json(['error' => 'Token inválido'], 401);
+        } catch (\Tymon\JWTAuth\Exceptions\JWTException $e) {
+            return response()->json(['error' => 'Fallo al cerrar sesión, intente nuevamente'], 500);
         }
     }
 public function deleteAccount(Request $request) {
