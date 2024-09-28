@@ -19,7 +19,9 @@ use App\Http\Controllers\APIUserController;
 */
     Route::post('/register', [APIAuthController::class, 'register']);
     Route::post('/login', [APIAuthController::class, 'login']);
-    Route::post('/logout', [APIAuthController::class, 'logout']);
+    Route::middleware('auth:api')->post('/logout', [APIAuthController::class, 'logout']);
+    Route::middleware('auth:api')->post('/delete-account', [APIAuthController::class, 'deleteAccount']);
+
 
 
 
