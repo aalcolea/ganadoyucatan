@@ -29,7 +29,11 @@ class APIAuthController extends Controller
         $user->estado = '1'; //e($request->input('intEstado'));
         $user->foto = null;
         $user->save();
-        return response()->json(['message' => 'Hola']);
+        $credentials = ['email_user' => $request->email, 'password' => $request->password];
+        if (!$token = JWTAuth::attempt($credentials)) {
+            return response()->json(['error' => 'Error al generar token'], 500);
+        }
+        return response()->json(['token' => $token]);
     }
     public function login(Request $request){
         $rules = [
@@ -70,11 +74,37 @@ class APIAuthController extends Controller
     }
     public function logout(Request $request){
         try {
-            JWTAuth::invalidate(JWTAuth::parseToken());
-            return response()->json(['message' => 'Sesión cerrada correctamente']);
-        } catch (JWTException $e) {
-            return response()->json(['error' => 'No se pudo cerrar la sesión, el token puede haber expirado o es inválido'], 401);
+            $token = JWTAuth::getToken();
+            if (!$token) {
+                return response()->json(['error' => 'Token no proporcionado'], 400);
+            }
+
+            JWTAuth::invalidate($token);
+            return response()->json(['message' => 'Cierre de sesión exitoso']);
+        } catch (\Tymon\JWTAuth\Exceptions\TokenInvalidException $e) {
+            return response()->json(['error' => 'Token inválido'], 401);
+        } catch (\Tymon\JWTAuth\Exceptions\JWTException $e) {
+            return response()->json(['error' => 'Fallo al cerrar sesión, intente nuevamente'], 500);
         }
     }
+public function deleteAccount(Request $request) {
+    try {
+        $user = Auth::user();
+        if (!$user) {
+            return response()->json(['error' => 'Usuario no autenticado'], 401);
+        }
+        $user->delete();
+        JWTAuth::invalidate(JWTAuth::parseToken());
+
+        return response()->json(['message' => 'Cuenta eliminada correctamente'], 200);
+    } catch (JWTException $e) {
+        return response()->json(['error' => 'Error al cerrar sesión o eliminar cuenta'], 500);
+    } catch (\Exception $e) {
+        return response()->json(['error' => 'No se pudo eliminar la cuenta'], 500);
+    }
+}
+
+
+
 
 }
