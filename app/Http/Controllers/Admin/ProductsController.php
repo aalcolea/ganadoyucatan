@@ -1052,6 +1052,20 @@ class ProductsController extends Controller
             return back()->with('message', 'Mensaje no encontrado')->with('typealert', 'error');
         }
     }
+    public function markMultipleAsRead(Request $request){
+        $messageIds = $request->input('message_ids');
+
+        if (!is_array($messageIds) || count($messageIds) == 0) {
+            return back()->with('message', 'No se seleccionaron mensajes')->with('typealert', 'error');
+        }
+
+        $updatedMessages = MensajeProducto::whereIn('id', $messageIds)
+                                          ->where('status', '0')
+                                          ->update(['status' => '1']);
+
+        return back()->with('message', 'Mensajes marcados como leídos')->with('typealert', 'success');
+    }
+
       /**/
     public function addImages(Request $request) {
         $productId = $request->input('product_id');
