@@ -666,6 +666,73 @@ class APIProductsController extends Controller
             return response()->json(['error' => 'Error al eliminar el producto: ' . $e->getMessage()], 500);
         }
     }
+    public function getAllProductsByState(){
+        $userId = Auth::id();
+        try{
+            $vendedorId = Auth::user()->estado;
+            $products = Product::where('status', '1')
+                                ->where('estado', $vendedorId)
+                                ->with(['images', 'videos'])
+                                ->orderBy('idproducto', 'desc')
+                                ->paginate(10);
+            $products->each(function ($product) {
+                $product->gallery = $product->images->map(function($image) use ($product) {
+                    return asset('uploads/' . $product->carpeta . '/' . $image->img . '.webp');
+                });
+            });     
+            $products->each(function($product){
+                $product->videosG = $product->videos->map(function($video){
+                    if($video->ruta){
+                        return asset('uploads/videos/' . $video->ruta);
+                    }else{
+                        return '';
+                    }
+                });
+                if($product->videos->isEmpty()){
+                    $product->videosG= [''];
+                }
+            });
+        $productsT = ProductT::where('status', '2')
+                            ->where('estado', $vendedorId)
+                            ->with(['portada' => function ($query) {
+                                $query->orderBy('id')->take(1); 
+                            }, 'videos'])
+                            ->orderBy('idproducto', 'desc')
+                            ->paginate(10);
 
+        $productsT->each(function ($productT) {
+            if ($productT->images->isNotEmpty()) {
+                $firstImage = $productT->images->first();
+                $productT->portada_url = asset('uploads/tianguis/' . $productT->imagen . '/' . $firstImage->ruta . '.webp');
+            } else {
+                $productT->portada_url = null;
+            }
+        });
+        $productsT->each(function ($productT) {
+            $productT->galleryT = $productT->images->map(function($image) use ($productT) {
+                return asset('uploads/tianguis/' . $productT->imagen . '/' . $image->ruta . '.webp');
+            });
+        });
+        $productsT->each(function($productT) {
+            $productT->videosT = $productT->videos->map(function($video) {
+                if ($video->ruta) {
+                    return asset('uploads/videost/' . $video->ruta);
+                } else {
+                    return '';
+                }
+            });
+    
+            if ($productT->videosT->isEmpty()) {
+                $productT->videosT = [''];
+            }
+        });
+        return response()->json([
+            'products' => $products,
+            'productsT' => $productsT
+        ]);
+        }catch (Exception $e){
+            return response()->json(['error' => 'Error al eliminar el producto: ' . $e->getMessage()], 500);
+        }
+    }
 }
 //imagen, titulo, raza, peso, precio, vistas, estatus
