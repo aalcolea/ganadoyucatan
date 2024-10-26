@@ -82,7 +82,7 @@ class ProductsController extends Controller
                 $img = Image::make($uploadedImage->getRealPath()); //->resize(800, 600);
                 $img->encode('webp', 10)->save($destinationPath);
                 //ImageConverter::convertToWebp($uploadedImage->getRealPath(), $destinationPath);
-    
+
                 $images = $request->session()->get('product.images');
                 $images[] = [
                     'path' => '/' . $webpPath //$dateFolder . '/' . $webpPath
@@ -145,7 +145,7 @@ class ProductsController extends Controller
                 $img = Image::make($uploadedImage->getRealPath()); //->resize(800, 600);
                 $img->encode('webp', 10)->save($destinationPath);
                 //ImageConverter::convertToWebp($uploadedImage->getRealPath(), $destinationPath);
-    
+
                 $images = $request->session()->get('product.imagesSub');
                 $images[] = [
                     'path' => '/' . $webpPath //$dateFolder . '/' . $webpPath
@@ -208,7 +208,7 @@ class ProductsController extends Controller
                 $img = Image::make($uploadedImage->getRealPath()); //->resize(800, 600);
                 $img->encode('webp', 10)->save($destinationPath);
                 //ImageConverter::convertToWebp($uploadedImage->getRealPath(), $destinationPath);
-    
+
                 $images = $request->session()->get('product.imagesCom');
                 $images[] = [
                     'path' => '/' . $webpPath //$dateFolder . '/' . $webpPath
@@ -249,7 +249,7 @@ class ProductsController extends Controller
             $request->session()->put('product.imagesPart', []);
             $request->session()->put('product.imageCount', 0);
         }
-        
+
         $randomString = $request->session()->get('product.randomString');
         $action = $request->input('action');
         switch ($action) {
@@ -269,7 +269,7 @@ class ProductsController extends Controller
                 $img = Image::make($uploadedImage->getRealPath()); //->resize(800, 600);
                 $img->encode('webp', 10)->save($destinationPath);
                 //ImageConverter::convertToWebp($uploadedImage->getRealPath(), $destinationPath);
-    
+
                 $images = $request->session()->get('product.imagesPart');
                 $images[] = [
                     'path' => '/' . $webpPath //$dateFolder . '/' . $webpPath
@@ -283,7 +283,7 @@ class ProductsController extends Controller
     public function getComisariasByCiudad($ciudadId){
         $comisarias = Comisaria::where('ciudad_id', $ciudadId)->get();
         return response()->json($comisarias);
-    }    
+    }
     public function getAllGanado(){
         $subastas = ProductS::paginate(10);
         $products = Product::paginate(10);
@@ -291,7 +291,12 @@ class ProductsController extends Controller
         return view('Admin.Products.ganado', $data);
     }
     public function getProductsHome(){
-        return view('Admin.Products.home');
+        $id = Auth::id();
+        $productsGen  = Product::where('vendedorid', $id)->orderBy('idproducto', 'desc')->paginate(25);
+        $productsSub  = ProductS::where('vendedorid', $id)->orderBy('id_producto', 'desc')->paginate(25);
+        $productsTian = ProductT::where('status', '2')->where('vendedorid', $id)->orderBy('idproducto')->get();
+        $data = ['productsGen' => $productsGen, 'productsSub' => $productsSub, 'productsTian' => $productsTian ];
+        return view('Admin.Products.home', $data);
     }
     public function getTianguisAll(){
         $products = ProductT::where('status', '1')->orderBy('idproducto')->get();
@@ -319,7 +324,7 @@ class ProductsController extends Controller
         $products = Product::where('vendedorid', $id)->orderBy('idproducto', 'desc')->paginate(25);
         $data = ['products' => $products];
         return view('Admin.Products.gen', $data);
-    }   
+    }
     public function postNewGen(Request $request){
         $rules = [
             'txtNombre' => 'required',
@@ -366,12 +371,12 @@ class ProductsController extends Controller
             $certificado = $request->input('listCert');
             $estatus = $request->input('listEstatus');
             $ytlin = e($request->input('txtLink'));
-            $estado = $request->input('estados'); 
-            $ciudad = $request->input('ciudades'); 
+            $estado = $request->input('estados');
+            $ciudad = $request->input('ciudades');
             $comisaria = $request->input('comisarias');
             $destacado = $request->input('destacado');
             $premium1 = $request->input('premium');
-            $edad = e($request->input('txtEdad')); 
+            $edad = e($request->input('txtEdad'));
             $premium = ['destacado' => $destacado,
             'premium' => $premium1];
             $premium = json_encode($premium);
@@ -382,7 +387,7 @@ class ProductsController extends Controller
 
             $product = new Product;
 
-            
+
             $product->nombre = $nombre;
             $product->portada = $portada;
             $product->descripcion = $descripcion;
@@ -411,16 +416,16 @@ class ProductsController extends Controller
             if ($request->hasFile('video')) {
                 $videoFile = $request->file('video');
                 $destinationPath = Storage::disk('videos')->path($videoFile);
-                $videoPath = $videoFile->store('', 'videos'); 
+                $videoPath = $videoFile->store('', 'videos');
                 $productoid = Product::where('vendedorid', Auth::id())->orderby('datecreated', 'desc')->value('idproducto');
                 $video = new Video();
                 $video->nombre = $videoFile->getClientOriginalName();
-                $video->ruta = $videoPath; 
+                $video->ruta = $videoPath;
                 $video->tamaño = $videoFile->getSize();
                 $video->producto_id = $productoid;
                 $video->save();
             }
-            
+
             if(count($images) > 1) {
                  for ($i = 0; $i < count($images); $i++) {
                         $imageData = $images[$i];
@@ -447,7 +452,7 @@ class ProductsController extends Controller
             $request->session()->increment('product.imageCount');
             $request->session()->forget('product.randomString');
             if($product->save()):
-                return redirect('/admin/products/addNewGen')->with('message', 'Producto agregado con exito al sistema')->with('typealert', 'success'); 
+                return redirect('/admin/products/addNewGen')->with('message', 'Producto agregado con exito al sistema')->with('typealert', 'success');
             endif;
         endif;
     }
@@ -468,7 +473,7 @@ class ProductsController extends Controller
     public function deleteGenImage($id, $portada){
         $product = Product::findOrfail($id);
         $image = $product->portada;
-        
+
         if($image == $portada){
             $images = $product->images('productoid', $id)->get();
             $image = $images->first(function ($image) use ($portada) {
@@ -488,7 +493,7 @@ class ProductsController extends Controller
                     }else{
                         $product->carpeta = 'default';
                         $product->portada = 'default';
-                        $product->save(); 
+                        $product->save();
                     }
                 }else{
                     echo "Error al eliminar imagen";
@@ -503,11 +508,11 @@ class ProductsController extends Controller
                 $image->delete();
             }
         }
-    } 
+    }
     public function deleteSubImage($id, $portada){
         $product = ProductS::findOrfail($id);
         $image = $product->portada;
-        
+
         if($image == $portada){
             $images = $product->images('productoid', $id)->get();
             $image = $images->first(function ($image) use ($portada) {
@@ -527,7 +532,7 @@ class ProductsController extends Controller
                     }else{
                         $product->carpeta = 'default';
                         $product->portada = 'default';
-                        $product->save(); 
+                        $product->save();
                     }
                 }else{
                     echo "Error al eliminar imagen";
@@ -542,13 +547,13 @@ class ProductsController extends Controller
                 $image->delete();
             }
         }
-    }   
+    }
     public function deleteComImage($id, $portada){
         $image = PTGallery::where('id_producto', $id)->where('ruta', $portada);
 
         $image->delete();
     }
-    
+
     public function getSubEdit($id){
         $product = ProductS::find($id);
         $fechaCierre = \Carbon\Carbon::parse($product->fechaCierre)->toDateString();
@@ -561,7 +566,7 @@ class ProductsController extends Controller
         return view('partials.subInfo', compact('product', 'fechaCierre', 'images'));
     }
     public function getComEdit($id){
-        $product = ProductT::findOrfail($id); 
+        $product = ProductT::findOrfail($id);
         $images = $product->portada->map(function($image) {
             return [
                 'path' => '/'.$image->product->imagen.'/'.$image->ruta. '.webp',
@@ -601,12 +606,12 @@ class ProductsController extends Controller
             $certificado = $request->input('listCert');
             $estatus = $request->input('listEstatus');
             $ytlin = e($request->input('txtLink'));
-            /*$estado = $request->input('estados'); 
-            $ciudad = $request->input('ciudades'); 
+            /*$estado = $request->input('estados');
+            $ciudad = $request->input('ciudades');
             $comisaria = $request->input('comisarias');*/
             $destacado = $request->input('destacado');
             $premium1 = $request->input('premium');
-            $edad = e($request->input('txtEdad')); 
+            $edad = e($request->input('txtEdad'));
             $premium = ['destacado' => $destacado,
             'premium' => $premium1];
             $premium = json_encode($premium);
@@ -621,7 +626,7 @@ class ProductsController extends Controller
             $product->status = $status;
             $product->rancho = $rancho;
             $product->peso = $peso;
-            $product->vendedorid = $vendedorid;            
+            $product->vendedorid = $vendedorid;
             $product->raza = $raza;
             $product->vacunado = $vacunado;
             $product->arete = $arete;
@@ -633,9 +638,9 @@ class ProductsController extends Controller
             $product->comisaria = $comisaria;*/
             $product->premium = $premium;
             $product->edad = $edad;
-            
+
             if($product->save()){
-                return redirect('/admin/products/addNewGen')->with('message', 'Producto agregado con exito al sistema')->with('typealert', 'success'); 
+                return redirect('/admin/products/addNewGen')->with('message', 'Producto agregado con exito al sistema')->with('typealert', 'success');
             }
         }
 
@@ -687,7 +692,7 @@ class ProductsController extends Controller
             $product->status = '2';
             $product->rancho = $rancho;
             $product->peso = $peso;
-            $product->vendedorid = Auth::id();            
+            $product->vendedorid = Auth::id();
             $product->raza = $raza;
             $product->vacunado = $vacunado;
             $product->arete = $arete;
@@ -699,9 +704,9 @@ class ProductsController extends Controller
             $product->comisaria = $comisaria;*/
             //$product->premium = $premium;
             $product->edad = $edad;
-            
+
             if($product->save()){
-                return redirect('/admin/products/addNewCom')->with('message', 'Producto agregado con exito al sistema')->with('typealert', 'success'); 
+                return redirect('/admin/products/addNewCom')->with('message', 'Producto agregado con exito al sistema')->with('typealert', 'success');
             }
         }
 
@@ -745,12 +750,12 @@ class ProductsController extends Controller
             $arete = $request->input('listArete');
             $certificado = $request->input('listCert');
             $ytlin = e($request->input('txtLink'));
-            $estado = $request->input('estados'); 
-            $ciudad = $request->input('ciudades'); 
+            $estado = $request->input('estados');
+            $ciudad = $request->input('ciudades');
             $comisaria = $request->input('comisarias');
             $destacado = $request->input('destacado');
             $premium1 = $request->input('premium');
-            $edad = e($request->input('txtEdad')); 
+            $edad = e($request->input('txtEdad'));
             $premium = ['destacado' => $destacado,
             'premium' => $premium1];
             $premium = json_encode($premium);
@@ -760,7 +765,7 @@ class ProductsController extends Controller
             $finHora = $request->input('hora_fin');
             $fecha = $finFecha.' '.$finHora;
             //$estatus = $request->input('listEstatus');
-            
+
 
             $product = new ProductS;
             $product->nombre = $nombre;
@@ -804,17 +809,17 @@ class ProductsController extends Controller
             if ($request->hasFile('video')) {
                 $videoFile = $request->file('video');
                 $destinationPath = Storage::disk('videoss')->path($videoFile);
-                $videoPath = $videoFile->store('', 'videoss'); 
+                $videoPath = $videoFile->store('', 'videoss');
                 $productoid = ProductS::where('vendedorid', Auth::id())->orderby('fechaCreado', 'desc')->value('id_producto');
                 $video = new VideoS();
                 $video->nombre = $videoFile->getClientOriginalName();
-                $video->ruta = $videoPath; 
+                $video->ruta = $videoPath;
                 $video->tamaño = $videoFile->getSize();
                 $video->producto_id = $productoid;
                 $video->save();
             }
             $request->session()->forget('product_images');
-            
+
 
             $sub = new Subasta;
             $sub->min = $min;
@@ -830,7 +835,7 @@ class ProductsController extends Controller
             }else{
                 return redirect('/admin/products/addNewSub')->with('message', 'Error en el proceso')->with('typealert', 'danger');
             }
-            
+
         }
     }
     public function postsubtInfo(Request $request, $id){
@@ -847,7 +852,7 @@ class ProductsController extends Controller
         if($validator->fails()){
             return back()->withErrors($validator)->with('message', 'Se ha producido un error')->with('typealert', 'danger')->withInput();
         }else{
-            
+
             $nombre = e($request->input('txtNombre'));
             $descripcion = e($request->input('txtDescripcion'));
             $stock = $request->input('txtStock');
@@ -859,12 +864,12 @@ class ProductsController extends Controller
             $arete = $request->input('listArete');
             $certificado = $request->input('listCert');
             $ytlin = e($request->input('txtLink'));
-            $estado = $request->input('estados'); 
-            $ciudad = $request->input('ciudades'); 
+            $estado = $request->input('estados');
+            $ciudad = $request->input('ciudades');
             $comisaria = $request->input('comisarias');
             $destacado = $request->input('destacado');
             $premium1 = $request->input('premium');
-            $edad = e($request->input('txtEdad')); 
+            $edad = e($request->input('txtEdad'));
             $premium = ['destacado' => $destacado,
             'premium' => $premium1];
             $premium = json_encode($premium);
@@ -899,9 +904,9 @@ class ProductsController extends Controller
             $product->estatus = $estatus;
             $product->status = $status;
             $product->save();
-            
+
             if($product->save()){
-                return redirect('/admin/products/addNewSub')->with('message', 'Producto editado con exito en el sistema')->with('typealert', 'success'); 
+                return redirect('/admin/products/addNewSub')->with('message', 'Producto editado con exito en el sistema')->with('typealert', 'success');
             }
         }
 
@@ -961,11 +966,11 @@ class ProductsController extends Controller
         if ($request->hasFile('video')) {
             $videoFile = $request->file('video');
             $destinationPath = Storage::disk('videost')->path($videoFile);
-            $videoPath = $videoFile->store('', 'videost'); 
+            $videoPath = $videoFile->store('', 'videost');
             $productoid = ProductT::where('vendedorid', Auth::id())->orderby('datecreated', 'desc')->value('idproducto');
             $video = new VideoT();
             $video->nombre = $videoFile->getClientOriginalName();
-            $video->ruta = $videoPath; 
+            $video->ruta = $videoPath;
             $video->tamaño = $videoFile->getSize();
             $video->producto_id = $productoid;
             $video->save();
@@ -987,7 +992,7 @@ class ProductsController extends Controller
         $request->session()->increment('product.imageCountCom');
         $request->session()->forget('product.randomStringCom');
         if ($id_producto) {
-            return redirect('/admin/products/addNewCom')->with('message', 'Producto agregado con exito al sistema')->with('typealert', 'success'); 
+            return redirect('/admin/products/addNewCom')->with('message', 'Producto agregado con exito al sistema')->with('typealert', 'success');
         } else {
             return back('/admin/products/addNewCom')->with('message', 'Error al agregar el producto a  l sistema')->with('typealert', 'warning');
         }
@@ -995,7 +1000,7 @@ class ProductsController extends Controller
     public function deleteSub($id){
         $product = ProductS::findOrfail($id);
         if($product->delete()){
-            return back()->with('message', 'Producto eliminado con exito al sistema')->with('typealert', 'success'); 
+            return back()->with('message', 'Producto eliminado con exito al sistema')->with('typealert', 'success');
         }else{
             return back('/admin/products/addNewSub')->with('message', 'Error al eliminar el producto eliminado del sistema')->with('typealert', 'warning');
         }
@@ -1004,7 +1009,7 @@ class ProductsController extends Controller
     public function deletecom($id){
         $product = ProductT::findOrfail($id);
         if($product->delete()){
-            return redirect('/admin/products/addNewCom')->with('message', 'Producto eliminado con exito al sistema')->with('typealert', 'success'); 
+            return redirect('/admin/products/addNewCom')->with('message', 'Producto eliminado con exito al sistema')->with('typealert', 'success');
         }else{
             return back('/admin/products/addNewCom')->with('message', 'Error al eliminar el producto eliminado del sistema')->with('typealert', 'warning');
         }
@@ -1012,7 +1017,7 @@ class ProductsController extends Controller
     public function deleteGen($id){
         $product = Product::findOrfail($id);
         if($product->delete()){
-            return back()->with('message', 'Producto eliminado con exito al sistema')->with('typealert', 'success'); 
+            return back()->with('message', 'Producto eliminado con exito al sistema')->with('typealert', 'success');
         }else{
             return back()->with('message', 'Error al eliminar el producto eliminado del sistema')->with('typealert', 'warning');
         }
@@ -1033,17 +1038,17 @@ class ProductsController extends Controller
     public function getMensajesHome(){
         $id = Auth::id();
         $msg = MensajeProducto::where('vendedorid', $id)->where('status', '0')->get();
-        $data = ['msg' => $msg]; 
+        $data = ['msg' => $msg];
         return view('Admin.mensajesHome', $data);
     }
     public function readMensajesHome($id){
         $msg = MensajeProducto::find($id);
-    
+
         if ($msg) {
             if ($msg->status == '0') {
                 $msg->status = '1';
                 $msg->save();
-    
+
                 return back()->with('message', 'Mensaje marcado como leído')->with('typealert', 'success');
             } else {
                 return back()->with('message', 'El mensaje ya ha sido leído')->with('typealert', 'info');
@@ -1084,7 +1089,7 @@ class ProductsController extends Controller
             //$dateFolder = $request->input('dataPath');
             $uploadPath = 'uploads/' . $dateFolder;
             $filename = uniqid() . '.' . $uploadedImage->getClientOriginalExtension();
-    
+
             if (!File::exists($uploadPath)) {
                 File::makeDirectory($uploadPath, 0755, true);
             }
@@ -1096,7 +1101,7 @@ class ProductsController extends Controller
             //$path = $filename;
             $webpPath = $dateFolder . '/' . pathinfo($path, PATHINFO_FILENAME) . '.webp';
             $destinationPath = Storage::disk('webp_images')->path($webpPath);
-    
+
             $img = Image::make($uploadedImage->getRealPath()); //->resize(800, 600);
             $img->encode('webp', 10)->save($destinationPath);
             $image = new PGallery;
@@ -1107,9 +1112,9 @@ class ProductsController extends Controller
                 'path' => '/' . $webpPath,
             ];
         }
-    
+
         /*$product->images()->createMany($images);*/
-    
+
         return response()->json(['image' => ['path' => '/' . $webpPath]]);
     }
     public function addImagesSub(Request $request) {
@@ -1129,7 +1134,7 @@ class ProductsController extends Controller
             //$dateFolder = $request->input('dataPath');
             $uploadPath = 'uploads/' . $dateFolder;
             $filename = uniqid() . '.' . $uploadedImage->getClientOriginalExtension();
-    
+
             if (!File::exists($uploadPath)) {
                 File::makeDirectory($uploadPath, 0755, true);
             }
@@ -1141,7 +1146,7 @@ class ProductsController extends Controller
             //$path = $filename;
             $webpPath = $dateFolder . '/' . pathinfo($path, PATHINFO_FILENAME) . '.webp';
             $destinationPath = Storage::disk('webp_images_sub')->path($webpPath);
-    
+
             $img = Image::make($uploadedImage->getRealPath()); //->resize(800, 600);
             $img->encode('webp', 10)->save($destinationPath);
             $image = new PSubGallery;
@@ -1152,11 +1157,11 @@ class ProductsController extends Controller
                 'path' => '/' . $webpPath,
             ];
         }
-    
+
         /*$product->images()->createMany($images);*/
-    
+
         return response()->json(['image' => ['path' => '/' . $webpPath]]);
-    }    
+    }
     public function addImagesCom(Request $request) {
         $productId = $request->input('product_id');
         $product = ProductT::find($productId);
@@ -1172,7 +1177,7 @@ class ProductsController extends Controller
         foreach ($uploadedImages as $uploadedImage) {
             $uploadPath = 'uploads/' . $dateFolder;
             $filename = uniqid() . '.' . $uploadedImage->getClientOriginalExtension();
-    
+
             if (!File::exists($uploadPath)) {
                 File::makeDirectory($uploadPath, 0755, true);
             }
@@ -1183,7 +1188,7 @@ class ProductsController extends Controller
             }
             $webpPath = $dateFolder . '/' . pathinfo($path, PATHINFO_FILENAME) . '.webp';
             $destinationPath = Storage::disk('webp_images_com')->path($webpPath);
-    
+
             $img = Image::make($uploadedImage->getRealPath()); //->resize(800, 600);
             $img->encode('webp', 10)->save($destinationPath);
             $image = new PTGallery;
