@@ -12,6 +12,7 @@ use App\Models\Ciudad;
 use App\Models\Comisaria;
 use Validator;
 use App\Models\PGallery;
+use App\Models\Persona;
 use App\Models\PTGallery;
 use App\Models\PSubGallery;
 use Illuminate\Support\Facades\Storage;
@@ -667,9 +668,9 @@ class APIProductsController extends Controller
         }
     }
     public function getAllProductsByState(){
-        $userId = Auth::id();
+        $user = Auth::user();
         try{
-            $vendedorId = Auth::user()->estado;
+            $vendedorId = $user->estado;
             $products = Product::where('status', '1')
                                 ->where('estado', $vendedorId)
                                 ->with(['images', 'videos'])
@@ -679,6 +680,11 @@ class APIProductsController extends Controller
                 $product->gallery = $product->images->map(function($image) use ($product) {
                     return asset('uploads/' . $product->carpeta . '/' . $image->img . '.webp');
                 });
+                if($product->owner){
+                    $product->owner = $product->owner->email_user;
+                }else{
+                    $product->owner = null;
+                }
             });     
             $products->each(function($product){
                 $product->videosG = $product->videos->map(function($video){
@@ -704,10 +710,19 @@ class APIProductsController extends Controller
             if ($productT->images->isNotEmpty()) {
                 $firstImage = $productT->images->first();
                 $productT->portada_url = asset('uploads/tianguis/' . $productT->imagen . '/' . $firstImage->ruta . '.webp');
-            } else {
+            }else{
                 $productT->portada_url = null;
             }
+
         });
+        $productsT->each(function ($productT) {
+            if($productT->owner){
+                    $productT->owner = $productT->owner->email_user;
+                }else{
+                    $productT->owner = null;
+                }
+
+        });     
         $productsT->each(function ($productT) {
             $productT->galleryT = $productT->images->map(function($image) use ($productT) {
                 return asset('uploads/tianguis/' . $productT->imagen . '/' . $image->ruta . '.webp');

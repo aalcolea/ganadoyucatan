@@ -53,6 +53,7 @@ Route::delete('/deleteProductCom/{id}', [APIProductsController::class, 'deletePr
 Route::delete('/deleteProductGen/{id}', [APIProductsController::class, 'deleteProduct']);
 
 Route::post('/products/postGratis', [APIProductsController::class, 'postGratis'])->name('api.postGratis');
+Route::middleware('jwt.auth')->get('/products/getAllProductsByState', [APIProductsController::class, 'getAllProductsByState'])->name('api.getAllProductsByState');
 
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
