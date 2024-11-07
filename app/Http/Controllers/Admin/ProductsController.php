@@ -456,19 +456,20 @@ class ProductsController extends Controller
             endif;
         endif;
     }
-    public function getProductEdit($id){
-        //$product = Product::with('images')->find($id);
-        //return view('partials.productInfo', compact('product'));
+    public function getProductEdit($id)
+    {
         $product = Product::with('images')->find($id);
-        $images = $product->images->map(function($image) {
-            return [
-                'path' => '/'.$image->product->carpeta.'/'.$image->img.'.webp',
-                'url' => asset('uploads/' . $image->product->carpeta . '/' . $image->img . '.webp')
-            ];
-        });
-        return view('partials.productInfo', compact('product', 'images'));
-        //return view('partials.productInfo', compact('product'));
+        // $images = $product->images->map(function($image) {
+        //     return [
+        //         'path' => '/'.$image->product->carpeta.'/'.$image->img.'.webp',
+        //         'url' => asset('uploads/' . $image->product->carpeta . '/' . $image->img . '.webp')
+        //     ];
+        // });
 
+        return response()->json([
+            'product' => $product
+            // 'images' => $images
+        ]);
     }
     public function deleteGenImage($id, $portada){
         $product = Product::findOrfail($id);
@@ -893,9 +894,7 @@ class ProductsController extends Controller
             $product->certificado = $certificado;
             $product->yt = $ytlin;
             $product->estado = $estado;
-/*            $product->ciudad = $ciudad;
-            $product->municipio = $comisaria;*/
-            /*$product->premium = $premium;*/
+
             $product->edad = $edad;
             $product->precioMin = $min;
             $product->precioMax = $max;
