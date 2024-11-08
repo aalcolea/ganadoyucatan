@@ -1,53 +1,94 @@
 @extends('Admin.sidebar')
 @section('main')
-<main class="app-content">    
-    <div class="app-title">
-      <div>
-          <h1><i class="fas fa-user-tag"></i> Mensajes recibidos</h1>
-      </div>
-      <ul class="app-breadcrumb breadcrumb">
-        <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
-      </ul>
+<main class="app-content">
+    <div class="recent-orders">
+        <h1>Mensajes</h1>
+
+        <form id="markAsReadForm" action="{{ route('markMultipleAsRead') }}" method="post">
+            @csrf
+            <div class="titleButton">
+                <h2>Mensajes recibidos</h2>
+                <button type="submit" class="btn btn-primary" id= "markAsReadBtn">Agregar ganado</button>
+            </div>
+            <table class="table ganado-comercial" id="tableMensajes">
+                <thead>
+                    <tr>
+                      <th><input type="checkbox" id="selectAll" class="messageCheckbox"></th>
+                      <th>Nombre</th>
+                      <th>Teléfono</th>
+                      <th>Mensaje</th>
+                      <th>Recibido</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($msg as $m)
+                    <tr>
+                        <td><input type="checkbox" name="message_ids[]" value="{{ $m->id }}" class="messageCheckbox"></td>
+                        <td>{{ $m->nombre }}</td>
+                        <td>{{ $m->email }}</td>
+                        <td>{{ $m->mensaje }}</td>
+                        <td>{{ $m->datecreated }}</td>
+                      </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </form>
     </div>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="tile">
-              <div class="tile-body">
-                <div class="table-responsive">
-                  <form id="markAsReadForm" action="{{ route('markMultipleAsRead') }}" method="POST">
-                    @csrf
-                    <button type="submit" class="btn btn-success" id="markAsReadBtn" disabled>Marcar como leídos</button>
-                    <table class="table table-hover table-bordered" id="tableMensajes">
-                      <thead>
-                        <tr>
-                          <th><input type="checkbox" id="selectAll"></th>
-                          <th>Nombre</th>
-                          <th>Teléfono</th>
-                          <th>Mensaje</th>
-                          <th>Recibido</th>
-                          {{-- <th>Leer</th> --}}
-                        </tr>
-                      </thead>
-                      <tbody>
-                        @foreach($msg as $m)
-                          <tr>
-                            <td><input type="checkbox" name="message_ids[]" value="{{ $m->id }}" class="messageCheckbox"></td>
-                            <td>{{ $m->nombre }}</td>
-                            <td>{{ $m->email }}</td>
-                            <td>{{ $m->mensaje }}</td>
-                            <td>{{ $m->datecreated }}</td>
-                            {{-- <td>@if($m->status == 1)<button disabled type="submit" class="btn btn-info btn-sm" title="Ver mensaje"><i class="far fa-eye"></i></button>@else<form id="readMsgForm" action="{{route('readMensajesHome', ['id' => $m->id]) }}" method="POST">@csrf<button type="submit" class="btn btn-info btn-sm" style="background-color: #21d633; border-color: #21d633;" title="Ver mensaje"><i class="far fa-eye"></i></button></form>@endif</td> --}}
-                          </tr>
-                        @endforeach
-                      </tbody>
-                    </table>
-                  </form>
-                </div>
-              </div>
+</main>
+
+<!-- right section start-->
+<div class="right">
+    <div class="top">
+        <button id="menu-btn">
+            <span class="material-symbols-outlined">menu</span>
+        </button>
+        <div class="theme-toggler">
+            <span class="material-symbols-outlined active">light_mode</span>
+            <span class="material-symbols-outlined">dark_mode</span>
+        </div>
+        <div class="profile">
+            <div class="info">
+                <p>Bienvenido ganadero <b>Nombre</b></p>
+                <small class="text-muted">Admin</small>
+            </div>
+            <div class="profile-photo">
+                <img src="" alt="">
             </div>
         </div>
     </div>
-</main>
+    <!-- End of top -->
+    <div class="recent-updates">
+        <h2>Recent-updates</h2>
+        <div class="updates">
+            <div class="update">
+                <div class="profile-photo">
+                    <img src="" alt="">
+                </div>
+                <div class="message">
+                    <p><b>Mario Fly</b> publicó un nuevo ganado</p>
+                    <small class="text-muted">Hace 2 minutos</small>
+                </div>
+            </div>
+            <div class="update">
+                <div class="profile-photo">
+                    <img src="images/OIP.jpeg" alt="">
+                </div>
+                <div class="message">
+                    <p><b>Purina</b> publicó una nueva oferta para ti</p>
+                    <small class="text-muted">Hace 2 minutos</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="recent-publicidad">
+        <h2>Los mejores productos</h2>
+        <div class="publicidad">
+            <img src="./images/publicidad-app.png" alt="">
+        </div>
+    </div>
+</div>
+<!-- right section end-->
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
@@ -68,35 +109,6 @@ document.addEventListener('DOMContentLoaded', function() {
         const selectedMessages = Array.from(checkboxes).filter(checkbox => checkbox.checked);
         markAsReadBtn.disabled = selectedMessages.length === 0;
     }
-    //mensjes 1 en desuso
-/*    var readMsgForm = document.getElementById('readMsgForm');
-    if (readMsgForm) {
-        readMsgForm.addEventListener('submit', function(event) {
-            //event.preventDefault();
-
-            var id = readMsgForm.getAttribute('data-id');
-            var url = readMsgForm.getAttribute('action');
-            
-            var xhr = new XMLHttpRequest();
-            xhr.open('POST', url, true);
-            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-            xhr.setRequestHeader('X-CSRF-TOKEN', readMsgForm.querySelector('input[name="_token"]').value);
-
-            xhr.onload = function() {
-                if (xhr.status >= 200 && xhr.status < 400) {
-                    alert('Mensaje leído');
-                } else {
-                    console.error('Error en la solicitud: ' + xhr.status);
-                }
-            };
-
-            xhr.onerror = function() {
-                console.error('Error de red al intentar realizar la solicitud');
-            };
-
-            xhr.send();
-        });
-    }*/
 });
 </script>
 @endsection

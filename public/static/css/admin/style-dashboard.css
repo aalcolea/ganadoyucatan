@@ -638,7 +638,7 @@ main .recent-orders a{
 }
 
 .btn-primary {
-    /* background-color: var(--color-success); */
+    background-color: var(--color-success);
     /* background-color: var(--color-warning); */
     /* background-color: var(--color-danger); */
     color: white;
@@ -651,6 +651,38 @@ main .recent-orders a{
 
 .btn:hover {
     opacity: 0.9;
+}
+
+.messageCheckbox { appearance: none; /* Elimina el estilo predeterminado del checkbox */
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--color-primary);
+    border-radius: var(--border-radius-1);
+    background-color: var(--color-white);
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: background-color 0.3s ease;
+}
+.messageCheckbox:checked {
+    background-color: var(--color-success);
+    border-color: var(--color-success);
+}
+.messageCheckbox:checked::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 10px;
+    height: 10px;
+    background-color: var(--color-white);
+    border-radius: var(--border-radius-1);
+    transform: translate(-50%, -50%);
+    transition: background-color 0.3s ease;
+}
+.messageCheckbox:hover {
+    background-color: var(--color-info-light);
+    border-color: var(--color-info-dark);
 }
 
 /* ======================= MEDIA QUERIES ======================= */
