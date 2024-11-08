@@ -145,6 +145,8 @@
                         <span class="material-symbols-outlined editProductBtngen" data-id="{{$p->idproducto}}" title="Editar producto">edit</span>
                         {{-- <button class="btn btn-primary  btn-sm editProductBtngen" data-id="{{$p->idproducto}}" id="editProduct" title="Editar producto"><i class="fas fa-pencil-alt"></i></button> --}}
                         {{-- <a href="{{ route('deleteGen', $p->idproducto) }}" class="btn btn-danger" title="Eliminar producto" onclick="confirmation(event)"><i class="far fa-trash-alt"></i></a></td> --}}
+                        <span class="material-symbols-outlined">delete</span>
+                    </td>
                 </tr>
                 @endforeach
             </tbody>
@@ -174,7 +176,18 @@
                     <td>{{$p->estatus}}</td>
                     <td>{{$p->rancho}}</td>
                     <td>{{$p->peso}}</td>
-                    <td><button style="background-color:#c31b36;border-color: #c31b36;" class="btn btn-info btn-sm" onclick="openProductInNewTab('{{$p->id_producto}}')" target="_blank" title="Ver producto"><i class="far fa-eye"></i></button><button class="btn btn-primary  btn-sm editProductBtn" data-id="{{$p->id_producto}}" id="editProduct" title="Editar producto"><i class="fas fa-pencil-alt"></i></button><a href="{{ route('deleteSub', $p->id_producto) }}" class="btn btn-danger" title="Eliminar producto" onclick="confirmation(event)"><i class="far fa-trash-alt"></i></a></td>
+                    <td class="actions">
+                        {{-- <button style="background-color:#c31b36;border-color: #c31b36;" class="btn btn-info btn-sm" onclick="openProductInNewTab('{{$p->id_producto}}')" target="_blank" title="Ver producto"><i class="far fa-eye"></i></button> --}}
+                        <span class="material-symbols-outlined open-product" title="Ver producto">visibility</span>
+                        {{-- <button class="btn btn-primary  btn-sm editProductBtn" data-id="{{$p->id_producto}}" id="editProduct" title="Editar producto">
+                            <i class="fas fa-pencil-alt"></i>
+                        </button> --}}
+                        <span class="material-symbols-outlined editProductBtnSub" data-id="{{$p->idproducto}}" title="Editar producto">edit</span>
+                        {{-- <a href="{{ route('deleteSub', $p->id_producto) }}" class="btn btn-danger" title="Eliminar producto" onclick="confirmation(event)">
+                            <i class="far fa-trash-alt"></i>
+                        </a> --}}
+                        <span class="material-symbols-outlined">delete</span>
+                    </td>
                 </tr>
                 @endforeach
             </tbody>
