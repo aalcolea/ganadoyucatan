@@ -253,11 +253,13 @@
 </div>
 <!-- right section end-->
 
-<!-- Modal de edit-->
+<!-- Modales de edit-->
+
+{{-- edit ganado genético --}}
 <div class="modal-overlay" id="editModal">
     <div class="modal-container">
         <div class="modal-header">
-            <h2 class="modal-title">Agregar Ganado</h2>
+            <h2 class="modal-title">Editar ganado</h2>
             <button class="close-button" onclick="closeModal()">
                 <span class="material-symbols-outlined">close</span>
             </button>
@@ -265,7 +267,7 @@
         <div class="modal-content">
             <form id="editForm" action="admin/products/addNewCom" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                <input type="hidden" id="idProducto" name="idProducto" value="">
+                <input type="hidden" id="idProducto" name="idProducto" value=" ">
 
                 <div class="form-group">
                     <label class="form-label" for="title">Título del Anuncio <span class="required">*</span></label>
@@ -278,7 +280,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="form-label" for="Enlace">Enlance Youtube</label>
+                    <label class="form-label" for="Enlace">Enlace Youtube</label>
                     <input class="form-input" type="text" id="txtLink" name="txtLink">
                 </div>
 
@@ -374,8 +376,41 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="form-label" for="listStatus">En venta <span class="required">*</span></label>
-                    <select class="form-select" id="listStatus" name="listStatus" required>
+                    <label class="control-label">Raza</label>
+                    <select class="form-select" id="txtRaza" name="txtRaza">
+                        <option value="Brahman rojo">Brahman rojo</option>
+                        <option value="Brahman gris">Brahman gris </option>
+                        <option value="Brahman ameri">Brahman ameri</option>
+                        <option value="Nelore">Nelore </option>
+                        <option value="Nelore mocho">Nelore mocho </option>
+                        <option value="Nelore pinto">Nelore pinto </option>
+                        <option value="Beefmaster">Beefmaster </option>
+                        <option value="Suizo europeo">Suizo europeo</option>
+                        <option value="Simmental">Simmental</option>
+                        <option value="Simbrah">Simbrah </option>
+                        <option value="Gyr">Gyr</option>
+                        <option value="Guzerat">Guzerat </option>
+                        <option value="Charolais">Charolais</option>
+                        <option value="Suizo america">Suizo america</option>
+                        <option value="Limouzin">Limouzin </option>
+                        <option value="Indubrazil">Indubrazil </option>
+                        <option value="Brangus">Brangus </option>
+                        <option value="Angus">Angus </option>
+                        <option value="Hereford">Hereford</option>
+                        <option value="Charolesa">Charolesa </option>
+                        <option value="Pardo suizo europeo">Pardo suizo europeo</option>
+                        <option value="Pardo suizo americano">Pardo suizo americano</option>
+                        <option value="Aberdeen angus">Aberdeen angus</option>
+                        <option value="Santa Gertrudis">Santa Gertrudis</option>
+                        <option value="Cebu Brahman">Cebu Brahman</option>
+                        <option value="Belgian Blue">Belgian Blue</option>
+                        <option value="Braford">Braford</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="venta">En venta <span class="required">*</span></label>
+                    <select class="form-select" id="venta" name="venta" required>
                         <option value="1">Activo</option>
                         <option value="2">Inactivo</option>
                     </select>
@@ -417,8 +452,7 @@
         </div>
     </div>
 </div>
-
-{{-- Modal add ganado genetico --}}
+{{-- Modales add ganado --}}
 <div class="modal-overlay" id="addModal">
     <div class="modal-container">
         <div class="modal-header">
@@ -644,20 +678,60 @@
     const modal = document.getElementById('editModal');
     const idProducto = document.getElementById('idProducto');
     const txtNombre = document.getElementById('txtNombre');
+    const txtDescripcion = document.getElementById('txtDescripcion');
+    const txtLink = document.getElementById('txtLink');
+    const pesoG = document.getElementById('pesoG');
+    const txtEdad = document.getElementById('txtEdad');
+    const precio = document.getElementById('precio');
+    const txtStock = document.getElementById('txtStock');
+    const txtRancho = document.getElementById('txtRancho');
+    const txtRaza = document.getElementById('txtRaza');
+    const estados = document.getElementById('estados');
+    const ciudades = document.getElementById('ciudades');
+    const comisarias = document.getElementById('comisarias');
+    const listVacu = document.getElementById('listVacu');
+    const listArete = document.getElementById('listArete');
+    const listCert = document.getElementById('listCert');
+    const txtTipo = document.getElementById('txtTipo');
+    const venta = document.getElementById('venta');
+    const listEstatus = document.getElementById('listEstatus');
+
 
     function openEditModal(productId) {
         modal.style.display = 'flex';
         document.body.style.overflow = 'hidden';
-        fetch(`/admin/products/getProductInfo/${productId}`)
+        fetch(`/admin/products/getProductInfo2/${productId}`)
         .then(response => {
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
             return response.json();
         })
         .then(data => {
-            // idProducto.value = data.product.id;
-            // txtNombre.value = data.product.name;
-            console.log(data);
-            // Mapear el resto de campos del formulario aquí
+            // Mapear campos del formulario con los valores del JSON
+            idProducto.value = data.product.idproducto;
+            txtNombre.value = data.product.nombre;
+            txtDescripcion.value = data.product.descripcion;
+            txtLink.value = data.product.link;
+            pesoG.value = data.product.peso;
+            txtEdad.value = data.product.edad;
+            precio.value = data.product.precio;
+            txtStock.value = data.product.stock;
+            txtRancho.value = data.product.rancho;
+            txtRaza.value = data.product.txtRaza;
+
+            // Asignar los valores de estado, ciudad y comisaría
+            estados.value = data.product.estado;
+            ciudades.value = data.product.ciudad;
+            comisarias.value = data.product.comisaria;
+
+            listVacu.value = data.product.vacunado;
+            listArete.value = data.product.arete;
+            listCert.value = data.product.certificado;
+            txtTipo.value = data.product.tipo;
+
+            // Determinar si el producto está en venta
+            venta.value = data.product.status === 1 ? "1" : "2"; // Asignar "1" para activo, "2" para inactivo según status
+
+            listEstatus.value = data.product.status;
         })
         .catch(error => {
             console.error('Error al obtener la información del producto:', error);
