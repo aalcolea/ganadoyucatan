@@ -25,6 +25,21 @@ class APIUserController extends Controller
         $u->save();
         return response()->json(['message' => 'Editado con éxito'], 200);
     }
+    public function updatePic(Request $request){
+        $id = Auth::id(); 
+        $u = Persona::findOrFail($id);       
+        if ($request->hasFile('imagen')){
+            $imagen = $request->file('imagen');
+            $nombreArchivo = e($request->input('telefono')).'.webp';
+            $imgWebp = imagecreatefromstring(file_get_contents($imagen->getRealPath()));
+            imagewebp($imgWebp, 'userspics/'.$nombreArchivo);
+            $u->foto = $nombreArchivo;
+        }else {
+            $user->foto = null;
+        }
+        $u->save();
+        return response()->json(['message' => 'Editado con éxito'], 200);
+    }
     public function updateFiscoData(Request $request){
         $id = Auth::id();
         $data = $request->all();

@@ -33,6 +33,7 @@ Route::middleware('jwt.auth')->get('/productsAllSub', [APIProductsController::cl
 /*data User methods*/
 Route::middleware('jwt.auth')->get('/userProfile', [APIUserController::class, 'getUProfInfo']);
 Route::middleware('jwt.auth')->post('/updateProfile', [APIUserController::class, 'updateProfile']);
+Route::middleware('jwt.auth')->post('/updatePic', [APIUserController::class, 'updatePic']);
 Route::middleware('jwt.auth')->post('/updateFiscoData', [APIUserController::class, 'updateFiscoData']);
 
 Route::middleware('jwt.auth')->get('/getUserMsgs', [APIUserController::class, 'getUserMsgs']);
