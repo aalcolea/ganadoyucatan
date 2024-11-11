@@ -8,6 +8,9 @@ use Carbon\Carbon;
 use App\Models\Persona;
 use App\Models\MensajeProducto;
 use App\Events\NewMessageNotification;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
+use Intervention\Image\ImageManagerStatic as Image;
 class APIUserController extends Controller
 {
     public function getUProfInfo(){
@@ -23,22 +26,35 @@ class APIUserController extends Controller
         $u->apellidos = $data['lastname'];
         $u->asociacion = $data['asociacion'];
         $u->save();
-        return response()->json(['message' => 'Editado con éxito'], 200);
+        return response()->json(['message' => 'Editado con exito'], 200);
     }
     public function updatePic(Request $request){
         $id = Auth::id(); 
-        $u = Persona::findOrFail($id);       
-        if ($request->hasFile('imagen')){
-            $imagen = $request->file('imagen');
-            $nombreArchivo = e($request->input('telefono')).'.webp';
-            $imgWebp = imagecreatefromstring(file_get_contents($imagen->getRealPath()));
-            imagewebp($imgWebp, 'userspics/'.$nombreArchivo);
+        $u = Persona::findOrFail($id);
+        if ($request->input('imagen')) {
+            $imagenBase64 = $request->input('imagen');
+            $imagen = base64_decode($imagenBase64);
+            if ($imagen === false) {
+                return response()->json(['message' => 'La imagen no pudo ser decodificada'], 400);
+            }
+            $imgWebp = imagecreatefromstring($imagen);
+            if (!$imgWebp) {
+                return response()->json(['message' => 'Error al procesar la imagen'], 500);
+            }
+            $nombreArchivo = $u->email_user . '.webp';
+            $destinationPath = Storage::disk('userspics')->path($nombreArchivo);
+            
+            if (!imagewebp($imgWebp, $destinationPath)) {
+                return response()->json(['message' => 'Error al guardar la imagen'], 500);
+            }
+            imagedestroy($imgWebp);
             $u->foto = $nombreArchivo;
-        }else {
-            $user->foto = null;
+            $u->save();
+
+            return response()->json(['message' => 'Imagen actualizada correctamente para: ' . $u->email_user], 200);
+        } else {
+            return response()->json(['message' => 'No se bien la imagen para enviar'], 400);
         }
-        $u->save();
-        return response()->json(['message' => 'Editado con éxito'], 200);
     }
     public function updateFiscoData(Request $request){
         $id = Auth::id();

@@ -79,6 +79,10 @@ return [
         'driver' => 'local',
         'root' => '/home/lz9kr6l1o9ym/public_html/uploads/videoss'
         ],
+        'userspics' => [
+        'driver' => 'local',
+        'root' => '/home/lz9kr6l1o9ym/public_html/userspics' // 'C:\Users\Alan\Documents\ganadoyucatan\public\userspics'//'/home/lz9kr6l1o9ym/public_html/uploads/userspics'
+        ],
 
     ],
 
