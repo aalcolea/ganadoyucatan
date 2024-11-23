@@ -59,6 +59,7 @@ Route::post('/readMsgs', [ProductsController::class, 'markMultipleAsRead'])->nam
 Route::get('/users', [UsersController::class, 'getUsers'])->name('usersHome')->middleware(['IsAdmin']);
 Route::get('/get-user-info/{id}', [UsersController::class, 'getUserInfo'])->middleware(['IsAdmin']);
 Route::post('/users/edit/{id}', [UsersController::class, 'postEditUser'])->name('postEditUser')->middleware(['IsAdmin']);
+Route::get('/users/deleteUsr/{id}', [UsersController::class, 'deleteUsr'])->name('deleteUsr')->middleware(['IsAdmin']);
 Route::get('/reactiveAccount/{id}', [UsersController::class, 'reactiveAccount'])->name('reactiveAccount')->middleware(['IsAdmin']);
 Route::get('users/profile', [UsersController::class, 'getUProfInfo']);
 Route::post('users/profile/{id}', [UsersController::class, 'postUProfInfo']);

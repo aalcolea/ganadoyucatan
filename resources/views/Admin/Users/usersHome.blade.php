@@ -42,7 +42,12 @@
                             <td>{{$u->datecreated}}</td>
                             <td>{{$u->ult_vez}}</td>
                             <td>@if($u->asociacion == null) Sin asociacón @else {{$u->asociacion}} @endif</td>
-                            <td>@if($u->rolid != 1)<button class="btn btn-primary  btn-sm editUserBtn" data-id="{{$u->idpersona}}" id="editUser" title="Editar usuario"><i class="fas fa-pencil-alt"></i></button><button class="btn btn-danger btn-sm btnDelUsuario" title="Eliminar usuario"><i class="far fa-trash-alt"></i></button>@else<button class="btn btn-secondary btn-sm" disabled ><i class="fas fa-pencil-alt"></i></button><button class="btn btn-secondary btn-sm" disabled ><i class="far fa-trash-alt"></i></button>@endif<button class="btn btn-sm reactiveBtn" data-id="{{$u->idpersona}}" style="border-color: black;" title="Reactivar Suscripción" ><i class="fa-solid fa-forward" style="color: #00ff6e;"></i></button></td>
+                            <td>@if($u->rolid != 1)<button class="btn btn-primary  btn-sm editUserBtn" data-id="{{$u->idpersona}}" id="editUser" title="Editar usuario"><i class="fas fa-pencil-alt"></i></button>
+                              <a href="{{ route('deleteUsr', $u->idpersona) }}" class="btn btn-danger" title="Eliminar producto" onclick="confirmation(event)"><i class="far fa-trash-alt"></i></a>
+                              {{-- <button class="btn btn-danger btn-sm btnDelUsuario" title="Eliminar usuario">
+                              <i class="far fa-trash-alt"></i></button> --}}
+
+                              @else<button class="btn btn-secondary btn-sm" disabled ><i class="fas fa-pencil-alt"></i></button><button class="btn btn-secondary btn-sm" disabled ><i class="far fa-trash-alt"></i></button>@endif<button class="btn btn-sm reactiveBtn" data-id="{{$u->idpersona}}" style="border-color: black;" title="Reactivar Suscripción" ><i class="fa-solid fa-forward" style="color: #00ff6e;"></i></button></td>
                           </tr>
                         @endforeach
                       </tbody>
@@ -150,6 +155,21 @@
             });
         });
     });
+    function confirmation(ev){
+    ev.preventDefault();
+    var url = ev.currentTarget.getAttribute('href');
+    swal({
+      title: "¿Desea eliminar este usuario?",
+      text: "Esta usuario se eliminará para siempre",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((confirmCancel)=>{
+      if(confirmCancel){
+        window.location.href = url;
+      }
+    });
+  }
     document.addEventListener('DOMContentLoaded', function(){
       var reactiveBtn = document.querySelectorAll('.reactiveBtn');
 

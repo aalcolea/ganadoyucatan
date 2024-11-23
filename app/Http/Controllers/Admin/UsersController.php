@@ -91,4 +91,12 @@ class UsersController extends Controller
         }
 
     }
+    public function deleteUsr($id){
+        $product = Persona::findOrfail($id);
+        if($product->delete()){
+            return redirect('/admin/users')->with('message', 'Usuario eliminado con exito al sistema')->with('typealert', 'success'); 
+        }else{
+            return back('/admin/users')->with('message', 'Error al eliminar el usuario eliminado del sistema')->with('typealert', 'warning');
+        }
+    }
 }
