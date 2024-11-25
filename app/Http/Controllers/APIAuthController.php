@@ -56,16 +56,14 @@ class APIAuthController extends Controller
         ];
         try {
             if (!$token = JWTAuth::attempt($credentials)) {
-                dd($token);
                 return response()->json(['error' => 'Credenciales inválidas'], 401);
             }
         } catch (JWTException $e) {
-            dd("JWT Error: " . $e->getMessage());
             return response()->json(['error' => 'Error interno del servidor', 'exception' => $e->getMessage()], 500);
         }
         $userId = Auth::id();
         if (!$userId) {
-            dd("Error de autenticación: Usuario no encontrado o credenciales incorrectas.");
+            //dd("Error de autenticación: Usuario no encontrado o credenciales incorrectas.");
             return response()->json(['error' => 'Error de autenticación'], 500);
         }
         $currentDateTime = Carbon::now();
