@@ -45,6 +45,7 @@ Route::post('/sendOffer/{id}',  [TiendaController::class, 'sendOffer'])->name('s
 Route::get('/subastas/{id}', [TiendaController::class, 'getSubasta'])->name('getSubasta');
 Route::get('/politicaPrivacidad', [TiendaController::class, 'getPoliticaPrivacidad']);
 Route::get('/recomendaciones', [TiendaController::class, 'getRecomendaciones']);
+Route::get('/blog', [TiendaController::class, 'getBlog']);
 Route::get('/suscripcion', [TiendaController::class, 'getSuscripcion']);
 
 
