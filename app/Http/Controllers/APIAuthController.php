@@ -50,26 +50,25 @@ class APIAuthController extends Controller
         if ($validator->fails()) {
             return response()->json(['error' => $validator->errors()], 400);
         }
-        $credentials = [
-            'email_user' => $request->get('email'),
-            'password' => $request->get('password'),
+        $credentials = ['email_user' => $request->get('email'),'password' => $request->get('password'),
         ];
         try {
             if (!$token = JWTAuth::attempt($credentials)) {
                 dd($token);
                 return response()->json(['error' => 'Credenciales inválidas'], 401);
             }
+            $userId = Auth::id();
+            if (!$userId) {
+                //dd("Error de autenticación: Usuario no encontrado o credenciales incorrectas.");
+                return response()->json(['error' => 'Error de autenticación'], 500);
+            }
+            $currentDateTime = Carbon::now();
+            Persona::where('idpersona', $userId)->update(['ult_vez' => $currentDateTime]);
         } catch (JWTException $e) {
             dd("JWT Error: " . $e->getMessage());
             return response()->json(['error' => 'Error interno del servidor', 'exception' => $e->getMessage()], 500);
         }
-        $userId = Auth::id();
-        if (!$userId) {
-            dd("Error de autenticación: Usuario no encontrado o credenciales incorrectas.");
-            return response()->json(['error' => 'Error de autenticación'], 500);
-        }
-        $currentDateTime = Carbon::now();
-        Persona::where('idpersona', $userId)->update(['ult_vez' => $currentDateTime]);
+        
         return response()->json(compact('token'));
     }
     public function logout(Request $request){

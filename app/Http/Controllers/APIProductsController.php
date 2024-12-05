@@ -243,6 +243,7 @@ class APIProductsController extends Controller
             $product->peso = $data['peso'];
             $product->estado = $data['estado'];
             $product->ciudad = $data['ciudad'];
+            $product->status = '2';
             //$product->comisaria = "1";
             //$product->comisaria = $data['comisaria'];
             $product->vendedorid = Auth::id();
