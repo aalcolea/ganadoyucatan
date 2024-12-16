@@ -51,9 +51,9 @@ public function tiendaHome(Request $request){
         $query->where('precio', '>=', $request->min_price);
     }
     if ($request->has('max_price')) {
-       
+
         $query->where('precio', '<=', $request->max_price);
-    } 
+    }
     $products = $query->orderBy('idproducto', 'desc')->paginate(10);
 
     if ($products->count() >= 10) {
@@ -103,7 +103,7 @@ public function tiendaHome(Request $request){
             $dispositivo = "PC";
             $vendedorid = $request->input('vendedorid');
             if(preg_match("/mobile/i", $useragent)){
-                $dispositivo = "Móvil"; 
+                $dispositivo = "Móvil";
             } else if (preg_match("/tablet/i", $useragent)) {
                 $dispositivo = "Tablet";
             } else if (preg_match("/iPhone/i", $useragent)) {
@@ -137,7 +137,7 @@ public function tiendaHome(Request $request){
         $ip = $request->server('REMOTE_ADDR');
         $dispositivo = "PC";
         if(preg_match("/mobile/i", $useragent)){
-            $dispositivo = "Móvil"; 
+            $dispositivo = "Móvil";
         } else if (preg_match("/tablet/i", $useragent)) {
             $dispositivo = "Tablet";
         } else if (preg_match("/iPhone/i", $useragent)) {
@@ -157,7 +157,7 @@ public function tiendaHome(Request $request){
         $msg->status = 0;
         if($msg->save()){
             event(new NewMessageNotification($msg));
-            
+
             Alert::success('Éxito', 'El mensaje se envió correctamente.');
             return back();
         } else {
@@ -179,9 +179,9 @@ public function tiendaHome(Request $request){
             $query->where('precio', '>=', $request->min_price);
         }
         if ($request->has('max_price')) {
-           
+
             $query->where('precio', '<=', $request->max_price);
-        } 
+        }
         //$products = $query->orderBy('idproducto', 'desc')->paginate(10);
         $products = $query->orderBy('idproducto', 'desc')->paginate(9);
         $random = ProductT::where('status', '2')->get();
@@ -219,7 +219,7 @@ public function tiendaHome(Request $request){
             $video = null;
         };
 
-        
+
         $imagesRandom = PTGallery::whereNot('id_producto', $id)->get();
         Visits::create([
             'ip' => request()->ip(),
@@ -358,5 +358,9 @@ public function tiendaHome(Request $request){
     public function getBlog(){
         return view('blog');
     }
+    public function getBlogNoticia($id){
+        return view('blogNotice');
+    }
+
     //test
 }

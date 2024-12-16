@@ -38,7 +38,7 @@
             </div>
 
             <div class="sidebar">
-                <a href="#" class="active">
+                <a href="{{ url('/admin/products/home') }}" class="active">
                     <span class="material-symbols-sharp">store</span>
                     <h3>Tu tienda</h3>
                 </a>
@@ -52,7 +52,7 @@
                     </span>
                     <h3>Usuarios</h3>
                 </a>
-                <a href="#">
+                <a href="{{ url('/admin/mensajes') }}">
                     <span class="material-symbols-sharp">
                         chat
                     </span>
@@ -70,6 +70,7 @@
         <!-- aside section end -->
         @section('main')
         @show
+
     </div>
     <script src="{{url('/static/js/admin/dashboard.js') }}"></script>
 </body>

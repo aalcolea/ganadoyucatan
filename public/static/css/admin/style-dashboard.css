@@ -9,13 +9,12 @@
     --color-warning: #D79E46;
     --color-white: #fff;
 
-    /* Colores adicionales */
+    /* Dark mode */
     --color-info-dark: #7d8dad;
     --color-info-light: #dcefeb;
     --color-dark: #363949;
     --color-light: rgba(132, 139, 200, 0.18);
 
-    /* Variantes de colores */
     --color-primary-variant: #BCB890;
     --color-dark-variant: #677483;
 

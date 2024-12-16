@@ -458,17 +458,42 @@ class ProductsController extends Controller
     }
     public function getProductEdit($id)
     {
-        $product = Product::with('images')->find($id);
-        // $images = $product->images->map(function($image) {
-        //     return [
-        //         'path' => '/'.$image->product->carpeta.'/'.$image->img.'.webp',
-        //         'url' => asset('uploads/' . $image->product->carpeta . '/' . $image->img . '.webp')
-        //     ];
-        // });
+        $productEdit = Product::with('images')->find($id);
+        if (!$productEdit) {
+            return response()->json(['error' => 'Producto no encontrado'], 404);
+        }
+        $images = $productEdit->images->map(function($image) {
+            return [
+                'path' => '/'.$image->product->carpeta.'/'.$image->img.'.webp',
+                'url' => asset('uploads/' . $image->product->carpeta . '/' . $image->img . '.webp')
+            ];
+        });
+
+        return view('Admin.Products.home', $productEdit, $images);
+
+        // return response()->json([
+        //     'product' => $product,
+        //     'images' => $images
+        // ]);
+    }
+    public function getProductEdit2($id)
+    {
+        $productEdit = Product::with('images')->find($id);
+        if (!$productEdit) {
+            return response()->json(['error' => 'Producto no encontrado'], 404);
+        }
+        $images = $productEdit->images->map(function($image) {
+            return [
+                'path' => '/'.$image->product->carpeta.'/'.$image->img.'.webp',
+                'url' => asset('uploads/' . $image->product->carpeta . '/' . $image->img . '.webp')
+            ];
+        });
+
+        // return view('Admin.Products.home', $productEdit, $images);
 
         return response()->json([
-            'product' => $product
-            // 'images' => $images
+            'product' => $productEdit,
+            'images' => $images
         ]);
     }
     public function deleteGenImage($id, $portada){

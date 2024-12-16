@@ -1067,6 +1067,18 @@ Tienda products
     color: white;
 }
 
+.banner-product--blog {
+    height: 30vh;
+    background-image: url('../background/../background/_header-1.jpg');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
 .banner-product--privacidad {
     height: 40vh;
     background-image: url('../background/../background/_header-noticias-2.jpg');
@@ -1769,6 +1781,18 @@ Blog
     background: url('../background/_bkg.jpg');
 
 }
+.container-blog-related {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    height: auto;
+
+    width: 100%;
+
+    /* background: url('../background/_bkg.jpg'); */
+
+}
 
 .card-blog {
     display: flex;
@@ -1836,4 +1860,88 @@ Blog
 
 .text-content button:hover {
     background-color: #333;
+}
+
+.container-notice{
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.container-related--blog{
+    background-color: #fff;
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+}
+.container-notice header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.container-notice header h1{
+    font-size: var(--extraLarge);
+    color: #333;
+}
+
+.date-author{
+    font-size: var(--medium);
+    color: #666;
+}
+
+.date-author a {
+     color: #999;
+    text-decoration: none;
+}
+
+.imageNoticeContainer{
+    text-align: center;
+    margin-bottom: 20px;
+    width: 100%;
+    height: 40vh;
+}
+
+.imageNoticeContainer img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.contentNews{
+    display: flex;
+    justify-content: space-between;
+}
+
+.text-block p {
+    width: 95%;
+    font-size: var(--small);
+    color: #333;
+    line-height: 1.6;
+    font-weight: var(--semibold);
+    text-align: center;
+}
+
+.separator {
+    width: 1px;
+    background-color:
+  #ccc;
+  margin: 0 10px;
+}
+.quote{
+    font-size: var(--extraLarge);
+    font-weight: bold;
+    text-align: center;
+    margin: 40px 0;
+    color: #333;
+}
+.quote::before, .quote::after {
+    content: '"';
+    color: #e74c3c;
+    font-size: var(--extraLarge);
+}
+.heading{
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+    margin-top: 40px;
 }

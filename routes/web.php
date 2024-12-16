@@ -46,6 +46,7 @@ Route::get('/subastas/{id}', [TiendaController::class, 'getSubasta'])->name('get
 Route::get('/politicaPrivacidad', [TiendaController::class, 'getPoliticaPrivacidad']);
 Route::get('/recomendaciones', [TiendaController::class, 'getRecomendaciones']);
 Route::get('/blog', [TiendaController::class, 'getBlog']);
+Route::get('/blog/noticia/{id}', [TiendaController::class, 'getBlogNoticia']);
 Route::get('/suscripcion', [TiendaController::class, 'getSuscripcion']);
 
 
@@ -59,7 +60,7 @@ Route::middleware('auth')->group(function () {
     ->name('conversation.show');
     Route::get('/startChat', [Chat::class, 'sendMessage'])->name('startChat');
     Broadcast::channel('admin-channel', function ($user) {
-    return $user->isAdmin(); 
+    return $user->isAdmin();
 	});
 });
 
