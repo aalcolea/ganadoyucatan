@@ -76,7 +76,7 @@
     <div class="recent-orders">
         <div class="titleButton">
             <h2>Ganado comercial</h2>
-            <button class="btn btn-primary" id="openModalButton">Agregar ganado</button>
+            <button class="btn btn-primary" id="openModal">Agregar ganado</button>
         </div>
         {{-- Tabla de ganado comercial --}}
         <table class="table ganado-comercial">
@@ -256,128 +256,34 @@
 <!-- Modales de edit-->
 
 {{-- edit ganado genético --}}
-<div class="modal-overlay" id="editModal">
-    <div class="modal-container">
-        <div class="modal-header">
-            <h2 class="modal-title">Editar ganado</h2>
-            <button class="close-button" onclick="closeModal()">
-                <span class="material-symbols-outlined">close</span>
-            </button>
-        </div>
-        <div class="modal-content">
-            <form id="editForm" action="admin/products/addNewCom" method="post" enctype="multipart/form-data">
-                <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                <input type="hidden" id="idProducto" name="idProducto" value=" ">
 
-                <div class="form-group">
-                    <label class="form-label" for="title">Título del Anuncio <span class="required">*</span></label>
-                    <input class="form-input" type="text" id="txtNombre" name="txtNombre" maxlength="50" required>
+{{-- <div id="editModal" class="modal-overlay">
+    <div class="modal-content">
+        <span id="closeModal" class="close-btn">&times;</span>
+
+        <!-- Sección principal dentro del modal -->
+        <section class="formulario-container">
+            <div class="logoCircular">
+                <img src="{{url('/static/images/logoRojoCircular.png')}}" alt="Logo Ganado Yucatán">
+            </div>
+            <h1>AGREGAR GANADO</h1>
+            <p>MIRA EL TUTORIAL PARA REALIZAR CORRECTAMENTE UNA PUBLICACIÓN</p>
+            <button class="btn-video">Abrir video</button>
+
+            <!-- Formulario -->
+            <form class="formulario-ganado" id="editForm" action="admin/products/addNewCom" method="post" enctype="multipart/form-data">
+                <div class="form-row">
+                    <input type="text" id="txtNombre" name="txtNombre" maxlength="50" required placeholder="Título del anuncio">
+                    <textarea id="txtDescripcion" name="txtDescripcion" maxlength="250" placeholder="Características"></textarea>
+                    <input type="text" id="txtLink" name="txtLink" placeholder="Enlace Youtube">
                 </div>
-
-                <div class="form-group">
-                    <label class="form-label" for="caracteristicas">Características</label>
-                    <textarea class="form-input" id="txtDescripcion" name="txtDescripcion" maxlength="250"></textarea>
+                <div class="form-row">
+                    <input type="number" id="precio" name="precio" placeholder="Precio*">
+                    <input type="number" id="txtEdad" name="txtEdad" placeholder="Edad del ganado*">
+                    <input type="text"   id="pesoG" name="pesoG" placeholder="Peso del ganado">
                 </div>
-
-                <div class="form-group">
-                    <label class="form-label" for="Enlace">Enlace Youtube</label>
-                    <input class="form-input" type="text" id="txtLink" name="txtLink">
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label" for="estados">Estado:</label>
-                    <select class="form-select" name="estados" id="estados">
-                        <option value=""></option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label" for="ciudades">Ciudad:</label>
-                    <select class="form-select" name="ciudades" id="ciudades"></select>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label" for="comisarias">Comisarias:</label>
-                    <select class="form-select" name="comisarias" id="comisarias"></select>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label" for="pesoG">Peso del ganado <span class="required">*</span></label>
-                    <input class="form-input" type="text" id="pesoG" name="pesoG" maxlength="5" placeholder="Peso en kilogramos" required>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label" for="txtEdad">Edad del ganado <span class="required">*</span></label>
-                    <input class="form-input" type="number" id="txtEdad" name="txtEdad" maxlength="5" placeholder="Edad en años" required>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label" for="precio">Precio <span class="required">*</span></label>
-                    <input class="form-input" type="text" id="precio" name="precio" maxlength="11" required>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label" for="txtStock">Cantidad Disponible <span class="required">*</span></label>
-                    <input class="form-input" type="text" id="txtStock" name="txtStock" maxlength="5" required>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label" for="txtRancho">Nombre del rancho</label>
-                    <input class="form-input" type="text" id="txtRancho" name="txtRancho" maxlength="50">
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label" for="listVacu">Vacunado</label>
-                    <select class="form-select" id="listVacu" name="listVacu">
-                        <option value="Vacunado">Vacunado</option>
-                        <option value="NO Vacunado">No Vacunado</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label" for="listArete">Arete</label>
-                    <select class="form-select" id="listArete" name="listArete">
-                        <option value="Con Arete">Con Arete</option>
-                        <option value="Sin Arete">Sin Arete</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label" for="listCert">Certificado</label>
-                    <select class="form-select" id="listCert" name="listCert">
-                        <option value="Certificado">Cuenta con certificado</option>
-                        <option value="NO certificado">No cuenta con certificado</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label" for="txtTipo">Tipo</label>
-                    <select class="form-select" id="txtTipo" name="txtTipo">
-                        <option value="Destetes">Destetes</option>
-                        <option value="Novillas">Novillas</option>
-                        <option value="Ternero">Ternero</option>
-                        <option value="Toro de engorda">Toro de engorda</option>
-                        <option value="Vaca de engorda">Vaca de engorda</option>
-                        <option value="Vaquillona">Vaquillona</option>
-                        <option value="Vaquillonas preñadas">Vaquillonas preñadas</option>
-                        <option value="Ganado para matadero">Ganado para matadero</option>
-                        <option value="Vaca terminada">Vaca terminada</option>
-                        <option value="Toro terminado">Toro terminado</option>
-                        <option value="Novillonas de registro">Novillonas de registro</option>
-                        <option value="Novillonas preñada">Novillonas preñadas</option>
-                        <option value="Toro para cebar">Toro para cebar</option>
-                        <option value="Vaca para cebar">Vaca para cebar</option>
-                        <option value="Vaca Semiterminada">Vaca Semiterminada</option>
-                        <option value="Toro Semiterminado">Toro Semiterminado</option>
-                        <option value="Toro Castrado">Toro Castrado</option>
-                        <option value="pie de cria">pie de cria</option>
-                        <option value="novillonas para empadre">novillonas para empadre</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label class="control-label">Raza</label>
-                    <select class="form-select" id="txtRaza" name="txtRaza">
+                <div class="form-row">
+                    <select id="txtRaza" name="txtRaza">
                         <option value="Brahman rojo">Brahman rojo</option>
                         <option value="Brahman gris">Brahman gris </option>
                         <option value="Brahman ameri">Brahman ameri</option>
@@ -406,150 +312,26 @@
                         <option value="Belgian Blue">Belgian Blue</option>
                         <option value="Braford">Braford</option>
                     </select>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label" for="venta">En venta <span class="required">*</span></label>
-                    <select class="form-select" id="venta" name="venta" required>
-                        <option value="1">Activo</option>
-                        <option value="2">Inactivo</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label" for="listEstatus">Estatus</label>
-                    <select class="form-select" id="listEstatus" name="listEstatus">
-                        <option value="Disponible">Disponible</option>
-                        <option value="Reservado">Reservado</option>
-                        <option value="Vendido">Vendido</option>
-                        <option value="Enviado">Enviado</option>
-                    </select>
-                </div>
-
-                <!-- Partes del nuevo form -->
-                <div class="form-group">
-                    <label class="form-label" for="file-input">Cargar imágenes:</label>
-                    <input type="file" id="file-input" name="imagenes-cargadas[]" multiple style="display:none;">
-                    <button type="button" id="add-images" class="btn btn-primary" style="background: #425b28; border-color: #425b28">Agregar imágenes</button>
-                    <div id="image-container" class="d-flex flex-wrap mt-3"></div>
-                    <input type="hidden" name="deleted_images" id="deleted_images">
-                    <input type="hidden" name="images" id="images" value="">
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label" for="video">Cargar video:</label>
-                    <input type="file" name="video" id="video" accept="video/mp4, video/avi, video/mov, video/mpeg, video/quicktime">
-                </div>
-
-                <div class="modal-footer">
-                    {{-- <div id="loading-icon" class="loading-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="40" height="40">
-                        <img src="{{url('/static/images/loading.png')}}" alt="Loading">
-                    </div> --}}
-                    <button type="button" class="btn btn-secondary" onclick="closeModal()" style="background:red; border-color: red;">Cerrar</button>
-                    <button type="submit" class="btn btn-primary" style="background: #425b28; border-color: #425b28;">SUBIR</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-{{-- Modales add ganado --}}
-<div class="modal-overlay" id="addModal">
-    <div class="modal-container">
-        <div class="modal-header">
-            <h2 class="modal-title">Agregar Ganado</h2>
-            <button class="close-button" onclick="closeModal()">
-                <span class="material-symbols-outlined">close</span>
-            </button>
-        </div>
-        <div class="modal-content">
-            <form id="editForm" action="admin/products/addNewCom" method="post" enctype="multipart/form-data">
-                <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                <input type="hidden" id="idProducto" name="idProducto" value="">
-
-                <div class="form-group">
-                    <label class="form-label" for="title">Título del Anuncio <span class="required">*</span></label>
-                    <input class="form-input" type="text" id="txtNombre" name="txtNombre" maxlength="50" required>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label" for="caracteristicas">Características</label>
-                    <textarea class="form-input" id="txtDescripcion" name="txtDescripcion" maxlength="250"></textarea>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label" for="Enlace">Enlance Youtube</label>
-                    <input class="form-input" type="text" id="txtLink" name="txtLink">
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label" for="estados">Estado:</label>
-                    <select class="form-select" name="estados" id="estados">
-                        <option value=""></option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label" for="ciudades">Ciudad:</label>
-                    <select class="form-select" name="ciudades" id="ciudades"></select>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label" for="comisarias">Comisarias:</label>
-                    <select class="form-select" name="comisarias" id="comisarias"></select>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label" for="pesoG">Peso del ganado <span class="required">*</span></label>
-                    <input class="form-input" type="text" id="pesoG" name="pesoG" maxlength="5" placeholder="Peso en kilogramos" required>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label" for="txtEdad">Edad del ganado <span class="required">*</span></label>
-                    <input class="form-input" type="number" id="txtEdad" name="txtEdad" maxlength="5" placeholder="Edad en años" required>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label" for="precio">Precio <span class="required">*</span></label>
-                    <input class="form-input" type="text" id="precio" name="precio" maxlength="11" required>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label" for="txtStock">Cantidad Disponible <span class="required">*</span></label>
-                    <input class="form-input" type="text" id="txtStock" name="txtStock" maxlength="5" required>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label" for="txtRancho">Nombre del rancho</label>
-                    <input class="form-input" type="text" id="txtRancho" name="txtRancho" maxlength="50">
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label" for="listVacu">Vacunado</label>
-                    <select class="form-select" id="listVacu" name="listVacu">
+                    <select id="listVacu" name="listVacu">
                         <option value="Vacunado">Vacunado</option>
                         <option value="NO Vacunado">No Vacunado</option>
                     </select>
+                    <input type="text" id="txtStock" name="txtStock"  placeholder="Cantidad disponible*">
                 </div>
-
-                <div class="form-group">
-                    <label class="form-label" for="listArete">Arete</label>
-                    <select class="form-select" id="listArete" name="listArete">
+                <div class="form-row">
+                    <select id="listArete" name="listArete">
                         <option value="Con Arete">Con Arete</option>
                         <option value="Sin Arete">Sin Arete</option>
                     </select>
+                    <input type="text" placeholder="Nombre del propietario o Rancho*">
+                    <input type="text" placeholder="Número de teléfono">
                 </div>
-
-                <div class="form-group">
-                    <label class="form-label" for="listCert">Certificado</label>
-                    <select class="form-select" id="listCert" name="listCert">
+                <div class="form-row">
+                    <select id="listCert" name="listCert">
                         <option value="Certificado">Cuenta con certificado</option>
                         <option value="NO certificado">No cuenta con certificado</option>
                     </select>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label" for="txtTipo">Tipo</label>
-                    <select class="form-select" id="txtTipo" name="txtTipo">
+                    <select id="txtTipo" name="txtTipo">
                         <option value="Destetes">Destetes</option>
                         <option value="Novillas">Novillas</option>
                         <option value="Ternero">Ternero</option>
@@ -570,54 +352,207 @@
                         <option value="pie de cria">pie de cria</option>
                         <option value="novillonas para empadre">novillonas para empadre</option>
                     </select>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label" for="listStatus">En venta <span class="required">*</span></label>
-                    <select class="form-select" id="listStatus" name="listStatus" required>
-                        <option value="1">Activo</option>
-                        <option value="2">Inactivo</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label" for="listEstatus">Estatus</label>
-                    <select class="form-select" id="listEstatus" name="listEstatus">
+                    <select id="listEstatus" name="listEstatus">
                         <option value="Disponible">Disponible</option>
                         <option value="Reservado">Reservado</option>
                         <option value="Vendido">Vendido</option>
                         <option value="Enviado">Enviado</option>
                     </select>
                 </div>
-
-                <!-- Partes del nuevo form -->
-                <div class="form-group">
-                    <label class="form-label" for="file-input">Cargar imágenes:</label>
-                    <input type="file" id="file-input" name="imagenes-cargadas[]" multiple style="display:none;">
-                    <button type="button" id="add-images" class="btn btn-primary" style="background: #425b28; border-color: #425b28">Agregar imágenes</button>
-                    <div id="image-container" class="d-flex flex-wrap mt-3"></div>
-                    <input type="hidden" name="deleted_images" id="deleted_images">
-                    <input type="hidden" name="images" id="images" value="">
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label" for="video">Cargar video:</label>
-                    <input type="file" name="video" id="video" accept="video/mp4, video/avi, video/mov, video/mpeg, video/quicktime">
-                </div>
-
-                <div class="modal-footer">
-                    {{-- <div id="loading-icon" class="loading-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="40" height="40">
-                        <img src="{{url('/static/images/loading.png')}}" alt="Loading">
-                    </div> --}}
-                    <button type="button" class="btn btn-secondary" onclick="closeModal()" style="background:red; border-color: red;">Cerrar</button>
-                    <button type="submit" class="btn btn-primary" style="background: #425b28; border-color: #425b28;">SUBIR</button>
+                <div class="form-row">
+                    <select>
+                        <option>Estado*</option>
+                    </select>
+                    <select>
+                        <option>Ciudad*</option>
+                    </select>
+                    <select>
+                        <option>Comisaria</option>
+                    </select>
                 </div>
             </form>
-        </div>
+        </section>
+
+        <!-- Sección para cargar imágenes -->
+        <section class="imagenes-container">
+            <h2>CARGAR IMAGEN</h2>
+
+            <div class="imagenes-grid">
+                <div class="cargar-imagen">
+                    <div class="upload-box">
+                        <input type="file" id="file1" class="input-file">
+                        <label for="file1">
+                            <p>Arrastra o <b>elige el archivo</b> a subir</p>
+                        </label>
+                        <span class="file-name"></span>
+                        <progress value="0" max="100"></progress>
+                    </div>
+                    <button class="btn-cancelar">Cancelar</button>
+                    <button class="btn-importar">Importar</button>
+                </div>
+                <!-- Otros bloques iguales -->
+            </div>
+
+            <!-- Imágenes cargadas -->
+            <h3>IMÁGENES CARGADAS</h3>
+            <ul class="imagenes-cargadas">
+                <li>Archivo_imagen_ganado.jpg <span class="eliminar">✖ Eliminar</span></li>
+            </ul>
+
+            <button class="btn-publicar">¡Publicar ahora!</button>
+        </section>
+    </div>
+</div> --}}
+
+{{-- Modales add ganado --}}
+
+<!-- Modal  for ganado genetico-->
+<div id="modal" class="modal-overlay">
+    <div class="modal-content">
+        <span id="closeModal" class="close-btn">&times;</span>
+
+        <!-- Sección principal dentro del modal -->
+        <section class="formulario-container">
+            <div class="logoCircular">
+                <img src="{{url('/static/images/logoRojoCircular.png')}}" alt="Logo Ganado Yucatán">
+            </div>
+            <h1>AGREGAR GANADO</h1>
+            <p>MIRA EL TUTORIAL PARA REALIZAR CORRECTAMENTE UNA PUBLICACIÓN</p>
+            <button class="btn-video">Abrir video</button>
+
+            <!-- Formulario -->
+            <form class="formulario-ganado">
+                <div class="form-row">
+                    <input type="text" id="txtNombre" name="txtNombre" maxlength="50" required placeholder="Título del anuncio">
+                    <textarea id="txtDescripcion" name="txtDescripcion" maxlength="250" placeholder="Características"></textarea>
+                    <input type="text" id="txtLink" name="txtLink" placeholder="Enlace Youtube">
+                </div>
+                <div class="form-row">
+                    <input type="number" id="precio" name="precio" placeholder="Precio*">
+                    <input type="number" id="txtEdad" name="txtEdad" placeholder="Edad del ganado*">
+                    <input type="text"   id="pesoG" name="pesoG" placeholder="Peso del ganado">
+                </div>
+                <div class="form-row">
+                    <select id="txtRaza" name="txtRaza">
+                        <option value="Brahman rojo">Brahman rojo</option>
+                        <option value="Brahman gris">Brahman gris </option>
+                        <option value="Brahman ameri">Brahman ameri</option>
+                        <option value="Nelore">Nelore </option>
+                        <option value="Nelore mocho">Nelore mocho </option>
+                        <option value="Nelore pinto">Nelore pinto </option>
+                        <option value="Beefmaster">Beefmaster </option>
+                        <option value="Suizo europeo">Suizo europeo</option>
+                        <option value="Simmental">Simmental</option>
+                        <option value="Simbrah">Simbrah </option>
+                        <option value="Gyr">Gyr</option>
+                        <option value="Guzerat">Guzerat </option>
+                        <option value="Charolais">Charolais</option>
+                        <option value="Suizo america">Suizo america</option>
+                        <option value="Limouzin">Limouzin </option>
+                        <option value="Indubrazil">Indubrazil </option>
+                        <option value="Brangus">Brangus </option>
+                        <option value="Angus">Angus </option>
+                        <option value="Hereford">Hereford</option>
+                        <option value="Charolesa">Charolesa </option>
+                        <option value="Pardo suizo europeo">Pardo suizo europeo</option>
+                        <option value="Pardo suizo americano">Pardo suizo americano</option>
+                        <option value="Aberdeen angus">Aberdeen angus</option>
+                        <option value="Santa Gertrudis">Santa Gertrudis</option>
+                        <option value="Cebu Brahman">Cebu Brahman</option>
+                        <option value="Belgian Blue">Belgian Blue</option>
+                        <option value="Braford">Braford</option>
+                    </select>
+                    <select id="listVacu" name="listVacu">
+                        <option value="Vacunado">Vacunado</option>
+                        <option value="NO Vacunado">No Vacunado</option>
+                    </select>
+                    <input type="text" id="txtStock" name="txtStock"  placeholder="Cantidad disponible*">
+                </div>
+                <div class="form-row">
+                    <select id="listArete" name="listArete">
+                        <option value="Con Arete">Con Arete</option>
+                        <option value="Sin Arete">Sin Arete</option>
+                    </select>
+                    <input type="text" placeholder="Nombre del propietario o Rancho*">
+                    <input type="text" placeholder="Número de teléfono">
+                </div>
+                <div class="form-row">
+                    <select id="listCert" name="listCert">
+                        <option value="Certificado">Cuenta con certificado</option>
+                        <option value="NO certificado">No cuenta con certificado</option>
+                    </select>
+                    <select id="txtTipo" name="txtTipo">
+                        <option value="Destetes">Destetes</option>
+                        <option value="Novillas">Novillas</option>
+                        <option value="Ternero">Ternero</option>
+                        <option value="Toro de engorda">Toro de engorda</option>
+                        <option value="Vaca de engorda">Vaca de engorda</option>
+                        <option value="Vaquillona">Vaquillona</option>
+                        <option value="Vaquillonas preñadas">Vaquillonas preñadas</option>
+                        <option value="Ganado para matadero">Ganado para matadero</option>
+                        <option value="Vaca terminada">Vaca terminada</option>
+                        <option value="Toro terminado">Toro terminado</option>
+                        <option value="Novillonas de registro">Novillonas de registro</option>
+                        <option value="Novillonas preñada">Novillonas preñadas</option>
+                        <option value="Toro para cebar">Toro para cebar</option>
+                        <option value="Vaca para cebar">Vaca para cebar</option>
+                        <option value="Vaca Semiterminada">Vaca Semiterminada</option>
+                        <option value="Toro Semiterminado">Toro Semiterminado</option>
+                        <option value="Toro Castrado">Toro Castrado</option>
+                        <option value="pie de cria">pie de cria</option>
+                        <option value="novillonas para empadre">novillonas para empadre</option>
+                    </select>
+                    <select id="listEstatus" name="listEstatus">
+                        <option value="Disponible">Disponible</option>
+                        <option value="Reservado">Reservado</option>
+                        <option value="Vendido">Vendido</option>
+                        <option value="Enviado">Enviado</option>
+                    </select>
+                </div>
+                <div class="form-row">
+                    <select>
+                        <option>Estado*</option>
+                    </select>
+                    <select>
+                        <option>Ciudad*</option>
+                    </select>
+                    <select>
+                        <option>Comisaria</option>
+                    </select>
+                </div>
+            </form>
+        </section>
+
+        <!-- Sección para cargar imágenes -->
+        <section class="imagenes-container">
+            <h2>CARGAR IMAGEN</h2>
+
+            <div class="imagenes-grid">
+                <div class="cargar-imagen">
+                    <div class="upload-box">
+                        <input type="file" id="file1" class="input-file">
+                        <label for="file1">
+                            <p>Arrastra o <b>elige el archivo</b> a subir</p>
+                        </label>
+                        <span class="file-name"></span>
+                        <progress value="0" max="100"></progress>
+                    </div>
+                    <button class="btn-cancelar">Cancelar</button>
+                    <button class="btn-importar">Importar</button>
+                </div>
+                <!-- Otros bloques iguales -->
+            </div>
+
+            <!-- Imágenes cargadas -->
+            <h3>IMÁGENES CARGADAS</h3>
+            <ul class="imagenes-cargadas">
+                <li>Archivo_imagen_ganado.jpg <span class="eliminar">✖ Eliminar</span></li>
+            </ul>
+
+            <button class="btn-publicar">¡Publicar ahora!</button>
+        </section>
     </div>
 </div>
-
-
 
 {{-- Scripts of com --}}
 <!-- Cargar jQuery una vez -->
@@ -656,126 +591,63 @@
     });
 </script>
 
-
 <script>
-    // Función para abrir el modal
-    function openModal() {
-        document.getElementById('addModal').style.display = 'block';
-    }
+    document.addEventListener('DOMContentLoaded', (event) => {
+        // Elementos del DOM
+        const openModal = document.getElementById('openModal');
+        const modal = document.getElementById('modal');
+        const closeModal = document.getElementById('closeModal');
 
-    // Función para cerrar el modal
-    function closeModal() {
-        document.getElementById('addModal').style.display = 'none';
-    }
-
-    // Agregar evento de clic al botón
-    document.getElementById('openModalButton').addEventListener('click', openModal);
-</script>
-
-
-<script>
-    const editButtons = document.querySelectorAll('.editProductBtngen');
-    const modal = document.getElementById('editModal');
-    const idProducto = document.getElementById('idProducto');
-    const txtNombre = document.getElementById('txtNombre');
-    const txtDescripcion = document.getElementById('txtDescripcion');
-    const txtLink = document.getElementById('txtLink');
-    const pesoG = document.getElementById('pesoG');
-    const txtEdad = document.getElementById('txtEdad');
-    const precio = document.getElementById('precio');
-    const txtStock = document.getElementById('txtStock');
-    const txtRancho = document.getElementById('txtRancho');
-    const txtRaza = document.getElementById('txtRaza');
-    const estados = document.getElementById('estados');
-    const ciudades = document.getElementById('ciudades');
-    const comisarias = document.getElementById('comisarias');
-    const listVacu = document.getElementById('listVacu');
-    const listArete = document.getElementById('listArete');
-    const listCert = document.getElementById('listCert');
-    const txtTipo = document.getElementById('txtTipo');
-    const venta = document.getElementById('venta');
-    const listEstatus = document.getElementById('listEstatus');
-
-
-    function openEditModal(productId) {
-        modal.style.display = 'flex';
-        document.body.style.overflow = 'hidden';
-        fetch(`/admin/products/getProductInfo2/${productId}`)
-        .then(response => {
-        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-            return response.json();
-        })
-        .then(data => {
-            // Mapear campos del formulario con los valores del JSON
-            idProducto.value = data.product.idproducto;
-            txtNombre.value = data.product.nombre;
-            txtDescripcion.value = data.product.descripcion;
-            txtLink.value = data.product.link;
-            pesoG.value = data.product.peso;
-            txtEdad.value = data.product.edad;
-            precio.value = data.product.precio;
-            txtStock.value = data.product.stock;
-            txtRancho.value = data.product.rancho;
-            txtRaza.value = data.product.txtRaza;
-
-            // Asignar los valores de estado, ciudad y comisaría
-            estados.value = data.product.estado;
-            ciudades.value = data.product.ciudad;
-            comisarias.value = data.product.comisaria;
-
-            listVacu.value = data.product.vacunado;
-            listArete.value = data.product.arete;
-            listCert.value = data.product.certificado;
-            txtTipo.value = data.product.tipo;
-
-            // Determinar si el producto está en venta
-            venta.value = data.product.status === 1 ? "1" : "2"; // Asignar "1" para activo, "2" para inactivo según status
-
-            listEstatus.value = data.product.status;
-        })
-        .catch(error => {
-            console.error('Error al obtener la información del producto:', error);
+        // Abrir modal
+        openModal.addEventListener('click', () => {
+            modal.style.display = 'flex';
         });
-    }
 
-    editButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            const productId = button.getAttribute('data-id');
-            openEditModal(productId);
+        // Cerrar modal
+        closeModal.addEventListener('click', () => {
+            console.log('Entró');
+            modal.style.display = 'none';
         });
-    });
 
-    function openAddModal() {
-        const modal = document.getElementById('addModal');
-        modal.style.display = 'flex';
-        document.body.style.overflow = 'hidden'; // Previene el scroll del body
-    }
-
-    function closeModal() {
-        const editModal = document.getElementById('editModal');
-        const addModal = document.getElementById('addModal');
-        editModal.style.display = 'none';
-        addModal.style.display = 'none';
-        document.body.style.overflow = 'auto'; // Restaura el scroll del body
-    }
-
-    function saveChanges() {
-        // Aquí puedes implementar la lógica para guardar los cambios
-        const formData = new FormData(document.getElementById('editForm'));
-        console.log('Guardando cambios:', Object.fromEntries(formData));
-        // Después de guardar, cerrar el modal
-        closeModal();
-    }
-
-    // Cerrar el modal si se hace clic fuera del contenido
-    document.querySelectorAll('.modal-overlay').forEach(overlay => {
-        overlay.addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeModal();
+        // Cerrar modal al hacer clic fuera del contenido
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                console.log('Entró');
+                modal.style.display = 'none';
             }
         });
     });
+
+    // Mostrar nombre del archivo seleccionado
+    document.querySelectorAll('.input-file').forEach((input, index) => {
+        input.addEventListener('change', (event) => {
+            const fileName = event.target.files[0].name;
+            const fileNameElement = document.querySelectorAll('.file-name')[index];
+            fileNameElement.textContent = fileName;
+        });
+    });
+
+    // Funcionalidad para botones "Importar"
+    document.querySelectorAll('.btn-importar').forEach((btn, index) => {
+        btn.addEventListener('click', () => {
+            const progress = document.querySelectorAll('progress')[index];
+            let value = 0;
+
+            const interval = setInterval(() => {
+                value += 10;
+                progress.value = value;
+
+                if (value >= 100) clearInterval(interval);
+            }, 200);
+        });
+    });
+
+    // Eliminar imágenes cargadas
+    document.querySelectorAll('.eliminar').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.target.parentElement.remove();
+        });
+    });
+
 </script>
-
-
 @endsection
