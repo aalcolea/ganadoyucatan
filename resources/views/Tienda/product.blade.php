@@ -7,7 +7,7 @@
 			$urlShared = url("/tienda/producto/".$p['idproducto']."/".$p['ruta']);
 		?>
 	<!-- <body>
-		
+
 
 
 {{-- 		<?php
@@ -249,13 +249,13 @@
                     </div>
                     <div class="div13">
 						<div class="right-container">
-							<img class="right" onclick="swapImages('div12')" src="{{asset('uploads/'.$p->carpeta.'/'.$p->portada.'.webp')}}" alt="Imagen 1">
-								<button class="fullscreen-button" onclick="openFullscreen()">
-									<img width="24" height="24" src="https://img.icons8.com/fluency-systems-regular/48/fullscreen.png" alt="fullscreen"/>
-								</button>
-								<span class="close-button" onclick="closeFullscreen()">CERRAR</span>
-							</div>
+                            <img class="right" id="mainImage" src="{{ asset('uploads/' . $p->carpeta . '/' . $p->portada . '.webp') }}" alt="Imagen Principal">
+                            <button class="fullscreen-button" onclick="openFullscreen()">
+								<img width="24" height="24" src="https://img.icons8.com/fluency-systems-regular/48/fullscreen.png" alt="fullscreen"/>
+							</button>
+							<span class="close-button" onclick="closeFullscreen()">CERRAR</span>
 						</div>
+                    </div>
                 </div>
 				<div class="youtube-link">
 					@if(count($video) > 0)
@@ -263,7 +263,7 @@
 					  	<source src="{{asset('uploads/videos/'.$video[0]->ruta)}}" type="video/mp4">
 					  		<source src="movie.ogg" type="video/ogg">
 						Your browser does not support the video tag.
-					</video> 
+					</video>
 					@endif
 				</div>
 				{{-- <div class="youtube-link">
@@ -362,6 +362,24 @@
         {!!Form::close()!!}
     </div>
 </div>
+
+<!-- FullscreenModal -->
+<div id="fullscreenModal" class="fullscreen hidden">
+    <div class="fullscreen-content">
+        <span id="closeFullscreen" class="close-btn" onclick="closeFullscreenModal()">&times;</span>
+
+        <button id="prevImage" class="nav-btn left-btn" onclick="navigateImage(-1)">&#8249;</button>
+        <img id="fullscreenImage" src="" alt="Imagen Fullscreen">
+        <button id="nextImage" class="nav-btn right-btn" onclick="navigateImage(1)">&#8250;</button>
+
+        <div class="action-buttons">
+            <a href="https://wa.me/1234567890" target="_blank" class="action-btn whatsapp-btn">WhatsApp</a>
+            <button class="action-btn contact-btn" onclick="contactUser()">Contactar</button>
+        </div>
+    </div>
+</div>
+
+
 <script>
     const openModalButton = document.getElementById('openModal');
     const modal = document.getElementById('modal');
@@ -388,29 +406,74 @@
     });*/
 </script>
 <script>
+    let currentImageIndex = 0;
+    const images = [
+        @if(isset($images[0]))
+        "{{ asset('uploads/' . $p->carpeta . '/' . $images[0]['img'] . '.webp') }}",
+        @endif
+        @if(isset($images[1]))
+        "{{ asset('uploads/' . $p->carpeta . '/' . $images[1]['img'] . '.webp') }}",
+        @endif
+        @if(isset($images[2]))
+        "{{ asset('uploads/' . $p->carpeta . '/' . $images[2]['img'] . '.webp') }}",
+        @endif
+        @if(isset($images[3]))
+        "{{ asset('uploads/' . $p->carpeta . '/' . $images[3]['img'] . '.webp') }}",
+        @endif
+        @if(isset($images[4]))
+        "{{ asset('uploads/' . $p->carpeta . '/' . $images[4]['img'] . '.webp') }}",
+        @endif
+        @if(isset($images[5]))
+        "{{ asset('uploads/' . $p->carpeta . '/' . $images[5]['img'] . '.webp') }}",
+        @endif
+        @if(isset($images[6]))
+        "{{ asset('uploads/' . $p->carpeta . '/' . $images[6]['img'] . '.webp') }}",
+        @endif
+        @if(isset($images[7]))
+        "{{ asset('uploads/' . $p->carpeta . '/' . $images[7]['img'] . '.webp') }}",
+        @endif
+        @if(isset($images[8]))
+        "{{ asset('uploads/' . $p->carpeta . '/' . $images[8]['img'] . '.webp') }}",
+        @endif
+        @if(isset($images[9]))
+        "{{ asset('uploads/' . $p->carpeta . '/' . $images[9]['img'] . '.webp') }}",
+        @endif
+        @if(isset($images[10]))
+        "{{ asset('uploads/' . $p->carpeta . '/' . $images[10]['img'] . '.webp') }}",
+        @endif
+        @if(isset($images[11]))
+        "{{ asset('uploads/' . $p->carpeta . '/' . $images[11]['img'] . '.webp') }}",
+        @endif
+        "{{ asset('uploads/' . $p->carpeta . '/' . $p->portada . '.webp') }}"
+    ];
+
     function swapImages(divId) {
         var clickedImageSrc = document.querySelector('.' + divId + ' img').src;
-        var largeImageSrc = document.querySelector('.div13 img').src;
-
-        // document.querySelector('.' + divId + ' img').src = largeImageSrc; // TODO: Reemplazaba la imagen clickeada con la del focus 
-        document.querySelector('.div13 img').src = clickedImageSrc;
+        document.getElementById('mainImage').src = clickedImageSrc;
     }
 
     function openFullscreen() {
-        var fullscreenImage = document.createElement('img');
-        fullscreenImage.classList.add('fullscreen-image');
-        fullscreenImage.classList.add('active');
-        fullscreenImage.src = document.querySelector('.right-container img').src;
-        fullscreenImage.onclick = closeFullscreen;
+        const fullscreenModal = document.getElementById('fullscreenModal');
+        const fullscreenImage = document.getElementById('fullscreenImage');
+        const mainImageSrc = document.getElementById('mainImage').src;
 
-        document.body.appendChild(fullscreenImage);
+        currentImageIndex = images.indexOf(mainImageSrc);
+        fullscreenImage.src = mainImageSrc;
+        fullscreenModal.classList.remove('hidden');
+        fullscreenModal.classList.add('visible');
     }
 
-    function closeFullscreen() {
-        var fullscreenImage = document.querySelector('.fullscreen-image');
-        if (fullscreenImage) {
-            fullscreenImage.remove();
-        }
+    function closeFullscreenModal() {
+        document.getElementById('fullscreenModal').classList.add('hidden');
+    }
+
+    function navigateImage(direction) {
+        currentImageIndex = (currentImageIndex + direction + images.length) % images.length;
+        document.getElementById('fullscreenImage').src = images[currentImageIndex];
+    }
+
+    function contactUser() {
+        alert('Función de contacto no implementada aún.');
     }
 </script>
 @endsection
