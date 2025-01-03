@@ -409,7 +409,7 @@
     let currentImageIndex = 0;
     const images = [
         @if(isset($images[0]))
-        "{{ asset('uploads/' . $p->carpeta . '/' . $images[0]['img'] . '.webp') }}",
+        "{{ asset('uploads/' . $p->carpeta . '/' . $p->portada . '.webp') }}",
         @endif
         @if(isset($images[1]))
         "{{ asset('uploads/' . $p->carpeta . '/' . $images[1]['img'] . '.webp') }}",
