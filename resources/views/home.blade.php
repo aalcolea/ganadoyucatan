@@ -1,22 +1,23 @@
 @extends('header')
 <link rel="stylesheet" type="text/css" href="{{url('/static/css/styleHome.css') }}">
  <title>La plataforma ganadera de la península de Yucatán||Ganado Yucatán</title>
-      <script>
-document.addEventListener("DOMContentLoaded", function() {
-  const hamburgerMenu = document.querySelector('.hamburger_menu');
-  const mobileMenu = document.querySelector('.mobile-menu__content');
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+    const hamburgerMenu = document.querySelector('.hamburger_menu');
+    const mobileMenu = document.querySelector('.mobile-menu__content');
 
-  hamburgerMenu.addEventListener('click', () => {
-    mobileMenu.classList.toggle('show');
-  });
-});
-      var chatbox = document.getElementById('fb-customer-chat');
-      chatbox.setAttribute("page_id", "103382925587438");
-      chatbox.setAttribute("attribution", "biz_inbox");
-    </script>
+    hamburgerMenu.addEventListener('click', () => {
+        mobileMenu.classList.toggle('show');
+        });
+    });
 
-    <!-- Your SDK code -->
-    <script>
+    var chatbox = document.getElementById('fb-customer-chat');
+    chatbox.setAttribute("page_id", "103382925587438");
+    chatbox.setAttribute("attribution", "biz_inbox");
+</script>
+
+<!-- Your SDK code -->
+<script>
       window.fbAsyncInit = function() {
         FB.init({
           xfbml            : true,
@@ -31,16 +32,18 @@ document.addEventListener("DOMContentLoaded", function() {
         js.src = 'https://connect.facebook.net/es_LA/sdk/xfbml.customerchat.js';
         fjs.parentNode.insertBefore(js, fjs);
       }(document, 'script', 'facebook-jssdk'));
-  </script>
-  <style>
-      .mobile-menu__content {
-    display: none;
-}
+</script>
 
-.mobile-menu__content.show {
-    display: block;
-}
-  </style>
+<style>
+    .mobile-menu__content {
+        display: none;
+    }
+
+    .mobile-menu__content.show {
+        display: block;
+    }
+</style>
+
 </head>
 <body>
     <!-- Messenger Plugin de chat Code -->
@@ -53,7 +56,7 @@ document.addEventListener("DOMContentLoaded", function() {
         <!-- main content -->
         <section class="containers">
             <nav class="navbars">
-                <div class="mobile__back"> 
+                <div class="mobile__back">
                     <img class="hamburger_menu" src="https://img.icons8.com/color/48/000000/menu--v1.png"/>
                 </div>
                 <div class="mobile-menu__content ">
@@ -69,7 +72,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     <img src="./assets/img/logo.png" alt="">
                     <ul>
                         <li><a href="{{url('/register')}}">Registrarse</a></li>
-                        <li><a href="{{url('/login')}}">Iniciar sesión</a></li>    
+                        <li><a href="{{url('/login')}}">Iniciar sesión</a></li>
                     </ul>
                 </div>
             </nav>
