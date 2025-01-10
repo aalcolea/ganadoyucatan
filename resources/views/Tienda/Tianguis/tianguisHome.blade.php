@@ -112,7 +112,7 @@
                 <div class="publicidad-container">
                     <hr>
                     <h1 class="content-publicidad">Espacio <br>publicitario</h1>
-                    <button class="secondaryButton" id="openModal" style="margin-left: 2rem;">Solicitar <br>publicidad</button>
+                    <button class="warningButton" id="openModal" style="margin-left: 2rem;">Solicitar <br>publicidad</button>
                 </div>
                 <p class="title-container--cards">Ganado Comercial</p>
                 <div class="container-normal">
@@ -338,6 +338,33 @@ document.addEventListener('DOMContentLoaded', function(){
         window.location.href = '/tianguisTienda?' + queryEstado + queryCiudad + queryTipo + queryMin + queryMax; //+  +  '&min_price=' + minPrice + '&max_price=' + maxPrice;
     }
 });
+
+
+    // carrusel de publicidad
+    document.addEventListener("DOMContentLoaded", function () {
+        const publicidadContainer = document.querySelector(".publicidad-container");
+        console.log(publicidadContainer);
+        if (!publicidadContainer) {
+            console.error("Element with class 'publicidad-container' not found.");
+            return;
+        }
+        const backgrounds = [
+            "/static/new/background/_espacio-publicitario.jpg",
+            "/static/new/colaboradores/publi_1.jpg",
+            "/static/new/colaboradores/publi_2.jpg",
+            "/static/new/colaboradores/publi_3.jpg",
+            "/static/new/colaboradores/publi_4.jpg",
+        ];
+        let currentIndex = 0;
+        const intervalTime = 10000;
+
+        function changeBackground() {
+            publicidadContainer.style.backgroundImage = `url('${backgrounds[currentIndex]}')`;
+            currentIndex = (currentIndex + 1) % backgrounds.length;
+        }
+
+        setInterval(changeBackground, intervalTime);
+    });
 </script>
 
 

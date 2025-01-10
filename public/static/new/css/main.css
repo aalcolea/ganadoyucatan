@@ -208,7 +208,7 @@ Carousel Section
 */
 .carousel-container {
     width: 100vw;
-    height: calc(100vh - 80px);
+    /* height: calc(100vh - 80px); */
     margin-top: 80px;
     background-color: var(--battleship-gray);
     position: relative;
@@ -232,7 +232,7 @@ Carousel Section
 .image img {
     width: 100%;
     height: 100%;
-    object-fit: contain;
+    object-fit: cover;
 }
 
 .navigation-points {
@@ -371,6 +371,18 @@ Sections
     cursor: pointer;
 }
 
+.warningButton {
+    width: 140px;
+    height: 50px;
+    border-radius: 25px;
+    font-size: 12px;
+    background-color: var(--red-subasta);
+    color: #ffffff;
+    border: 2px solid var(--gamboge);
+    margin-top: 18px;
+    cursor: pointer;
+    font-weight: bold;
+}
 .buttonTienda {
     width: 140px;
     height: 40px;
@@ -1017,18 +1029,19 @@ Tienda Cards
     width: 82%;
     height: 40vh;
     border-radius: 10px;
-    background-image: url('../background/_espacio-publicitario.jpg');
-    background-size: cover;
-    background-size: cover;
+    background-image: url('../colaboradores/publi_1.jpg');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    color: white;
+    color: var(--gamboge);
 }
 
 .publicidad-container hr {
-    border: 2px solid white;
+    border: 2px solid var(--gamboge);
     width: 8%;
     margin-left: 2rem;
 }
