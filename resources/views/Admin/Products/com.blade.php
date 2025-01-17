@@ -5,7 +5,7 @@
   .control-label{
     color: #425b28;
     font-weight: bold;
-  }    
+  }
   @keyframes rotate {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
@@ -64,7 +64,11 @@
                             <td>{{$p->tipo}}</td>
                             <td>{{$p->rancho}}</td>
                             <td>{{$p->visits->count()}}</td>
-                            <td><button style="background-color:#425b28;border-color: #425b28;" class="btn btn-info btn-sm" onclick="openProductInNewTab('{{$p->idproducto}}')" target="_blank" title="Ver producto"><i style="color:white;" class="far fa-eye"></i></button><button class="btn btn-primary  btn-sm editProductBtn" data-id="{{$p->idproducto}}" id="editProduct" title="Editar producto"><i class="fas fa-pencil-alt"></i></button><a href="{{ route('deleteCom', $p->idproducto) }}" class="btn btn-danger" title="Eliminar producto" onclick="confirmation(event)"><i class="far fa-trash-alt"></i></a></td>
+                            <td>
+                                <button style="background-color:#425b28;border-color: #425b28;" class="btn btn-info btn-sm" onclick="openProductInNewTab('{{$p->idproducto}}')" target="_blank" title="Ver producto"><i style="color:white;" class="far fa-eye"></i></button>
+                                <button class="btn btn-primary  btn-sm editProductBtn" data-id="{{$p->idproducto}}" id="editProduct" title="Editar producto"><i class="fas fa-pencil-alt"></i></button>
+                                <a href="{{ route('deleteCom', $p->idproducto) }}" class="btn btn-danger" title="Eliminar producto" onclick="confirmation(event)"><i class="far fa-trash-alt"></i></a>
+                            </td>
                           </tr>
                         @endforeach
                       </tbody>
@@ -123,14 +127,14 @@
                       <div class="form-group">
                           <label class="control-label"> Peso del ganado <span class="required">*</span></label>
                           <input maxlength="5" class="form-control" id="pesoG" name="pesoG" type="text" placeholder="Peso en kilogramos" required="">
-                          
+
                       </div>
                     </div>
                     <div class="form-group col-md-6">
                       <div class="form-group">
                           <label class="control-label"> Edad del ganado <span class="required">*</span></label>
                           <input maxlength="5" class="form-control" id="txtEdad" name="txtEdad" type="number" placeholder="Edad en años" required="">
-                          
+
                       </div>
                     </div>
                   </div>
@@ -148,38 +152,6 @@
                             <label class="control-label">Nombre del rancho</label>
                             <input class="form-control" maxlength="50" id="txtRancho" name="txtRancho" type="text" >
                         </div>
-                         <!-- <div class="form-group col-md-6">
-                            <label class="control-label">Raza</label>
-                            <select class="form-control selectpicker" id="txtRaza" name="txtRaza" >
-                              <option value="Brahman rojo">Brahman rojo</option>
-                              <option value="Brahman gris">Brahman gris </option>
-                              <option value="Brahman ameri">Brahman ameri</option>
-                              <option value="Nelore">Nelore </option>
-                              <option value="Nelore mocho">Nelore mocho </option>
-                              <option value="Nelore pinto">Nelore pinto </option>
-                              <option value="Beefmaster">Beefmaster </option>
-                              <option value="Suizo europeo">Suizo europeo</option>
-                              <option value="Simmental">Simmental</option>
-                              <option value="Simbrah">Simbrah </option>
-                              <option value="Gyr">Gyr</option>
-                              <option value="Guzerat">Guzerat </option>
-                              <option value="Charolais">Charolais</option>
-                              <option value="Suizo america">Suizo america</option>
-                              <option value="Limouzin">Limouzin </option>
-                              <option value="Indubrazil">Indubrazil </option>
-                              <option value="Brangus">Brangus </option>
-                              <option value="Angus">Angus </option>
-                              <option value="Hereford">Hereford</option>
-                              <option value="Charolesa">Charolesa </option>
-                              <option value="Pardo suizo europeo">Pardo suizo europeo</option>
-                              <option value="Pardo suizo americano">Pardo suizo americano</option>
-                              <option value="Aberdeen angus">Aberdeen angus</option>
-                              <option value="Santa Gertrudis">Santa Gertrudis</option>
-                              <option value="Cebu Brahman">Cebu Brahman</option>
-                              <option value="Belgian Blue">Belgian Blue</option>
-                              <option value="Braford">Braford</option>
-                            </select>
-                        </div> -->
                        <div class="form-group col-md-6">
                             <label class="control-label" for="listVacu">Vacunado</label>
                             <select class="form-control selectpicker" id="listVacu" name="listVacu">
@@ -200,7 +172,7 @@
                               <option value="Certificado">Cuenta con certificado</option>
                               <option value="NO certificado">NO cuenta con certificado</option>
                             </select>
-                        </div> 
+                        </div>
                         <div class="form-group col-md-6">
                             <label class="control-label" class="control-label">Tipo</label>
                                 <select class="form-control selectpicker" id="txtTipo" name="txtTipo" >
@@ -224,7 +196,7 @@
                                <option value="pie de cria">pie de cria</option>
                                <option value="novillonas para empadre">novillonas para empadre</option>
                             </select>
-                        </div> 
+                        </div>
                     </div>
 
                     <div class="row">
@@ -234,7 +206,7 @@
                               <option value="1">Activo</option>
                               <option value="2">Inactivo</option>
                             </select>
-                        </div>                        
+                        </div>
                         <div class="form-group col-md-6">
                             <label class="control-label"   for="listEstatus">Estatus</label>
                             <select class="form-control selectpicker" id="listEstatus" name="listEstatus" >
@@ -257,12 +229,12 @@
                 <div id="hidden-inputs"></div>
                 <input type="hidden" name="deleted_images" id="deleted_images">
                 <input type="hidden" name="images" id="images" value="">
-              </div>              
+              </div>
               <div class="container">
                     <label for="video">Cargar video:</label>
                     <input type="file" name="video" id="video" accept="video/mp4, video/avi, video/mov, video/mpeg, video/quicktime">
               </div>
-              
+
               <div class="tile-footer">
                 <div class="modal-footer">
                   <div id="loading-icon" class="loading-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="40" height="40">
@@ -271,14 +243,14 @@
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="background:red; border-color: red;">Cerrar</button>
                    {!!Form::submit('SUBIR', ['class' => 'btn btn-primary', 'style' => 'background: #425b28; border-color: #425b28;', 'id' => 'enviarBtn'])!!}
                 </div>
-              </div>      
               </div>
-          {!!Form::close()!!} 
+              </div>
+          {!!Form::close()!!}
         {{-- </form> --}}
       </div>
     </div>
   </div>
-</div> 
+</div>
 <div class="modal fade" id="modalForCom" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog modal-lg" >
     <div class="modal-content">
@@ -293,12 +265,12 @@
       </div>
     </div>
   </div>
-</div>       
+</div>
     </main>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>     
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
 <script src="{{url('/static/js/admin/location.js') }}" >
-</script>    
+</script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -453,7 +425,7 @@ function handleUpdateImageOrder(newOrder){
             'X-CSRF-TOKEN': '{{ csrf_token() }}'
     },
     body: JSON.stringify({
-      action: 'update', 
+      action: 'update',
       new_oder: newOrder
     })
   }).then(response => response.json()).then(data =>{
@@ -544,7 +516,7 @@ $(document).ready(function(){
         //
       }
     });
-  }); 
+  });
 });
 </script>
 @endsection

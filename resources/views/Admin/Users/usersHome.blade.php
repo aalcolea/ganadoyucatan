@@ -1,16 +1,12 @@
 @extends('Admin.sidebar')
 @section('main')
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.22.1/bootstrap-table.min.js"></script>
-<link type="text/javascript" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.1/css/bootstrap.min.css">
 
-  <main class="app-content">    
-      <div class="app-title">
-        <div>
-            <h1><i class="fas fa-user-tag"></i> Usuarios 
-                
-                {{-- <button class="btn btn-primary" type="button" onclick="openModal();" ><i class="fas fa-plus-circle"></i> Nuevo</button> --}}
-              
-            </h1>
+<main>
+    <div class="recent-orders">
+        <h1>Usuarios</h1>
+        <div class="titleButton">
+            <h2>Mensajes recibidos</h2>
+            <button type="submit" class="btn btn-primary" id= "markAsReadBtn">Agregar ganado</button>
         </div>
         <ul class="app-breadcrumb breadcrumb">
           <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
@@ -60,97 +56,61 @@
               </div>
             </div>
         </div>
-    </main>
- <div class="modal fade" id="modalFormUsuario" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog modal-lg" >
-    <div class="modal-content">
-      <div class="modal-header headerRegister">
-        <h5 class="modal-title" id="titleModal">Nuevo Usuario</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-      	<div id="userInfoContainer"></div>
-{{--             <form id="formUsuario" name="formUsuario" class="form-horizontal">
-              <input type="hidden" id="idUsuario" name="idUsuario" value="">
-              <p class="text-primary">Todos los campos son obligatorios.</p>
-
-              <div class="form-row">
-                <div class="form-group col-md-6">
-                  <label for="txtIdentificacion">Identificación</label>
-                  <input type="text" class="form-control" id="txtIdentificacion" name="txtIdentificacion" >
-                </div>
-              </div>
-              <div class="form-row">
-                <div class="form-group col-md-6">
-                  <label for="txtNombre">Nombres</label>
-                  <input type="text" class="form-control valid validText" id="txtNombre" name="txtNombre" required="">
-                </div>
-                <div class="form-group col-md-6">
-                  <label for="txtApellido">Apellidos</label>
-                  <input type="text" class="form-control valid validText" id="txtApellido" name="txtApellido" required="">
-                </div>
-              </div>
-              <div class="form-row">
-                <div class="form-group col-md-6">
-                  <label for="txtTelefono">Teléfono</label>
-                  <input type="text" class="form-control valid validNumber" id="txtTelefono" name="txtTelefono" onkeypress="return controlTag(event);">
-                </div>
-                <div class="form-group col-md-6">
-                  <label for="txtEmail">Email</label>
-                  <input type="number" class="form-control valid validEmail" id="txtEmail" name="txtEmail" required="">
-                </div>
-              </div>
-              <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label for="listRolid">Tipo usuario</label>
-                    <select class="form-control" data-live-search="true" id="listRolid" name="listRolid" required >
-                    </select>
-                </div>
-                <div class="form-group col-md-6">
-                    <label for="listStatus">Status</label>
-                    <select class="form-control selectpicker" id="listStatus" name="listStatus" required >
-                        <option value="1">Activo</option>
-                        <option value="2">Inactivo</option>
-                    </select>
-                </div>
-             </div>
-             <div class="form-row">
-                <div class="form-group col-md-6">
-                  <label for="txtPassword">Password</label>
-                  <input type="password" class="form-control" id="txtPassword" name="txtPassword" >
-                </div>
-             </div>
-              <div class="tile-footer">
-                <button id="btnActionForm" class="btn btn-primary" type="submit"><i class="fa fa-fw fa-lg fa-check-circle"></i><span id="btnText">Guardar</span></button>&nbsp;&nbsp;&nbsp;
-                <button class="btn btn-danger" type="button" data-dismiss="modal"><i class="fa fa-fw fa-lg fa-times-circle"></i>Cerrar</button>
-              </div>
-            </form> --}}
-      </div>
     </div>
-  </div>
+    <!-- End of top -->
+    <div class="recent-updates">
+        <h2>Recent-updates</h2>
+        <div class="updates">
+            <div class="update">
+                <div class="profile-photo">
+                    <img src="" alt="">
+                </div>
+                <div class="message">
+                    <p><b>Mario Fly</b> publicó un nuevo ganado</p>
+                    <small class="text-muted">Hace 2 minutos</small>
+                </div>
+            </div>
+            <div class="update">
+                <div class="profile-photo">
+                    <img src="images/OIP.jpeg" alt="">
+                </div>
+                <div class="message">
+                    <p><b>Purina</b> publicó una nueva oferta para ti</p>
+                    <small class="text-muted">Hace 2 minutos</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="recent-publicidad">
+        <h2>Los mejores productos</h2>
+        <div class="publicidad">
+            <img src="./images/publicidad-app.png" alt="">
+        </div>
+    </div>
 </div>
+<!-- right section end-->
+
 <script>
     $(document).ready(function() {
         $('.editUserBtn').on('click', function() {
             var userId = $(this).data('id');
             var url = 'get-user-info/' + userId;
 
-           
+
             $('#userInfoContainer').empty();
 
             $.ajax({
                 type: 'GET',
                 url: url,
                 success: function(response) {
-                    
+
                     $('#userInfoContainer').html(response);
-                    
+
                     $('#modalFormUsuario').modal('show');
                 },
                 error: function(xhr, status, error) {
-                    
+
                 }
             });
         });

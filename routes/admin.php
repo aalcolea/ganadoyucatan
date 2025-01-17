@@ -1,4 +1,4 @@
-<?php 
+<?php
 use App\Http\Controllers\Admin\ProductsController;
 use App\Http\Controllers\Admin\UsersController;
 use App\Http\Controllers\Admin\ConversationController;
@@ -34,6 +34,7 @@ Route::get('products/getProductImages/{id}', [ProductsController::class, 'getPro
 Route::post('/products/addNewGen', [ProductsController::class, 'postNewGen'])->name('addNewGen');
 Route::get('/products/addNewGen', [ProductsController::class, 'getNewGen'])->name('getNewGen');
 Route::get('/products/getProductInfo/{id}', [ProductsController::class, 'getProductEdit'])->name('getProductEdit');
+Route::get('/products/getProductInfo2/{id}', [ProductsController::class, 'getProductEdit2'])->name('getProductEdit2');
 Route::post('/products/postProductInfo/{id}', [ProductsController::class, 'postProductEditGen'])->name('postProductEdit');
 Route::get('/products/deleteGenImage/{id}/{portada}', [ProductsController::class, 'deleteGenImage'])->name('deleteGenImage');
 
