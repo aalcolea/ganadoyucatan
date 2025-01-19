@@ -80,10 +80,11 @@
                     <div class="div13">
                         <div class="right-container">
                             @if(isset($images[0]))
-                                <img class="right" onclick="swapImages('div13')"  src="{{asset('uploads/tianguis/'.$p->imagen. '/'.$images[0]['ruta'].'.webp')}}" alt="Imagen 1">
+                                <img class="right" id="mainImage" src="{{asset('uploads/tianguis/'.$p->imagen. '/'.$images[0]['ruta'].'.webp')}}" alt="Imagen Principal">
                                 <button class="fullscreen-button" onclick="openFullscreen()">
                                     <img width="24" height="24" src="https://img.icons8.com/fluency-systems-regular/48/fullscreen.png" alt="fullscreen"/>
                                 </button>
+                                <span class="close-button" onclick="closeFullscreen()">CERRAR</span>
                             @endif
                         </div>
                     </div>
@@ -94,7 +95,7 @@
                         <source src="{{asset('uploads/videost/'.$video[0]->ruta)}}" type="video/mp4">
                             <source src="movie.ogg" type="video/ogg">
                         Your browser does not support the video tag.
-                    </video> 
+                    </video>
                     @endif
                 </div>
                 {{-- <div class="youtube-link">
@@ -141,7 +142,7 @@
                         <p class="reseña-name"></p>
                     </div>
                     <div class="dierecis">
-                        <img src="" alt="" srcset=""> 
+                        <img src="" alt="" srcset="">
                     </div>
                 </div>
 
@@ -217,6 +218,23 @@
         {!!Form::close()!!}
     </div>
 </div>
+
+<!-- FullscreenModal -->
+<div id="fullscreenModal" class="fullscreen hidden">
+    <div class="fullscreen-content">
+        <span id="closeFullscreen" class="close-btn" onclick="closeFullscreenModal()">&times;</span>
+
+        <button id="prevImage" class="nav-btn left-btn" onclick="navigateImage(-1)">&#8249;</button>
+        <img id="fullscreenImage" src="" alt="Imagen Fullscreen">
+        <button id="nextImage" class="nav-btn right-btn" onclick="navigateImage(1)">&#8250;</button>
+
+        <div class="action-buttons">
+            <a href="https://wa.me/1234567890" target="_blank" class="action-btn whatsapp-btn">WhatsApp</a>
+            <button class="action-btn contact-btn" onclick="contactUser()">Contactar</button>
+        </div>
+    </div>
+</div>
+
 <script>
     const openModalButton = document.getElementById('openModal');
     const modal = document.getElementById('modal');
@@ -237,38 +255,63 @@
         }
     });
 
-/*    form.addEventListener('submit', (event) => {
+    /*form.addEventListener('submit', (event) => {
         event.preventDefault();
         modal.style.display = 'none';
     });*/
 </script>
 <script>
-    function swapImages(divId) {
-        var clickedImageSrc = document.querySelector('.' + divId + ' img').src;
-        var largeImageSrc = document.querySelector('.div13 img').src;
+    let currentImageIndex = 0;
 
-        // document.querySelector('.' + divId + ' img').src = largeImageSrc; // TODO: Reemplazaba la imagen clickeada con la del focus 
-        document.querySelector('.div13 img').src = clickedImageSrc;
+    const images = [
+        @foreach($images as $key => $image)
+            @if(isset($image['ruta']))
+            "{{ asset('uploads/tianguis/' . $p->imagen . '/' . $image['ruta'] . '.webp') }}",
+            @endif
+        @endforeach
+    ].filter(Boolean);
+
+    function swapImages(divId) {
+        const clickedImage = document.querySelector('.' + divId + ' img');
+        if (clickedImage) {
+            const clickedImageSrc = clickedImage.src;
+
+            currentImageIndex = images.indexOf(clickedImageSrc);
+            const mainImage = document.getElementById('mainImage');
+            if (mainImage) {
+                mainImage.src = clickedImageSrc;
+            }
+        }
     }
 
 
     function openFullscreen() {
-        var fullscreenImage = document.createElement('img');
-        fullscreenImage.classList.add('fullscreen-image');
-        fullscreenImage.classList.add('active');
-        fullscreenImage.src = document.querySelector('.right-container img').src;
-        fullscreenImage.onclick = closeFullscreen;
+        const fullscreenModal = document.getElementById('fullscreenModal');
+        const fullscreenImage = document.getElementById('fullscreenImage');
+        const mainImageSrc = document.getElementById('mainImage').src;
 
-        document.body.appendChild(fullscreenImage);
+        currentImageIndex = images.indexOf(mainImageSrc);
+        fullscreenImage.src = mainImageSrc;
+        fullscreenModal.classList.remove('hidden');
+        fullscreenModal.classList.add('visible');
     }
 
-    function closeFullscreen() {
-        var fullscreenImage = document.querySelector('.fullscreen-image');
+    function navigateImage(direction) {
+        currentImageIndex = (currentImageIndex + direction + images.length) % images.length;
+
+        const fullscreenImage = document.getElementById('fullscreenImage');
         if (fullscreenImage) {
-            fullscreenImage.remove();
+            fullscreenImage.src = images[currentImageIndex];
         }
     }
 
+    function closeFullscreenModal() {
+        document.getElementById('fullscreenModal').classList.add('hidden');
+    }
+
+    function contactUser() {
+        alert('Función de contacto no implementada aún.');
+    }
 
 </script>
 @endsection

@@ -7,9 +7,11 @@
                 <img src="{{ asset('static/new/background/_header-1.jpg') }}" alt="" srcset="">
             </div>
             <div class="image">
-                <img src="{{ asset('static/new/background/_header-1.jpg') }}" alt="" srcset="">
+                <img src="{{ asset('static/new/background/ios_app.png') }}" alt="" srcset="">
             </div>
-            <div class="image"></div>
+            <div class="image">
+                <img src="{{ asset('static/new/background/android_app.png') }}" alt="" srcset="">
+            </div>
         </div>
         <div class="navigation-points">
             <div class="point"></div>
@@ -17,9 +19,11 @@
             <div class="point"></div>
         </div>
         <div class="social-media">
-            <img class="social-icon" onclick="location.href='https://www.youtube.com/@ganadoyucatanpeninsular6593'" width="25" height="25" src="https://img.icons8.com/material-sharp/50/ffffff/youtube-play.png" alt="youtube-play"/>
-            <img class="social-icon" onclick="location.href='https://www.facebook.com/ganadoyucatan'" width="25" height="25" src="https://img.icons8.com/windows/50/ffffff/facebook-f--v2.png" alt="facebook-f--v2"/>
+            <img class="social-icon" onclick="location.href='https://www.youtube.com/@ganadoyucatanpeninsular6593'" width="25" height="25" src="https://img.icons8.com/ios/50/ffffff/youtube--v1.png" alt="youtube-play"/>
+            <img class="social-icon" onclick="location.href='https://www.facebook.com/ganadoyucatan'" width="25" height="25" src="https://img.icons8.com/ios/50/ffffff/facebook--v1.png" alt="facebook--v1" />
             <img class="social-icon" onclick="location.href='https://www.instagram.com/ganado_yuc/'"  width="25" height="25" src="https://img.icons8.com/ios/50/ffffff/instagram-new--v1.png" alt="instagram-new--v1"/>
+            <img class="social-icon" onclick="location.href=''" width="25" height="25" src="https://img.icons8.com/ios/50/ffffff/google-play--v1.png" alt="google-play--v1"/>
+            <img class="social-icon" onclick="location.href=''" width="25" height="25" src="https://img.icons8.com/ios/50/ffffff/apple-app-store--v2.png" alt="apple-app-store--v2"/>
         </div>
         <div class="nav-buttons-main">
             <div class="prev-button"><</div>
@@ -120,52 +124,54 @@
     </div>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
-    const images = document.querySelectorAll(".image");
-    const points = document.querySelectorAll(".point");
-    const prevButton = document.querySelector(".prev-button");
-    const nextButton = document.querySelector(".next-button");
-    let currentIndex = 0;
+        const images = document.querySelectorAll(".image");
+        const points = document.querySelectorAll(".point");
+        const prevButton = document.querySelector(".prev-button");
+        const nextButton = document.querySelector(".next-button");
+        let currentIndex = 0;
+        const intervalTime = 2500;
 
-    // Función para mostrar la imagen activa y el punto activo
-    function showSlide(index) {
-        images.forEach((image, i) => {
-            if (i == index) {
-                image.style.display = "block";
-            } else {
-                image.style.display = "none";
-            }
-        });
-        points.forEach((point, i) => {
-            if (i === index) {
-                point.classList.add("active");
-            } else {
-                point.classList.remove("active");
-            }
-        });
-    }
+        function showSlide(index) {
+            images.forEach((image, i) => {
+                if (i == index) {
+                    image.style.display = "block";
+                } else {
+                    image.style.display = "none";
+                }
+            });
+            points.forEach((point, i) => {
+                if (i === index) {
+                    point.classList.add("active");
+                } else {
+                    point.classList.remove("active");
+                }
+            });
+        }
 
-    // Mostrar la primera imagen al cargar la página
-    showSlide(currentIndex);
-
-    // Botón "Prev" - retroceder a la imagen anterior
-    prevButton.addEventListener("click", function () {
-        currentIndex = (currentIndex - 1 + images.length) % images.length;
         showSlide(currentIndex);
-    });
 
-    // Botón "Next" - avanzar a la siguiente imagen
-    nextButton.addEventListener("click", function () {
-        currentIndex = (currentIndex + 1) % images.length;
-        showSlide(currentIndex);
-    });
-
-    // Hacer clic en los puntos para cambiar la imagen
-    points.forEach((point, index) => {
-        point.addEventListener("click", function () {
-        currentIndex = index;
-        showSlide(currentIndex);
+        prevButton.addEventListener("click", function () {
+            currentIndex = (currentIndex - 1 + images.length) % images.length;
+            showSlide(currentIndex);
         });
+
+        nextButton.addEventListener("click", function () {
+            currentIndex = (currentIndex + 1) % images.length;
+            showSlide(currentIndex);
+        });
+
+        points.forEach((point, index) => {
+            point.addEventListener("click", function () {
+                currentIndex = index;
+                showSlide(currentIndex);
+            });
+        });
+
+        setInterval(() => {
+            currentIndex = (currentIndex + 1) % images.length;
+            showSlide(currentIndex);
+        }, intervalTime);
     });
-});
 </script>
+
 @endsection
