@@ -22,8 +22,8 @@
             <img class="social-icon" onclick="location.href='https://www.youtube.com/@ganadoyucatanpeninsular6593'" width="25" height="25" src="https://img.icons8.com/ios/50/ffffff/youtube--v1.png" alt="youtube-play"/>
             <img class="social-icon" onclick="location.href='https://www.facebook.com/ganadoyucatan'" width="25" height="25" src="https://img.icons8.com/ios/50/ffffff/facebook--v1.png" alt="facebook--v1" />
             <img class="social-icon" onclick="location.href='https://www.instagram.com/ganado_yuc/'"  width="25" height="25" src="https://img.icons8.com/ios/50/ffffff/instagram-new--v1.png" alt="instagram-new--v1"/>
-            <img class="social-icon" onclick="location.href=''" width="25" height="25" src="https://img.icons8.com/ios/50/ffffff/google-play--v1.png" alt="google-play--v1"/>
-            <img class="social-icon" onclick="location.href=''" width="25" height="25" src="https://img.icons8.com/ios/50/ffffff/apple-app-store--v2.png" alt="apple-app-store--v2"/>
+            <img class="social-icon" onclick="location.href='https://play.google.com/store/apps/details?id=ganadoyucatan.com.ganadoapp&pcampaignid=web_share'" width="25" height="25" src="https://img.icons8.com/ios/50/ffffff/google-play--v1.png" alt="google-play--v1"/>
+            <img class="social-icon" onclick="location.href='https://apps.apple.com/mx/app/ganado-app/id6738614464'" width="25" height="25" src="https://img.icons8.com/ios/50/ffffff/apple-app-store--v2.png" alt="apple-app-store--v2"/>
         </div>
         <div class="nav-buttons-main">
             <div class="prev-button"><</div>

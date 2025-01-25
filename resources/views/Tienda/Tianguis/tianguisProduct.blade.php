@@ -111,7 +111,7 @@
                 <p class="info">{{substr($p->descripcion, 0, 50)}}</p>
                 <div class="contact-button">
                     <button class="mainButtonB" onclick="location.href='https://wa.me/+52<?= $p->owner->telefono; ?>'"><a href="https://wa.me/+52<?= $p->owner->telefono; ?>" style="color: white;">Contacto</a></button>
-                    <a id="openModal" href="#">Hacer contacto <span>></span></a>
+                    <a id="openModal">Hacer contacto <span>></span></a>
                 </div>
             </div>
         </div>
@@ -229,8 +229,9 @@
         <button id="nextImage" class="nav-btn right-btn" onclick="navigateImage(1)">&#8250;</button>
 
         <div class="action-buttons">
-            <a href="https://wa.me/1234567890" target="_blank" class="action-btn whatsapp-btn">WhatsApp</a>
-            <button class="action-btn contact-btn" onclick="contactUser()">Contactar</button>
+            <a href="https://wa.me/+52<?= $p->owner->telefono; ?>" class="action-btn whatsapp-btn">WhatsApp</a>
+            <a href="mailto:ganado.yucatan@gmail.com?subject=Consulta&body=Hola,%20necesito%20información%20sobre%20los%20productos%20de%20su%20página" class="action-btn contact-btn">Contactar</a>
+            {{-- <button class="action-btn contact-btn" id="openModal">Contactar</button> --}}
         </div>
     </div>
 </div>
@@ -294,6 +295,12 @@
         fullscreenImage.src = mainImageSrc;
         fullscreenModal.classList.remove('hidden');
         fullscreenModal.classList.add('visible');
+
+        fullscreenModal.addEventListener('click', (event) => {
+            if (event.target === fullscreenModal) {
+                closeFullscreenModal();
+            }
+        });
     }
 
     function navigateImage(direction) {
