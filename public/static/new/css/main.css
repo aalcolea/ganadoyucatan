@@ -1385,8 +1385,8 @@ Tienda products
 }
 
 .fullscreen img {
-    max-width: 80%;
-    max-height: 80%;
+    max-width: 80vw;
+    max-height: 80vh;
     border-radius: 10px;
 }
 
@@ -1399,8 +1399,8 @@ Tienda products
 
 .fullscreen .close-btn {
     position: absolute;
-    top: 20px;
-    right: 10px;
+    top: 0rem;
+    right: -2rem;
     font-size: 30px;
     color: white;
     cursor: pointer;
