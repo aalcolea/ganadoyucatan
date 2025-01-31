@@ -166,6 +166,12 @@
             </a>
         </li>
         <li>
+            <a class="app-menu__item" href="{{url('/admin')}}/posts">
+                <i class="app-menu__icon fas fa-envelope" aria-hidden="true"></i>
+                <span class="app-menu__label">Blog </span>
+            </a>
+        </li>
+        <li>
             <a class="app-menu__item" href="{{url('/logout')}}">
                 <i class="app-menu__icon fa fa-sign-out" aria-hidden="true"></i>
                 <span class="app-menu__label">Cerrar Sesión</span>
