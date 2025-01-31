@@ -83,6 +83,13 @@ return [
         'driver' => 'local',
         'root' => '/home/lz9kr6l1o9ym/public_html/userspics' // 'C:\Users\Alan\Documents\ganadoyucatan\public\userspics'//'/home/lz9kr6l1o9ym/public_html/uploads/userspics'
         ],
+        'post' => [
+            'driver' => 'local',
+            'root' => '/home/lz9kr6l1o9ym/public_html/uploads/posts',
+            'url' => env('APP_URL').'/uploads/posts', 
+            'visibility' => 'public',
+            'throw' => false,
+        ],
 
     ],
 
