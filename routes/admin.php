@@ -2,6 +2,7 @@
 use App\Http\Controllers\Admin\ProductsController;
 use App\Http\Controllers\Admin\UsersController;
 use App\Http\Controllers\Admin\ConversationController;
+use App\Http\Controllers\Admin\PostController;
 Route::prefix('/admin')->middleware(['verificarRol'])->group(function(){
 
 /*ciudades*/
@@ -63,6 +64,8 @@ Route::get('/users/deleteUsr/{id}', [UsersController::class, 'deleteUsr'])->name
 Route::get('/reactiveAccount/{id}', [UsersController::class, 'reactiveAccount'])->name('reactiveAccount')->middleware(['IsAdmin']);
 Route::get('users/profile', [UsersController::class, 'getUProfInfo']);
 Route::post('users/profile/{id}', [UsersController::class, 'postUProfInfo']);
+//rutas post 
+Route::resource('posts', PostController::class);
 /*chat soporte*/
  Route::get('/conversation', [ConversationController::class, 'index'])->name('conversationIndex');
   Route::get('/conversation/{conversation}', [ConversationController::class, 'show'])->name('conversationShow');
