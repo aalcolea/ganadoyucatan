@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Post;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
+use Intervention\Image\Facades\Image;
 
 class PostController extends Controller
 {
@@ -34,18 +37,25 @@ class PostController extends Controller
         $post->content = $request->content;
 
         if ($request->hasFile('image')) {
-            $image = $request->file('image');
-            $imageName = time() . '.' . $image->getClientOriginalExtension();
-            $imagePath = "posts/{$imageName}";
-            Storage::disk('post')->putFileAs('', $image, $imageName);
-            $post->image = $imagePath;
+            $uploadedImage = $request->file('image');
+            $dateFolder = date('Y-m-d');
+            $uploadPath = 'uploads/posts/' . $dateFolder; // Ruta dentro de storage
+            $randomString = Str::random(4);
+            $filename = 'GY-' . date('md') . '-' . $randomString . '.' . $uploadedImage->getClientOriginalExtension();
+            if (!Storage::disk('post')->exists($uploadPath)) {
+                Storage::disk('post')->makeDirectory($uploadPath, 0755, true);
+            }
+            $webpPath = $uploadPath . '/' . pathinfo($filename, PATHINFO_FILENAME) . '.webp';
+            $destinationPath = Storage::disk('post')->path($webpPath);
+            $img = Image::make($uploadedImage->getRealPath());
+            $img->encode('webp', 80)->save($destinationPath); 
+            $post->image = $webpPath;
         }
 
         $post->save();
 
         return redirect()->route('posts.index')->with('success', 'Post creado correctamente.');
     }
-
 
    /* public function show($id)
     {
