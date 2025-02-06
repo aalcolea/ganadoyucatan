@@ -33,8 +33,13 @@ class PostController extends Controller
         $post->content = $request->content;
 
         if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('posts', 'public');
-            $post->image = $imagePath;
+            $image = $request->file('image');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $webpPath = "post/{$imageName}";
+            $destinationPath = Storage::disk('post')->path($webpPath);
+            $image->move(dirname($destinationPath), basename($destinationPath));
+
+            $post->image = $webpPath;
         }
 
         $post->save();
