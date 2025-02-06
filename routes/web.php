@@ -8,6 +8,7 @@ use App\Http\Controllers\SupportConversationController;
 use App\Http\Controllers\Admin\ConversationController;
 use App\Http\Livewire\Chat;
 use App\Http\Controllers\APIAuthController;
+use App\Http\Controllers\Admin\PostController;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,7 +47,9 @@ Route::get('/subastas/{id}', [TiendaController::class, 'getSubasta'])->name('get
 Route::get('/politicaPrivacidad', [TiendaController::class, 'getPoliticaPrivacidad']);
 Route::get('/recomendaciones', [TiendaController::class, 'getRecomendaciones']);
 Route::get('/suscripcion', [TiendaController::class, 'getSuscripcion']);
-
+//posts
+Route::get('/blog', [PostController::class, 'getPosts']);
+Route::get('/blog/{id}', [PostController::class, 'show']);
 
 /*ciudades*/
 Route::get('/get-estados', [TiendaController::class, 'getEstados']);

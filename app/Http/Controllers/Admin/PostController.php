@@ -6,7 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Post;
-
+use Carbon\Carbon;
+use Carbon\CarbonInterface;
 class PostController extends Controller
 {
     public function index()
@@ -43,15 +44,24 @@ class PostController extends Controller
 
         $post->save();
 
-        return redirect()->route('posts.index')->with('success', 'Post creado correctamente.');
+        return redirect()->route('posts.index')->with('success', 'Post creado correctamente');
     }
 
 
-   /* public function show($id)
+    public function show($id)
     {
         $post = Post::findOrFail($id);
-        return view('Admin.Post.show', compact('post'));
-    }*/
+        Carbon::setLocale('es');
+        $created_at = Carbon::parse($post->created_at)->translatedFormat('j \d\e F \d\e Y'); 
+        $contentBlocks = str_split($post->content, 300);
+
+        return view('blogNotice', [
+            'title' => $post->title,
+            'created_at' => $post->created_at->format('d M Y'),
+            'image' => $post->image ? $post->image : 'static/images/fondo-blog.jpg',
+            'contentBlocks' => $contentBlocks,
+        ]);
+    }
 
 
     public function edit($id)
@@ -72,17 +82,21 @@ class PostController extends Controller
         $post->content = $request->content;
 
         if ($request->hasFile('image')) {
-            if ($post->image) {
-                Storage::disk('public')->delete($post->image);
+            if ($post->image && Storage::disk('post')->exists($post->image)) {
+                Storage::disk('post')->delete($post->image);
             }
-            $imagePath = $request->file('image')->store('posts', 'public');
+            $image = $request->file('image');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $imagePath = "posts/{$imageName}";
+
+            Storage::disk('post')->putFileAs('', $image, $imageName);
             $post->image = $imagePath;
         }
 
         $post->save();
 
-        return redirect()->route('posts.index')->with('success', 'Post actualizado correctamente.');
-    }
+        return redirect()->route('posts.index')->with('success', 'Post actualizado correctamente');
+        }
 
     public function destroy($id)
     {
@@ -94,5 +108,10 @@ class PostController extends Controller
         $post->delete();
 
         return redirect()->route('posts.index')->with('success', 'Post eliminado correctamente.');
+    }
+    public function getPosts()
+    {
+        $posts = Post::orderBy('created_at', 'desc')->paginate(6);
+        return view('blog', compact('posts'));
     }
 }
