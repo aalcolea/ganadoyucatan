@@ -85,7 +85,7 @@ return [
         ],
         'post' => [
             'driver' => 'local',
-            'root' => '/home/lz9kr6l1o9ym/public_html/uploads/posts',
+            'root' => '/home/lz9kr6l1o9ym/public_html/storage/posts',
             'url' => env('APP_URL').'/uploads/posts', 
             'visibility' => 'public',
             'throw' => false,
