@@ -18,7 +18,7 @@
 		                <h2>{{ $post->title }}</h2>
 		                <img src="{{ asset('storage/' . $post->image) }}" alt="{{ $post->title }}" width="100">
 		                <p>{{ Str::limit($post->content, 100) }}</p>
-		                <a href="{{ route('posts.show', $post->id) }}">Leer más</a>
+		                <a href="{{ route('posts.show', $post->id) }}">Ver publicacion</a>
 		                <a href="{{ route('posts.edit', $post->id) }}">Editar</a>
 		                <form action="{{ route('posts.destroy', $post->id) }}" method="POST">
 		                    @csrf

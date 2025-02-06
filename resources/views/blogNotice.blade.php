@@ -10,25 +10,26 @@
         </div>
         <div class="container-notice">
             <header>
-                <h1>LOREM IPSUM DOLOR SIT AMET, AMET CONSECTETUR ADIPISICING ELIT SED</h1>
-                <p class="date-author">20 de agosto del 2023 | Por <a href="#">Jaime Luis</a></p>
+                <h1>{{$title}}</h1>
+                <p class="date-author">{{$created_at}}| Por <a href="#">Ganado Yucatán</a></p>
             </header>
             <div class="imageNoticeContainer">
-                <img src="{{ asset('static/images/fondo-blog.jpg') }}" alt="Cow Image">
+                <img ssrc="{{ asset($image ? 'storage/' . $image : 'static/images/fondo-blog.jpg') }}"  alt="Cow Image">
             </div>
             <div class="contentNews">
-                <div class="text-block">
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit in necessitatibus expedita modi aliquam nostrum enim, dolores amet voluptas, repudiandae nihil, voluptatibus explicabo distinctio tempora sequi adipisci atque consequatur ullam.</p>
-                </div>
-                <div class="separator"></div>
-                <div class="text-block">
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse quisquam itaque fugiat eius, saepe sit enim? Dolor excepturi, eius porro, maiores similique quod dolorum incidunt ratione totam corporis sed illo.</p>
-                </div>
+                @foreach($contentBlocks as $block)
+                    <div class="text-block">
+                        <p>{{ $block }}</p>
+                    </div>
+                    @if (!$loop->last) 
+                        <div class="separator"></div>
+                    @endif
+                @endforeach
             </div>
         </div>
     </div>
     <div class="container-related--blog">
-        <div class="quote">
+        {{-- <div class="quote">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic sit nemo quidem earum temporibus alias odio eveniet molestiae praesentium itaque. Consequatur repellendus ipsa quibusdam saepe consectetur nostrum ducimus, atque ullam.
         </div>
         <div class="text-block">
@@ -41,8 +42,8 @@
             <p>
                 Sed ut perspiciatis unde omnis iste natus error sit , adipisci velit, sed quia non numquam eius mo....
             </p>
-        </div>
-        <div class="heading"> Noticias que te pueden interesar</div>
+        </div> --}}
+{{--         <div class="heading"> Noticias que te pueden interesar</div>
         <div class="container-blog-related">
             <div class="card-blog">
                 <img class="img-products" src="{{ asset('static/images/fondo-blog.jpg') }}" alt="">
@@ -62,7 +63,7 @@
                     <button>Ver noticia</button>
                 </div>
             </div>
-        </div>
+        </div> --}}
     </div>
 </div>
 
