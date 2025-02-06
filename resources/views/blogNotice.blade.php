@@ -14,7 +14,7 @@
                 <p class="date-author">{{$created_at}}| Por <a href="#">Ganado Yucatán</a></p>
             </header>
             <div class="imageNoticeContainer">
-                <img ssrc="{{ asset($image ? 'storage/' . $image : 'static/images/fondo-blog.jpg') }}"  alt="Cow Image">
+                <img src="{{ asset($image ? 'storage/' . $image : 'static/images/fondo-blog.jpg') }}"  alt="Cow Image">
             </div>
             <div class="contentNews">
                 @foreach($contentBlocks as $block)
