@@ -20,6 +20,7 @@ class PostController extends Controller
         return view('Admin.Post.create');
     }
 
+
     public function store(Request $request)
     {
         $request->validate([
@@ -35,17 +36,16 @@ class PostController extends Controller
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $imageName = time() . '.' . $image->getClientOriginalExtension();
-            $webpPath = "post/{$imageName}";
-            $destinationPath = Storage::disk('post')->path($webpPath);
-            $image->move(dirname($destinationPath), basename($destinationPath));
-
-            $post->image = $webpPath;
+            $imagePath = "posts/{$imageName}";
+            Storage::disk('post')->putFileAs('', $image, $imageName);
+            $post->image = $imagePath;
         }
 
         $post->save();
 
         return redirect()->route('posts.index')->with('success', 'Post creado correctamente.');
     }
+
 
    /* public function show($id)
     {
