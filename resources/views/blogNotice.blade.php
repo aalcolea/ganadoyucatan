@@ -11,7 +11,7 @@
         <div class="container-notice">
             <header>
                 <h1>{{$title}}</h1>
-                <p class="date-author">{{$created_at}}| Por <a href="#">Ganado Yucatan</a></p>
+                <p class="date-author">{{$created_at}}| Por <a href="#">Ganado Yucatán</a></p>
             </header>
             <div class="imageNoticeContainer">
                 <img ssrc="{{ asset($image ? 'storage/' . $image : 'static/images/fondo-blog.jpg') }}"  alt="Cow Image">
