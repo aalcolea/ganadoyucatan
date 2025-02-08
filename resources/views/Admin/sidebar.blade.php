@@ -165,12 +165,15 @@
                 <span class="app-menu__label">Mensajes <span class="position-absolute top-0 start-95 translate-middle badge rounded-pill bg-danger">{{$unreadMsg }}</span></span>
             </a>
         </li>
+
+        <?php if(Auth::user()->rolid == '1'){ ?>
         <li>
             <a class="app-menu__item" href="{{url('/admin')}}/posts">
                 <i class="app-menu__icon fas fa-envelope" aria-hidden="true"></i>
                 <span class="app-menu__label">Blog </span>
             </a>
         </li>
+        <?php } ?>
         <li>
             <a class="app-menu__item" href="{{url('/logout')}}">
                 <i class="app-menu__icon fa fa-sign-out" aria-hidden="true"></i>
