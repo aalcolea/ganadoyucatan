@@ -225,7 +225,7 @@ function updateImagesInputPart() {
                               <option value="Charolais">Charolais</option>
                               <option value="Suizo america">Suizo america</option>
                               <option value="Limouzin">Limouzin </option>
-                              <option value="Indubrazil">Indubrazil </option>
+                              <option value="Indubrasil">Indubrasil </option>
                               <option value="Brangus">Brangus </option>
                               <option value="Angus">Angus </option>
                               <option value="Hereford">Hereford</option>

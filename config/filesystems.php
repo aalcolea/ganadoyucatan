@@ -66,6 +66,10 @@ return [
         'webp_images_com' => [
         'driver' => 'local',
         'root' => '/home/lz9kr6l1o9ym/public_html/uploads/tianguis'
+        ],   
+        'webp_images_paj' => [
+        'driver' => 'local',
+        'root' => 'C:\Users\Alan\Documents\ganadoyucatan\public/uploads/pajilla'
         ],        
         'videos' => [
         'driver' => 'local',

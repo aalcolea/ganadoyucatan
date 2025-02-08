@@ -66,6 +66,8 @@ Route::get('users/profile', [UsersController::class, 'getUProfInfo']);
 Route::post('users/profile/{id}', [UsersController::class, 'postUProfInfo']);
 //rutas post 
 Route::resource('posts', PostController::class);
+//rutas pagilla
+Route::get('/products/addNewPajilla', [ProductsController::class, 'getPajillas'])->name('getPajillas');
 /*chat soporte*/
  Route::get('/conversation', [ConversationController::class, 'index'])->name('conversationIndex');
   Route::get('/conversation/{conversation}', [ConversationController::class, 'show'])->name('conversationShow');
