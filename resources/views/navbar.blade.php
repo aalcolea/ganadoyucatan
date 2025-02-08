@@ -36,6 +36,7 @@
                         <p class="click-menu" onclick="location.href='/tienda'">Ganado genético</p>
                         <p class="click-menu" onclick="location.href='/tianguisTienda'">Ganado comercial</p>
                         <p class="click-menu" onclick="location.href='/subastas'">Subastas</p>
+                        <p class="click-menu" onclick="location.href='/blog'">Blog</p>
                         <p class="click-menu" onclick="location.href='{{ url('/register') }}'">Publicar gratis</p>
 
                     </div>
