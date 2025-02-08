@@ -52,7 +52,7 @@ class PostController extends Controller
     {
         $post = Post::findOrFail($id);
         Carbon::setLocale('es');
-        $created_at = Carbon::parse($post->created_at)->translatedFormat('j \d\e F \d\e Y'); 
+        $created_at = Carbon::parse($post->created_at)->translatedFormat('j \d\e F \d\e Y');
         $contentBlocks = str_split($post->content, 300);
 
         return view('blogNotice', [

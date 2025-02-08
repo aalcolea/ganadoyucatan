@@ -780,6 +780,28 @@ Tienda
     background-size: cover;
 }
 
+.banner-main-embriones {
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    background: url('../background/_header-embriones.jpg');
+    background-size: cover;
+}
+
+.banner-main-pajillas {
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    background: url('../background/_header-pajillas.png');
+    background-size: cover;
+}
+
 .banner-main-subasta {
     height: 80vh;
     display: flex;
@@ -811,6 +833,22 @@ Tienda
     color: white;
     background: url('../background/_header-noticias-2.jpg');
     background-size: cover;
+}
+
+.banner-main-embriones img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+
+    border-radius: 50%;
+}
+
+.banner-main-pajillas img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+
+    border-radius: 50%;
 }
 
 .banner-main-subasta img {

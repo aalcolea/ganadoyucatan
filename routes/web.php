@@ -51,6 +51,9 @@ Route::get('/suscripcion', [TiendaController::class, 'getSuscripcion']);
 Route::get('/blog', [PostController::class, 'getPosts']);
 Route::get('/blog/{id}', [PostController::class, 'show']);
 
+Route::get('/embriones', [TiendaController::class, 'getEmbriones']);
+Route::get('/pajillas',  [TiendaController::class, 'getPajillas']);
+
 /*ciudades*/
 Route::get('/get-estados', [TiendaController::class, 'getEstados']);
 Route::get('/get-ciudades-by-estado/{estadoId}', [TiendaController::class, 'getCiudadesByEstado']);
@@ -61,7 +64,7 @@ Route::middleware('auth')->group(function () {
     ->name('conversation.show');
     Route::get('/startChat', [Chat::class, 'sendMessage'])->name('startChat');
     Broadcast::channel('admin-channel', function ($user) {
-    return $user->isAdmin(); 
+    return $user->isAdmin();
 	});
 });
 

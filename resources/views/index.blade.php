@@ -74,9 +74,9 @@
         <div class="embrionesLeft">
             <hr>
             <h1 class="title">Embriones en venta</h1>
-            <h2 class="content">Embriones Bovinos de Alta Calidad a la Venta - Potencia Genética para tu Ganado</h2>
+            <h2 class="content">Embriones bovinos de alta genética - Potencia Genética para tu Ganado</h2>
 
-            <button onclick="location.href='/subastas'" class="mainButton">Ver más</button>
+            <button onclick="location.href='/embriones'" class="mainButton">Ver más</button>
         </div>
         <div class="embrionesRight"></div>
     </div>
@@ -85,8 +85,8 @@
         <div class="pajillasRight">
             <hr>
             <h1 class="title">Pajillas de semen bovino</h1>
-            <h2 class="content">Pajillas de Semen Bovino - Mejora Genética Garantizada para tu Rebaño</h2>
-            <button class="mainButton">Ver más</button>
+            <h2 class="content">Pajillas de Semen Bovino de alta genética - Mejora Genética Garantizada para tu Rebaño</h2>
+            <button onclick="location.href='/pajillas'" class="mainButton">Ver más</button>
         </div>
     </div>
     <div class="contact">
