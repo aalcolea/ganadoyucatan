@@ -29,7 +29,10 @@ use Illuminate\Support\Facades\DB;
 use App\Utilities\ImageConverter;
 use App\Models\MensajeProducto;
 use Illuminate\Support\Facades\Date;
-
+//mover a controlador propio tambien
+    use App\Models\Pajilla;
+    use App\Models\PajillaImagen;
+    use App\Models\PajillaVideo;
 class ProductsController extends Controller
 {
     public function __construct(){
@@ -1195,5 +1198,88 @@ class ProductsController extends Controller
             ];
         }
         return response()->json(['image' => ['path' => '/' . $webpPath]]);
+    }
+    //mover a controlador propio
+        public function postNewPajilla(Request $request) {
+        $rules = [
+            'txtNombre' => 'required',
+            'txtPrecio' => 'required|numeric',
+            'txtDescripcion' => 'required',
+            'txtStock' => 'required|integer',
+            'txtRancho' => 'nullable|string',
+            'txtRaza' => 'nullable|string',
+            'listCert' => 'nullable|string',
+            'listEstatus' => 'nullable|string',
+            'txtLink' => 'nullable|url',
+            'estados' => 'required|string',
+            'ciudades' => 'required|string',
+            'comisarias' => 'nullable|string',
+            'premium' => 'boolean',
+            'txtEdad' => 'nullable|integer',
+            'imagenes.*' => 'image|mimes:jpg,jpeg,png|max:2048',
+            'video' => 'nullable|mimes:mp4,mov,avi,wmv|max:50000'
+        ];
+
+        $messages = [
+            'txtNombre.required' => 'El nombre de la pajilla es obligatorio',
+            'txtPrecio.required' => 'El precio es obligatorio',
+            'txtDescripcion.required' => 'La descripción es obligatoria',
+            'imagenes.*.image' => 'Cada archivo debe ser una imagen válida',
+            'video.mimes' => 'El video debe estar en formato MP4, MOV, AVI o WMV',
+            'video.max' => 'El video no puede pesar más de 50 MB'
+        ];
+
+        $validator = Validator::make($request->all(), $rules, $messages);
+
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->with('message', 'Se ha producido un error')->with('typealert', 'danger')->withInput();
+        }
+        $pajilla = new Pajilla();
+        $pajilla->nombre = e($request->input('txtNombre'));
+        $pajilla->descripcion = e($request->input('txtDescripcion'));
+        $pajilla->precio = e($request->input('txtPrecio'));
+        $pajilla->stock = $request->input('txtStock');
+        $pajilla->rancho = e($request->input('txtRancho'));
+        $pajilla->vendedorid = Auth::id();
+        $pajilla->raza = e($request->input('txtRaza'));
+        $pajilla->certificado = $request->input('listCert');
+        $pajilla->estatus = $request->input('listEstatus');
+        $pajilla->link = e($request->input('txtLink'));
+        $pajilla->estado = $request->input('estados');
+        $pajilla->ciudad = $request->input('ciudades');
+        $pajilla->comisaria = $request->input('comisarias');
+        $pajilla->premium = $request->input('premium') ? true : false;
+        $pajilla->edad = e($request->input('txtEdad'));
+
+        $pajilla->save();
+        if ($request->hasFile('imagenes')) {
+            foreach ($request->file('imagenes') as $imagen) {
+                $path = $imagen->store('pajilla_imagenes', 'public');
+
+                PajillaImagen::create([
+                    'idproducto' => $pajilla->idproducto,
+                    'url_imagen' => $path
+                ]);
+            }
+        }
+        if ($request->hasFile('video')) {
+            $videoFile = $request->file('video');
+            $videoPath = $videoFile->store('pajilla_videos', 'public');
+
+            PajillaVideo::create([
+                'idproducto' => $pajilla->idproducto,
+                'url_video' => $videoPath,
+                'nombre_video' => $videoFile->getClientOriginalName(),
+                'tamaño' => $videoFile->getSize()
+            ]);
+        }
+
+        return redirect('/admin/products/addNewPajilla')->with('message', 'Pajilla agregada con éxito')->with('typealert', 'success');
+    }    
+    public function getPajillas(){
+        $id = Auth::id();
+        $products = Pajilla::where('vendedorid', $id)->orderBy('idproducto', 'desc')->paginate(25);
+        $data = ['products' => $products];
+        return view('Admin.Pajilla.pajillaHome', $data);
     }
 }
