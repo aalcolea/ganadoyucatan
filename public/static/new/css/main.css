@@ -400,6 +400,8 @@ Sections
     color: white;
 }
 
+.pajillas-container,
+.embriones-container,
 .noticias-container,
 .subastaGanadera-container,
 .tianguisGanadero-container,
@@ -434,6 +436,19 @@ Sections
     color: white;
 }
 
+.pajillas-container {
+    background-image: url('../background/_bkg-pajillas.png');
+    background-size: cover;
+    color: white;
+}
+
+.embriones-container {
+    background-image: url('../background/_bkg-embriones.png');
+    background-size: cover;
+    color: white;
+}
+
+.embrionesLeft,
 .subastaLeft,
 .tianguisLeft {
     flex: 55;
@@ -443,6 +458,7 @@ Sections
     padding-left: 3rem;
 }
 
+.pajillasRight,
 .noticiasRight,
 .geneticoRight {
     flex: 55;
@@ -453,21 +469,25 @@ Sections
     align-items: flex-end;
 }
 
+.pajillasRight,
 .noticiasRight,
 .geneticoRight {
     text-align: end;
 }
 
+.embrionesRight,
 .subastaRight,
 .tianguisRight {
     flex: 45;
 }
 
+.pajillasLeft,
 .noticiasLeft,
 .geneticoLeft {
     flex: 45;
 }
 
+.embrionesLeft hr,
 .subastaLeft hr,
 .tianguisLeft hr {
     border: 2px solid white;
@@ -478,6 +498,7 @@ Sections
     margin-left: 0;
 }
 
+.pajillasLeft hr,
 .noticiasRight hr,
 .geneticoRight hr {
     border: 2px solid white;

@@ -70,6 +70,25 @@
             <button class="mainButton">Ver más</button>
         </div>
     </div>
+    <div class="embriones-container">
+        <div class="embrionesLeft">
+            <hr>
+            <h1 class="title">Embriones en venta</h1>
+            <h2 class="content">Embriones Bovinos de Alta Calidad a la Venta - Potencia Genética para tu Ganado</h2>
+
+            <button onclick="location.href='/subastas'" class="mainButton">Ver más</button>
+        </div>
+        <div class="embrionesRight"></div>
+    </div>
+    <div class="pajillas-container">
+        <div class="pajillasLeft"></div>
+        <div class="pajillasRight">
+            <hr>
+            <h1 class="title">Pajillas de semen bovino</h1>
+            <h2 class="content">Pajillas de Semen Bovino - Mejora Genética Garantizada para tu Rebaño</h2>
+            <button class="mainButton">Ver más</button>
+        </div>
+    </div>
     <div class="contact">
         <div class="left-contact">
             <h1>Hacer Contacto</h1>
