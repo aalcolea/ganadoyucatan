@@ -43,7 +43,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        {!!Form::open(['url'=> 'admin/products/addNewGen', 'files' => true, 'style' => 'padding: 0;'])!!}
+        {!!Form::open(['url'=> 'admin/products/addNewPaj', 'files' => true, 'style' => 'padding: 0;'])!!}
           {{-- <form id="formProductos" name="formProductos" class="form-horizontal" action="{{url('admin/products/addNewGen')}}" method="POST" style="padding: 0;"> --}}
               @csrf
               <input type="hidden" id="idProducto" name="idProducto" value="">
@@ -198,20 +198,18 @@
               <div class="container">
                     <label for="video">Cargar video:</label>
                     <input type="file" name="video" id="video" accept="video/mp4, video/avi, video/mov, video/mpeg, video/quicktime">
-              </div>
-                <div class="container">
-                    <input type="file" id="file-input" name="imagenes-cargadas[]" multiple accept="image/*" style="display:none;">
-                    <button type="button" id="add-images" class="btn btn-primary" style="background: #d79e46; border-color: #d79e46">
-                        Agregar imágenes
-                    </button>
-
-                    <br>
-                    <div id="image-list-container" class="mt-3">
-                        <ul id="image-list" class="list-group"></ul>
-                    </div>
-                    <input type="hidden" name="deleted_images" id="deleted_images">
-                    <input type="hidden" name="images" id="images" value="">
+              </div>    
+              <div class="container">
+                <input type="file" id="file-input" name="imagenes[]" multiple accept="image/*" style="display:none;">
+                <button type="button" id="add-images" class="btn btn-primary" style="background: #d79e46; border-color: #d79e46">
+                    Agregar imágenes
+                </button>
+                <br>
+                <div id="image-list-container" class="mt-3">
+                    <ul id="image-list" class="list-group"></ul>
                 </div>
+                <input type="hidden" name="deleted_images" id="deleted_images">
+            </div>
               <div class="tile-footer">
       <div class="modal-footer">
 {{-- <div id="loading-icon" class="loading-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="40" height="40">
@@ -245,63 +243,77 @@
     <script src="{{url('/static/js/admin/location.js') }}" ></script>
     <script>
       document.addEventListener("DOMContentLoaded", function () {
-        const fileInput = document.getElementById("file-input");
-        const addImagesButton = document.getElementById("add-images");
-        const imageList = document.getElementById("image-list");
-        const hiddenImages = document.getElementById("images");
-        const deletedImages = document.getElementById("deleted_images");
+          const fileInput = document.getElementById("file-input");
+          const addImagesButton = document.getElementById("add-images");
+          const imageList = document.getElementById("image-list");
+          const deletedImages = document.getElementById("deleted_images");
+          const uploadForm = document.getElementById("upload-form");
 
-        let selectedFiles = [];
-        addImagesButton.addEventListener("click", function () {
-            fileInput.click();
-        });
-        fileInput.addEventListener("change", function (event) {
-            const files = event.target.files;
+          let selectedFiles = [];
+          addImagesButton.addEventListener("click", function () {
+              fileInput.click();
+          });
 
-            for (let i = 0; i < files.length; i++) {
-                let file = files[i];
-                if (!selectedFiles.some(f => f.name === file.name)) {
-                    selectedFiles.push(file);
-                    updateImageList();
-                }
-            }
-            fileInput.value = "";
-        });
-        function updateImageList() {
-            imageList.innerHTML = "";
+          fileInput.addEventListener("change", function (event) {
+              const files = Array.from(event.target.files);
 
-            selectedFiles.forEach((file, index) => {
-                let listItem = document.createElement("li");
-                listItem.classList.add("list-group-item", "d-flex", "justify-content-between", "align-items-center");
-                let imgThumbnail = document.createElement("img");
-                imgThumbnail.src = URL.createObjectURL(file);
-                imgThumbnail.style.width = "50px";
-                imgThumbnail.style.height = "50px";
-                imgThumbnail.style.objectFit = "cover";
-                imgThumbnail.style.marginRight = "10px";
-                imgThumbnail.classList.add("img-thumbnail");
-                let textContainer = document.createElement("span");
-                textContainer.textContent = file.name;
-                let removeButton = document.createElement("button");
-                removeButton.classList.add("btn", "btn-danger", "btn-sm");
-                removeButton.textContent = "X";
-                removeButton.addEventListener("click", function () {
-                    removeImage(index);
-                });
-                listItem.appendChild(imgThumbnail);
-                listItem.appendChild(textContainer);
-                listItem.appendChild(removeButton);
+              files.forEach(file => {
+                  if (!selectedFiles.some(f => f.name === file.name)) {
+                      selectedFiles.push(file);
+                  }
+              });
 
-                imageList.appendChild(listItem);
-            });
-            hiddenImages.value = JSON.stringify(selectedFiles.map(f => f.name));
-        }
-        function removeImage(index) {
-            let removedFile = selectedFiles.splice(index, 1)[0];
-            deletedImages.value += removedFile.name + ",";
+              updateImageList();
+          });
+          function updateImageList() {
+              imageList.innerHTML = "";
 
-            updateImageList();
-        }
-    });
+              selectedFiles.forEach((file, index) => {
+                  let listItem = document.createElement("li");
+                  listItem.classList.add("list-group-item", "d-flex", "justify-content-between", "align-items-center");
+
+                  let imgThumbnail = document.createElement("img");
+                  imgThumbnail.src = URL.createObjectURL(file);
+                  imgThumbnail.style.width = "50px";
+                  imgThumbnail.style.height = "50px";
+                  imgThumbnail.style.objectFit = "cover";
+                  imgThumbnail.style.marginRight = "10px";
+                  imgThumbnail.classList.add("img-thumbnail");
+                  let textContainer = document.createElement("span");
+                  textContainer.textContent = file.name;
+                  let removeButton = document.createElement("button");
+                  removeButton.classList.add("btn", "btn-danger", "btn-sm");
+                  removeButton.textContent = "X";
+                  removeButton.addEventListener("click", function () {
+                      removeImage(index);
+                  });
+
+                  listItem.appendChild(imgThumbnail);
+                  listItem.appendChild(textContainer);
+                  listItem.appendChild(removeButton);
+                  imageList.appendChild(listItem);
+              });
+
+              updateFileInput();
+          }
+
+          function removeImage(index) {
+              let removedFile = selectedFiles.splice(index, 1)[0];
+              deletedImages.value += removedFile.name + ",";
+              updateImageList();
+          }
+          function updateFileInput() {
+              const dataTransfer = new DataTransfer();
+
+              selectedFiles.forEach(file => {
+                  dataTransfer.items.add(file);
+              });
+
+              fileInput.files = dataTransfer.files;
+          }
+          uploadForm.addEventListener("submit", function () {
+              updateFileInput();
+          });
+      });
 </script>
     @endsection
