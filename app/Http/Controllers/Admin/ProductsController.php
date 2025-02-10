@@ -1262,7 +1262,7 @@ class ProductsController extends Controller
         $pajilla->save();
         if ($request->hasFile('imagenes')) {
             foreach ($request->file('imagenes') as $imagen) {
-                $path = $imagen->store('pajilla_imagenes', 'public');
+                $path = $imagen->store('webp_images_paj', 'public');
 
                 PajillaImagen::create([
                     'idproducto' => $pajilla->idproducto,
