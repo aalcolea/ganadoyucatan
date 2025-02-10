@@ -1241,15 +1241,23 @@ class ProductsController extends Controller
         $pajilla->stock = $request->input('txtStock');
         $pajilla->rancho = e($request->input('txtRancho'));
         $pajilla->vendedorid = Auth::id();
-        $pajilla->raza = e($request->input('txtRaza'));
-        $pajilla->certificado = $request->input('listCert');
+        $pajilla->raza = e($request->input('txtRaza'));      
+        if ($request->hasFile('fileCert')) {
+        $certificadoPath = "uploads/certificados/";
+        if (!Storage::disk('public')->exists($certificadoPath)) {
+            Storage::disk('public')->makeDirectory($certificadoPath);
+        }
+        $file = $request->file('fileCert');
+        $fileName = time() . '_' . $file->getClientOriginalName();
+        $filePath = $file->storeAs($certificadoPath, $fileName, 'public'); 
+        $pajilla->certificado = $fileName;
+        }
         $pajilla->estatus = $request->input('listEstatus');
         $pajilla->link = e($request->input('txtLink'));
         $pajilla->estado = $request->input('estados');
         $pajilla->ciudad = $request->input('ciudades');
         $pajilla->comisaria = $request->input('comisarias');
         $pajilla->premium = $request->input('premium') ? true : false;
-        $pajilla->edad = e($request->input('txtEdad'));
 
         $pajilla->save();
         if ($request->hasFile('imagenes')) {
@@ -1260,6 +1268,18 @@ class ProductsController extends Controller
                     'idproducto' => $pajilla->idproducto,
                     'url_imagen' => $path
                 ]);
+            }
+        }
+        if ($request->deleted_images) {
+            $deletedImages = explode(',', $request->deleted_images);
+            foreach ($deletedImages as $imageName) {
+                if (!empty($imageName)) {
+                    $image = PajillaImagen::where('url_imagen', 'pajilla_imagenes/' . $imageName)->first();
+                    if ($image) {
+                        Storage::disk('public')->delete($image->url_imagen);
+                        $image->delete();
+                    }
+                }
             }
         }
         if ($request->hasFile('video')) {
