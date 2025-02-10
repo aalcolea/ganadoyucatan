@@ -69,10 +69,6 @@
                       <textarea class="form-control" maxlength="1000" id="txtDescripcion" name="txtDescripcion" ></textarea>
                     </div>
                     <div class="form-group">
-                      <label class="control-label">Enlance Youtube</label>
-                      <input class="form-control" id="txtLink" name="txtLink" type="text">
-                    </div>
-                    <div class="form-group">
                       <label class="control-label" for="estados">Estado:</label>
                       <select class="form-control" name="estados" id="estados">
                           <option value=""></option>
@@ -90,7 +86,7 @@
                     </div>
                 </div>
                 <div class="col-md-4">
-                  <div class="row">
+                  {{-- <div class="row">
                     <div class="form-group col-md-6">
                       <div class="form-group">
                           <label class="control-label"> Edad del ganado <span class="required">*</span></label>
@@ -98,7 +94,7 @@
                           
                       </div>
                     </div>
-                  </div>
+                  </div> --}}
 
                     <div class="row">
                         <div class="form-group col-md-6">
@@ -145,28 +141,18 @@
                               <option value="Braford">Braford</option>
                             </select>
                         </div>
-                       <div class="form-group col-md-6">
+                      {{--  <div class="form-group col-md-6">
                             <label class="control-label" for="listVacu">Vacunado</label>
                             <select class="form-control selectpicker" id="listVacu" name="listVacu">
                               <option value="Vacunado">Vacunado</option>
                               <option value="NO Vacunado">No Vacunado</option>
                             </select>
-                      </div>
+                      </div> --}}
                         <div class="form-group col-md-6">
-                            <label class="control-label" for="listArete">Arete</label>
-                            <select class="form-control selectpicker" id="listArete" name="listArete" >
-                              <option value="Con Arete">Con Arete</option>
-                              <option value="Sin Arete">Sin Arete</option>
-                            </select>
+                            <label class="control-label" for="fileCert">Certificado</label>
+                            <input type="file" class="form-control" id="fileCert" name="fileCert" accept="image/*">
                         </div>
-                        <div class="form-group col-md-6">
-                            <label class="control-label" for="listCert">Certicado</label>
-                            <select class="form-control selectpicker" id="listCert" name="listCert" >
-                              <option value="Certificado">Cuenta con certificado</option>
-                              <option value="NO certificado">NO cuenta con certificado</option>
-                            </select>
-                        </div> 
-                        <div class="form-group col-md-6">
+                        {{-- <div class="form-group col-md-6">
                             <label class="control-label" class="control-label">Tipo</label>
                             <select class="form-control selectpicker" id="txtTipo" name="txtTipo" >
                               <option value="Toro">Toro</option>
@@ -176,9 +162,8 @@
                               <option value="Semental joven">Semental joven</option>
                               <option value="Semental">Semental</option>
                             </select>
-                        </div> 
+                        </div>  --}}
                     </div>
-
                     <div class="row">
                         <div class="form-group col-md-6">
                             <label class="control-label" for="listStatus">En venta <span class="required">*</span></label>
@@ -198,27 +183,40 @@
                         </div>
                     </div>
                 </div>
-              </div>
+              </div>{{-- 
               <div class="container">
                     <input type="file" id="file-input" name="imagenes-cargadas[]" multiple style="display:none;">
                     <button type="button" id="add-images" class="btn btn-primary" style="background: #d79e46; border-color: #d79e46">Agregar imágenes</button>
                     <br>
                     <div id="image-container" class="d-flex flex-wrap mt-3" >
-                        <!-- Imágenes aquí -->
+                        
                     </div>
                 <div id="hidden-inputs"></div>
                 <input type="hidden" name="deleted_images" id="deleted_images">
                 <input type="hidden" name="images" id="images" value="">
-              </div>              
+              </div>    --}}            
               <div class="container">
                     <label for="video">Cargar video:</label>
                     <input type="file" name="video" id="video" accept="video/mp4, video/avi, video/mov, video/mpeg, video/quicktime">
               </div>
+                <div class="container">
+                    <input type="file" id="file-input" name="imagenes-cargadas[]" multiple accept="image/*" style="display:none;">
+                    <button type="button" id="add-images" class="btn btn-primary" style="background: #d79e46; border-color: #d79e46">
+                        Agregar imágenes
+                    </button>
+
+                    <br>
+                    <div id="image-list-container" class="mt-3">
+                        <ul id="image-list" class="list-group"></ul>
+                    </div>
+                    <input type="hidden" name="deleted_images" id="deleted_images">
+                    <input type="hidden" name="images" id="images" value="">
+                </div>
               <div class="tile-footer">
       <div class="modal-footer">
-<div id="loading-icon" class="loading-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="40" height="40">
+{{-- <div id="loading-icon" class="loading-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="40" height="40">
   <img src="{{url('/static/images/loading.png')}}">
-</div>
+</div> --}}
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="background:red; border-color: red;">Cerrar</button>
         {!!Form::submit('SUBIR', ['class' => 'btn btn-primary', 'style' => 'background: #d79e46; border-color: #d79e46;', 'id' => 'enviarBtn'])!!}
       </div>      
@@ -244,4 +242,66 @@
   </div>
 </div>
     </main>
+    <script src="{{url('/static/js/admin/location.js') }}" ></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const fileInput = document.getElementById("file-input");
+        const addImagesButton = document.getElementById("add-images");
+        const imageList = document.getElementById("image-list");
+        const hiddenImages = document.getElementById("images");
+        const deletedImages = document.getElementById("deleted_images");
+
+        let selectedFiles = [];
+        addImagesButton.addEventListener("click", function () {
+            fileInput.click();
+        });
+        fileInput.addEventListener("change", function (event) {
+            const files = event.target.files;
+
+            for (let i = 0; i < files.length; i++) {
+                let file = files[i];
+                if (!selectedFiles.some(f => f.name === file.name)) {
+                    selectedFiles.push(file);
+                    updateImageList();
+                }
+            }
+            fileInput.value = "";
+        });
+        function updateImageList() {
+            imageList.innerHTML = "";
+
+            selectedFiles.forEach((file, index) => {
+                let listItem = document.createElement("li");
+                listItem.classList.add("list-group-item", "d-flex", "justify-content-between", "align-items-center");
+                let imgThumbnail = document.createElement("img");
+                imgThumbnail.src = URL.createObjectURL(file);
+                imgThumbnail.style.width = "50px";
+                imgThumbnail.style.height = "50px";
+                imgThumbnail.style.objectFit = "cover";
+                imgThumbnail.style.marginRight = "10px";
+                imgThumbnail.classList.add("img-thumbnail");
+                let textContainer = document.createElement("span");
+                textContainer.textContent = file.name;
+                let removeButton = document.createElement("button");
+                removeButton.classList.add("btn", "btn-danger", "btn-sm");
+                removeButton.textContent = "X";
+                removeButton.addEventListener("click", function () {
+                    removeImage(index);
+                });
+                listItem.appendChild(imgThumbnail);
+                listItem.appendChild(textContainer);
+                listItem.appendChild(removeButton);
+
+                imageList.appendChild(listItem);
+            });
+            hiddenImages.value = JSON.stringify(selectedFiles.map(f => f.name));
+        }
+        function removeImage(index) {
+            let removedFile = selectedFiles.splice(index, 1)[0];
+            deletedImages.value += removedFile.name + ",";
+
+            updateImageList();
+        }
+    });
+</script>
     @endsection
